@@ -11,7 +11,7 @@
     <language>en-US</language>
     <projectUrl>http://comparers.codeplex.com/</projectUrl>
     <iconUrl>http://download.codeplex.com/Download?ProjectName=comparers&amp;DownloadId=404414</iconUrl>
-    <tags>comparer icomparer icomparable iequatable iequalitycomparer net45 net40 win8 netcore45 sl5 sl4 wp8 wp75 wp71 wp70 nito</tags>
+    <tags>comparer icomparer icomparable iequatable iequalitycomparer net45 net40 win8 netcore45 sl5 wp8 wpa81 nito</tags>
     <references>
       <reference file="Comparers.dll" />
     </references>
