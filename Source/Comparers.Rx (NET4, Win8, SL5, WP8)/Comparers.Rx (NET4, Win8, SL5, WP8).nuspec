@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Comparers.Rx</id>
-    <version>3.1.0</version>
+    <version>4.0.0</version>
     <title>Comparers for Rx</title>
     <authors>Stephen Cleary</authors>
     <owners>Stephen Cleary</owners>
@@ -17,6 +17,7 @@
       <dependency id="Rx-Linq" version="2.2.2"/>
     </dependencies>
     <releaseNotes>
+      [4.0.0] Removed support for SL4, WP7, and .NET 4 client platforms (SL5, WP8, and .NET 4.0 full are still supported).
       [3.1.0] Implicit type detection with LINQ/Rx/Ix support. Added PCL support. Better hash code implementations.
     </releaseNotes>
   </metadata>

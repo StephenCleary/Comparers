@@ -16,8 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comparers (NET4, Win8, SL4, WP7, XBox)", "Comparers (NET4, Win8, SL4, WP7, XBox)\Comparers (NET4, Win8, SL4, WP7, XBox).csproj", "{238B510E-25EE-4F9D-80CE-BE9987EE8AD1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comparers (NET4, Win8, SL5, WP8, WPA)", "Comparers (NET4, Win8, SL5, WP8, WPA)\Comparers (NET4, Win8, SL5, WP8, WPA).csproj", "{E78601BD-CFEC-4222-8CBB-2A907AE8D81C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rx", "Rx", "{A065551D-DEFA-426B-998F-4D0693CFB3F1}"
@@ -52,12 +50,6 @@ Global
 		{2A5C8C9A-B459-4682-9D9C-DA723F29A3C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A5C8C9A-B459-4682-9D9C-DA723F29A3C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A5C8C9A-B459-4682-9D9C-DA723F29A3C8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{238B510E-25EE-4F9D-80CE-BE9987EE8AD1}.CodeAnalysis|Any CPU.ActiveCfg = Release|Any CPU
-		{238B510E-25EE-4F9D-80CE-BE9987EE8AD1}.CodeAnalysis|Any CPU.Build.0 = Release|Any CPU
-		{238B510E-25EE-4F9D-80CE-BE9987EE8AD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{238B510E-25EE-4F9D-80CE-BE9987EE8AD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{238B510E-25EE-4F9D-80CE-BE9987EE8AD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{238B510E-25EE-4F9D-80CE-BE9987EE8AD1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E78601BD-CFEC-4222-8CBB-2A907AE8D81C}.CodeAnalysis|Any CPU.ActiveCfg = Release|Any CPU
 		{E78601BD-CFEC-4222-8CBB-2A907AE8D81C}.CodeAnalysis|Any CPU.Build.0 = Release|Any CPU
 		{E78601BD-CFEC-4222-8CBB-2A907AE8D81C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

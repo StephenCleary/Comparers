@@ -6,5 +6,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("Stephen Cleary")]
 [assembly: AssemblyCopyright("Copyright © 2009-2014 Stephen Cleary")]
 [assembly: CLSCompliant(true)]
-[assembly: AssemblyVersion("3.1.0")]
-[assembly: AssemblyInformationalVersion("3.1.0")]
+[assembly: AssemblyVersion("4.0.0")]
+[assembly: AssemblyInformationalVersion("4.0.0")]
