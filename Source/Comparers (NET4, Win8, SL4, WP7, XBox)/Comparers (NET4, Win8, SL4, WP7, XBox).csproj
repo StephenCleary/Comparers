@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{238B510E-25EE-4F9D-80CE-BE9987EE8AD1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Comparers</RootNamespace>
+    <AssemblyName>Comparers</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile1</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NO_GENERIC_VARIANCE NO_SERIALIZATION</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NO_GENERIC_VARIANCE NO_SERIALIZATION</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>bin\Release\Comparers.xml</DocumentationFile>
+    <CodeContractsEnableRuntimeChecking>False</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>True</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>False</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>False</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>False</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>False</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>False</CodeContractsRedundantAssumptions>
+    <CodeContractsInferRequires>False</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestRequires>True</CodeContractsSuggestRequires>
+    <CodeContractsSuggestEnsures>False</CodeContractsSuggestEnsures>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsDisjunctiveRequires>False</CodeContractsDisjunctiveRequires>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>False</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>False</CodeContractsCacheAnalysisResults>
+    <CodeContractsRuntimeCheckingLevel>Preconditions</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Comparers\Comparers\AnonymousComparer.cs">
+      <Link>Comparers\AnonymousComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\Comparers\ComparableBase.cs">
+      <Link>Comparers\ComparableBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\Comparers\ComparableBaseWithOperators.cs">
+      <Link>Comparers\ComparableBaseWithOperators.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\Comparers\Compare %28of T%29.cs">
+      <Link>Comparers\Compare %28of T%29.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\Comparers\ComparerExtensions.cs">
+      <Link>Comparers\ComparerExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\Comparers\CompareSource.cs">
+      <Link>Comparers\CompareSource.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\Comparers\IFullComparer.cs">
+      <Link>Comparers\IFullComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\Comparers\Linq\EnumerableExtensions.cs">
+      <Link>Comparers\Linq\EnumerableExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\Comparers\Util\ComparableImplementations.cs">
+      <Link>Comparers\Util\ComparableImplementations.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\Comparers\Util\ComparerBase.cs">
+      <Link>Comparers\Util\ComparerBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\Comparers\Util\ComparerHelpers.cs">
+      <Link>Comparers\Util\ComparerHelpers.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\Comparers\Util\CompoundComparer.cs">
+      <Link>Comparers\Util\CompoundComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\Comparers\Util\DefaultComparer.cs">
+      <Link>Comparers\Util\DefaultComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\Comparers\Util\NullComparer.cs">
+      <Link>Comparers\Util\NullComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\Comparers\Util\ReverseComparer.cs">
+      <Link>Comparers\Util\ReverseComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\Comparers\Util\SelectComparer.cs">
+      <Link>Comparers\Util\SelectComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\Comparers\Util\SequenceComparer.cs">
+      <Link>Comparers\Util\SequenceComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\Comparers\Util\SourceComparerBase.cs">
+      <Link>Comparers\Util\SourceComparerBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\Comparers\Util\UtilityComparerExtensions.cs">
+      <Link>Comparers\Util\UtilityComparerExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\ContractExtensions.cs">
+      <Link>ContractExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\EqualityComparers\AnonymousEqualityComparer.cs">
+      <Link>EqualityComparers\AnonymousEqualityComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\EqualityComparers\EqualityCompare %28of T%29.cs">
+      <Link>EqualityComparers\EqualityCompare %28of T%29.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\EqualityComparers\EqualityComparerExtensions.cs">
+      <Link>EqualityComparers\EqualityComparerExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\EqualityComparers\EqualityCompareSource.cs">
+      <Link>EqualityComparers\EqualityCompareSource.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\EqualityComparers\EquatableBase.cs">
+      <Link>EqualityComparers\EquatableBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\EqualityComparers\EquatableBaseWithOperators.cs">
+      <Link>EqualityComparers\EquatableBaseWithOperators.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\EqualityComparers\Util\CompoundEqualityComparer.cs">
+      <Link>EqualityComparers\Util\CompoundEqualityComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\EqualityComparers\Util\EqualityComparerBase.cs">
+      <Link>EqualityComparers\Util\EqualityComparerBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\EqualityComparers\Util\EqualityComparerHelpers.cs">
+      <Link>EqualityComparers\Util\EqualityComparerHelpers.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\EqualityComparers\Util\ReferenceEqualityComparer.cs">
+      <Link>EqualityComparers\Util\ReferenceEqualityComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\EqualityComparers\Util\SelectEqualityComparer.cs">
+      <Link>EqualityComparers\Util\SelectEqualityComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\EqualityComparers\Util\SequenceEqualityComparer.cs">
+      <Link>EqualityComparers\Util\SequenceEqualityComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\EqualityComparers\Util\SourceEqualityComparerBase.cs">
+      <Link>EqualityComparers\Util\SourceEqualityComparerBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\EqualityComparers\Util\UtilityEqualityComparerExtensions.cs">
+      <Link>EqualityComparers\Util\UtilityEqualityComparerExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Comparers\Properties\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Contracts.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

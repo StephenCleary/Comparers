@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Comparers.Rx</id>
+    <version>3.1.0</version>
+    <title>Comparers for Rx</title>
+    <authors>Stephen Cleary</authors>
+    <owners>Stephen Cleary</owners>
+    <summary>A fluent API for creating IComparer and IEqualityComparer implementations.</summary>
+    <description>A fluent API for creating IComparer and IEqualityComparer implementations.</description>
+    <language>en-US</language>
+    <projectUrl>http://comparers.codeplex.com/</projectUrl>
+    <iconUrl>http://download.codeplex.com/Download?ProjectName=comparers&amp;DownloadId=404414</iconUrl>
+    <tags>comparer rx icomparer icomparable iequatable iequalitycomparer net45 net40 win8 netcore45 sl5 wp8 nito</tags>
+    <dependencies>
+      <dependency id="Comparers" version="3.1.0"/>
+      <dependency id="Rx-Linq" version="2.2.2"/>
+    </dependencies>
+    <releaseNotes>
+      [3.1.0] Implicit type detection with LINQ/Rx/Ix support. Added PCL support. Better hash code implementations.
+    </releaseNotes>
+  </metadata>
+  <files>
+    <file src="..\Readme.txt" target="" />
+    <file src="..\**\*.cs" target="src" />
+
+    <file src="bin\Release\Comparers.Rx.dll" target="lib\portable-net4+sl5+netcore45+wp8" />
+    <file src="bin\Release\Comparers.Rx.xml" target="lib\portable-net4+sl5+netcore45+wp8" />
+    <file src="bin\Release\Comparers.Rx.pdb" target="lib\portable-net4+sl5+netcore45+wp8" />
+  </files>
+</package>

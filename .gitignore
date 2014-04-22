@@ -5,6 +5,7 @@
 *.suo
 *.user
 *.sln.docstates
+.localhistory/
 
 # Build results
 [Dd]ebug/
@@ -15,6 +16,7 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
+*.nupkg
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
