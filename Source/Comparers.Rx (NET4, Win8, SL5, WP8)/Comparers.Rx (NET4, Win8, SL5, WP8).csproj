@@ -37,7 +37,7 @@
     <DocumentationFile>bin\Release\Comparers.Rx.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\Comparers\Properties\SharedAssemblyInfo.cs">
+    <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ObservableExtensions.cs" />

@@ -68,12 +68,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Comparers\Comparers %28NET4%29.csproj">
-      <Project>{FE8300E1-160F-45B9-A0F7-06068274A4C2}</Project>
-      <Name>Comparers %28NET4%29</Name>
+    <ProjectReference Include="..\Comparers %28NET4, Win8, SL5, WP8, WPA%29\Comparers %28NET4, Win8, SL5, WP8, WPA%29.csproj">
+      <Project>{e78601bd-cfec-4222-8cbb-2a907ae8d81c}</Project>
+      <Name>Comparers %28NET4, Win8, SL5, WP8, WPA%29</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -50,7 +50,7 @@
     <Compile Include="..\Comparers.Ix %28NET45, Win8, WP8%29\IxEnumerableExtensions.cs">
       <Link>IxEnumerableExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\Comparers\Properties\SharedAssemblyInfo.cs">
+    <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -59,9 +59,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Comparers\Comparers %28NET4%29.csproj">
-      <Project>{fe8300e1-160f-45b9-a0f7-06068274a4c2}</Project>
-      <Name>Comparers %28NET4%29</Name>
+    <ProjectReference Include="..\Comparers %28NET4, Win8, SL5, WP8, WPA%29\Comparers %28NET4, Win8, SL5, WP8, WPA%29.csproj">
+      <Project>{e78601bd-cfec-4222-8cbb-2a907ae8d81c}</Project>
+      <Name>Comparers %28NET4, Win8, SL5, WP8, WPA%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
