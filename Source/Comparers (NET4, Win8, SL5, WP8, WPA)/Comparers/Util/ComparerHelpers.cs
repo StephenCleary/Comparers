@@ -48,7 +48,7 @@ namespace Comparers.Util
                 {
                     // If T doesn't implement a default comparer but DefaultComparer does, then T must implement IEnumerable<U>.
                     // Extract the U and create a SequenceComparer<U>.
-                    var enumerable = typeof(T).GetInterfaces().Where(x => x.Name == "IEnumerable`1").FirstOrDefault();
+                    var enumerable = TryGetEnumeratorType(typeof(T));
                     Contract.Assume(enumerable != null);
                     var elementTypes = enumerable.GetGenericArguments();
                     var genericSequenceComparerType = typeof(SequenceComparer<>);
@@ -70,6 +70,11 @@ namespace Comparers.Util
             }
 
             return comparer;
+        }
+
+        internal static Type TryGetEnumeratorType(Type source)
+        {
+            return source.Name == "IEnumerable`1" ? source : source.GetInterfaces().FirstOrDefault(x => x.Name == "IEnumerable`1");
         }
     }
 }

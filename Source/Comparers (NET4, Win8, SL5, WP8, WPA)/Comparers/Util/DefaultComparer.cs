@@ -161,7 +161,7 @@ namespace Comparers.Util
             {
                 if (IsImplementedByType)
                     return true;
-                var enumerable = typeof(T).GetInterfaces().Where(x => x.Name == "IEnumerable`1").FirstOrDefault();
+                var enumerable = ComparerHelpers.TryGetEnumeratorType(typeof(T));
                 if (enumerable == null)
                     return false;
                 var defaultComparerGenericType = typeof(DefaultComparer<>);

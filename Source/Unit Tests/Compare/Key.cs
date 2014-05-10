@@ -128,5 +128,14 @@ namespace Compare_
             Assert.AreEqual(bclDefault.GetHashCode(AbeAbrams.LastName) == bclDefault.GetHashCode(CaseyJohnson.LastName),
                 comparer.GetHashCode(AbeAbrams) == comparer.GetHashCode(CaseyJohnson));
         }
+
+        [TestMethod]
+        public void OrderByEnumerableUsesDefaultSequenceComparison()
+        {
+            var list = new List<Person> { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson };
+            var comparer = Compare<Person>.OrderBy(p => p.FirstName.SelectMany(x => new[] { x }));
+            list.Sort(comparer);
+            CollectionAssert.AreEqual(new[] { AbeAbrams, CaseyJohnson, JackAbrams, WilliamAbrams }, list);
+        }
     }
 }

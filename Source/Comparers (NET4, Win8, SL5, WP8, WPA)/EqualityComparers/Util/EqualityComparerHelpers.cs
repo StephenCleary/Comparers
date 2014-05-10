@@ -23,7 +23,7 @@ namespace EqualityComparers.Util
             if (comparer != null && comparer != EqualityComparer<T>.Default)
                 return comparer;
 
-            var enumerable = typeof(T).GetInterfaces().Where(x => x.Name == "IEnumerable`1").FirstOrDefault();
+            var enumerable = Comparers.Util.ComparerHelpers.TryGetEnumeratorType(typeof(T));
             if (enumerable == null)
                 return EqualityComparer<T>.Default;
 
