@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30324.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unit Tests", "Unit Tests\Unit Tests.csproj", "{2A5C8C9A-B459-4682-9D9C-DA723F29A3C8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BA90366A-16CE-4F8B-B466-E51C4DB6DE21}"
@@ -11,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Comparers.Rx (NET4, Win8, SL5, WP8)\Comparers.Rx (NET4, Win8, SL5, WP8).nuspec = Comparers.Rx (NET4, Win8, SL5, WP8)\Comparers.Rx (NET4, Win8, SL5, WP8).nuspec
 		Comparers.vsmdi = Comparers.vsmdi
 		Local.testsettings = Local.testsettings
+		Readme.txt = Readme.txt
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
 EndProject
@@ -27,9 +30,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comparers.Ix (NET4)", "Comparers.Ix (NET4)\Comparers.Ix (NET4).csproj", "{66D19D5D-3C85-4660-AD36-30B58369B840}"
 EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = Comparers.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CodeAnalysis|Any CPU = CodeAnalysis|Any CPU
 		Debug|Any CPU = Debug|Any CPU
@@ -74,5 +74,8 @@ Global
 		{E8EF771F-DE69-45B4-B07C-7790CB2E4BFF} = {A065551D-DEFA-426B-998F-4D0693CFB3F1}
 		{667FEAC6-39A2-4E35-80A8-B294F61C482B} = {73E82F5E-916D-4772-8F89-7B3E6CAB9763}
 		{66D19D5D-3C85-4660-AD36-30B58369B840} = {73E82F5E-916D-4772-8F89-7B3E6CAB9763}
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Comparers.vsmdi
 	EndGlobalSection
 EndGlobal
