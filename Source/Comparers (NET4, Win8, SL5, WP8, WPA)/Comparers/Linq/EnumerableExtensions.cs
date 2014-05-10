@@ -19,10 +19,11 @@ namespace Comparers.Linq
         /// <param name="source">A sequence of values to order.</param>
         /// <param name="keySelector">A function to extract a key from an element.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
-        public static IOrderedEnumerable<T> OrderBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> keySelector, Func<CompareSource<TKey>, IFullComparer<TKey>> comparerFactory)
+        /// <param name="descending">A value indicating whether the sorting is done in descending order. If <c>false</c> (the default), then the sort is in ascending order.</param>
+        public static IOrderedEnumerable<T> OrderBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> keySelector, Func<CompareSource<TKey>, IFullComparer<TKey>> comparerFactory, bool descending = false)
         {
             var comparer = comparerFactory(CompareSource.For<TKey>());
-            return source.OrderBy(keySelector, comparer);
+            return source.OrderBy(keySelector, descending ? comparer.Reverse() : comparer);
         }
 
         /// <summary>
@@ -47,10 +48,11 @@ namespace Comparers.Linq
         /// <param name="source">A sequence of values to order.</param>
         /// <param name="keySelector">A function to extract a key from an element.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
-        public static IOrderedEnumerable<T> ThenBy<T, TKey>(this IOrderedEnumerable<T> source, Func<T, TKey> keySelector, Func<CompareSource<TKey>, IFullComparer<TKey>> comparerFactory)
+        /// <param name="descending">A value indicating whether the sorting is done in descending order. If <c>false</c> (the default), then the sort is in ascending order.</param>
+        public static IOrderedEnumerable<T> ThenBy<T, TKey>(this IOrderedEnumerable<T> source, Func<T, TKey> keySelector, Func<CompareSource<TKey>, IFullComparer<TKey>> comparerFactory, bool descending = false)
         {
             var comparer = comparerFactory(CompareSource.For<TKey>());
-            return source.ThenBy(keySelector, comparer);
+            return source.ThenBy(keySelector, descending ? comparer.Reverse() : comparer);
         }
 
         /// <summary>
