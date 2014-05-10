@@ -118,6 +118,7 @@
     <Compile Include="Comparers\ComparerExtensions.cs" />
     <Compile Include="Comparers\CompareSource.cs" />
     <Compile Include="Comparers\IFullComparer.cs" />
+    <Compile Include="Comparers\IFullComparer %28of T%29.cs" />
     <Compile Include="Comparers\Linq\EnumerableExtensions.cs" />
     <Compile Include="Comparers\Util\ComparableImplementations.cs" />
     <Compile Include="Comparers\Util\ComparerBase.cs" />
