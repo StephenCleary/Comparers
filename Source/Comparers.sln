@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comparers.Ix (NET45, Win8, 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comparers.Ix (NET4)", "Comparers.Ix (NET4)\Comparers.Ix (NET4).csproj", "{66D19D5D-3C85-4660-AD36-30B58369B840}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comparers.Rx (Win81, WPA81)", "Comparers.Rx (Win81, WPA81)\Comparers.Rx (Win81, WPA81).csproj", "{2B43FA8E-A413-4CFB-8703-22252A1F4683}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CodeAnalysis|Any CPU = CodeAnalysis|Any CPU
@@ -66,6 +68,12 @@ Global
 		{66D19D5D-3C85-4660-AD36-30B58369B840}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66D19D5D-3C85-4660-AD36-30B58369B840}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66D19D5D-3C85-4660-AD36-30B58369B840}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B43FA8E-A413-4CFB-8703-22252A1F4683}.CodeAnalysis|Any CPU.ActiveCfg = Release|Any CPU
+		{2B43FA8E-A413-4CFB-8703-22252A1F4683}.CodeAnalysis|Any CPU.Build.0 = Release|Any CPU
+		{2B43FA8E-A413-4CFB-8703-22252A1F4683}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B43FA8E-A413-4CFB-8703-22252A1F4683}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B43FA8E-A413-4CFB-8703-22252A1F4683}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B43FA8E-A413-4CFB-8703-22252A1F4683}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +82,7 @@ Global
 		{E8EF771F-DE69-45B4-B07C-7790CB2E4BFF} = {A065551D-DEFA-426B-998F-4D0693CFB3F1}
 		{667FEAC6-39A2-4E35-80A8-B294F61C482B} = {73E82F5E-916D-4772-8F89-7B3E6CAB9763}
 		{66D19D5D-3C85-4660-AD36-30B58369B840} = {73E82F5E-916D-4772-8F89-7B3E6CAB9763}
+		{2B43FA8E-A413-4CFB-8703-22252A1F4683} = {A065551D-DEFA-426B-998F-4D0693CFB3F1}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Comparers.vsmdi

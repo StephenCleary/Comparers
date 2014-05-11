@@ -2,19 +2,18 @@
 <package>
   <metadata>
     <id>Comparers.Rx</id>
-    <version>4.0.0</version>
+    <version>$version$</version>
     <title>Comparers for Rx</title>
-    <authors>Stephen Cleary</authors>
-    <owners>Stephen Cleary</owners>
-    <summary>A fluent API for creating IComparer and IEqualityComparer implementations.</summary>
-    <description>A fluent API for creating IComparer and IEqualityComparer implementations.</description>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <summary>$description$</summary>
+    <description>$description$</description>
     <language>en-US</language>
     <projectUrl>http://comparers.codeplex.com/</projectUrl>
     <iconUrl>http://download.codeplex.com/Download?ProjectName=comparers&amp;DownloadId=404414</iconUrl>
     <tags>comparer rx icomparer icomparable iequatable iequalitycomparer net45 net40 win8 netcore45 sl5 wp8 nito</tags>
     <dependencies>
-      <dependency id="Comparers" version="3.1.0"/>
-      <dependency id="Rx-Linq" version="2.2.2"/>
+      <dependency id="Comparers" version="$version$"/>
     </dependencies>
     <releaseNotes>
       [4.0.0] Removed support for SL4, WP7, and .NET 4 client platforms (SL5, WP8, and .NET 4.0 full are still supported).
@@ -25,8 +24,7 @@
     <file src="..\Readme.txt" target="" />
     <file src="..\**\*.cs" target="src" />
 
-    <file src="bin\Release\Comparers.Rx.dll" target="lib\portable-net4+sl5+netcore45+wp8" />
-    <file src="bin\Release\Comparers.Rx.xml" target="lib\portable-net4+sl5+netcore45+wp8" />
-    <file src="bin\Release\Comparers.Rx.pdb" target="lib\portable-net4+sl5+netcore45+wp8" />
+    <file src="..\Comparers.Rx (Win81, WPA81)\bin\Release\Comparers.Rx.dll" target="lib\portable-win81+wpa81" />
+    <file src="..\Comparers.Rx (Win81, WPA81)\bin\Release\Comparers.Rx.xml" target="lib\portable-win81+wpa81" />
   </files>
 </package>

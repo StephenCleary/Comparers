@@ -13,8 +13,7 @@
     <iconUrl>http://download.codeplex.com/Download?ProjectName=comparers&amp;DownloadId=404414</iconUrl>
     <tags>comparer ix icomparer icomparable iequatable iequalitycomparer net45 net40 win8 netcore45 wp8 nito</tags>
     <dependencies>
-      <dependency id="Comparers" version="3.1.0"/>
-      <dependency id="Ix-Main" version="1.2.2"/>
+      <dependency id="Comparers" version="$version$"/>
     </dependencies>
     <releaseNotes>
       [4.0.0] Removed support for SL4, WP7, and .NET 4 client platforms (SL5, WP8, and .NET 4.0 full are still supported).
@@ -27,14 +26,8 @@
 
     <file src="..\Comparers.Ix (NET4)\bin\Release\Comparers.Ix.dll" target="lib\net40" />
     <file src="..\Comparers.Ix (NET4)\bin\Release\Comparers.Ix.xml" target="lib\net40" />
-    <file src="..\Comparers.Ix (NET4)\bin\Release\Comparers.Ix.pdb" target="lib\net40" />
 
     <file src="bin\Release\Comparers.Ix.dll" target="lib\net45" />
     <file src="bin\Release\Comparers.Ix.xml" target="lib\net45" />
-    <file src="bin\Release\Comparers.Ix.pdb" target="lib\net45" />
-
-    <file src="bin\Release\Comparers.Ix.dll" target="lib\portable-net45+netcore45+wp8+MonoAndroid1+MonoTouch1" />
-    <file src="bin\Release\Comparers.Ix.xml" target="lib\portable-net45+netcore45+wp8+MonoAndroid1+MonoTouch1" />
-    <file src="bin\Release\Comparers.Ix.pdb" target="lib\portable-net45+netcore45+wp8+MonoAndroid1+MonoTouch1" />
   </files>
 </package>
