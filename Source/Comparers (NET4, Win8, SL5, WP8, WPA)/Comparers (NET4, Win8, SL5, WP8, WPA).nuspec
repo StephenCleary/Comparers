@@ -12,9 +12,6 @@
     <projectUrl>http://comparers.codeplex.com/</projectUrl>
     <iconUrl>http://download.codeplex.com/Download?ProjectName=comparers&amp;DownloadId=404414</iconUrl>
     <tags>comparer icomparer icomparable iequatable iequalitycomparer net45 net40 win8 netcore45 sl5 wp8 wpa81 nito</tags>
-    <references>
-      <reference file="Comparers.dll" />
-    </references>
     <releaseNotes>
       [4.0.0] Removed support for SL4, WP7, and .NET 4 client platforms (SL5, WP8, and .NET 4.0 full are still supported).
       [3.1.0] Implicit type detection with LINQ/Rx/Ix support. Added PCL support. Better hash code implementations.
@@ -28,29 +25,5 @@
   <files>
     <file src="..\Readme.txt" target="" />
     <file src="..\**\*.cs" target="src" />
-
-    <!-- Windows 8 -->
-    <file src="..\Comparers (NET4, Win8, SL5, WP8, WPA)\bin\Release\Comparers.dll" target="lib\win8" />
-    <file src="..\Comparers (NET4, Win8, SL5, WP8, WPA)\bin\Release\Comparers.xml" target="lib\win8" />
-    <file src="..\Comparers (NET4, Win8, SL5, WP8, WPA)\bin\Release\Comparers.pdb" target="lib\win8" />
-    <file src="..\Comparers (NET4, Win8, SL5, WP8, WPA)\bin\Release\CodeContracts\Comparers.Contracts.dll" target="lib\win8\CodeContracts" />
-
-    <!-- Silverlight 5 -->
-    <file src="..\Comparers (NET4, Win8, SL5, WP8, WPA)\bin\Release\Comparers.dll" target="lib\sl5" />
-    <file src="..\Comparers (NET4, Win8, SL5, WP8, WPA)\bin\Release\Comparers.xml" target="lib\sl5" />
-    <file src="..\Comparers (NET4, Win8, SL5, WP8, WPA)\bin\Release\Comparers.pdb" target="lib\sl5" />
-    <file src="..\Comparers (NET4, Win8, SL5, WP8, WPA)\bin\Release\CodeContracts\Comparers.Contracts.dll" target="lib\sl5\CodeContracts" />
-
-    <!-- Windows Phone 8 -->
-    <file src="..\Comparers (NET4, Win8, SL5, WP8, WPA)\bin\Release\Comparers.dll" target="lib\wp8" />
-    <file src="..\Comparers (NET4, Win8, SL5, WP8, WPA)\bin\Release\Comparers.xml" target="lib\wp8" />
-    <file src="..\Comparers (NET4, Win8, SL5, WP8, WPA)\bin\Release\Comparers.pdb" target="lib\wp8" />
-    <file src="..\Comparers (NET4, Win8, SL5, WP8, WPA)\bin\Release\CodeContracts\Comparers.Contracts.dll" target="lib\wp8\CodeContracts" />
-
-    <!-- Portable libraries: .NET 4.0, Windows 8, Silverlight 5, Windows Phone 8, Windows Phone Apps 8.1 -->
-    <file src="..\Comparers (NET4, Win8, SL5, WP8, WPA)\bin\Release\Comparers.dll" target="lib\portable-net4+sl5+netcore45+wpa81+wp8" />
-    <file src="..\Comparers (NET4, Win8, SL5, WP8, WPA)\bin\Release\Comparers.xml" target="lib\portable-net4+sl5+netcore45+wpa81+wp8" />
-    <file src="..\Comparers (NET4, Win8, SL5, WP8, WPA)\bin\Release\Comparers.pdb" target="lib\portable-net4+sl5+netcore45+wpa81+wp8" />
-    <file src="..\Comparers (NET4, Win8, SL5, WP8, WPA)\bin\Release\CodeContracts\Comparers.Contracts.dll" target="lib\portable-net4+sl5+netcore45+wpa81+wp8\CodeContracts" />
   </files>
 </package>
