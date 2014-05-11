@@ -24,6 +24,5 @@
   </metadata>
   <files>
     <file src="..\Readme.txt" target="" />
-    <file src="..\**\*.cs" target="src" />
   </files>
 </package>

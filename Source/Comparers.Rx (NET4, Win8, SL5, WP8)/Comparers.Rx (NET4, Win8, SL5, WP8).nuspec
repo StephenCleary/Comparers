@@ -12,18 +12,12 @@
     <projectUrl>http://comparers.codeplex.com/</projectUrl>
     <iconUrl>http://download.codeplex.com/Download?ProjectName=comparers&amp;DownloadId=404414</iconUrl>
     <tags>comparer rx icomparer icomparable iequatable iequalitycomparer net45 net40 win8 netcore45 sl5 wp8 nito</tags>
-    <dependencies>
-      <dependency id="Comparers" version="$version$"/>
-    </dependencies>
     <releaseNotes>
       [4.0.0] Removed support for SL4, WP7, and .NET 4 client platforms (SL5, WP8, and .NET 4.0 full are still supported).
       [3.1.0] Implicit type detection with LINQ/Rx/Ix support. Added PCL support. Better hash code implementations.
     </releaseNotes>
   </metadata>
   <files>
-    <file src="..\Readme.txt" target="" />
-    <file src="..\**\*.cs" target="src" />
-
     <file src="..\Comparers.Rx (Win81, WPA81)\bin\Release\Comparers.Rx.dll" target="lib\portable-win81+wpa81" />
     <file src="..\Comparers.Rx (Win81, WPA81)\bin\Release\Comparers.Rx.xml" target="lib\portable-win81+wpa81" />
   </files>
