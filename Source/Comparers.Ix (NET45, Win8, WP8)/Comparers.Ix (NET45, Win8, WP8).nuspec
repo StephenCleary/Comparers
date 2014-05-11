@@ -13,8 +13,8 @@
     <iconUrl>http://download.codeplex.com/Download?ProjectName=comparers&amp;DownloadId=404414</iconUrl>
     <tags>comparer ix icomparer icomparable iequatable iequalitycomparer net45 net40 win8 netcore45 wp8 nito</tags>
     <releaseNotes>
-      [4.0.0] Removed support for SL4, WP7, and .NET 4 client platforms (SL5, WP8, and .NET 4.0 full are still supported).
-      [3.1.0] Implicit type detection with LINQ/Rx/Ix support. Added PCL support. Better hash code implementations.
+      [4.0.0] Fixed bug in deteremining default comparer for sequences.
+      [3.1.0] Initial release.
     </releaseNotes>
   </metadata>
   <files>

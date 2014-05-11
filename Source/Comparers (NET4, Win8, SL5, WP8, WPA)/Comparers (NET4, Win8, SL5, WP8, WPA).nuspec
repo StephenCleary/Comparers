@@ -13,7 +13,7 @@
     <iconUrl>http://download.codeplex.com/Download?ProjectName=comparers&amp;DownloadId=404414</iconUrl>
     <tags>comparer icomparer icomparable iequatable iequalitycomparer net45 net40 win8 netcore45 sl5 wp8 wpa81 nito</tags>
     <releaseNotes>
-      [4.0.0] Removed support for SL4, WP7, and .NET 4 client platforms (SL5, WP8, and .NET 4.0 full are still supported).
+      [4.0.0] Added support for WPA. Fixed bug in deteremining default comparer for sequences. Removed support for SL4, WP7, .NET 4 client, and XBox platforms (SL5, WP8, and .NET 4.0 full are still supported).
       [3.1.0] Implicit type detection with LINQ/Rx/Ix support. Added PCL support. Better hash code implementations.
       [3.0.0] Added EqualityComparers; added .NET 4.5, SL4, SL5, Win8, and XBox support; fixed CompoundComparer.GetHashCode.
       [2.0.2] Modified NuGet package metadata.
