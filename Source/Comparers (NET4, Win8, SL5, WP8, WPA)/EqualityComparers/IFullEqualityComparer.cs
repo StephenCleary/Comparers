@@ -10,7 +10,11 @@ namespace EqualityComparers
     /// An equality comparer that supports both generic and non-generic equality comparison.
     /// </summary>
     /// <typeparam name="T">The type of objects being compared.</typeparam>
+#if !NO_GENERIC_VARIANCE
     public interface IFullEqualityComparer<in T> : IEqualityComparer<T>, IEqualityComparer
+#else
+    public interface IFullEqualityComparer<T> : IEqualityComparer<T>, IEqualityComparer
+#endif
     {
     }
 }

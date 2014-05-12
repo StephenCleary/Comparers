@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30324.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unit Tests", "Unit Tests\Unit Tests.csproj", "{2A5C8C9A-B459-4682-9D9C-DA723F29A3C8}"
 EndProject
@@ -30,6 +30,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comparers.Ix (NET4)", "Comparers.Ix (NET4)\Comparers.Ix (NET4).csproj", "{66D19D5D-3C85-4660-AD36-30B58369B840}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comparers.Rx (Win81, WPA81)", "Comparers.Rx (Win81, WPA81)\Comparers.Rx (Win81, WPA81).csproj", "{2B43FA8E-A413-4CFB-8703-22252A1F4683}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comparers.Ix (SL5)", "Comparers.Ix (SL5)\Comparers.Ix (SL5).csproj", "{633E9599-47C3-49FD-9CC5-F82D16BD73C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,6 +76,12 @@ Global
 		{2B43FA8E-A413-4CFB-8703-22252A1F4683}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B43FA8E-A413-4CFB-8703-22252A1F4683}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B43FA8E-A413-4CFB-8703-22252A1F4683}.Release|Any CPU.Build.0 = Release|Any CPU
+		{633E9599-47C3-49FD-9CC5-F82D16BD73C3}.CodeAnalysis|Any CPU.ActiveCfg = Release|Any CPU
+		{633E9599-47C3-49FD-9CC5-F82D16BD73C3}.CodeAnalysis|Any CPU.Build.0 = Release|Any CPU
+		{633E9599-47C3-49FD-9CC5-F82D16BD73C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{633E9599-47C3-49FD-9CC5-F82D16BD73C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{633E9599-47C3-49FD-9CC5-F82D16BD73C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{633E9599-47C3-49FD-9CC5-F82D16BD73C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +91,7 @@ Global
 		{667FEAC6-39A2-4E35-80A8-B294F61C482B} = {73E82F5E-916D-4772-8F89-7B3E6CAB9763}
 		{66D19D5D-3C85-4660-AD36-30B58369B840} = {73E82F5E-916D-4772-8F89-7B3E6CAB9763}
 		{2B43FA8E-A413-4CFB-8703-22252A1F4683} = {A065551D-DEFA-426B-998F-4D0693CFB3F1}
+		{633E9599-47C3-49FD-9CC5-F82D16BD73C3} = {73E82F5E-916D-4772-8F89-7B3E6CAB9763}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Comparers.vsmdi

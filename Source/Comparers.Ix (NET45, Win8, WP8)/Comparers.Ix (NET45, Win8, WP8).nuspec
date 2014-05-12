@@ -23,5 +23,8 @@
 
     <file src="bin\Release\Comparers.Ix.dll" target="lib\net45" />
     <file src="bin\Release\Comparers.Ix.xml" target="lib\net45" />
+
+    <file src="..\Comparers.Ix (SL5)\bin\Release\Comparers.Ix.dll" target="lib\sl5" />
+    <file src="..\Comparers.Ix (SL5)\bin\Release\Comparers.Ix.xml" target="lib\sl5" />
   </files>
 </package>

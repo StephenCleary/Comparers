@@ -13,7 +13,8 @@
     <iconUrl>http://download.codeplex.com/Download?ProjectName=comparers&amp;DownloadId=404414</iconUrl>
     <tags>comparer icomparer icomparable iequatable iequalitycomparer net45 net40 win8 netcore45 sl5 wp8 wpa81 nito</tags>
     <releaseNotes>
-      [4.0.0] Added support for WPA. Fixed bug in deteremining default comparer for sequences. Removed support for SL4, WP7, .NET 4 client, and XBox platforms (SL5, WP8, and .NET 4.0 full are still supported).
+      <!-- Do not forget Legacy! -->
+      [4.0.0] Added support for WPA. Fixed bug in deteremining default comparer for sequences.
       [3.1.0] Implicit type detection with LINQ/Rx/Ix support. Added PCL support. Better hash code implementations.
       [3.0.0] Added EqualityComparers; added .NET 4.5, SL4, SL5, Win8, and XBox support; fixed CompoundComparer.GetHashCode.
       [2.0.2] Modified NuGet package metadata.
@@ -22,4 +23,11 @@
       [1.1.0] Added ToString implementations to all comparers to assist debugging.
     </releaseNotes>
   </metadata>
+  <files>
+    <file src="..\VS2012\Comparers (NET40-Client)\bin\Release\Comparers.dll" target="lib\net40-client" />
+    <file src="..\VS2012\Comparers (NET40-Client)\bin\Release\Comparers.xml" target="lib\net40-client" />
+
+    <file src="..\VS2012\Comparers (NET40, Win80, SL40, WP70)\bin\Release\Comparers.dll" target="lib\portable-net40+win8+sl4+wp7" />
+    <file src="..\VS2012\Comparers (NET40, Win80, SL40, WP70)\bin\Release\Comparers.xml" target="lib\portable-net40+win8+sl4+wp7" />
+  </files>
 </package>
