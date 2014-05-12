@@ -96,5 +96,15 @@ namespace Comparers
         {
             return new CompareSource<T>();
         }
+
+        /// <summary>
+        /// Creates a source for a comparer of type <typeparamref name="T"/>. <paramref name="sequence"/> is only used to infer the type <typeparamref name="T"/>; it is not enumerated.
+        /// </summary>
+        /// <typeparam name="T">The type of objects being compared.</typeparam>
+        /// <param name="sequence">A sequence of objects being compared. This argument is only used to infer the type <typeparamref name="T"/>; it is not enumerated.</param>
+        public static CompareSource<T> ForElementsOf<T>(IEnumerable<T> sequence)
+        {
+            return new CompareSource<T>();
+        }
     }
 }
