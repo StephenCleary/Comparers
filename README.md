@@ -2,9 +2,7 @@
 
 # Comparers
 
-The last comparison library you'll ever need! For .NET 4.0+, Windows 8.0, Silverlight 5.0, Windows Phone Silverlight 8.0, and Windows Phone Applications 8.1.
-
-(BTW, this library can also be compiled on .NET 4.0 Client, Silverlight 4.0, Windows Phone 7.0, and XBox 360; let me know if you want a binary for any of these platforms!)
+The last comparison library you'll ever need! For .NET 4.0, Windows 8.0, Windows Phone Silverlight 7.0, Windows Phone Applications 8.1, .NET 4.0 Client, and Silverlight 4.0.
 
 ## Creating Comparers
 
