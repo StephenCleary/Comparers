@@ -17,7 +17,7 @@ namespace EqualityComparers
         /// <summary>
         /// Gets the null equality comparer for this type, which evaluates all objects as equivalent.
         /// </summary>
-        public static IEqualityComparer<T> Null()
+        public static IFullEqualityComparer<T> Null()
         {
             Contract.Ensures(Contract.Result<IEqualityComparer<T>>() != null);
             return Compare<T>.Null();
@@ -26,16 +26,16 @@ namespace EqualityComparers
         /// <summary>
         /// Gets the default equality comparer for this type.
         /// </summary>
-        public static IEqualityComparer<T> Default()
+        public static IFullEqualityComparer<T> Default()
         {
             Contract.Ensures(Contract.Result<IEqualityComparer<T>>() != null);
-            return EqualityComparerHelpers.NormalizeDefault<T>((IEqualityComparer<T>)null);
+            return (IFullEqualityComparer<T>)EqualityComparerHelpers.NormalizeDefault<T>((IEqualityComparer<T>)null);
         }
 
         /// <summary>
         /// Gets the reference equality comparer for this type.
         /// </summary>
-        public static IEqualityComparer<T> Reference()
+        public static IFullEqualityComparer<T> Reference()
         {
             Contract.Ensures(Contract.Result<IEqualityComparer<T>>() != null);
             return ReferenceEqualityComparer<T>.Instance;
@@ -49,7 +49,7 @@ namespace EqualityComparers
         /// <param name="keyComparer">The key comparer. Defaults to <c>null</c>. If this is <c>null</c>, the default comparer is used.</param>
         /// <param name="allowNulls">A value indicating whether <c>null</c> values are passed to <paramref name="selector"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <paramref name="selector"/>.</param>
         /// <returns>A key comparer.</returns>
-        public static IEqualityComparer<T> EquateBy<TKey>(Func<T, TKey> selector, IEqualityComparer<TKey> keyComparer = null, bool allowNulls = false)
+        public static IFullEqualityComparer<T> EquateBy<TKey>(Func<T, TKey> selector, IEqualityComparer<TKey> keyComparer = null, bool allowNulls = false)
         {
             Contract.Requires(selector != null);
             Contract.Ensures(Contract.Result<IEqualityComparer<T>>() != null);

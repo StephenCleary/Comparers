@@ -22,7 +22,4 @@
       [1.1.0] Added ToString implementations to all comparers to assist debugging.
     </releaseNotes>
   </metadata>
-  <files>
-    <file src="..\Readme.txt" target="" />
-  </files>
 </package>

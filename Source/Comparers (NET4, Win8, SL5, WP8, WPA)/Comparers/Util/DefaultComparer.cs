@@ -129,9 +129,9 @@ namespace Comparers.Util
 
             if (comparableBaseString != null)
                 return "Default(" + comparableBaseString + ")";
-            if (typeofT.GetInterfaces().Where(x => x.Name == "IComparable`1").FirstOrDefault() != null)
+            if (typeofT.GetInterfaces().FirstOrDefault(x => x.Name == "IComparable`1") != null)
                 return "Default(" + typeofT.Name + ": IComparable<T>)";
-            if (typeofT.GetInterfaces().Where(x => x.Name == "IComparable").FirstOrDefault() != null)
+            if (typeofT.GetInterfaces().FirstOrDefault(x => x.Name == "IComparable") != null)
                 return "Default(" + typeofT.Name + ": IComparable)";
             return "Default(" + typeofT.Name + ": undefined)";
         }
@@ -144,9 +144,23 @@ namespace Comparers.Util
             get
             {
                 var typeofT = typeof(T);
-                if (typeofT.GetInterfaces().Where(x => x.Name == "IComparable`1").FirstOrDefault() != null)
+                if (typeofT.GetInterfaces().FirstOrDefault(x => x.Name == "IComparable`1") != null)
                     return true;
-                if (typeofT.GetInterfaces().Where(x => x.Name == "IComparable").FirstOrDefault() != null)
+                if (typeofT.GetInterfaces().FirstOrDefault(x => x.Name == "IComparable") != null)
+                    return true;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether a default equality comparer is implemented by the compared type.
+        /// </summary>
+        public static bool IsEqualityComparerImplementedByType
+        {
+            get
+            {
+                var typeofT = typeof(T);
+                if (typeofT.GetInterfaces().FirstOrDefault(x => x.Name == "IEquatable`1") != null)
                     return true;
                 return false;
             }

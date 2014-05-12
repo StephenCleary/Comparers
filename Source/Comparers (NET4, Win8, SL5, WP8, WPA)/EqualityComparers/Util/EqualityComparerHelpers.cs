@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics.Contracts;
+using Comparers.Util;
 
 namespace EqualityComparers.Util
 {
@@ -23,9 +24,12 @@ namespace EqualityComparers.Util
             if (comparer != null && comparer != EqualityComparer<T>.Default)
                 return comparer;
 
-            var enumerable = Comparers.Util.ComparerHelpers.TryGetEnumeratorType(typeof(T));
+            if (DefaultComparer<T>.IsEqualityComparerImplementedByType)
+                return DefaultComparer<T>.Instance;
+
+            var enumerable = ComparerHelpers.TryGetEnumeratorType(typeof(T));
             if (enumerable == null)
-                return EqualityComparer<T>.Default;
+                return DefaultComparer<T>.Instance;
 
             // T implements IEnumerable<U>. Extract the U and create a SequenceEqualityComparer<U>.
             var elementTypes = enumerable.GetGenericArguments();

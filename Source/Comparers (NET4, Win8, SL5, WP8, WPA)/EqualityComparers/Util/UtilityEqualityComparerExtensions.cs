@@ -20,7 +20,7 @@ namespace EqualityComparers.Util
         /// <param name="selector">The key selector. May not be <c>null</c>.</param>
         /// <param name="allowNulls">A value indicating whether <c>null</c> values are passed to <paramref name="selector"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <paramref name="selector"/>.</param>
         /// <returns>A comparer that works by comparing the results of the specified key selector.</returns>
-        public static IEqualityComparer<T> SelectEquateFrom<T, TSource>(this IEqualityComparer<TSource> source, Func<T, TSource> selector, bool allowNulls = false)
+        public static IFullEqualityComparer<T> SelectEquateFrom<T, TSource>(this IEqualityComparer<TSource> source, Func<T, TSource> selector, bool allowNulls = false)
         {
             Contract.Requires(selector != null);
             Contract.Ensures(Contract.Result<IEqualityComparer<T>>() != null);

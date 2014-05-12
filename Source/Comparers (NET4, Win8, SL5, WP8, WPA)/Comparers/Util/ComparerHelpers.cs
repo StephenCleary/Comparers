@@ -42,34 +42,30 @@ namespace Comparers.Util
         public static IComparer<T> NormalizeDefault<T>(IComparer<T> comparer)
         {
             Contract.Ensures(Contract.Result<IComparer<T>>() != null);
-            if (comparer == null || comparer == Comparer<T>.Default)
-            {
-                if (!DefaultComparer<T>.IsImplementedByType && DefaultComparer<T>.IsImplemented)
-                {
-                    // If T doesn't implement a default comparer but DefaultComparer does, then T must implement IEnumerable<U>.
-                    // Extract the U and create a SequenceComparer<U>.
-                    var enumerable = TryGetEnumeratorType(typeof(T));
-                    Contract.Assume(enumerable != null);
-                    var elementTypes = enumerable.GetGenericArguments();
-                    var genericSequenceComparerType = typeof(SequenceComparer<>);
-                    Contract.Assume(genericSequenceComparerType.IsGenericTypeDefinition);
-                    Contract.Assume(genericSequenceComparerType.GetGenericArguments().Length == elementTypes.Length);
-                    var sequenceComparerType = genericSequenceComparerType.MakeGenericType(elementTypes);
-                    var genericComparerType = typeof(IComparer<>);
-                    Contract.Assume(genericComparerType.IsGenericTypeDefinition);
-                    Contract.Assume(genericComparerType.GetGenericArguments().Length == elementTypes.Length);
-                    var comparerType = genericComparerType.MakeGenericType(elementTypes);
-                    var constructor = sequenceComparerType.GetConstructor(new[] { comparerType });
-                    Contract.Assume(constructor != null);
-                    var instance = constructor.Invoke(new object[] { null });
-                    Contract.Assume(instance != null);
-                    return (IComparer<T>)instance;
-                }
+            if (comparer != null && comparer != Comparer<T>.Default)
+                return comparer;
 
+            if (DefaultComparer<T>.IsImplementedByType || !DefaultComparer<T>.IsImplemented)
                 return DefaultComparer<T>.Instance;
-            }
 
-            return comparer;
+            // If T doesn't implement a default comparer but DefaultComparer does, then T must implement IEnumerable<U>.
+            // Extract the U and create a SequenceComparer<U>.
+            var enumerable = TryGetEnumeratorType(typeof(T));
+            Contract.Assume(enumerable != null);
+            var elementTypes = enumerable.GetGenericArguments();
+            var genericSequenceComparerType = typeof(SequenceComparer<>);
+            Contract.Assume(genericSequenceComparerType.IsGenericTypeDefinition);
+            Contract.Assume(genericSequenceComparerType.GetGenericArguments().Length == elementTypes.Length);
+            var sequenceComparerType = genericSequenceComparerType.MakeGenericType(elementTypes);
+            var genericComparerType = typeof(IComparer<>);
+            Contract.Assume(genericComparerType.IsGenericTypeDefinition);
+            Contract.Assume(genericComparerType.GetGenericArguments().Length == elementTypes.Length);
+            var comparerType = genericComparerType.MakeGenericType(elementTypes);
+            var constructor = sequenceComparerType.GetConstructor(new[] { comparerType });
+            Contract.Assume(constructor != null);
+            var instance = constructor.Invoke(new object[] { null });
+            Contract.Assume(instance != null);
+            return (IComparer<T>)instance;
         }
 
         internal static Type TryGetEnumeratorType(Type source)

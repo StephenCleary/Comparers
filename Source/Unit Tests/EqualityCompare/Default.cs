@@ -90,5 +90,12 @@ namespace EqualityCompare_
             Assert.IsTrue(comparer.Equals(null, null));
             Assert.IsTrue(objectComparer.Equals(null, null));
         }
+
+        [TestMethod]
+        public void DefaultForString_IsDefaultComparer()
+        {
+            // Ensure string default comparer is not a sequence comparer over chars.
+            Assert.AreSame(Comparers.Util.DefaultComparer<string>.Instance, EqualityCompare<string>.Default());
+        }
     }
 }

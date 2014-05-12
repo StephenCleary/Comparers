@@ -11,7 +11,7 @@ namespace EqualityComparers.Util
     /// Common implementations for equality comparers.
     /// </summary>
     /// <typeparam name="T">The type of objects being compared.</typeparam>
-    public abstract class EqualityComparerBase<T> : IEqualityComparer<T>, System.Collections.IEqualityComparer
+    public abstract class EqualityComparerBase<T> : IFullEqualityComparer<T>
     {
         /// <summary>
         /// A value indicating whether <c>null</c> values will be passed down to derived implementations.

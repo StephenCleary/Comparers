@@ -53,6 +53,7 @@
     <Compile Include="ComparerExtensions\Sequence.cs" />
     <Compile Include="ComparerExtensions\ThenBy.cs" />
     <Compile Include="Compare\Default.cs" />
+    <Compile Include="Compare\Linq.cs" />
     <Compile Include="Compare\Key.cs" />
     <Compile Include="Compare\Null.cs" />
     <Compile Include="EquatableBase\DefaultComparer.cs" />

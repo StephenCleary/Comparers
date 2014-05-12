@@ -138,6 +138,7 @@
     <Compile Include="EqualityComparers\EqualityCompareSource.cs" />
     <Compile Include="EqualityComparers\EquatableBase.cs" />
     <Compile Include="EqualityComparers\EquatableBaseWithOperators.cs" />
+    <Compile Include="EqualityComparers\IFullEqualityComparer.cs" />
     <Compile Include="EqualityComparers\Util\CompoundEqualityComparer.cs" />
     <Compile Include="EqualityComparers\Util\EqualityComparerBase.cs" />
     <Compile Include="EqualityComparers\Util\EqualityComparerHelpers.cs" />

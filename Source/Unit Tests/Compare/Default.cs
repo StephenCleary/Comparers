@@ -105,5 +105,12 @@ namespace Compare_
             list2.Sort(comparer2);
             CollectionAssert.AreEqual(list1, list2);
         }
+
+        [TestMethod]
+        public void DefaultForString_IsDefaultComparer()
+        {
+            // Ensure string default comparer is not a sequence comparer over chars.
+            Assert.AreSame(Comparers.Util.DefaultComparer<string>.Instance, Compare<string>.Default());
+        }
     }
 }

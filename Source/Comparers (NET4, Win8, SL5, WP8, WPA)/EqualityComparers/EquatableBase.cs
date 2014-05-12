@@ -16,7 +16,7 @@ namespace EqualityComparers
         /// <summary>
         /// Gets the default comparer for this type.
         /// </summary>
-        public static IEqualityComparer<T> DefaultComparer { get; protected set; }
+        public static IFullEqualityComparer<T> DefaultComparer { get; protected set; }
 
         /// <summary>
         /// Gets the hash code for this instance.
