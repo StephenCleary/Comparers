@@ -47,12 +47,12 @@ But it's easy with a base type:
 
 What about hash-based containers? Every single comparer produced by the Comparers library also implements equality comparison!
 
-    var nameComparer = Compare<Person>.OrderBy(p => p.LastName).ThenBy(p => p.FirstName);
+    IEqualityComparer<Person> nameComparer = Compare<Person>.OrderBy(p => p.LastName).ThenBy(p => p.FirstName);
     Dictionary<Person, Address> dict = new Dictionary<Person, Address>(nameComparer);
 
 ### Equality Comparers
 
-Sometimes, you can only define equality. Well, good news: there's an EqualityComparers namespace that parallels the Comparers namespace.
+Sometimes, you can only define equality. Well, good news: there's an `EqualityComparers` namespace that parallels the `Comparers` namespace.
 
     class Entity : EquatableBase<Entity>
     {
