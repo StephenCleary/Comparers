@@ -9,18 +9,12 @@
     <summary>$description$</summary>
     <description>$description$</description>
     <language>en-US</language>
-    <projectUrl>http://comparers.codeplex.com/</projectUrl>
-    <iconUrl>http://download.codeplex.com/Download?ProjectName=comparers&amp;DownloadId=404414</iconUrl>
+    <projectUrl>https://github.com/StephenCleary/Comparers</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/StephenCleary/Comparers/master/Comparers.128.png</iconUrl>
     <tags>comparer icomparer icomparable iequatable iequalitycomparer net45 net40 win8 netcore45 sl5 wp8 wpa81 nito</tags>
     <releaseNotes>
       <!-- Do not forget Legacy! -->
-      [4.0.0] Added support for WPA. Fixed bug in deteremining default comparer for sequences.
-      [3.1.0] Implicit type detection with LINQ/Rx/Ix support. Added PCL support. Better hash code implementations.
-      [3.0.0] Added EqualityComparers; added .NET 4.5, SL4, SL5, Win8, and XBox support; fixed CompoundComparer.GetHashCode.
-      [2.0.2] Modified NuGet package metadata.
-      [2.0.1] Removed contract exceptions when passing null to GetHashCode.
-      [2.0.0] More consistent API; added sequence comparers, comparison operators, and the ability to override null object comparison.
-      [1.1.0] Added ToString implementations to all comparers to assist debugging.
+      Added support for WPA. Fixed bug in deteremining default comparer for sequences.
     </releaseNotes>
   </metadata>
   <files>

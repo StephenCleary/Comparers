@@ -9,12 +9,11 @@
     <summary>$description$</summary>
     <description>$description$</description>
     <language>en-US</language>
-    <projectUrl>http://comparers.codeplex.com/</projectUrl>
-    <iconUrl>http://download.codeplex.com/Download?ProjectName=comparers&amp;DownloadId=404414</iconUrl>
+    <projectUrl>https://github.com/StephenCleary/Comparers</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/StephenCleary/Comparers/master/Comparers.128.png</iconUrl>
     <tags>comparer ix icomparer icomparable iequatable iequalitycomparer net45 net40 win8 netcore45 wp8 nito</tags>
     <releaseNotes>
-      [4.0.0] Fixed bug in deteremining default comparer for sequences.
-      [3.1.0] Initial release.
+      Fixed bug in deteremining default comparer for sequences.
     </releaseNotes>
   </metadata>
   <files>
