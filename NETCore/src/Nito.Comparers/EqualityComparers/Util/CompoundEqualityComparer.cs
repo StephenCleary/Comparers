@@ -14,7 +14,7 @@ namespace Nito.EqualityComparers.Util
         /// <summary>
         /// The second comparer.
         /// </summary>
-        private readonly IEqualityComparer<T> secondSource_;
+        private readonly IEqualityComparer<T> _secondSource;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CompoundEqualityComparer&lt;T&gt;"/> class.
@@ -24,7 +24,7 @@ namespace Nito.EqualityComparers.Util
         public CompoundEqualityComparer(IEqualityComparer<T> source, IEqualityComparer<T> secondSource)
             : base(source, true)
         {
-            this.secondSource_ = EqualityComparerHelpers.NormalizeDefault(secondSource);
+            _secondSource = EqualityComparerHelpers.NormalizeDefault(secondSource);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Nito.EqualityComparers.Util
         {
             get
             {
-                return this.secondSource_;
+                return _secondSource;
             }
         }
 
@@ -64,10 +64,10 @@ namespace Nito.EqualityComparers.Util
         /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise, <c>false</c>.</returns>
         protected override bool DoEquals(T x, T y)
         {
-            var ret = this.Source.Equals(x, y);
+            var ret = Source.Equals(x, y);
             if (!ret)
                 return false;
-            return this.SecondSource.Equals(x, y);
+            return SecondSource.Equals(x, y);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Nito.EqualityComparers.Util
         /// </summary>
         public override string ToString()
         {
-            return "Compound(" + this.Source + ", " + this.SecondSource + ")";
+            return "Compound(" + Source + ", " + SecondSource + ")";
         }
     }
 }

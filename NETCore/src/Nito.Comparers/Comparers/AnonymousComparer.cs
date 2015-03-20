@@ -24,9 +24,9 @@ namespace Nito.Comparers
         /// <summary>
         /// Initializes a new instance of the <see cref="AnonymousComparer{T}"/> class.
         /// </summary>
-        /// <param name="allowNulls">A value indicating whether <c>null</c> values are passed to <see cref="Compare"/> and <see cref="GetHashCode"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <see cref="Compare"/> nor <see cref="GetHashCode"/>.</param>
-        public AnonymousComparer(bool allowNulls = false)
-            : base(allowNulls)
+        /// <param name="specialNullHandling">A value indicating whether <c>null</c> values are passed to <see cref="Compare"/> and <see cref="GetHashCode"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <see cref="Compare"/> nor <see cref="GetHashCode"/>.</param>
+        public AnonymousComparer(bool specialNullHandling = false)
+            : base(specialNullHandling)
         {
         }
 
@@ -37,7 +37,7 @@ namespace Nito.Comparers
         /// <returns>A hash code for the specified object.</returns>
         protected override int DoGetHashCode(T obj)
         {
-            return this.GetHashCode(obj);
+            return GetHashCode(obj);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Nito.Comparers
         /// <returns>A value less than 0 if <paramref name="x"/> is less than <paramref name="y"/>, 0 if <paramref name="x"/> is equal to <paramref name="y"/>, or greater than 0 if <paramref name="x"/> is greater than <paramref name="y"/>.</returns>
         protected override int DoCompare(T x, T y)
         {
-            return this.Compare(x, y);
+            return Compare(x, y);
         }
 
         /// <summary>

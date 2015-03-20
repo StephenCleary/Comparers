@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Nito.EqualityComparers.Util;
+﻿using Nito.EqualityComparers.Util;
 
 namespace Nito.Comparers.Util
 {
@@ -27,15 +24,15 @@ namespace Nito.Comparers.Util
         /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise, <c>false</c>.</returns>
         protected override bool DoEquals(T x, T y)
         {
-            return this.Compare(x, y) == 0;
+            return Compare(x, y) == 0;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ComparerBase{T}"/> class.
         /// </summary>
-        /// <param name="allowNulls">A value indicating whether <c>null</c> values are passed to <see cref="EqualityComparerBase{T}.DoGetHashCode"/> and <see cref="DoCompare"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <see cref="EqualityComparerBase{T}.DoGetHashCode"/> nor <see cref="DoCompare"/>.</param>
-        protected ComparerBase(bool allowNulls)
-            : base(allowNulls)
+        /// <param name="specialNullHandling">A value indicating whether <c>null</c> values are passed to <see cref="EqualityComparerBase{T}.DoGetHashCode"/> and <see cref="DoCompare"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <see cref="EqualityComparerBase{T}.DoGetHashCode"/> nor <see cref="DoCompare"/>.</param>
+        protected ComparerBase(bool specialNullHandling)
+            : base(specialNullHandling)
         {
         }
 
@@ -47,7 +44,7 @@ namespace Nito.Comparers.Util
         /// <returns>A value less than 0 if <paramref name="x"/> is less than <paramref name="y"/>, 0 if <paramref name="x"/> is equal to <paramref name="y"/>, or greater than 0 if <paramref name="x"/> is greater than <paramref name="y"/>.</returns>
         int System.Collections.IComparer.Compare(object x, object y)
         {
-            if (!AllowNulls)
+            if (!SpecialNullHandling)
             {
                 if (x == null)
                 {
@@ -61,7 +58,7 @@ namespace Nito.Comparers.Util
                 }
             }
 
-            return this.Compare((T)x, (T)y);
+            return Compare((T)x, (T)y);
         }
 
         /// <summary>
@@ -72,7 +69,7 @@ namespace Nito.Comparers.Util
         /// <returns>A value less than 0 if <paramref name="x"/> is less than <paramref name="y"/>, 0 if <paramref name="x"/> is equal to <paramref name="y"/>, or greater than 0 if <paramref name="x"/> is greater than <paramref name="y"/>.</returns>
         public int Compare(T x, T y)
         {
-            if (!this.AllowNulls)
+            if (!SpecialNullHandling)
             {
                 if (x == null)
                 {
@@ -86,7 +83,7 @@ namespace Nito.Comparers.Util
                 }
             }
 
-            return this.DoCompare(x, y);
+            return DoCompare(x, y);
         }
     }
 }

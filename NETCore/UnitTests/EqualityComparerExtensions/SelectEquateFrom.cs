@@ -12,11 +12,12 @@ namespace EqualityComparerExtensions_
     [TestClass]
     public class _SelectEquateFrom
     {
+#if NO
         [TestMethod]
         public void SubstitutesCompareDefaultForComparerDefault()
         {
             var comparer = EqualityComparer<int>.Default.SelectEquateFrom((Person p) => p.Priority);
-            Assert.AreSame(EqualityCompare<int>.Default(), (comparer as SelectEqualityComparer<Person, int>).Source);
+            Assert.AreSame(EqualityComparerBuilder.For<int>().Default(), (comparer as SelectEqualityComparer<Person, int>).Source);
         }
 
         [TestMethod]
@@ -24,7 +25,8 @@ namespace EqualityComparerExtensions_
         {
             IEqualityComparer<int> source = null;
             var comparer = source.SelectEquateFrom((Person p) => p.Priority);
-            Assert.AreSame(EqualityCompare<int>.Default(), (comparer as SelectEqualityComparer<Person, int>).Source);
+            Assert.AreSame(EqualityComparerBuilder.For<int>().Default(), (comparer as SelectEqualityComparer<Person, int>).Source);
         }
+#endif
     }
 }

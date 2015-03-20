@@ -61,7 +61,7 @@ namespace Nito.Comparers.Util
                     if (!yIter.MoveNext())
                         return 1;
 
-                    var ret = this.Source.Compare(xIter.Current, yIter.Current);
+                    var ret = Source.Compare(xIter.Current, yIter.Current);
                     if (ret != 0)
                         return ret;
                 }

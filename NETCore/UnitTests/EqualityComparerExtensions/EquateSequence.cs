@@ -12,6 +12,7 @@ namespace EqualityComparerExtensions_
     [TestClass]
     public class _EquateSequence
     {
+#if NO
         [TestMethod]
         public void SubstitutesCompareDefaultForComparerDefault()
         {
@@ -26,27 +27,28 @@ namespace EqualityComparerExtensions_
             var comparer = source.EquateSequence();
             Assert.AreSame(EqualityCompare<int>.Default(), (comparer as SequenceEqualityComparer<int>).Source);
         }
+#endif
 
         [TestMethod]
         public void ShorterSequenceIsNotEqualToLongerSequenceIfElementsAreEqual()
         {
-            Assert.IsFalse(EqualityCompare<int>.Default().EquateSequence().Equals(new[] { 3, 4 }, new[] { 3, 4, 5 }));
-            Assert.IsFalse(EqualityCompare<int>.Default().EquateSequence().Equals(new[] { 3, 4, 5 }, new[] { 3, 4 }));
+            Assert.IsFalse(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(new[] { 3, 4 }, new[] { 3, 4, 5 }));
+            Assert.IsFalse(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(new[] { 3, 4, 5 }, new[] { 3, 4 }));
         }
 
         [TestMethod]
         public void SequencesAreEqualIfElementsAreEqual()
         {
-            Assert.IsTrue(EqualityCompare<int>.Default().EquateSequence().Equals(new[] { 3, 4 }, new[] { 3, 4 }));
-            Assert.IsTrue(EqualityCompare<int>.Default().EquateSequence().Equals(new[] { 3, 4, 5 }, new[] { 3, 4, 5 }));
-            Assert.AreEqual(EqualityCompare<int>.Default().EquateSequence().GetHashCode(new[] { 3, 4 }), Compare<int>.Default().EquateSequence().GetHashCode(new[] { 3, 4 }));
+            Assert.IsTrue(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(new[] { 3, 4 }, new[] { 3, 4 }));
+            Assert.IsTrue(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(new[] { 3, 4, 5 }, new[] { 3, 4, 5 }));
+            Assert.AreEqual(EqualityComparerBuilder.For<int>().Default().EquateSequence().GetHashCode(new[] { 3, 4 }), EqualityComparerBuilder.For<int>().Default().EquateSequence().GetHashCode(new[] { 3, 4 }));
         }
 
         [TestMethod]
         public void EqualLengthSequencesWithUnequalElementsAreNotEqual()
         {
-            Assert.IsFalse(EqualityCompare<int>.Default().EquateSequence().Equals(new[] { 3, 4 }, new[] { 3, 5 }));
-            Assert.IsFalse(EqualityCompare<int>.Default().EquateSequence().Equals(new[] { 3, 4, 5 }, new[] { 3, 3, 5 }));
+            Assert.IsFalse(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(new[] { 3, 4 }, new[] { 3, 5 }));
+            Assert.IsFalse(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(new[] { 3, 4, 5 }, new[] { 3, 3, 5 }));
         }
 
         [TestMethod]
@@ -60,8 +62,8 @@ namespace EqualityComparerExtensions_
         [TestMethod]
         public void NullIsNotEqualToEmpty()
         {
-            Assert.IsFalse(EqualityCompare<int>.Default().EquateSequence().Equals(null, Enumerable.Empty<int>()));
-            Assert.IsFalse(EqualityCompare<int>.Default().EquateSequence().Equals(Enumerable.Empty<int>(), null));
+            Assert.IsFalse(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(null, Enumerable.Empty<int>()));
+            Assert.IsFalse(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(Enumerable.Empty<int>(), null));
         }
     }
 }

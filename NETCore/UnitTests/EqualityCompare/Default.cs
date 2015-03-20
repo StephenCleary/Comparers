@@ -18,7 +18,7 @@ namespace EqualityCompare_
             var b = 3;
             var c = 5;
 
-            var defaultComparer = EqualityCompare<int>.Default();
+            var defaultComparer = EqualityComparerBuilder.For<int>().Default();
             var netDefaultComparer = EqualityComparer<int>.Default;
             var defaultObjectComparer = defaultComparer as System.Collections.IEqualityComparer;
             Assert.AreEqual(netDefaultComparer.GetHashCode(a), defaultComparer.GetHashCode(a));
@@ -41,7 +41,7 @@ namespace EqualityCompare_
             var threeA = new[] { 3 };
             var threeB = new[] { 3 };
             var five = new[] { 5 };
-            var comparer = EqualityCompare<int[]>.Default();
+            var comparer = EqualityComparerBuilder.For<int[]>().Default();
             var objectComparer = comparer as System.Collections.IEqualityComparer;
             Assert.AreEqual(comparer.GetHashCode(threeA), comparer.GetHashCode(threeB));
             Assert.AreEqual(objectComparer.GetHashCode(threeA), objectComparer.GetHashCode(threeB));
@@ -54,7 +54,7 @@ namespace EqualityCompare_
         [TestMethod]
         public void NullIsNotEqualToValue()
         {
-            var comparer = EqualityCompare<int?>.Default();
+            var comparer = EqualityComparerBuilder.For<int?>().Default();
             var objectComparer = comparer as System.Collections.IEqualityComparer;
             Assert.IsFalse(comparer.Equals(3, null));
             Assert.IsFalse(objectComparer.Equals(3, null));
@@ -63,7 +63,7 @@ namespace EqualityCompare_
         [TestMethod]
         public void NullSequenceNotEqualToEmptySequence()
         {
-            var comparer = EqualityCompare<int[]>.Default();
+            var comparer = EqualityComparerBuilder.For<int[]>().Default();
             var objectComparer = comparer as System.Collections.IEqualityComparer;
             Assert.IsFalse(comparer.Equals(null, new int[0]));
             Assert.IsFalse(objectComparer.Equals(null, new int[0]));
@@ -72,7 +72,7 @@ namespace EqualityCompare_
         [TestMethod]
         public void NullIsEqualToNull()
         {
-            var comparer = EqualityCompare<int?>.Default();
+            var comparer = EqualityComparerBuilder.For<int?>().Default();
             var objectComparer = comparer as System.Collections.IEqualityComparer;
             Assert.AreEqual(comparer.GetHashCode(null), comparer.GetHashCode(null));
             Assert.AreEqual(objectComparer.GetHashCode(null), objectComparer.GetHashCode(null));
@@ -83,7 +83,7 @@ namespace EqualityCompare_
         [TestMethod]
         public void NullSequenceIsEqualToNullSequence()
         {
-            var comparer = EqualityCompare<int[]>.Default();
+            var comparer = EqualityComparerBuilder.For<int[]>().Default();
             var objectComparer = comparer as System.Collections.IEqualityComparer;
             Assert.AreEqual(comparer.GetHashCode(null), comparer.GetHashCode(null));
             Assert.AreEqual(objectComparer.GetHashCode(null), objectComparer.GetHashCode(null));
@@ -95,7 +95,7 @@ namespace EqualityCompare_
         public void DefaultForString_IsDefaultComparer()
         {
             // Ensure string default comparer is not a sequence comparer over chars.
-            Assert.AreSame(Nito.Comparers.Util.DefaultComparer<string>.Instance, EqualityCompare<string>.Default());
+            Assert.AreSame(Nito.Comparers.Util.DefaultComparer<string>.Instance, EqualityComparerBuilder.For<string>().Default());
         }
     }
 }

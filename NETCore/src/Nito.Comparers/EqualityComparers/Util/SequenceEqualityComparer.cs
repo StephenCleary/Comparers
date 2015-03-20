@@ -72,7 +72,7 @@ namespace Nito.EqualityComparers.Util
                     if (!yIter.MoveNext())
                         return false;
 
-                    var ret = this.Source.Equals(xIter.Current, yIter.Current);
+                    var ret = Source.Equals(xIter.Current, yIter.Current);
                     if (!ret)
                         return false;
                 }
@@ -84,7 +84,7 @@ namespace Nito.EqualityComparers.Util
         /// </summary>
         public override string ToString()
         {
-            return "Sequence<" + typeof(T).Name + ">(" + this.Source + ")";
+            return "Sequence<" + typeof(T).Name + ">(" + Source + ")";
         }
     }
 }

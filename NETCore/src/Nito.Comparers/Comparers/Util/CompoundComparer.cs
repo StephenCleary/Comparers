@@ -13,7 +13,7 @@ namespace Nito.Comparers.Util
         /// <summary>
         /// The second comparer.
         /// </summary>
-        private readonly IComparer<T> secondSource_;
+        private readonly IComparer<T> _secondSource;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CompoundComparer&lt;T&gt;"/> class.
@@ -23,7 +23,7 @@ namespace Nito.Comparers.Util
         public CompoundComparer(IComparer<T> source, IComparer<T> secondSource)
             : base(source, true)
         {
-            this.secondSource_ = ComparerHelpers.NormalizeDefault(secondSource);
+            _secondSource = ComparerHelpers.NormalizeDefault(secondSource);
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace Nito.Comparers.Util
         {
             get
             {
-                return this.secondSource_;
+                return this._secondSource;
             }
         }
 
@@ -63,10 +63,10 @@ namespace Nito.Comparers.Util
         /// <returns>A value less than 0 if <paramref name="x"/> is less than <paramref name="y"/>, 0 if <paramref name="x"/> is equal to <paramref name="y"/>, or greater than 0 if <paramref name="x"/> is greater than <paramref name="y"/>.</returns>
         protected override int DoCompare(T x, T y)
         {
-            var ret = this.Source.Compare(x, y);
+            var ret = Source.Compare(x, y);
             if (ret != 0)
                 return ret;
-            return this.SecondSource.Compare(x, y);
+            return SecondSource.Compare(x, y);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Nito.Comparers.Util
         /// </summary>
         public override string ToString()
         {
-            return "Compound(" + this.Source + ", " + this.SecondSource + ")";
+            return "Compound(" + Source + ", " + SecondSource + ")";
         }
     }
 }

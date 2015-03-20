@@ -23,11 +23,12 @@ namespace ComparerExtensions_
             };
         }
 
+#if NO
         [TestMethod]
         public void SubstitutesCompareDefaultForComparerDefault()
         {
             var comparer = Comparer<int>.Default.SelectFrom((Person p) => p.Priority);
-            Assert.AreSame(Compare<int>.Default(), (comparer as SelectComparer<Person, int>).Source);
+            Assert.AreSame(ComparerBuilder.For<int>().Default(), (comparer as SelectComparer<Person, int>).Source);
 
             var list = GetPeople();
             list.Sort(comparer);
@@ -39,18 +40,19 @@ namespace ComparerExtensions_
         {
             IComparer<int> source = null;
             var comparer = source.SelectFrom((Person p) => p.Priority);
-            Assert.AreSame(Compare<int>.Default(), (comparer as SelectComparer<Person, int>).Source);
+            Assert.AreSame(ComparerBuilder.For<int>().Default(), (comparer as SelectComparer<Person, int>).Source);
 
             var list = GetPeople();
             list.Sort(comparer);
             CollectionAssert.AreEqual(new[] { 2, 3, 4, 5 }, list.Select(x => x.Priority).ToList());
         }
+#endif
 
         [TestMethod]
         public void SortsByKey()
         {
             var list = GetPeople();
-            list.Sort(Compare<int>.Default().SelectFrom((Person p) => p.Priority));
+            list.Sort(ComparerBuilder.For<int>().Default().SelectFrom((Person p) => p.Priority));
             CollectionAssert.AreEqual(new[] { 2, 3, 4, 5 }, list.Select(x => x.Priority).ToList());
         }
     }

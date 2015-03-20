@@ -37,7 +37,7 @@ namespace Nito.Comparers.Util
         /// <returns>A value less than 0 if <paramref name="x"/> is less than <paramref name="y"/>, 0 if <paramref name="x"/> is equal to <paramref name="y"/>, or greater than 0 if <paramref name="x"/> is greater than <paramref name="y"/>.</returns>
         protected override int DoCompare(T x, T y)
         {
-            return this.Source.Compare(y, x);
+            return Source.Compare(y, x);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Nito.Comparers.Util
         /// </summary>
         public override string ToString()
         {
-            return "Reverse(" + this.Source + ")";
+            return "Reverse(" + Source + ")";
         }
     }
 }

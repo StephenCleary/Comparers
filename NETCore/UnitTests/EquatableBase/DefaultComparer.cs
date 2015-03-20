@@ -15,7 +15,7 @@ namespace EquatableBase_
         {
             static Person()
             {
-                DefaultComparer = EqualityCompare<Person>.EquateBy(p => p.LastName).ThenEquateBy(p => p.FirstName);
+                DefaultComparer = EqualityComparerBuilder.For<Person>().EquateBy(p => p.LastName).ThenEquateBy(p => p.FirstName);
             }
 
             public string FirstName { get; set; }

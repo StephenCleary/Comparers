@@ -16,7 +16,7 @@ namespace ComparerExtensions_
         {
             static Person()
             {
-                DefaultComparer = Compare<Person>.OrderBy(p => p.LastName);
+                DefaultComparer = ComparerBuilder.For<Person>().OrderBy(p => p.LastName);
             }
 
             public string FirstName { get; set; }
@@ -28,12 +28,13 @@ namespace ComparerExtensions_
         private static readonly Person WilliamAbrams = new Person { FirstName = "William", LastName = "Abrams" };
         private static readonly Person CaseyJohnson = new Person { FirstName = "Casey", LastName = "Johnson" };
 
+#if NO
         [TestMethod]
         public void SubstitutesCompareDefaultForComparerDefault()
         {
-            IComparer<Person> thenByComparer = Compare<string>.Default().SelectFrom((Person p) => p.FirstName);
+            IComparer<Person> thenByComparer = ComparerBuilder.For<string>().Default().SelectFrom((Person p) => p.FirstName);
             var comparer = Comparer<Person>.Default.ThenBy(thenByComparer);
-            Assert.AreSame(Compare<Person>.Default(), (comparer as CompoundComparer<Person>).Source);
+            Assert.AreSame(ComparerBuilder.For<Person>().Default(), (comparer as CompoundComparer<Person>).Source);
 
             var list = new List<Person> { AbeAbrams, WilliamAbrams, CaseyJohnson, JackAbrams };
             list.Sort(comparer);
@@ -52,21 +53,22 @@ namespace ComparerExtensions_
             list.Sort(comparer);
             CollectionAssert.AreEqual(new[] { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson }, list);
         }
+        #endif
 
         [TestMethod]
         public void ThenByUsesComparer()
         {
-            IComparer<Person> thenByComparer = Compare<string>.Default().SelectFrom((Person p) => p.FirstName);
+            IComparer<Person> thenByComparer = ComparerBuilder.For<string>().Default().SelectFrom((Person p) => p.FirstName);
             var list = new List<Person> { AbeAbrams, WilliamAbrams, CaseyJohnson, JackAbrams };
-            list.Sort(Compare<Person>.Default().ThenBy(thenByComparer));
+            list.Sort(ComparerBuilder.For<Person>().Default().ThenBy(thenByComparer));
             CollectionAssert.AreEqual(new[] { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson }, list);
         }
 
         [TestMethod]
         public void ThenByIsAppliedAsTieBreaker()
         {
-            IComparer<Person> thenByComparer = Compare<string>.Default().SelectFrom((Person p) => p.FirstName);
-            IComparer<Person> defaultComparer = Compare<Person>.Default();
+            IComparer<Person> thenByComparer = ComparerBuilder.For<string>().Default().SelectFrom((Person p) => p.FirstName);
+            IComparer<Person> defaultComparer = ComparerBuilder.For<Person>().Default();
             IComparer<Person> fullComparer = defaultComparer.ThenBy(thenByComparer);
             Assert.IsTrue(defaultComparer.Compare(AbeAbrams, WilliamAbrams) == 0);
             Assert.IsTrue(thenByComparer.Compare(AbeAbrams, WilliamAbrams) < 0);
@@ -80,7 +82,7 @@ namespace ComparerExtensions_
             {
                 Compare = (x, y) => { Assert.Fail(); return 0; },
             };
-            var comparer = Compare<Person>.Default().ThenBy(thenByComparer);
+            var comparer = ComparerBuilder.For<Person>().Default().ThenBy(thenByComparer);
             Assert.IsTrue(comparer.Compare(AbeAbrams, CaseyJohnson) < 0);
             Assert.IsTrue(comparer.Compare(CaseyJohnson, AbeAbrams) > 0);
         }

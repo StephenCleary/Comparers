@@ -14,18 +14,18 @@ namespace Nito.Comparers.Util
         /// <summary>
         /// The key selector.
         /// </summary>
-        private readonly Func<T, TSource> selector;
+        private readonly Func<T, TSource> _selector;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SelectComparer&lt;T, TSource&gt;"/> class.
         /// </summary>
         /// <param name="selector">The key selector. May not be <c>null</c>.</param>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
-        /// <param name="allowNulls">A value indicating whether <c>null</c> values are passed to <paramref name="selector"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <paramref name="selector"/>.</param>
-        public SelectComparer(Func<T, TSource> selector, IComparer<TSource> source, bool allowNulls)
-            : base(source, allowNulls)
+        /// <param name="specialNullHandling">A value indicating whether <c>null</c> values are passed to <paramref name="selector"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <paramref name="selector"/>.</param>
+        public SelectComparer(Func<T, TSource> selector, IComparer<TSource> source, bool specialNullHandling)
+            : base(source, specialNullHandling)
         {
-            this.selector = selector;
+            _selector = selector;
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Nito.Comparers.Util
         {
             get
             {
-                return this.selector;
+                return _selector;
             }
         }
 
@@ -46,7 +46,7 @@ namespace Nito.Comparers.Util
         /// <returns>A hash code for the specified object.</returns>
         protected override int DoGetHashCode(T obj)
         {
-            return ComparerHelpers.GetHashCodeFromComparer(this.Source, this.selector(obj));
+            return ComparerHelpers.GetHashCodeFromComparer(Source, _selector(obj));
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Nito.Comparers.Util
         /// <returns>A value less than 0 if <paramref name="x"/> is less than <paramref name="y"/>, 0 if <paramref name="x"/> is equal to <paramref name="y"/>, or greater than 0 if <paramref name="x"/> is greater than <paramref name="y"/>.</returns>
         protected override int DoCompare(T x, T y)
         {
-            return this.Source.Compare(this.selector(x), this.selector(y));
+            return Source.Compare(_selector(x), _selector(y));
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Nito.Comparers.Util
         /// </summary>
         public override string ToString()
         {
-            return "Select<" + typeof(TSource).Name + ">(" + this.Source + ")";
+            return "Select<" + typeof(TSource).Name + ">(" + Source + ")";
         }
     }
 }

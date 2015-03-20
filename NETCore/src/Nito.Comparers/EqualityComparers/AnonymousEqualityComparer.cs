@@ -24,9 +24,9 @@ namespace Nito.EqualityComparers
         /// <summary>
         /// Initializes a new instance of the <see cref="AnonymousEqualityComparer{T}"/> class.
         /// </summary>
-        /// <param name="allowNulls">A value indicating whether <c>null</c> values are passed to <see cref="Equals"/> and <see cref="GetHashCode"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <see cref="Equals"/> nor <see cref="GetHashCode"/>.</param>
-        public AnonymousEqualityComparer(bool allowNulls = false)
-            : base(allowNulls)
+        /// <param name="specialNullHandling">A value indicating whether <c>null</c> values are passed to <see cref="Equals"/> and <see cref="GetHashCode"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <see cref="Equals"/> nor <see cref="GetHashCode"/>.</param>
+        public AnonymousEqualityComparer(bool specialNullHandling = false)
+            : base(specialNullHandling)
         {
         }
 
@@ -37,7 +37,7 @@ namespace Nito.EqualityComparers
         /// <returns>A hash code for the specified object.</returns>
         protected override int DoGetHashCode(T obj)
         {
-            return this.GetHashCode(obj);
+            return GetHashCode(obj);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Nito.EqualityComparers
         /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise, <c>false</c>.</returns>
         protected override bool DoEquals(T x, T y)
         {
-            return this.Equals(x, y);
+            return Equals(x, y);
         }
 
         /// <summary>

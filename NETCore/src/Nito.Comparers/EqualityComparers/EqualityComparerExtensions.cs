@@ -30,11 +30,11 @@ namespace Nito.EqualityComparers
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
         /// <param name="selector">The key selector. May not be <c>null</c>.</param>
         /// <param name="keyComparer">The key comparer. Defaults to <c>null</c>. If this is <c>null</c>, the default comparer is used.</param>
-        /// <param name="allowNulls">A value indicating whether <c>null</c> values are passed to <paramref name="selector"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <paramref name="selector"/>.</param>
+        /// <param name="specialNullHandling">A value indicating whether <c>null</c> values are passed to <paramref name="selector"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <paramref name="selector"/>.</param>
         /// <returns>A comparer that uses a key comparer if the source comparer determines the objects are equal.</returns>
-        public static IFullEqualityComparer<T> ThenEquateBy<T, TKey>(this IEqualityComparer<T> source, Func<T, TKey> selector, IEqualityComparer<TKey> keyComparer = null, bool allowNulls = false)
+        public static IFullEqualityComparer<T> ThenEquateBy<T, TKey>(this IEqualityComparer<T> source, Func<T, TKey> selector, IEqualityComparer<TKey> keyComparer = null, bool specialNullHandling = false)
         {
-            return source.ThenEquateBy(keyComparer.SelectEquateFrom(selector, allowNulls));
+            return source.ThenEquateBy(keyComparer.SelectEquateFrom(selector, specialNullHandling));
         }
 
         /// <summary>

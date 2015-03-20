@@ -14,7 +14,7 @@ namespace Compare_
         [TestMethod]
         public void ComparesUnequalElementsAsEqual()
         {
-            var comparer = Compare<int>.Null();
+            var comparer = ComparerBuilder.For<int>().Null();
             Assert.AreEqual(0, comparer.Compare(13, 17));
             Assert.IsTrue(comparer.Equals(19, 21));
             Assert.AreEqual(comparer.GetHashCode(13), comparer.GetHashCode(17));
@@ -23,7 +23,7 @@ namespace Compare_
         [TestMethod]
         public void ComparesNullElementsAsEqualToValueElements()
         {
-            var comparer = Compare<int?>.Null();
+            var comparer = ComparerBuilder.For<int?>().Null();
             Assert.AreEqual(0, comparer.Compare(null, 17));
             Assert.AreEqual(0, comparer.Compare(13, null));
             Assert.IsTrue(comparer.Equals(null, 21));
@@ -35,7 +35,7 @@ namespace Compare_
         [TestMethod]
         public void ComparesEqualElementsAsEqual()
         {
-            var comparer = Compare<int>.Null();
+            var comparer = ComparerBuilder.For<int>().Null();
             Assert.AreEqual(0, comparer.Compare(13, 13));
             Assert.IsTrue(comparer.Equals(13, 13));
             Assert.AreEqual(comparer.GetHashCode(13), comparer.GetHashCode(13));
@@ -44,7 +44,7 @@ namespace Compare_
         [TestMethod]
         public void ComparesNullElementsAsEqual()
         {
-            var comparer = Compare<int?>.Null();
+            var comparer = ComparerBuilder.For<int?>().Null();
             Assert.AreEqual(0, comparer.Compare(null, null));
             Assert.IsTrue(comparer.Equals(null, null));
             Assert.AreEqual(comparer.GetHashCode((object)null), comparer.GetHashCode((object)null));

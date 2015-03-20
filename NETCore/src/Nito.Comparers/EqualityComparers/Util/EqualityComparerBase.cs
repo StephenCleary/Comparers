@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Nito.EqualityComparers.Util
+﻿namespace Nito.EqualityComparers.Util
 {
     /// <summary>
     /// Common implementations for equality comparers.
@@ -13,14 +9,14 @@ namespace Nito.EqualityComparers.Util
         /// <summary>
         /// A value indicating whether <c>null</c> values will be passed down to derived implementations.
         /// </summary>
-        private readonly bool allowNulls;
+        private readonly bool _specialNullHandling;
 
         /// <summary>
         /// Gets a value indicating whether <c>null</c> values will be passed down to derived implementations.
         /// </summary>
-        protected bool AllowNulls
+        protected bool SpecialNullHandling
         {
-            get { return allowNulls; }
+            get { return _specialNullHandling; }
         }
 
         /// <summary>
@@ -41,10 +37,10 @@ namespace Nito.EqualityComparers.Util
         /// <summary>
         /// Initializes a new instance of the <see cref="EqualityComparerBase{T}"/> class.
         /// </summary>
-        /// <param name="allowNulls">A value indicating whether <c>null</c> values are passed to <see cref="DoGetHashCode"/> and <see cref="DoEquals"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <see cref="DoGetHashCode"/> nor <see cref="DoEquals"/>.</param>
-        protected EqualityComparerBase(bool allowNulls)
+        /// <param name="specialNullHandling">A value indicating whether <c>null</c> values are passed to <see cref="DoGetHashCode"/> and <see cref="DoEquals"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <see cref="DoGetHashCode"/> nor <see cref="DoEquals"/>.</param>
+        protected EqualityComparerBase(bool specialNullHandling)
         {
-            this.allowNulls = allowNulls;
+            _specialNullHandling = specialNullHandling;
         }
 
         /// <summary>
@@ -55,7 +51,7 @@ namespace Nito.EqualityComparers.Util
         /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise <c>false</c>.</returns>
         bool System.Collections.IEqualityComparer.Equals(object x, object y)
         {
-            if (!allowNulls)
+            if (!SpecialNullHandling)
             {
                 if (x == null || y == null)
                     return (x == null && y == null);
@@ -71,7 +67,7 @@ namespace Nito.EqualityComparers.Util
         /// <returns>A hash code for the specified object.</returns>
         int System.Collections.IEqualityComparer.GetHashCode(object obj)
         {
-            if (!allowNulls)
+            if (!SpecialNullHandling)
             {
                 if (obj == null)
                     return 0;
@@ -88,7 +84,7 @@ namespace Nito.EqualityComparers.Util
         /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise <c>false</c>.</returns>
         public bool Equals(T x, T y)
         {
-            if (!allowNulls)
+            if (!SpecialNullHandling)
             {
                 if (x == null || y == null)
                     return (x == null && y == null);
@@ -104,7 +100,7 @@ namespace Nito.EqualityComparers.Util
         /// <returns>A hash code for the specified object.</returns>
         public int GetHashCode(T obj)
         {
-            if (!allowNulls)
+            if (!SpecialNullHandling)
             {
                 if (obj == null)
                     return 0;

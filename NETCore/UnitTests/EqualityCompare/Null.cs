@@ -14,7 +14,7 @@ namespace EqualityCompare_
         [TestMethod]
         public void ComparesUnequalElementsAsEqual()
         {
-            var comparer = EqualityCompare<int>.Null();
+            var comparer = EqualityComparerBuilder.For<int>().Null();
             var objectComparer = comparer as System.Collections.IEqualityComparer;
             Assert.IsTrue(comparer.Equals(13, 17));
             Assert.IsTrue(objectComparer.Equals(13, 17));
@@ -25,7 +25,7 @@ namespace EqualityCompare_
         [TestMethod]
         public void ComparesNullElementsAsEqualToValueElements()
         {
-            var comparer = EqualityCompare<int?>.Null();
+            var comparer = EqualityComparerBuilder.For<int?>().Null();
             var objectComparer = comparer as System.Collections.IEqualityComparer;
             Assert.IsTrue(comparer.Equals(null, 21));
             Assert.IsTrue(objectComparer.Equals(null, 21));
@@ -38,7 +38,7 @@ namespace EqualityCompare_
         [TestMethod]
         public void ComparesEqualElementsAsEqual()
         {
-            var comparer = EqualityCompare<int>.Null();
+            var comparer = EqualityComparerBuilder.For<int>().Null();
             var objectComparer = comparer as System.Collections.IEqualityComparer;
             Assert.IsTrue(comparer.Equals(13, 13));
             Assert.IsTrue(objectComparer.Equals(13, 13));
@@ -49,7 +49,7 @@ namespace EqualityCompare_
         [TestMethod]
         public void ComparesNullElementsAsEqual()
         {
-            var comparer = EqualityCompare<int?>.Null();
+            var comparer = EqualityComparerBuilder.For<int?>().Null();
             var objectComparer = comparer as System.Collections.IEqualityComparer;
             Assert.IsTrue(comparer.Equals(null, null));
             Assert.IsTrue(objectComparer.Equals(null, null));
