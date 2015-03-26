@@ -1,0 +1,20 @@
+﻿{
+    "version": "1.0.0-alpha-1",
+    "authors": [ "Stephen Cleary" ],
+    "dependencies": {
+        "Nito.Comparers.Linq": "1.0.0-alpha-1",
+        "Rx-Main": "2.2.5.0"
+    },
+
+    "compilationOptions": {
+        "warningsAsErrors": true
+    },
+
+    "frameworks": {
+        "net46": { },
+        "aspnetcore50": {
+            "dependencies": {
+            }
+        }
+    }
+}
