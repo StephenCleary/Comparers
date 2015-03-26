@@ -18,6 +18,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nito.Comparers.Linq", "src\
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nito.Comparers.Rx", "src\Nito.Comparers.Rx\Nito.Comparers.Rx.kproj", "{0F586282-CAD8-44BF-8C53-DB6E482CD672}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nito.Comparers.Ix", "src\Nito.Comparers.Ix\Nito.Comparers.Ix.kproj", "{11E5D52A-8B5E-40E9-9811-25F6DA215378}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{0F586282-CAD8-44BF-8C53-DB6E482CD672}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F586282-CAD8-44BF-8C53-DB6E482CD672}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F586282-CAD8-44BF-8C53-DB6E482CD672}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11E5D52A-8B5E-40E9-9811-25F6DA215378}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11E5D52A-8B5E-40E9-9811-25F6DA215378}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11E5D52A-8B5E-40E9-9811-25F6DA215378}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11E5D52A-8B5E-40E9-9811-25F6DA215378}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,5 +55,6 @@ Global
 		{0DEFA930-AFBC-461C-89FA-B35C8B589B4F} = {BC7CC3DD-D397-484C-80AD-D220DA2A26AA}
 		{838AB69B-F21C-4FC1-B5D2-1B8202865EE0} = {BC7CC3DD-D397-484C-80AD-D220DA2A26AA}
 		{0F586282-CAD8-44BF-8C53-DB6E482CD672} = {BC7CC3DD-D397-484C-80AD-D220DA2A26AA}
+		{11E5D52A-8B5E-40E9-9811-25F6DA215378} = {BC7CC3DD-D397-484C-80AD-D220DA2A26AA}
 	EndGlobalSection
 EndGlobal
