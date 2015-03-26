@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Nito.Comparers.Util;
+﻿using Nito.Comparers.Util;
+
+#pragma warning disable CS0660, CS0661
 
 namespace Nito.Comparers
 {
@@ -11,25 +10,6 @@ namespace Nito.Comparers
     /// <typeparam name="T">The type of objects being compared.</typeparam>
     public abstract class ComparableBaseWithOperators<T> : ComparableBase<T> where T : ComparableBaseWithOperators<T>
     {
-        /// <summary>
-        /// Returns a value indicating whether this instance is equal to the specified object.
-        /// </summary>
-        /// <param name="obj">The object to compare with this instance.</param>
-        /// <returns>A value indicating whether this instance is equal to the specified object.</returns>
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
-
-        /// <summary>
-        /// Gets the hash code for this instance.
-        /// </summary>
-        /// <returns>The hash code for this instance.</returns>
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
         /// <summary>
         /// Returns <c>true</c> if two <typeparamref name="T"/> objects have the same value.
         /// </summary>

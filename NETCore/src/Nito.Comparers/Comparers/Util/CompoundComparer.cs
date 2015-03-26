@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Nito.Comparers.Util
 {
@@ -27,17 +25,6 @@ namespace Nito.Comparers.Util
         }
 
         /// <summary>
-        /// Gets the second comparer.
-        /// </summary>
-        public IComparer<T> SecondSource
-        {
-            get
-            {
-                return this._secondSource;
-            }
-        }
-
-        /// <summary>
         /// Returns a hash code for the specified object.
         /// </summary>
         /// <param name="obj">The object for which to return a hash code. This object may be <c>null</c>.</param>
@@ -47,9 +34,9 @@ namespace Nito.Comparers.Util
             unchecked
             {
                 var ret = (int)2166136261;
-                ret += ComparerHelpers.GetHashCodeFromComparer(Source, obj);
+                ret += ComparerHelpers.GetHashCodeFromComparer(_source, obj);
                 ret *= 16777619;
-                ret += ComparerHelpers.GetHashCodeFromComparer(SecondSource, obj);
+                ret += ComparerHelpers.GetHashCodeFromComparer(_secondSource, obj);
                 ret *= 16777619;
                 return ret;
             }
@@ -63,10 +50,10 @@ namespace Nito.Comparers.Util
         /// <returns>A value less than 0 if <paramref name="x"/> is less than <paramref name="y"/>, 0 if <paramref name="x"/> is equal to <paramref name="y"/>, or greater than 0 if <paramref name="x"/> is greater than <paramref name="y"/>.</returns>
         protected override int DoCompare(T x, T y)
         {
-            var ret = Source.Compare(x, y);
+            var ret = _source.Compare(x, y);
             if (ret != 0)
                 return ret;
-            return SecondSource.Compare(x, y);
+            return _secondSource.Compare(x, y);
         }
 
         /// <summary>
@@ -74,7 +61,7 @@ namespace Nito.Comparers.Util
         /// </summary>
         public override string ToString()
         {
-            return "Compound(" + Source + ", " + SecondSource + ")";
+            return "Compound(" + _source + ", " + _secondSource + ")";
         }
     }
 }

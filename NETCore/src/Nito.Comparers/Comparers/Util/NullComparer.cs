@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Nito.Comparers.Util
+﻿namespace Nito.Comparers.Util
 {
     /// <summary>
     /// The null comparer.

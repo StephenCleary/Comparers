@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Nito.EqualityComparers.Util
 {
@@ -14,7 +12,7 @@ namespace Nito.EqualityComparers.Util
         /// <summary>
         /// The source comparer.
         /// </summary>
-        private readonly IEqualityComparer<TSource> _source;
+        protected readonly IEqualityComparer<TSource> _source;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SourceEqualityComparerBase{T,TSource}"/> class.
@@ -25,17 +23,6 @@ namespace Nito.EqualityComparers.Util
             : base(specialNullHandling)
         {
             _source = EqualityComparerHelpers.NormalizeDefault(source);
-        }
-
-        /// <summary>
-        /// Gets the source comparer.
-        /// </summary>
-        protected IEqualityComparer<TSource> Source
-        {
-            get
-            {
-                return _source;
-            }
         }
     }
 }

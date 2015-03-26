@@ -58,7 +58,7 @@ namespace Nito.Comparers.Util
                 }
             }
 
-            return Compare((T)x, (T)y);
+            return DoCompare((T)x, (T)y);
         }
 
         /// <summary>

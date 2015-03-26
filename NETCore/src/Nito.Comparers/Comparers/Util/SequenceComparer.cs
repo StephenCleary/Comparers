@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Nito.Comparers.Util
 {
@@ -31,7 +29,7 @@ namespace Nito.Comparers.Util
                 var ret = (int)2166136261;
                 foreach (var item in obj)
                 {
-                    ret += ComparerHelpers.GetHashCodeFromComparer(Source, item);
+                    ret += ComparerHelpers.GetHashCodeFromComparer(_source, item);
                     ret *= 16777619;
                 }
                 return ret;
@@ -61,7 +59,7 @@ namespace Nito.Comparers.Util
                     if (!yIter.MoveNext())
                         return 1;
 
-                    var ret = Source.Compare(xIter.Current, yIter.Current);
+                    var ret = _source.Compare(xIter.Current, yIter.Current);
                     if (ret != 0)
                         return ret;
                 }
@@ -73,7 +71,7 @@ namespace Nito.Comparers.Util
         /// </summary>
         public override string ToString()
         {
-            return "Sequence<" + typeof(T).Name + ">(" + this.Source + ")";
+            return "Sequence<" + typeof(T).Name + ">(" + this._source + ")";
         }
     }
 }

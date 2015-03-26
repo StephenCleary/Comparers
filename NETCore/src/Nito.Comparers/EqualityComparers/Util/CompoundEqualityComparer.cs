@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Nito.Comparers.Util;
+﻿using System.Collections.Generic;
 
 namespace Nito.EqualityComparers.Util
 {
@@ -28,17 +25,6 @@ namespace Nito.EqualityComparers.Util
         }
 
         /// <summary>
-        /// Gets the second comparer.
-        /// </summary>
-        public IEqualityComparer<T> SecondSource
-        {
-            get
-            {
-                return _secondSource;
-            }
-        }
-
-        /// <summary>
         /// Returns a hash code for the specified object.
         /// </summary>
         /// <param name="obj">The object for which to return a hash code. This object may be <c>null</c>.</param>
@@ -48,9 +34,9 @@ namespace Nito.EqualityComparers.Util
             unchecked
             {
                 var ret = (int)2166136261;
-                ret += Source.GetHashCode(obj);
+                ret += _source.GetHashCode(obj);
                 ret *= 16777619;
-                ret += SecondSource.GetHashCode(obj);
+                ret += _secondSource.GetHashCode(obj);
                 ret *= 16777619;
                 return ret;
             }
@@ -64,10 +50,10 @@ namespace Nito.EqualityComparers.Util
         /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise, <c>false</c>.</returns>
         protected override bool DoEquals(T x, T y)
         {
-            var ret = Source.Equals(x, y);
+            var ret = _source.Equals(x, y);
             if (!ret)
                 return false;
-            return SecondSource.Equals(x, y);
+            return _secondSource.Equals(x, y);
         }
 
         /// <summary>
@@ -75,7 +61,7 @@ namespace Nito.EqualityComparers.Util
         /// </summary>
         public override string ToString()
         {
-            return "Compound(" + Source + ", " + SecondSource + ")";
+            return "Compound(" + _source + ", " + _secondSource + ")";
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Nito.Comparers.Util
 {
@@ -26,7 +24,7 @@ namespace Nito.Comparers.Util
         /// <returns>A hash code for the specified object.</returns>
         protected override int DoGetHashCode(T obj)
         {
-            return ComparerHelpers.GetHashCodeFromComparer(this.Source, obj);
+            return ComparerHelpers.GetHashCodeFromComparer(_source, obj);
         }
 
         /// <summary>
@@ -37,7 +35,7 @@ namespace Nito.Comparers.Util
         /// <returns>A value less than 0 if <paramref name="x"/> is less than <paramref name="y"/>, 0 if <paramref name="x"/> is equal to <paramref name="y"/>, or greater than 0 if <paramref name="x"/> is greater than <paramref name="y"/>.</returns>
         protected override int DoCompare(T x, T y)
         {
-            return Source.Compare(y, x);
+            return _source.Compare(y, x);
         }
 
         /// <summary>
@@ -45,7 +43,7 @@ namespace Nito.Comparers.Util
         /// </summary>
         public override string ToString()
         {
-            return "Reverse(" + Source + ")";
+            return "Reverse(" + _source + ")";
         }
     }
 }

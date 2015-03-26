@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Nito.EqualityComparers.Util
 {
@@ -29,24 +28,13 @@ namespace Nito.EqualityComparers.Util
         }
 
         /// <summary>
-        /// Gets the key selector.
-        /// </summary>
-        public Func<T, TSource> Select
-        {
-            get
-            {
-                return _selector;
-            }
-        }
-
-        /// <summary>
         /// Returns a hash code for the specified object.
         /// </summary>
         /// <param name="obj">The object for which to return a hash code.</param>
         /// <returns>A hash code for the specified object.</returns>
         protected override int DoGetHashCode(T obj)
         {
-            return Source.GetHashCode(_selector(obj));
+            return _source.GetHashCode(_selector(obj));
         }
 
         /// <summary>
@@ -57,7 +45,7 @@ namespace Nito.EqualityComparers.Util
         /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise, <c>false</c>.</returns>
         protected override bool DoEquals(T x, T y)
         {
-            return Source.Equals(_selector(x), _selector(y));
+            return _source.Equals(_selector(x), _selector(y));
         }
 
         /// <summary>
@@ -65,7 +53,7 @@ namespace Nito.EqualityComparers.Util
         /// </summary>
         public override string ToString()
         {
-            return "Select<" + typeof(TSource).Name + ">(" + Source + ")";
+            return "Select<" + typeof(TSource).Name + ">(" + _source + ")";
         }
     }
 }

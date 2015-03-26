@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Nito.Comparers;
 using Nito.EqualityComparers.Util;
 using Nito.Comparers.Util;
 

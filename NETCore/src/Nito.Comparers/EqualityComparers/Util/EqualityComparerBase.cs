@@ -57,7 +57,7 @@
                     return (x == null && y == null);
             }
 
-            return Equals((T)x, (T)y);
+            return DoEquals((T)x, (T)y);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@
                     return 0;
             }
 
-            return GetHashCode((T)obj);
+            return DoGetHashCode((T)obj);
         }
 
         /// <summary>

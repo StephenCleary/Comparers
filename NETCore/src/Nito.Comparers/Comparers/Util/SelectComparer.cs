@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Nito.Comparers.Util
 {
@@ -29,24 +28,13 @@ namespace Nito.Comparers.Util
         }
 
         /// <summary>
-        /// Gets the key selector.
-        /// </summary>
-        public Func<T, TSource> Select
-        {
-            get
-            {
-                return _selector;
-            }
-        }
-
-        /// <summary>
         /// Returns a hash code for the specified object.
         /// </summary>
         /// <param name="obj">The object for which to return a hash code.</param>
         /// <returns>A hash code for the specified object.</returns>
         protected override int DoGetHashCode(T obj)
         {
-            return ComparerHelpers.GetHashCodeFromComparer(Source, _selector(obj));
+            return ComparerHelpers.GetHashCodeFromComparer(_source, _selector(obj));
         }
 
         /// <summary>
@@ -57,7 +45,7 @@ namespace Nito.Comparers.Util
         /// <returns>A value less than 0 if <paramref name="x"/> is less than <paramref name="y"/>, 0 if <paramref name="x"/> is equal to <paramref name="y"/>, or greater than 0 if <paramref name="x"/> is greater than <paramref name="y"/>.</returns>
         protected override int DoCompare(T x, T y)
         {
-            return Source.Compare(_selector(x), _selector(y));
+            return _source.Compare(_selector(x), _selector(y));
         }
 
         /// <summary>
@@ -65,7 +53,7 @@ namespace Nito.Comparers.Util
         /// </summary>
         public override string ToString()
         {
-            return "Select<" + typeof(TSource).Name + ">(" + Source + ")";
+            return "Select<" + typeof(TSource).Name + ">(" + _source + ")";
         }
     }
 }
