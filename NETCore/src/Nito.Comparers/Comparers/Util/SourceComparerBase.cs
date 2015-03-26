@@ -7,7 +7,7 @@ namespace Nito.Comparers.Util
     /// </summary>
     /// <typeparam name="T">The type of objects compared by this comparer.</typeparam>
     /// <typeparam name="TSource">The type of objects compared by the source comparer.</typeparam>
-    public abstract class SourceComparerBase<T, TSource> : ComparerBase<T>
+    internal abstract class SourceComparerBase<T, TSource> : ComparerBase<T>
     {
         /// <summary>
         /// The source comparer.

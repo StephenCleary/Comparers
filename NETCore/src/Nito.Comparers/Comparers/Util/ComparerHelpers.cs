@@ -7,7 +7,7 @@ namespace Nito.Comparers.Util
     /// <summary>
     /// Provides helper methods for comparer implementations.
     /// </summary>
-    public static class ComparerHelpers
+    internal static class ComparerHelpers
     {
         /// <summary>
         /// Attempts to return a hash code for the specified object, using the specified comparer. If the comparer does not support hash codes, this method will throw an exception.

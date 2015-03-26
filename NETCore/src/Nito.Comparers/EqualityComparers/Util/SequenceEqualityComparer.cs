@@ -6,7 +6,7 @@ namespace Nito.EqualityComparers.Util
     /// A comparer that performs a lexicographical ordering on a sequence.
     /// </summary>
     /// <typeparam name="T">The type of sequence elements being compared.</typeparam>
-    public sealed class SequenceEqualityComparer<T> : SourceEqualityComparerBase<IEnumerable<T>, T>
+    internal sealed class SequenceEqualityComparer<T> : SourceEqualityComparerBase<IEnumerable<T>, T>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SequenceEqualityComparer&lt;T&gt;"/> class.

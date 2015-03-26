@@ -16,12 +16,11 @@ namespace ComparerExtensions_
         private static readonly int[] four = new[] { 4 };
         private static readonly int[] five = new[] { 5 };
 
-#if NO
         [TestMethod]
         public void SubstitutesCompareDefaultForComparerDefault()
         {
             var comparer = Comparer<int>.Default.Sequence();
-            Assert.AreSame(ComparerBuilder.For<int>().Default(), (comparer as SequenceComparer<int>).Source);
+            Assert.AreEqual(ComparerBuilder.For<int>().Default().Sequence().ToString(), comparer.ToString());
 
             var list = new[] { three, five, four }.ToList();
             list.Sort(comparer);
@@ -33,13 +32,12 @@ namespace ComparerExtensions_
         {
             IComparer<int> source = null;
             var comparer = source.Sequence();
-            Assert.AreSame(ComparerBuilder.For<int>().Default(), (comparer as SequenceComparer<int>).Source);
+            Assert.AreEqual(ComparerBuilder.For<int>().Default().Sequence().ToString(), comparer.ToString());
 
             var list = new[] { three, five, four }.ToList();
             list.Sort(comparer);
             CollectionAssert.AreEqual(new[] { three, four, five }, list);
         }
-#endif
 
         [TestMethod]
         public void ShorterSequenceIsSmallerIfElementsAreEqual()

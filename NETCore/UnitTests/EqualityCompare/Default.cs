@@ -95,7 +95,7 @@ namespace EqualityCompare_
         public void DefaultForString_IsDefaultComparer()
         {
             // Ensure string default comparer is not a sequence comparer over chars.
-            Assert.AreSame(Nito.Comparers.Util.DefaultComparer<string>.Instance, EqualityComparerBuilder.For<string>().Default());
+            Assert.AreNotEqual(EqualityComparerBuilder.For<char>().Default().EquateSequence().ToString(), EqualityComparerBuilder.For<string>().Default().ToString());
         }
     }
 }

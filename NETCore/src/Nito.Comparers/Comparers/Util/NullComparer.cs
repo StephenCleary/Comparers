@@ -4,7 +4,7 @@
     /// The null comparer.
     /// </summary>
     /// <typeparam name="T">The type of objects being compared.</typeparam>
-    public sealed class NullComparer<T> : ComparerBase<T>
+    internal sealed class NullComparer<T> : ComparerBase<T>
     {
         private NullComparer()
             : base(true)

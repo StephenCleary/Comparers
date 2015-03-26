@@ -6,7 +6,7 @@ namespace Nito.Comparers.Util
     /// <summary>
     /// Provides extension methods for comparers.
     /// </summary>
-    public static class UtilityComparerExtensions
+    internal static class UtilityComparerExtensions
     {
         /// <summary>
         /// Returns a comparer that works by comparing the results of the specified key selector.

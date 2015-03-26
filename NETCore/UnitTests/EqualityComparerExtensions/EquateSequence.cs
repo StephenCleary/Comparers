@@ -12,12 +12,11 @@ namespace EqualityComparerExtensions_
     [TestClass]
     public class _EquateSequence
     {
-#if NO
         [TestMethod]
         public void SubstitutesCompareDefaultForComparerDefault()
         {
             var comparer = EqualityComparer<int>.Default.EquateSequence();
-            Assert.AreSame(EqualityCompare<int>.Default(), (comparer as SequenceEqualityComparer<int>).Source);
+            Assert.AreEqual(EqualityComparerBuilder.For<int>().Default().EquateSequence().ToString(), comparer.ToString());
         }
 
         [TestMethod]
@@ -25,9 +24,8 @@ namespace EqualityComparerExtensions_
         {
             IEqualityComparer<int> source = null;
             var comparer = source.EquateSequence();
-            Assert.AreSame(EqualityCompare<int>.Default(), (comparer as SequenceEqualityComparer<int>).Source);
+            Assert.AreEqual(EqualityComparerBuilder.For<int>().Default().EquateSequence().ToString(), comparer.ToString());
         }
-#endif
 
         [TestMethod]
         public void ShorterSequenceIsNotEqualToLongerSequenceIfElementsAreEqual()

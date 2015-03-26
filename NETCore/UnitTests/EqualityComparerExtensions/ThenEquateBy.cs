@@ -29,29 +29,27 @@ namespace EqualityComparerExtensions_
         private static readonly Person WilliamAbrams = new Person { FirstName = "William", LastName = "Abrams" };
         private static readonly Person CaseyJohnson = new Person { FirstName = "Casey", LastName = "Johnson" };
 
-#if NO
         [TestMethod]
         public void SubstitutesCompareDefaultForComparerDefault()
         {
-            IEqualityComparer<Person> thenByComparer = EqualityCompare<string>.Default().SelectEquateFrom((Person p) => p.FirstName);
+            IEqualityComparer<Person> thenByComparer = EqualityComparerBuilder.For<Person>().EquateBy(p => p.FirstName);
             var comparer = EqualityComparer<Person>.Default.ThenEquateBy(thenByComparer);
-            Assert.AreSame(EqualityCompare<Person>.Default(), (comparer as CompoundEqualityComparer<Person>).Source);
+            Assert.AreEqual(EqualityComparerBuilder.For<Person>().Default().ThenEquateBy(thenByComparer).ToString(), comparer.ToString());
         }
 
         [TestMethod]
         public void SubstitutesCompareDefaultForNull()
         {
-            IEqualityComparer<Person> thenByComparer = EqualityCompare<string>.Default().SelectEquateFrom((Person p) => p.FirstName);
+            IEqualityComparer<Person> thenByComparer = EqualityComparerBuilder.For<Person>().EquateBy(p => p.FirstName);
             IEqualityComparer<Person> source = null;
             var comparer = source.ThenEquateBy(thenByComparer);
-            Assert.AreSame(EqualityCompare<Person>.Default(), (comparer as CompoundEqualityComparer<Person>).Source);
+            Assert.AreEqual(EqualityComparerBuilder.For<Person>().Default().ThenEquateBy(thenByComparer).ToString(), comparer.ToString());
         }
-        #endif
 
         [TestMethod]
         public void ThenByUsesComparer()
         {
-            IEqualityComparer<Person> thenByComparer = EqualityComparerBuilder.For<string>().Default().SelectEquateFrom((Person p) => p.FirstName);
+            IEqualityComparer<Person> thenByComparer = EqualityComparerBuilder.For<Person>().EquateBy(p => p.FirstName);
             var comparer = EqualityComparerBuilder.For<Person>().Default().ThenEquateBy(thenByComparer);
             var objectComparer = comparer as System.Collections.IEqualityComparer;
             Assert.IsFalse(comparer.Equals(AbeAbrams, JackAbrams));
@@ -65,7 +63,7 @@ namespace EqualityComparerExtensions_
         [TestMethod]
         public void ThenByIsAppliedAsTieBreaker()
         {
-            IEqualityComparer<Person> thenByComparer = EqualityComparerBuilder.For<string>().Default().SelectEquateFrom((Person p) => p.FirstName);
+            IEqualityComparer<Person> thenByComparer = EqualityComparerBuilder.For<Person>().EquateBy(p => p.FirstName);
             IEqualityComparer<Person> defaultComparer = EqualityComparerBuilder.For<Person>().Default();
             IEqualityComparer<Person> fullComparer = defaultComparer.ThenEquateBy(thenByComparer);
             Assert.IsTrue(defaultComparer.Equals(AbeAbrams, WilliamAbrams));
@@ -77,10 +75,7 @@ namespace EqualityComparerExtensions_
         [TestMethod]
         public void ThenByIsOnlyAppliedAsTieBreaker()
         {
-            IEqualityComparer<Person> thenByComparer = new AnonymousEqualityComparer<Person>
-            {
-                Equals = (x, y) => { Assert.Fail(); return false; },
-            };
+            IEqualityComparer<Person> thenByComparer = new FailComparer<Person>();
             var comparer = EqualityComparerBuilder.For<Person>().Default().ThenEquateBy(thenByComparer);
             Assert.IsFalse(comparer.Equals(AbeAbrams, CaseyJohnson));
             Assert.IsFalse(comparer.Equals(CaseyJohnson, AbeAbrams));

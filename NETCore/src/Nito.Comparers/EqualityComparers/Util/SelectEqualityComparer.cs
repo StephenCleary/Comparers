@@ -8,7 +8,7 @@ namespace Nito.EqualityComparers.Util
     /// </summary>
     /// <typeparam name="TSource">The type of key objects being compared.</typeparam>
     /// <typeparam name="T">The type of objects being compared.</typeparam>
-    public sealed class SelectEqualityComparer<T, TSource> : SourceEqualityComparerBase<T, TSource>
+    internal sealed class SelectEqualityComparer<T, TSource> : SourceEqualityComparerBase<T, TSource>
     {
         /// <summary>
         /// The key selector.

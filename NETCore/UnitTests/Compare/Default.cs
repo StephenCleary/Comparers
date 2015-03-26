@@ -110,7 +110,7 @@ namespace Compare_
         public void DefaultForString_IsDefaultComparer()
         {
             // Ensure string default comparer is not a sequence comparer over chars.
-            Assert.AreSame(Nito.Comparers.Util.DefaultComparer<string>.Instance, ComparerBuilder.For<string>().Default());
+            Assert.AreNotEqual(ComparerBuilder.For<char>().Default().Sequence().ToString(), ComparerBuilder.For<string>().Default().ToString());
         }
     }
 }

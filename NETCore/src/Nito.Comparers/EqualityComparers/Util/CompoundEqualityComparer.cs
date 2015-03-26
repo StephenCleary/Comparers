@@ -6,7 +6,7 @@ namespace Nito.EqualityComparers.Util
     /// A equality comparer that uses another comparer if the source comparer determines the objects are equal.
     /// </summary>
     /// <typeparam name="T">The type of objects being compared.</typeparam>
-    public sealed class CompoundEqualityComparer<T> : SourceEqualityComparerBase<T, T>
+    internal sealed class CompoundEqualityComparer<T> : SourceEqualityComparerBase<T, T>
     {
         /// <summary>
         /// The second comparer.

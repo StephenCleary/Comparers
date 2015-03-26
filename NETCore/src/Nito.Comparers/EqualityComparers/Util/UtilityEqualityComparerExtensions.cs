@@ -6,7 +6,7 @@ namespace Nito.EqualityComparers.Util
     /// <summary>
     /// Provides extension methods for equality comparers.
     /// </summary>
-    public static class UtilityEqualityComparerExtensions
+    internal static class UtilityEqualityComparerExtensions
     {
         /// <summary>
         /// Returns an equality comparer that works by comparing the results of the specified key selector.

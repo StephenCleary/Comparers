@@ -7,7 +7,7 @@ namespace Nito.EqualityComparers.Util
     /// <summary>
     /// Provides helper methods for comparer implementations.
     /// </summary>
-    public static class EqualityComparerHelpers
+    internal static class EqualityComparerHelpers
     {
         /// <summary>
         /// Converts a <c>null</c> or default equality comparer into a default comparer that supports sequences, if necessary.

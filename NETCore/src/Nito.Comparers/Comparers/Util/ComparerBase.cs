@@ -6,7 +6,7 @@ namespace Nito.Comparers.Util
     /// Common implementations for comparers.
     /// </summary>
     /// <typeparam name="T">The type of objects being compared.</typeparam>
-    public abstract class ComparerBase<T> : EqualityComparerBase<T>, IFullComparer<T>
+    internal abstract class ComparerBase<T> : EqualityComparerBase<T>, IFullComparer<T>
     {
         /// <summary>
         /// Compares two objects and returns a value less than 0 if <paramref name="x"/> is less than <paramref name="y"/>, 0 if <paramref name="x"/> is equal to <paramref name="y"/>, or greater than 0 if <paramref name="x"/> is greater than <paramref name="y"/>.
