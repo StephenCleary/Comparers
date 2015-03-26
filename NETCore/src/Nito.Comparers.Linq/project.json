@@ -2,8 +2,7 @@
     "version": "1.0.0-alpha-1",
     "authors": [ "Stephen Cleary" ],
     "dependencies": {
-        "Nito.Comparers": "1.0.0-alpha-1",
-        "System.Linq": "4.0.0.0-beta-22605"
+        "Nito.Comparers": "1.0.0-alpha-1"
     },
 
     "compilationOptions": {
@@ -14,6 +13,7 @@
         "net46": { },
         "aspnetcore50": {
             "dependencies": {
+                "System.Linq": "4.0.0.0-beta-22605"
             }
         }
     }
