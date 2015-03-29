@@ -15,5 +15,8 @@ before_build:
 - ps: kpm restore
 build:
   project: NETCore/Nito.Comparers.sln  verbosity: minimal
-#test_script:
-#- ps: ./Coverage.ps1
+test_script:
+- ps: >-
+    cd NETCore
+
+    ./Coverage.ps1
