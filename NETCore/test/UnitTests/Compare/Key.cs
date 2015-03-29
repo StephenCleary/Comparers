@@ -2,13 +2,13 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nito.Comparers;
 using Nito.EqualityComparers;
+using Xunit;
+using System.Globalization;
 
 namespace Compare_
 {
-    [TestClass]
     public class _Key
     {
         private static readonly Person AbeAbrams = new Person { FirstName = "Abe", LastName = "Abrams" };
@@ -17,125 +17,145 @@ namespace Compare_
         private static readonly Person CaseyJohnson = new Person { FirstName = "Casey", LastName = "Johnson" };
         private static readonly Person nullAbrams = new Person { FirstName = null, LastName = "Abrams" };
 
-        [TestMethod]
+        [Fact]
         public void OrderBySortsByKey()
         {
             var list = new List<Person> { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson };
             list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.FirstName));
-            CollectionAssert.AreEqual(new[] { AbeAbrams, CaseyJohnson, JackAbrams, WilliamAbrams }, list);
+            Assert.Equal(new[] { AbeAbrams, CaseyJohnson, JackAbrams, WilliamAbrams }, list);
         }
 
-        [TestMethod]
+        [Fact]
         public void OrderByUsesKeyComparer()
         {
             var list = new List<Person> { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson };
-            list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.FirstName, StringComparer.InvariantCulture.Reverse()));
-            CollectionAssert.AreEqual(new[] { WilliamAbrams, JackAbrams, CaseyJohnson, AbeAbrams }, list);
+#if ASPNETCORE50
+            StringComparer invariantCultureComparer = CultureInfo.InvariantCulture.CompareInfo.GetStringComparer(CompareOptions.None);
+#else
+            StringComparer invariantCultureComparer = StringComparer.InvariantCulture;
+#endif
+            list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.FirstName, invariantCultureComparer.Reverse()));
+            Assert.Equal(new[] { WilliamAbrams, JackAbrams, CaseyJohnson, AbeAbrams }, list);
         }
 
-        [TestMethod]
+        [Fact]
         public void OrderByDescendingSortsByKey()
         {
             var list = new List<Person> { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson };
             list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.FirstName, descending: true));
-            CollectionAssert.AreEqual(new[] { WilliamAbrams, JackAbrams, CaseyJohnson, AbeAbrams }, list);
+            Assert.Equal(new[] { WilliamAbrams, JackAbrams, CaseyJohnson, AbeAbrams }, list);
         }
 
-        [TestMethod]
+        [Fact]
         public void OrderByDescendingUsesKeyComparer()
         {
             var list = new List<Person> { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson };
-            list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.FirstName, StringComparer.InvariantCulture.Reverse(), descending: true));
-            CollectionAssert.AreEqual(new[] { AbeAbrams, CaseyJohnson, JackAbrams, WilliamAbrams }, list);
+#if ASPNETCORE50
+            StringComparer invariantCultureComparer = CultureInfo.InvariantCulture.CompareInfo.GetStringComparer(CompareOptions.None);
+#else
+            StringComparer invariantCultureComparer = StringComparer.InvariantCulture;
+#endif
+            list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.FirstName, invariantCultureComparer.Reverse(), descending: true));
+            Assert.Equal(new[] { AbeAbrams, CaseyJohnson, JackAbrams, WilliamAbrams }, list);
         }
 
-        [TestMethod]
+        [Fact]
         public void ThenBySortsByKey()
         {
             var list = new List<Person> { AbeAbrams, WilliamAbrams, CaseyJohnson, JackAbrams };
             list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.LastName).ThenBy(p => p.FirstName));
-            CollectionAssert.AreEqual(new[] { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson }, list);
+            Assert.Equal(new[] { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson }, list);
         }
 
-        [TestMethod]
+        [Fact]
         public void ThenByUsesKeyComparer()
         {
             var list = new List<Person> { AbeAbrams, WilliamAbrams, CaseyJohnson, JackAbrams };
-            list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.LastName).ThenBy(p => p.FirstName, StringComparer.InvariantCulture.Reverse()));
-            CollectionAssert.AreEqual(new[] { WilliamAbrams, JackAbrams, AbeAbrams, CaseyJohnson }, list);
+#if ASPNETCORE50
+            StringComparer invariantCultureComparer = CultureInfo.InvariantCulture.CompareInfo.GetStringComparer(CompareOptions.None);
+#else
+            StringComparer invariantCultureComparer = StringComparer.InvariantCulture;
+#endif
+            list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.LastName).ThenBy(p => p.FirstName, invariantCultureComparer.Reverse()));
+            Assert.Equal(new[] { WilliamAbrams, JackAbrams, AbeAbrams, CaseyJohnson }, list);
         }
 
-        [TestMethod]
+        [Fact]
         public void ThenByDescendingSortsByKey()
         {
             var list = new List<Person> { AbeAbrams, WilliamAbrams, CaseyJohnson, JackAbrams };
             list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.LastName).ThenBy(p => p.FirstName, descending: true));
-            CollectionAssert.AreEqual(new[] { WilliamAbrams, JackAbrams, AbeAbrams, CaseyJohnson }, list);
+            Assert.Equal(new[] { WilliamAbrams, JackAbrams, AbeAbrams, CaseyJohnson }, list);
         }
 
-        [TestMethod]
+        [Fact]
         public void ThenByDescendingUsesKeyComparer()
         {
             var list = new List<Person> { AbeAbrams, WilliamAbrams, CaseyJohnson, JackAbrams };
-            list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.LastName).ThenBy(p => p.FirstName, StringComparer.InvariantCulture.Reverse(), descending: true));
-            CollectionAssert.AreEqual(new[] { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson }, list);
+#if ASPNETCORE50
+            StringComparer invariantCultureComparer = CultureInfo.InvariantCulture.CompareInfo.GetStringComparer(CompareOptions.None);
+#else
+            StringComparer invariantCultureComparer = StringComparer.InvariantCulture;
+#endif
+            list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.LastName).ThenBy(p => p.FirstName, invariantCultureComparer.Reverse(), descending: true));
+            Assert.Equal(new[] { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson }, list);
         }
 
-        [TestMethod]
+        [Fact]
         public void OrderBySortsNullsAsLowest()
         {
             var list = new List<Person> { AbeAbrams, JackAbrams, null, WilliamAbrams, nullAbrams, CaseyJohnson };
             list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.FirstName));
-            CollectionAssert.AreEqual(new[] { null, nullAbrams, AbeAbrams, CaseyJohnson, JackAbrams, WilliamAbrams }, list);
+            Assert.Equal(new[] { null, nullAbrams, AbeAbrams, CaseyJohnson, JackAbrams, WilliamAbrams }, list);
         }
 
-        [TestMethod]
+        [Fact]
         public void OrderByWithNullPassesNullThrough()
         {
             var list = new List<Person> { null, WilliamAbrams };
             list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p == null, specialNullHandling: true));
-            CollectionAssert.AreEqual(new[] { WilliamAbrams, null }, list);
+            Assert.Equal(new[] { WilliamAbrams, null }, list);
         }
 
-        [TestMethod]
+        [Fact]
         public void OrderByWithNullThenByHandlesNull()
         {
             var list = new List<Person> { AbeAbrams, JackAbrams, null, WilliamAbrams, CaseyJohnson };
             list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p == null, specialNullHandling: true).ThenBy(p => p.FirstName));
-            CollectionAssert.AreEqual(new[] { AbeAbrams, CaseyJohnson, JackAbrams, WilliamAbrams, null }, list);
+            Assert.Equal(new[] { AbeAbrams, CaseyJohnson, JackAbrams, WilliamAbrams, null }, list);
         }
 
-        [TestMethod]
+        [Fact]
         public void OrderByWithNullThenByComparesNullsAsEqual()
         {
             var comparer = ComparerBuilder.For<Person>().OrderBy(p => p == null, specialNullHandling: true).ThenBy(p => p.FirstName).ThenBy(p =>
             {
-                Assert.Fail();
+                throw new Exception("Should not be called");
                 return 0;
             });
-            Assert.IsTrue(comparer.Compare(null, null) == 0);
-            Assert.IsTrue(comparer.Equals(null, null));
-            Assert.AreEqual(comparer.GetHashCode((object)null), comparer.GetHashCode((object)null));
-            Assert.AreEqual(comparer.GetHashCode((Person)null), comparer.GetHashCode((Person)null));
+            Assert.True(comparer.Compare(null, null) == 0);
+            Assert.True(comparer.Equals(null, null));
+            Assert.Equal(comparer.GetHashCode((object)null), comparer.GetHashCode((object)null));
+            Assert.Equal(comparer.GetHashCode((Person)null), comparer.GetHashCode((Person)null));
         }
 
-        [TestMethod]
+        [Fact]
         public void OrderByImplementsGetHashCode()
         {
             var comparer = ComparerBuilder.For<Person>().OrderBy(p => p.LastName);
             var bclDefault = EqualityComparer<string>.Default;
-            Assert.AreEqual(comparer.GetHashCode(AbeAbrams), comparer.GetHashCode(JackAbrams));
-            Assert.AreEqual(bclDefault.GetHashCode(AbeAbrams.LastName) == bclDefault.GetHashCode(CaseyJohnson.LastName),
+            Assert.Equal(comparer.GetHashCode(AbeAbrams), comparer.GetHashCode(JackAbrams));
+            Assert.Equal(bclDefault.GetHashCode(AbeAbrams.LastName) == bclDefault.GetHashCode(CaseyJohnson.LastName),
                 comparer.GetHashCode(AbeAbrams) == comparer.GetHashCode(CaseyJohnson));
         }
 
-        [TestMethod]
+        [Fact]
         public void OrderByEnumerableUsesDefaultSequenceComparison()
         {
             var list = new List<Person> { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson };
             var comparer = ComparerBuilder.For<Person>().OrderBy(p => p.FirstName.SelectMany(x => new[] { x }));
             list.Sort(comparer);
-            CollectionAssert.AreEqual(new[] { AbeAbrams, CaseyJohnson, JackAbrams, WilliamAbrams }, list);
+            Assert.Equal(new[] { AbeAbrams, CaseyJohnson, JackAbrams, WilliamAbrams }, list);
         }
     }
 }

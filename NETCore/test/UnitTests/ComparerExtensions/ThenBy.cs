@@ -2,14 +2,13 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nito.Comparers;
 using Nito.EqualityComparers;
 using Nito.Comparers.Util;
+using Xunit;
 
 namespace ComparerExtensions_
 {
-    [TestClass]
     public class _ThenBy
     {
         private sealed class Person : ComparableBase<Person>
@@ -28,58 +27,58 @@ namespace ComparerExtensions_
         private static readonly Person WilliamAbrams = new Person { FirstName = "William", LastName = "Abrams" };
         private static readonly Person CaseyJohnson = new Person { FirstName = "Casey", LastName = "Johnson" };
 
-        [TestMethod]
+        [Fact]
         public void SubstitutesCompareDefaultForComparerDefault()
         {
             IComparer<Person> thenByComparer = ComparerBuilder.For<Person>().OrderBy(p => p.FirstName);
             var comparer = Comparer<Person>.Default.ThenBy(thenByComparer);
-            Assert.AreEqual(ComparerBuilder.For<Person>().Default().ThenBy(thenByComparer).ToString(), comparer.ToString());
+            Assert.Equal(ComparerBuilder.For<Person>().Default().ThenBy(thenByComparer).ToString(), comparer.ToString());
 
             var list = new List<Person> { AbeAbrams, WilliamAbrams, CaseyJohnson, JackAbrams };
             list.Sort(comparer);
-            CollectionAssert.AreEqual(new[] { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson }, list);
+            Assert.Equal(new[] { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson }, list);
         }
 
-        [TestMethod]
+        [Fact]
         public void SubstitutesCompareDefaultForNull()
         {
             IComparer<Person> thenByComparer = ComparerBuilder.For<Person>().OrderBy(p => p.FirstName);
             IComparer<Person> source = null;
             var comparer = source.ThenBy(thenByComparer);
-            Assert.AreEqual(ComparerBuilder.For<Person>().Default().ThenBy(thenByComparer).ToString(), comparer.ToString());
+            Assert.Equal(ComparerBuilder.For<Person>().Default().ThenBy(thenByComparer).ToString(), comparer.ToString());
 
             var list = new List<Person> { AbeAbrams, WilliamAbrams, CaseyJohnson, JackAbrams };
             list.Sort(comparer);
-            CollectionAssert.AreEqual(new[] { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson }, list);
+            Assert.Equal(new[] { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson }, list);
         }
 
-        [TestMethod]
+        [Fact]
         public void ThenByUsesComparer()
         {
             IComparer<Person> thenByComparer = ComparerBuilder.For<Person>().OrderBy(p => p.FirstName);
             var list = new List<Person> { AbeAbrams, WilliamAbrams, CaseyJohnson, JackAbrams };
             list.Sort(ComparerBuilder.For<Person>().Default().ThenBy(thenByComparer));
-            CollectionAssert.AreEqual(new[] { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson }, list);
+            Assert.Equal(new[] { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson }, list);
         }
 
-        [TestMethod]
+        [Fact]
         public void ThenByIsAppliedAsTieBreaker()
         {
             IComparer<Person> thenByComparer = ComparerBuilder.For<Person>().OrderBy(p => p.FirstName);
             IComparer<Person> defaultComparer = ComparerBuilder.For<Person>().Default();
             IComparer<Person> fullComparer = defaultComparer.ThenBy(thenByComparer);
-            Assert.IsTrue(defaultComparer.Compare(AbeAbrams, WilliamAbrams) == 0);
-            Assert.IsTrue(thenByComparer.Compare(AbeAbrams, WilliamAbrams) < 0);
-            Assert.IsTrue(fullComparer.Compare(AbeAbrams, WilliamAbrams) < 0);
+            Assert.True(defaultComparer.Compare(AbeAbrams, WilliamAbrams) == 0);
+            Assert.True(thenByComparer.Compare(AbeAbrams, WilliamAbrams) < 0);
+            Assert.True(fullComparer.Compare(AbeAbrams, WilliamAbrams) < 0);
         }
 
-        [TestMethod]
+        [Fact]
         public void ThenByIsOnlyAppliedAsTieBreaker()
         {
             IComparer<Person> thenByComparer = new FailComparer<Person>();
             var comparer = ComparerBuilder.For<Person>().Default().ThenBy(thenByComparer);
-            Assert.IsTrue(comparer.Compare(AbeAbrams, CaseyJohnson) < 0);
-            Assert.IsTrue(comparer.Compare(CaseyJohnson, AbeAbrams) > 0);
+            Assert.True(comparer.Compare(AbeAbrams, CaseyJohnson) < 0);
+            Assert.True(comparer.Compare(CaseyJohnson, AbeAbrams) > 0);
         }
 
         // The delegate overloads are tested by Compare_._Key.

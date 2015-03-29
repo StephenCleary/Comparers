@@ -2,13 +2,12 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nito.Comparers;
 using Nito.EqualityComparers;
+using Xunit;
 
 namespace EquatableBase_
 {
-    [TestClass]
     public class _Operators
     {
         private sealed class Person : EquatableBaseWithOperators<Person>
@@ -28,27 +27,27 @@ namespace EquatableBase_
         private static readonly Person WilliamAbrams = new Person { FirstName = "William", LastName = "Abrams" };
         private static readonly Person CaseyJohnson = new Person { FirstName = "Casey", LastName = "Johnson" };
 
-        [TestMethod]
+        [Fact]
         public void ImplementsComparerDefault()
         {
             var netDefault = EqualityComparer<Person>.Default;
-            Assert.IsTrue(netDefault.Equals(AbeAbrams, AbeAbrams2));
-            Assert.AreEqual(netDefault.GetHashCode(AbeAbrams), netDefault.GetHashCode(AbeAbrams2));
-            Assert.IsFalse(netDefault.Equals(AbeAbrams, JackAbrams));
+            Assert.True(netDefault.Equals(AbeAbrams, AbeAbrams2));
+            Assert.Equal(netDefault.GetHashCode(AbeAbrams), netDefault.GetHashCode(AbeAbrams2));
+            Assert.False(netDefault.Equals(AbeAbrams, JackAbrams));
         }
 
-        [TestMethod]
+        [Fact]
         public void ImplementsOpEquality()
         {
-            Assert.IsTrue(AbeAbrams == AbeAbrams2);
-            Assert.IsFalse(AbeAbrams == JackAbrams);
+            Assert.True(AbeAbrams == AbeAbrams2);
+            Assert.False(AbeAbrams == JackAbrams);
         }
 
-        [TestMethod]
+        [Fact]
         public void ImplementsOpInequality()
         {
-            Assert.IsFalse(AbeAbrams != AbeAbrams2);
-            Assert.IsTrue(AbeAbrams != JackAbrams);
+            Assert.False(AbeAbrams != AbeAbrams2);
+            Assert.True(AbeAbrams != JackAbrams);
         }
     }
 }

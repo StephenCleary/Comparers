@@ -2,13 +2,12 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nito.Comparers;
 using Nito.EqualityComparers;
+using Xunit;
 
 namespace ComparableBase_
 {
-    [TestClass]
     public class _Operators
     {
         private sealed class Person : ComparableBaseWithOperators<Person>
@@ -28,66 +27,66 @@ namespace ComparableBase_
         private static readonly Person WilliamAbrams = new Person { FirstName = "William", LastName = "Abrams" };
         private static readonly Person CaseyJohnson = new Person { FirstName = "Casey", LastName = "Johnson" };
 
-        [TestMethod]
+        [Fact]
         public void ImplementsComparerDefault()
         {
             var list = new List<Person> { JackAbrams, CaseyJohnson, AbeAbrams, WilliamAbrams };
             list.Sort();
-            CollectionAssert.AreEqual(new[] { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson }, list);
+            Assert.Equal(new[] { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson }, list);
         }
 
-        [TestMethod]
+        [Fact]
         public void ImplementsOpEquality()
         {
-            Assert.IsTrue(AbeAbrams == AbeAbrams2);
-            Assert.IsFalse(AbeAbrams == JackAbrams);
+            Assert.True(AbeAbrams == AbeAbrams2);
+            Assert.False(AbeAbrams == JackAbrams);
         }
 
-        [TestMethod]
+        [Fact]
         public void ImplementsOpInequality()
         {
-            Assert.IsFalse(AbeAbrams != AbeAbrams2);
-            Assert.IsTrue(AbeAbrams != JackAbrams);
+            Assert.False(AbeAbrams != AbeAbrams2);
+            Assert.True(AbeAbrams != JackAbrams);
         }
 
-        [TestMethod]
+        [Fact]
         public void ImplementsOpLessThan()
         {
-            Assert.IsFalse(AbeAbrams < AbeAbrams2);
-            Assert.IsTrue(AbeAbrams < JackAbrams);
-            Assert.IsFalse(JackAbrams < AbeAbrams);
-            Assert.IsTrue(AbeAbrams < CaseyJohnson);
-            Assert.IsFalse(CaseyJohnson < AbeAbrams);
+            Assert.False(AbeAbrams < AbeAbrams2);
+            Assert.True(AbeAbrams < JackAbrams);
+            Assert.False(JackAbrams < AbeAbrams);
+            Assert.True(AbeAbrams < CaseyJohnson);
+            Assert.False(CaseyJohnson < AbeAbrams);
         }
 
-        [TestMethod]
+        [Fact]
         public void ImplementsOpLessThanOrEqual()
         {
-            Assert.IsTrue(AbeAbrams <= AbeAbrams2);
-            Assert.IsTrue(AbeAbrams <= JackAbrams);
-            Assert.IsFalse(JackAbrams <= AbeAbrams);
-            Assert.IsTrue(AbeAbrams <= CaseyJohnson);
-            Assert.IsFalse(CaseyJohnson <= AbeAbrams);
+            Assert.True(AbeAbrams <= AbeAbrams2);
+            Assert.True(AbeAbrams <= JackAbrams);
+            Assert.False(JackAbrams <= AbeAbrams);
+            Assert.True(AbeAbrams <= CaseyJohnson);
+            Assert.False(CaseyJohnson <= AbeAbrams);
         }
 
-        [TestMethod]
+        [Fact]
         public void ImplementsOpGreaterThan()
         {
-            Assert.IsFalse(AbeAbrams > AbeAbrams2);
-            Assert.IsFalse(AbeAbrams > JackAbrams);
-            Assert.IsTrue(JackAbrams > AbeAbrams);
-            Assert.IsFalse(AbeAbrams > CaseyJohnson);
-            Assert.IsTrue(CaseyJohnson > AbeAbrams);
+            Assert.False(AbeAbrams > AbeAbrams2);
+            Assert.False(AbeAbrams > JackAbrams);
+            Assert.True(JackAbrams > AbeAbrams);
+            Assert.False(AbeAbrams > CaseyJohnson);
+            Assert.True(CaseyJohnson > AbeAbrams);
         }
 
-        [TestMethod]
+        [Fact]
         public void ImplementsOpGreaterThanOrEqual()
         {
-            Assert.IsTrue(AbeAbrams >= AbeAbrams2);
-            Assert.IsFalse(AbeAbrams >= JackAbrams);
-            Assert.IsTrue(JackAbrams >= AbeAbrams);
-            Assert.IsFalse(AbeAbrams >= CaseyJohnson);
-            Assert.IsTrue(CaseyJohnson >= AbeAbrams);
+            Assert.True(AbeAbrams >= AbeAbrams2);
+            Assert.False(AbeAbrams >= JackAbrams);
+            Assert.True(JackAbrams >= AbeAbrams);
+            Assert.False(AbeAbrams >= CaseyJohnson);
+            Assert.True(CaseyJohnson >= AbeAbrams);
         }
     }
 }

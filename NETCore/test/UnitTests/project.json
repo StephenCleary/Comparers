@@ -1,0 +1,29 @@
+﻿{
+    "version": "1.0.0-*",
+    "dependencies": {
+        "Nito.Comparers": "",
+        "xunit": "2.0.0.0-rc3-build2880",
+        "xunit.runner.aspnet": "2.0.0.0-rc3-build52",
+        "OpenCover": "4.5.3809-rc94",
+        "coveralls.io": "1.3.2.0",
+        "ReportGenerator": "2.1.4.0"
+    },
+
+    "commands": {
+        "test": "xunit.runner.aspnet"
+    },
+
+    "frameworks": {
+        "aspnet50": {
+            "dependencies": {
+            }
+        },
+        "aspnetcore50": {
+            "dependencies": {
+                "System.Runtime": "4.0.20-beta-22523",
+                "System.Globalization": "4.0.10.0-beta-22605",
+                "System.Globalization.Extensions": "4.0.0.0-beta-22605"
+            }
+        }
+    }
+}

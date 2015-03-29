@@ -2,13 +2,12 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nito.Comparers;
 using Nito.EqualityComparers;
+using Xunit;
 
 namespace EquatableBase_
 {
-    [TestClass]
     public class _DefaultComparer
     {
         private sealed class Person : EquatableBase<Person>
@@ -26,13 +25,13 @@ namespace EquatableBase_
         private static readonly Person AbeAbrams2 = new Person { FirstName = "Abe", LastName = "Abrams" };
         private static readonly Person JackAbrams = new Person { FirstName = "Jack", LastName = "Abrams" };
 
-        [TestMethod]
+        [Fact]
         public void ImplementsComparerDefault()
         {
             var netDefault = EqualityComparer<Person>.Default;
-            Assert.IsTrue(netDefault.Equals(AbeAbrams, AbeAbrams2));
-            Assert.AreEqual(netDefault.GetHashCode(AbeAbrams), netDefault.GetHashCode(AbeAbrams2));
-            Assert.IsFalse(netDefault.Equals(AbeAbrams, JackAbrams));
+            Assert.True(netDefault.Equals(AbeAbrams, AbeAbrams2));
+            Assert.Equal(netDefault.GetHashCode(AbeAbrams), netDefault.GetHashCode(AbeAbrams2));
+            Assert.False(netDefault.Equals(AbeAbrams, JackAbrams));
         }
     }
 }

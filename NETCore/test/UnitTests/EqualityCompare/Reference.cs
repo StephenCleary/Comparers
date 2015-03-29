@@ -2,86 +2,85 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nito.Comparers;
 using Nito.EqualityComparers;
+using Xunit;
 
 namespace EqualityCompare_
 {
-    [TestClass]
     public class _Reference
     {
-        [TestMethod]
+        [Fact]
         public void IdenticalObjectsAreEqual()
         {
             var comparer = EqualityComparerBuilder.For<object>().Reference();
             var objectComparer = comparer as System.Collections.IEqualityComparer;
             var obj = new object();
-            Assert.AreEqual(comparer.GetHashCode(obj), objectComparer.GetHashCode(obj));
-            Assert.IsTrue(comparer.Equals(obj, obj));
-            Assert.IsTrue(objectComparer.Equals(obj, obj));
+            Assert.Equal(comparer.GetHashCode(obj), objectComparer.GetHashCode(obj));
+            Assert.True(comparer.Equals(obj, obj));
+            Assert.True(objectComparer.Equals(obj, obj));
         }
 
-        [TestMethod]
+        [Fact]
         public void EqualValueTypesAreNotEqual()
         {
             var comparer = EqualityComparerBuilder.For<int>().Reference();
             var objectComparer = comparer as System.Collections.IEqualityComparer;
             var value = 13;
-            Assert.IsFalse(comparer.Equals(value, value));
-            Assert.IsFalse(objectComparer.Equals(value, value));
+            Assert.False(comparer.Equals(value, value));
+            Assert.False(objectComparer.Equals(value, value));
         }
 
-        [TestMethod]
+        [Fact]
         public void UsesReferenceEqualityComparerForSequences()
         {
             var threeA = new[] { 3 };
             var threeB = new[] { 3 };
             var comparer = EqualityComparerBuilder.For<int[]>().Reference();
             var objectComparer = comparer as System.Collections.IEqualityComparer;
-            Assert.IsFalse(comparer.Equals(threeA, threeB));
-            Assert.IsFalse(objectComparer.Equals(threeA, threeB));
+            Assert.False(comparer.Equals(threeA, threeB));
+            Assert.False(objectComparer.Equals(threeA, threeB));
         }
 
-        [TestMethod]
+        [Fact]
         public void NullIsNotEqualToValue()
         {
             var comparer = EqualityComparerBuilder.For<object>().Reference();
             var objectComparer = comparer as System.Collections.IEqualityComparer;
             var obj = new object();
-            Assert.IsFalse(comparer.Equals(obj, null));
-            Assert.IsFalse(objectComparer.Equals(obj, null));
+            Assert.False(comparer.Equals(obj, null));
+            Assert.False(objectComparer.Equals(obj, null));
         }
 
-        [TestMethod]
+        [Fact]
         public void NullSequenceNotEqualToEmptySequence()
         {
             var comparer = EqualityComparerBuilder.For<int[]>().Reference();
             var objectComparer = comparer as System.Collections.IEqualityComparer;
-            Assert.IsFalse(comparer.Equals(null, new int[0]));
-            Assert.IsFalse(objectComparer.Equals(null, new int[0]));
+            Assert.False(comparer.Equals(null, new int[0]));
+            Assert.False(objectComparer.Equals(null, new int[0]));
         }
 
-        [TestMethod]
+        [Fact]
         public void NullIsEqualToNull()
         {
             var comparer = EqualityComparerBuilder.For<int?>().Reference();
             var objectComparer = comparer as System.Collections.IEqualityComparer;
-            Assert.AreEqual(comparer.GetHashCode(null), comparer.GetHashCode(null));
-            Assert.AreEqual(objectComparer.GetHashCode(null), objectComparer.GetHashCode(null));
-            Assert.IsTrue(comparer.Equals(null, null));
-            Assert.IsTrue(objectComparer.Equals(null, null));
+            Assert.Equal(comparer.GetHashCode(null), comparer.GetHashCode(null));
+            Assert.Equal(objectComparer.GetHashCode(null), objectComparer.GetHashCode(null));
+            Assert.True(comparer.Equals(null, null));
+            Assert.True(objectComparer.Equals(null, null));
         }
 
-        [TestMethod]
+        [Fact]
         public void NullSequenceIsEqualToNullSequence()
         {
             var comparer = EqualityComparerBuilder.For<int[]>().Reference();
             var objectComparer = comparer as System.Collections.IEqualityComparer;
-            Assert.AreEqual(comparer.GetHashCode(null), comparer.GetHashCode(null));
-            Assert.AreEqual(objectComparer.GetHashCode(null), objectComparer.GetHashCode(null));
-            Assert.IsTrue(comparer.Equals(null, null));
-            Assert.IsTrue(objectComparer.Equals(null, null));
+            Assert.Equal(comparer.GetHashCode(null), comparer.GetHashCode(null));
+            Assert.Equal(objectComparer.GetHashCode(null), objectComparer.GetHashCode(null));
+            Assert.True(comparer.Equals(null, null));
+            Assert.True(objectComparer.Equals(null, null));
         }
     }
 }
