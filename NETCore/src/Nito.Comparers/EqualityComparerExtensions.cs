@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Nito.EqualityComparers.Util;
+using Nito.Comparers.Util;
 
-namespace Nito.EqualityComparers
+namespace Nito.Comparers
 {
     /// <summary>
     /// Provides extension methods for equality comparers.

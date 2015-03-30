@@ -1,8 +1,8 @@
 ﻿{
-    "version": "1.0.0-alpha-1",
+    "version": "1.0.0-alpha-2",
     "authors": [ "Stephen Cleary" ],
     "dependencies": {
-        "Nito.Comparers": "1.0.0-alpha-1"
+        "Nito.Comparers": "1.0.0-alpha-2"
     },
 
     "compilationOptions": {

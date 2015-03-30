@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace Nito.EqualityComparers.Util
+namespace Nito.Comparers.Util
 {
     /// <summary>
     /// The reference equality comparer.

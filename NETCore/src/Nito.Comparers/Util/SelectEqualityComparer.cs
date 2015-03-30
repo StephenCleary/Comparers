@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Nito.EqualityComparers.Util
+namespace Nito.Comparers.Util
 {
     /// <summary>
     /// An equality comparer that works by comparing the results of the specified key selector.

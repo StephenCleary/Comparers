@@ -1,10 +1,5 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Nito.Comparers;
-using Nito.EqualityComparers;
-using Nito.EqualityComparers.Util;
 using Xunit;
 
 namespace EqualityComparerExtensions_

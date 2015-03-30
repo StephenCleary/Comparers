@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Nito.EqualityComparers;
 
 namespace Nito.Comparers
 {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
-using Nito.EqualityComparers;
 using System.Linq;
 
 namespace Nito.Comparers.Linq

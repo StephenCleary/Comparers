@@ -2,7 +2,7 @@
 
 #pragma warning disable CS0660, CS0661
 
-namespace Nito.EqualityComparers
+namespace Nito.Comparers
 {
     /// <summary>
     /// Provides implementations for equality and hash code methods, along with overloaded operators. Note: overloaded operators should only be considered for immutable reference types. These implementations assume that there will only be one derived type that defines equality.

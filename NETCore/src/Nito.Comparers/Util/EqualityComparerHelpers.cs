@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using Nito.Comparers.Util;
 using System.Reflection;
 
-namespace Nito.EqualityComparers.Util
+namespace Nito.Comparers.Util
 {
     /// <summary>
     /// Provides helper methods for comparer implementations.

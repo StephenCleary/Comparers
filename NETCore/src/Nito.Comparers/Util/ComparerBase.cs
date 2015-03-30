@@ -1,6 +1,4 @@
-﻿using Nito.EqualityComparers.Util;
-
-namespace Nito.Comparers.Util
+﻿namespace Nito.Comparers.Util
 {
     /// <summary>
     /// Common implementations for comparers.

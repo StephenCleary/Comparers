@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Nito.EqualityComparers.Util
+namespace Nito.Comparers.Util
 {
     /// <summary>
     /// A comparer that performs a lexicographical ordering on a sequence.

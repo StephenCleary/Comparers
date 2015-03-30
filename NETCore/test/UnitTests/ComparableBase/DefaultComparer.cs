@@ -1,9 +1,6 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Nito.Comparers;
-using Nito.EqualityComparers;
 using Xunit;
 
 namespace ComparableBase_

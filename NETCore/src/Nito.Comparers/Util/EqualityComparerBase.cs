@@ -1,4 +1,4 @@
-﻿namespace Nito.EqualityComparers.Util
+﻿namespace Nito.Comparers.Util
 {
     /// <summary>
     /// Common implementations for equality comparers.

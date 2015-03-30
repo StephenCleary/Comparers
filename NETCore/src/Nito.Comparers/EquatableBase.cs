@@ -1,7 +1,7 @@
 ﻿using System;
 using Nito.Comparers.Util;
 
-namespace Nito.EqualityComparers
+namespace Nito.Comparers
 {
     /// <summary>
     /// Provides implementations for equality and hash code methods. These implementations assume that there will only be one derived type that defines equality.

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Nito.EqualityComparers.Util
+namespace Nito.Comparers.Util
 {
     /// <summary>
     /// A equality comparer that uses another comparer if the source comparer determines the objects are equal.

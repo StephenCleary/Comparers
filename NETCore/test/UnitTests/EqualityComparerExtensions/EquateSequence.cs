@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Nito.Comparers;
-using Nito.EqualityComparers;
-using Nito.EqualityComparers.Util;
 using Xunit;
 using System.Globalization;
 
