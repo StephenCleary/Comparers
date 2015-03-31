@@ -108,5 +108,11 @@ namespace Compare_
             // Ensure string default comparer is not a sequence comparer over chars.
             Assert.NotEqual(ComparerBuilder.For<char>().Default().Sequence().ToString(), ComparerBuilder.For<string>().Default().ToString());
         }
+
+        [Fact]
+        public void ToString_DumpsComparer()
+        {
+            Assert.Equal("Default(Int32: IComparable<T>)", ComparerBuilder.For<int>().Default().ToString());
+        }
     }
 }

@@ -155,5 +155,11 @@ namespace Compare_
             list.Sort(comparer);
             Assert.Equal(new[] { AbeAbrams, CaseyJohnson, JackAbrams, WilliamAbrams }, list);
         }
+
+        [Fact]
+        public void ToString_DumpsComparer()
+        {
+            Assert.Equal("Compound(Null, Select<String>(Default(String: IComparable<T>)))", ComparerBuilder.For<Person>().OrderBy(p => p.LastName).ToString());
+        }
     }
 }

@@ -44,5 +44,11 @@ namespace Compare_
             Assert.Equal(comparer.GetHashCode((object)null), comparer.GetHashCode((object)null));
             Assert.Equal(comparer.GetHashCode((int?)null), comparer.GetHashCode((int?)null));
         }
+
+        [Fact]
+        public void ToString_DumpsComparer()
+        {
+            Assert.Equal("Null", ComparerBuilder.For<int>().Null().ToString());
+        }
     }
 }

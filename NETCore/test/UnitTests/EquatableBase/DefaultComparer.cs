@@ -29,5 +29,12 @@ namespace EquatableBase_
             Assert.Equal(netDefault.GetHashCode(AbeAbrams), netDefault.GetHashCode(AbeAbrams2));
             Assert.False(netDefault.Equals(AbeAbrams, JackAbrams));
         }
+
+        [Fact]
+        public void ImplementsComparerDefault_NonGeneric()
+        {
+            object abe = AbeAbrams;
+            Assert.True(abe.Equals(AbeAbrams2));
+        }
     }
 }

@@ -77,5 +77,11 @@ namespace EqualityCompare_
             Assert.True(comparer.Equals(null, null));
             Assert.True(objectComparer.Equals(null, null));
         }
+
+        [Fact]
+        public void ToString_DumpsComparer()
+        {
+            Assert.Equal("Reference", EqualityComparerBuilder.For<int>().Reference().ToString());
+        }
     }
 }

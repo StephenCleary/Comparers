@@ -50,14 +50,9 @@ namespace Nito.Comparers.Util
             var sequenceComparerType = genericSequenceComparerType.MakeGenericType(elementTypes);
             var genericComparerType = typeof(IComparer<>);
             var comparerType = genericComparerType.MakeGenericType(elementTypes);
-            foreach (var constructor in sequenceComparerType.GetTypeInfo().DeclaredConstructors)
-            {
-                var instance = constructor.Invoke(new object[] { null });
-                return (IComparer<T>)instance;
-            }
-
-            // Should never get here.
-            return null;
+            var constructor = sequenceComparerType.GetTypeInfo().DeclaredConstructors.FirstOrDefault();
+            var instance = constructor.Invoke(new object[] { null });
+            return (IComparer<T>)instance;
         }
     }
 }

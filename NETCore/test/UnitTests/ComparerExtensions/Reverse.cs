@@ -53,5 +53,11 @@ namespace ComparerExtensions_
             var bclComparer = EqualityComparer<int?>.Default;
             Assert.Equal(bclComparer.GetHashCode(7) == bclComparer.GetHashCode(13), comparer.GetHashCode(7) == comparer.GetHashCode(13));
         }
+
+        [Fact]
+        public void ToString_DumpsComparer()
+        {
+            Assert.Equal("Reverse(Default(Int32: IComparable<T>))", ComparerBuilder.For<int>().Default().Reverse().ToString());
+        }
     }
 }

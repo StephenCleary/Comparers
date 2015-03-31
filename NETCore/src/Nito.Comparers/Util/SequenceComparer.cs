@@ -71,7 +71,7 @@ namespace Nito.Comparers.Util
         /// </summary>
         public override string ToString()
         {
-            return "Sequence<" + typeof(T).Name + ">(" + this._source + ")";
+            return "Sequence<" + typeof(T).Name + ">(" + _source + ")";
         }
     }
 }

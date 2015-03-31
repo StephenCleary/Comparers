@@ -69,5 +69,11 @@ namespace ComparerExtensions_
             Assert.True(ComparerBuilder.For<int>().Default().Sequence().Compare(null, Enumerable.Empty<int>()) < 0);
             Assert.True(ComparerBuilder.For<int>().Default().Sequence().Compare(Enumerable.Empty<int>(), null) > 0);
         }
+
+        [Fact]
+        public void ToString_DumpsComparer()
+        {
+            Assert.Equal("Sequence<Int32>(Default(Int32: IComparable<T>))", ComparerBuilder.For<int>().Default().Sequence().ToString());
+        }
     }
 }

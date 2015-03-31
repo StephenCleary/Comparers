@@ -44,13 +44,13 @@ namespace Nito.Comparers.Util
         /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise, <c>false</c>.</returns>
         protected override bool DoEquals(IEnumerable<T> x, IEnumerable<T> y)
         {
-            var xCollection = x as ICollection<T>;
-            if (xCollection != null)
+            var xCount = x.TryGetCount();
+            if (xCount != null)
             {
-                var yCollection = y as ICollection<T>;
-                if (yCollection != null)
+                var yCount = y.TryGetCount();
+                if (yCount != null)
                 {
-                    if (xCollection.Count != yCollection.Count)
+                    if (xCount.Value != yCount.Value)
                         return false;
                 }
             }

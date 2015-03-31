@@ -50,5 +50,11 @@ namespace EqualityCompare_
             Assert.Equal(comparer.GetHashCode(null), comparer.GetHashCode(null));
             Assert.Equal(objectComparer.GetHashCode(null), objectComparer.GetHashCode(null));
         }
+
+        [Fact]
+        public void ToString_DumpsComparer()
+        {
+            Assert.Equal("Null", EqualityComparerBuilder.For<int>().Null().ToString());
+        }
     }
 }

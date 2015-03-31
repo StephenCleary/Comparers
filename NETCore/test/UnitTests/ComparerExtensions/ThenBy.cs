@@ -77,6 +77,12 @@ namespace ComparerExtensions_
             Assert.True(comparer.Compare(CaseyJohnson, AbeAbrams) > 0);
         }
 
+        [Fact]
+        public void ToString_DumpsComparer()
+        {
+            Assert.Equal("Compound(Default(Compound(Null, Select<String>(Default(String: IComparable<T>)))), Select<String>(Default(String: IComparable<T>)))", ComparerBuilder.For<Person>().Default().ThenBy(p => p.LastName).ToString());
+        }
+
         // The delegate overloads are tested by Compare_._Key.
     }
 }

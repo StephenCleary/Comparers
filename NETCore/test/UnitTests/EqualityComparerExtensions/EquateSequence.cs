@@ -32,6 +32,13 @@ namespace EqualityComparerExtensions_
         }
 
         [Fact]
+        public void ShorterEnumerableIsNotEqualToLongerEnumerableIfElementsAreEqual()
+        {
+            Assert.False(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(E_3_4(), E_3_4_5()));
+            Assert.False(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(E_3_4_5(), E_3_4()));
+        }
+
+        [Fact]
         public void SequencesAreEqualIfElementsAreEqual()
         {
             Assert.True(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(new[] { 3, 4 }, new[] { 3, 4 }));
@@ -40,10 +47,25 @@ namespace EqualityComparerExtensions_
         }
 
         [Fact]
+        public void EnumerablesAreEqualIfElementsAreEqual()
+        {
+            Assert.True(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(E_3_4(), E_3_4()));
+            Assert.True(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(E_3_4_5(), E_3_4_5()));
+            Assert.Equal(EqualityComparerBuilder.For<int>().Default().EquateSequence().GetHashCode(E_3_4()), EqualityComparerBuilder.For<int>().Default().EquateSequence().GetHashCode(E_3_4()));
+        }
+
+        [Fact]
         public void EqualLengthSequencesWithUnequalElementsAreNotEqual()
         {
             Assert.False(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(new[] { 3, 4 }, new[] { 3, 5 }));
             Assert.False(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(new[] { 3, 4, 5 }, new[] { 3, 3, 5 }));
+        }
+
+        [Fact]
+        public void EqualLengthEnumerableWithUnequalElementsAreNotEqual()
+        {
+            Assert.False(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(E_3_4(), E_3_5()));
+            Assert.False(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(E_3_4_5(), E_3_3_5()));
         }
 
         [Fact]
@@ -64,6 +86,38 @@ namespace EqualityComparerExtensions_
         {
             Assert.False(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(null, Enumerable.Empty<int>()));
             Assert.False(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(Enumerable.Empty<int>(), null));
+        }
+
+        private static IEnumerable<int> E_3_4()
+        {
+            yield return 3;
+            yield return 4;
+        }
+
+        private static IEnumerable<int> E_3_4_5()
+        {
+            yield return 3;
+            yield return 4;
+            yield return 5;
+        }
+
+        private static IEnumerable<int> E_3_5()
+        {
+            yield return 3;
+            yield return 5;
+        }
+
+        private static IEnumerable<int> E_3_3_5()
+        {
+            yield return 3;
+            yield return 3;
+            yield return 5;
+        }
+
+        [Fact]
+        public void ToString_DumpsComparer()
+        {
+            Assert.Equal("Sequence<Int32>(Default(Int32: IComparable<T>))", EqualityComparerBuilder.For<int>().Default().EquateSequence().ToString());
         }
     }
 }

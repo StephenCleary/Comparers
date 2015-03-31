@@ -75,6 +75,12 @@ namespace EqualityComparerExtensions_
             Assert.False(comparer.Equals(CaseyJohnson, AbeAbrams));
         }
 
+        [Fact]
+        public void ToString_DumpsComparer()
+        {
+            Assert.Equal("Compound(Default(Person: undefined), Select<String>(Default(String: IComparable<T>)))", EqualityComparerBuilder.For<Person>().Default().ThenEquateBy(p => p.LastName).ToString());
+        }
+
         // The delegate overloads are tested by EqualityCompare_._Key.
     }
 }
