@@ -64,16 +64,6 @@ namespace Nito.Comparers.Util
         }
 
         /// <summary>
-        /// Returns a hash code for the specified object.
-        /// </summary>
-        /// <param name="obj">The object for which to return a hash code.</param>
-        /// <returns>A hash code for the specified object.</returns>
-        int IEqualityComparer<T>.GetHashCode(T obj)
-        {
-            return EqualityComparer<T>.Default.GetHashCode(obj);
-        }
-
-        /// <summary>
         /// Compares two objects and returns a value indicating whether they are equal.
         /// </summary>
         /// <param name="x">The first object to compare.</param>
@@ -82,16 +72,6 @@ namespace Nito.Comparers.Util
         bool System.Collections.IEqualityComparer.Equals(object x, object y)
         {
             return object.Equals(x, y);
-        }
-
-        /// <summary>
-        /// Returns a hash code for the specified object.
-        /// </summary>
-        /// <param name="obj">The object for which to return a hash code.</param>
-        /// <returns>A hash code for the specified object.</returns>
-        int System.Collections.IEqualityComparer.GetHashCode(object obj)
-        {
-            return (this as IEqualityComparer<T>).GetHashCode((T)obj);
         }
 
         /// <summary>

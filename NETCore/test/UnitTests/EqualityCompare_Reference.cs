@@ -1,9 +1,9 @@
 ﻿using Nito.Comparers;
 using Xunit;
 
-namespace EqualityCompare_
+namespace UnitTests
 {
-    public class _Reference
+    public class EqualityCompare_ReferenceUnitTests
     {
         [Fact]
         public void IdenticalObjectsAreEqual()

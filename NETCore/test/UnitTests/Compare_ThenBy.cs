@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Nito.Comparers;
 using Xunit;
 
-namespace ComparerExtensions_
+namespace UnitTests
 {
-    public class _ThenBy
+    public class Compare_ThenByUnitTests
     {
         private sealed class Person : ComparableBase<Person>
         {

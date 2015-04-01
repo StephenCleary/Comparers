@@ -3,9 +3,9 @@ using System.Linq;
 using Nito.Comparers;
 using Xunit;
 
-namespace ComparerExtensions_
+namespace UnitTests
 {
-    public class _Sequence
+    public class Compare_SequenceUnitTests
     {
         private static readonly int[] three = new[] { 3 };
         private static readonly int[] four = new[] { 4 };
@@ -68,6 +68,42 @@ namespace ComparerExtensions_
         {
             Assert.True(ComparerBuilder.For<int>().Default().Sequence().Compare(null, Enumerable.Empty<int>()) < 0);
             Assert.True(ComparerBuilder.For<int>().Default().Sequence().Compare(Enumerable.Empty<int>(), null) > 0);
+        }
+
+        [Fact]
+        public void NullIsSmallerThanEmpty_NonGeneric()
+        {
+            var comparer = ComparerBuilder.For<int>().Default().Sequence() as System.Collections.IComparer;
+            Assert.True(comparer.Compare(null, Enumerable.Empty<int>()) < 0);
+            Assert.True(comparer.Compare(Enumerable.Empty<int>(), null) > 0);
+        }
+
+        [Fact]
+        public void NullIsEqualToNull()
+        {
+            var comparer = ComparerBuilder.For<int>().Default().Sequence();
+            Assert.True(comparer.Compare(null, null) == 0);
+        }
+
+        [Fact]
+        public void NullIsEqualToNull_NonGeneric()
+        {
+            var comparer = ComparerBuilder.For<int>().Default().Sequence() as System.Collections.IComparer;
+            Assert.True(comparer.Compare(null, null) == 0);
+        }
+
+        [Fact]
+        public void EmptyIsEqualToEmpty()
+        {
+            var comparer = ComparerBuilder.For<int>().Default().Sequence();
+            Assert.True(comparer.Compare(Enumerable.Empty<int>(), Enumerable.Empty<int>()) == 0);
+        }
+
+        [Fact]
+        public void EmptyIsEqualToEmpty_NonGeneric()
+        {
+            var comparer = ComparerBuilder.For<int>().Default().Sequence() as System.Collections.IComparer;
+            Assert.True(comparer.Compare(Enumerable.Empty<int>(), Enumerable.Empty<int>()) == 0);
         }
 
         [Fact]

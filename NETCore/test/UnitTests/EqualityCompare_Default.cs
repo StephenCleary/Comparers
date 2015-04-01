@@ -2,9 +2,9 @@
 using Nito.Comparers;
 using Xunit;
 
-namespace EqualityCompare_
+namespace UnitTests
 {
-    public class _Default
+    public class EqualityCompare_DefaultUnitTests
     {
         [Fact]
         public void IsEquivalentToEqualityComparerDefault()

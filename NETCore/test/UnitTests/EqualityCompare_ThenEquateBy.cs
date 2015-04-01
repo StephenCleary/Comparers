@@ -2,9 +2,9 @@
 using Nito.Comparers;
 using Xunit;
 
-namespace EqualityComparerExtensions_
+namespace UnitTests
 {
-    public class _ThenEquateBy
+    public class EqualityCompare_ThenEquateByUnitTests
     {
         private sealed class Person : EquatableBase<Person>
         {

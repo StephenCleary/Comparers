@@ -2,10 +2,11 @@
 using System.Linq;
 using Nito.Comparers;
 using Xunit;
+using System;
 
-namespace ComparerExtensions_
+namespace UnitTests
 {
-    public class _Reverse
+    public class Compare_ReverseUnitTests
     {
         [Fact]
         public void SubstitutesCompareDefaultForComparerDefault()
@@ -52,6 +53,51 @@ namespace ComparerExtensions_
             var comparer = ComparerBuilder.For<int?>().Default().Reverse();
             var bclComparer = EqualityComparer<int?>.Default;
             Assert.Equal(bclComparer.GetHashCode(7) == bclComparer.GetHashCode(13), comparer.GetHashCode(7) == comparer.GetHashCode(13));
+        }
+
+        [Fact]
+        public void PassesGetHashCodeThrough_NonGeneric()
+        {
+            var comparer = new NongenericEqualityComparer().Reverse();
+            Assert.Equal(17, comparer.GetHashCode(13));
+        }
+
+        private sealed class NongenericEqualityComparer : IComparer<int>, System.Collections.IEqualityComparer
+        {
+            public int Compare(int x, int y)
+            {
+                throw new Exception();
+            }
+
+            public new bool Equals(object x, object y)
+            {
+                throw new Exception();
+            }
+
+            public int GetHashCode(object obj)
+            {
+                return 17;
+            }
+        }
+
+        [Fact]
+        public void NoGetHashCodeImplementation_ThrowsNotImplementedException()
+        {
+            var comparer = new PlainComparer().Reverse();
+            Assert.Throws<NotImplementedException>(() => comparer.GetHashCode(0));
+        }
+
+        private sealed class PlainComparer : IComparer<int>
+        {
+            public int Compare(int x, int y)
+            {
+                throw new Exception();
+            }
+
+            public new bool Equals(object x, object y)
+            {
+                throw new Exception();
+            }
         }
 
         [Fact]

@@ -2,10 +2,11 @@
 using System.Linq;
 using Nito.Comparers;
 using Xunit;
+using System;
 
-namespace Compare_
+namespace UnitTests
 {
-    public class _Default
+    public class Compare_DefaultUnitTests
     {
         [Fact]
         public void IsEquivalentToComparerDefault()
@@ -80,6 +81,15 @@ namespace Compare_
         }
 
         [Fact]
+        public void ImplementsGetHashCode_NonGeneric()
+        {
+            var comparer = ComparerBuilder.For<int?>().Default() as System.Collections.IEqualityComparer;
+            var bclDefault = EqualityComparer<int?>.Default;
+            Assert.Equal(comparer.GetHashCode(13), comparer.GetHashCode(13));
+            Assert.Equal(bclDefault.GetHashCode(7) == bclDefault.GetHashCode(13), comparer.GetHashCode(7) == comparer.GetHashCode(13));
+        }
+
+        [Fact]
         public void ImplementsGetHashCodeForNull()
         {
             var comparer = ComparerBuilder.For<int?>().Default();
@@ -113,6 +123,20 @@ namespace Compare_
         public void ToString_DumpsComparer()
         {
             Assert.Equal("Default(Int32: IComparable<T>)", ComparerBuilder.For<int>().Default().ToString());
+        }
+
+        [Fact]
+        public void ToString_DumpsComparer_NonGeneric()
+        {
+            Assert.Equal("Default(NonGenericComparable: IComparable)", ComparerBuilder.For<NonGenericComparable>().Default().ToString());
+        }
+
+        private sealed class NonGenericComparable : IComparable
+        {
+            public int CompareTo(object obj)
+            {
+                throw new Exception();
+            }
         }
     }
 }

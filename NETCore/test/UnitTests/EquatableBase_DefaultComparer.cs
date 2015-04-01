@@ -2,11 +2,11 @@
 using Nito.Comparers;
 using Xunit;
 
-namespace EquatableBase_
+namespace UnitTests
 {
-    public class _Operators
+    public class EquatableBase_DefaultComparerUnitTests
     {
-        private sealed class Person : EquatableBaseWithOperators<Person>
+        private sealed class Person : EquatableBase<Person>
         {
             static Person()
             {
@@ -20,8 +20,6 @@ namespace EquatableBase_
         private static readonly Person AbeAbrams = new Person { FirstName = "Abe", LastName = "Abrams" };
         private static readonly Person AbeAbrams2 = new Person { FirstName = "Abe", LastName = "Abrams" };
         private static readonly Person JackAbrams = new Person { FirstName = "Jack", LastName = "Abrams" };
-        private static readonly Person WilliamAbrams = new Person { FirstName = "William", LastName = "Abrams" };
-        private static readonly Person CaseyJohnson = new Person { FirstName = "Casey", LastName = "Johnson" };
 
         [Fact]
         public void ImplementsComparerDefault()
@@ -33,17 +31,10 @@ namespace EquatableBase_
         }
 
         [Fact]
-        public void ImplementsOpEquality()
+        public void ImplementsComparerDefault_NonGeneric()
         {
-            Assert.True(AbeAbrams == AbeAbrams2);
-            Assert.False(AbeAbrams == JackAbrams);
-        }
-
-        [Fact]
-        public void ImplementsOpInequality()
-        {
-            Assert.False(AbeAbrams != AbeAbrams2);
-            Assert.True(AbeAbrams != JackAbrams);
+            object abe = AbeAbrams;
+            Assert.True(abe.Equals(AbeAbrams2));
         }
     }
 }

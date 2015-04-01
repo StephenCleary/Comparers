@@ -3,9 +3,9 @@ using System.Linq;
 using Nito.Comparers;
 using Xunit;
 
-namespace ComparableBase_
+namespace UnitTests
 {
-    public class _DefaultComparer
+    public class ComparableBase_DefaultComparerUnitTests
     {
         private sealed class Person : ComparableBase<Person>
         {
@@ -29,6 +29,22 @@ namespace ComparableBase_
             var list = new List<Person> { JackAbrams, CaseyJohnson, AbeAbrams, WilliamAbrams };
             list.Sort();
             Assert.Equal(new[] { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson }, list);
+        }
+
+        [Fact]
+        public void ImplementsComparerDefault_Hash()
+        {
+            var set = new HashSet<Person> { JackAbrams, CaseyJohnson, AbeAbrams };
+            Assert.True(set.Contains(new Person { FirstName = AbeAbrams.FirstName, LastName = AbeAbrams.LastName }));
+            Assert.False(set.Contains(WilliamAbrams));
+        }
+
+        [Fact]
+        public void ImplementsComparerDefault_NonGeneric()
+        {
+            var set = new System.Collections.ArrayList() { JackAbrams, CaseyJohnson, AbeAbrams };
+            Assert.True(set.Contains(new Person { FirstName = AbeAbrams.FirstName, LastName = AbeAbrams.LastName }));
+            Assert.False(set.Contains(WilliamAbrams));
         }
     }
 }

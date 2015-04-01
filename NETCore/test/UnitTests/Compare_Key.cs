@@ -5,9 +5,11 @@ using Nito.Comparers;
 using Xunit;
 using System.Globalization;
 
-namespace Compare_
+#pragma warning disable CS0162
+
+namespace UnitTests
 {
-    public class _Key
+    public class Compare_KeyUnitTests
     {
         private static readonly Person AbeAbrams = new Person { FirstName = "Abe", LastName = "Abrams" };
         private static readonly Person JackAbrams = new Person { FirstName = "Jack", LastName = "Abrams" };

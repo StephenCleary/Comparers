@@ -3,9 +3,9 @@ using System.Linq;
 using Nito.Comparers;
 using Xunit;
 
-namespace ComparableBase_
+namespace UnitTests
 {
-    public class _Operators
+    public class ComparableBase_OperatorsUnitTests
     {
         private sealed class Person : ComparableBaseWithOperators<Person>
         {

@@ -1,9 +1,9 @@
 ﻿using Nito.Comparers;
 using Xunit;
 
-namespace EqualityCompare_
+namespace UnitTests
 {
-    public class _Null
+    public class EqualityCompare_NullUnitTests
     {
         [Fact]
         public void ComparesUnequalElementsAsEqual()

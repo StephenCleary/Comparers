@@ -5,9 +5,9 @@ using Nito.Comparers;
 using Xunit;
 using System.Globalization;
 
-namespace EqualityComparerExtensions_
+namespace UnitTests
 {
-    public class _EquateSequence
+    public class EqualityCompare_EquateSequenceUnitTests
     {
         [Fact]
         public void SubstitutesCompareDefaultForComparerDefault()
@@ -36,6 +36,134 @@ namespace EqualityComparerExtensions_
         {
             Assert.False(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(E_3_4(), E_3_4_5()));
             Assert.False(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(E_3_4_5(), E_3_4()));
+        }
+
+        [Fact]
+        public void ShorterICollectionIsNotEqualToLongerICollectionIfElementsAreEqual()
+        {
+            var e34 = new NongenericICollection<int>(E_3_4().ToList());
+            var e345 = new NongenericICollection<int>(E_3_4_5().ToList());
+            Assert.False(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(e34, e345));
+            Assert.False(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(e345, e34));
+        }
+
+        [Fact]
+        public void ShorterGenericICollectionIsNotEqualToLongerGenericICollectionIfElementsAreEqual()
+        {
+            var e34 = new GenericICollection<int>(E_3_4().ToList());
+            var e345 = new GenericICollection<int>(E_3_4_5().ToList());
+            Assert.False(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(e34, e345));
+            Assert.False(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(e345, e34));
+        }
+
+        private sealed class NongenericICollection<T> : IEnumerable<T>, System.Collections.ICollection
+        {
+            private readonly List<T> _source;
+
+            public NongenericICollection(List<T> source)
+            {
+                _source = source;
+            }
+
+            public int Count
+            {
+                get
+                {
+                    return _source.Count;
+                }
+            }
+
+            public bool IsSynchronized
+            {
+                get
+                {
+                    return ((System.Collections.ICollection)_source).IsSynchronized;
+                }
+            }
+
+            public object SyncRoot
+            {
+                get
+                {
+                    return ((System.Collections.ICollection)_source).SyncRoot;
+                }
+            }
+
+            public void CopyTo(Array array, int index)
+            {
+                ((System.Collections.ICollection)_source).CopyTo(array, index);
+            }
+
+            public IEnumerator<T> GetEnumerator()
+            {
+                return _source.GetEnumerator();
+            }
+
+            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+            {
+                return _source.GetEnumerator();
+            }
+        }
+
+        private sealed class GenericICollection<T> : ICollection<T>
+        {
+            private readonly ICollection<T> _source;
+
+            public GenericICollection(ICollection<T> source)
+            {
+                _source = source;
+            }
+
+            public int Count
+            {
+                get
+                {
+                    return _source.Count;
+                }
+            }
+
+            public bool IsReadOnly
+            {
+                get
+                {
+                    return _source.IsReadOnly;
+                }
+            }
+
+            public void Add(T item)
+            {
+                _source.Add(item);
+            }
+
+            public void Clear()
+            {
+                _source.Clear();
+            }
+
+            public bool Contains(T item)
+            {
+                return _source.Contains(item);
+            }
+
+            public void CopyTo(T[] array, int arrayIndex)
+            {
+                _source.CopyTo(array, arrayIndex);
+            }
+
+            public IEnumerator<T> GetEnumerator()
+            {
+                return _source.GetEnumerator();
+            }
+
+            public bool Remove(T item)
+            {
+                return _source.Remove(item);
+            }
+
+            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+            {
+                return _source.GetEnumerator();
+            }
         }
 
         [Fact]

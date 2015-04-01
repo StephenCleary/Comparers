@@ -3,12 +3,11 @@ using System.Collections.Generic;
 
 internal static class EnumerableHelpers
 {
-    public static T FirstOrDefault<T>(this IEnumerable<T> items)
+    public static T First<T>(this IEnumerable<T> items)
     {
         using (var iterator = items.GetEnumerator())
         {
-            if (!iterator.MoveNext())
-                return default(T);
+            iterator.MoveNext();
             return iterator.Current;
         }
     }
