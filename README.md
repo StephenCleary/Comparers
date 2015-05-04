@@ -70,7 +70,7 @@ Sometimes, you can only define equality. Well, good news: there's an `EqualityCo
     {
       static Entity()
       {
-        DefaultComparer = EqualityComparer<Entity>.EquateBy(e => e.Id);
+        DefaultComparer = EqualityCompare<Entity>.EquateBy(e => e.Id);
       }
 
       public int Id { get; }
