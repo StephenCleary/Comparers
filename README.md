@@ -1,6 +1,6 @@
 ![Logo](Comparers.128.png)
 
-# Comparers [![Gratipay](https://img.shields.io/gratipay/StephenCleary.svg?style=plastic)](https://gratipay.com/StephenCleary)
+# Comparers
 
 The last comparison library you'll ever need! For .NET 4.0, Windows 8.0, Windows Phone Silverlight 7.0, Windows Phone Applications 8.1, .NET 4.0 Client, and Silverlight 4.0.
 
@@ -15,6 +15,9 @@ The last comparison library you'll ever need! For .NET 4.0, Windows 8.0, Windows
 > - `OrderByDescending` and `ThenByDescending` have been removed; instead, use the `descending` parameter of `OrderBy`/`ThenBy`.
 > - The `allowNulls` parameter of all methods has been renamed to `specialNullHandling`.
 > - All equality comparer types are in the `Nito.Comparers` namespace instead of `Nito.EqualityComparers`.
+> [vNext API Docs](http://dotnetapis.com/pkg/Nito.Comparers)
+
+[Current API Docs](http://dotnetapis.com/pkg/Comparers)
 
 ## Creating Comparers
 
