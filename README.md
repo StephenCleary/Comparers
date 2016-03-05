@@ -15,7 +15,8 @@ The last comparison library you'll ever need! For .NET 4.0, Windows 8.0, Windows
 > - `OrderByDescending` and `ThenByDescending` have been removed; instead, use the `descending` parameter of `OrderBy`/`ThenBy`.
 > - The `allowNulls` parameter of all methods has been renamed to `specialNullHandling`.
 > - All equality comparer types are in the `Nito.Comparers` namespace instead of `Nito.EqualityComparers`.
-> [vNext API Docs](http://dotnetapis.com/pkg/Nito.Comparers)
+
+[vNext API Docs](http://dotnetapis.com/pkg/Nito.Comparers)
 
 [Current API Docs](http://dotnetapis.com/pkg/Comparers)
 
