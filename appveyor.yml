@@ -12,7 +12,10 @@ install:
 
     dnvm install 1.0.0-rc1-update2
 before_build:
-- ps: dnu restore
+- ps: >-
+    cd NETCore
+
+    dnu restore
 build:
   project: NETCore/Nito.Comparers.sln
   verbosity: minimal
