@@ -17,7 +17,7 @@ before_build:
 
     dnu restore
 build:
-  project: NETCore/Nito.Comparers.sln
+  project: Nito.Comparers.sln
   verbosity: minimal
 test_script:
 - ps: >-
