@@ -1,20 +1,21 @@
 version: '{build}'
-os: Visual Studio 2015 CTP 6
+os: Visual Studio 2015
 configuration: Debug
 environment:
   COVERALLS_REPO_TOKEN:
     secure: ObMCktoYTWmEAsA8Khx4nllZEQxs/RqVS/9AkVxBXyml5zJXByQ/odckmKWblpYe
 install:
 - ps: >-
-    iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/aspnet/Home/master/kvminstall.ps1'))
+    iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.ps1'))
 
     $env:Path = "C:\Program Files (x86)\MSBuild\14.0\Bin;" + [Environment]::GetEnvironmentVariables("Machine")["Path"] + ";" + [Environment]::GetEnvironmentVariables("User")["Path"]
 
-    kvm upgrade
+    dnvm install 1.0.0-rc1-update2
 before_build:
-- ps: kpm restore
+- ps: dnu restore
 build:
-  project: NETCore/Nito.Comparers.sln  verbosity: minimal
+  project: NETCore/Nito.Comparers.sln
+  verbosity: minimal
 test_script:
 - ps: >-
     cd NETCore

@@ -1,20 +1,20 @@
 {
-    "version": "1.0.0-alpha-2",
-    "authors": [ "Stephen Cleary" ],
-    "dependencies": {
-        "Ix-Main": "1.2.3.0",
-        "Nito.Comparers": "1.0.0-alpha-2"
-    },
+  "version": "1.0.0-beta-1",
+  "authors": [ "Stephen Cleary" ],
+  "dependencies": {
+    "Ix-Main": "1.2.5",
+    "Nito.Comparers": "1.0.0-beta-1"
+  },
 
-    "compilationOptions": {
-        "warningsAsErrors": true
-    },
+  "compilationOptions": {
+    "warningsAsErrors": true
+  },
 
-    "frameworks": {
-        "net46": { },
-        "aspnetcore50": {
-            "dependencies": {
-            }
-        }
+  "frameworks": {
+    "net46": { },
+    "netcore50": {
+      "dependencies": {
+      }
     }
+  }
 }
