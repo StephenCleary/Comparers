@@ -33,7 +33,7 @@ namespace UnitTests
         [Fact]
         public void OrderByUsesKeyComparer()
         {
-#if ASPNETCORE50
+#if NETCOREAPP1_0
             StringComparer invariantCultureComparerIgnoreCase = CultureInfo.InvariantCulture.CompareInfo.GetStringComparer(CompareOptions.IgnoreCase);
 #else
             StringComparer invariantCultureComparerIgnoreCase = StringComparer.InvariantCultureIgnoreCase;
@@ -67,7 +67,7 @@ namespace UnitTests
         [Fact]
         public void ThenByUsesKeyComparer()
         {
-#if ASPNETCORE50
+#if NETCOREAPP1_0
             StringComparer invariantCultureComparerIgnoreCase = CultureInfo.InvariantCulture.CompareInfo.GetStringComparer(CompareOptions.IgnoreCase);
 #else
             StringComparer invariantCultureComparerIgnoreCase = StringComparer.InvariantCultureIgnoreCase;

@@ -1,20 +1,16 @@
 ﻿{
-  "version": "1.0.0-beta-1",
+  "version": "1.0.0-beta-2",
   "authors": [ "Stephen Cleary" ],
   "dependencies": {
-    "Nito.Comparers.Linq": "1.0.0-beta-1",
+    "Nito.Comparers.Linq": "1.0.0-beta-2",
     "Rx-Main": "2.2.5.0"
   },
-
-  "compilationOptions": {
+  "buildOptions": {
     "warningsAsErrors": true
   },
-
   "frameworks": {
-    "net46": { },
-    "netcore50": {
-      "dependencies": {
-      }
+    "netstandard1.0": {
+      "imports": [ "portable-net45+win8" ]
     }
   }
 }

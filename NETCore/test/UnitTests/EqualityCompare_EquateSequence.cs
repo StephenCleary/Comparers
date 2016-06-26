@@ -199,7 +199,7 @@ namespace UnitTests
         [Fact]
         public void SequenceUsesSourceComparerForElementComparisons()
         {
-#if ASPNETCORE50
+#if NETCOREAPP1_0
             StringComparer invariantCultureComparerIgnoreCase = CultureInfo.InvariantCulture.CompareInfo.GetStringComparer(CompareOptions.IgnoreCase);
 #else
             StringComparer invariantCultureComparerIgnoreCase = StringComparer.InvariantCultureIgnoreCase;
