@@ -1,11 +1,11 @@
 {
-  "version": "1.0.0-beta-2",
+  "version": "1.0.0-delta-1",
   "authors": [ "Stephen Cleary" ],
+  "description": "The last comparison library you'll ever need!",
   "buildOptions": {
     "warningsAsErrors": true
   },
   "frameworks": {
-    "net45": { },
     "netstandard1.0": {
       "dependencies": {
         "System.Collections": "4.0.11",
