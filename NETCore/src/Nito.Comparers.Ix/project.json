@@ -1,15 +1,16 @@
 {
-  "version": "1.0.0-delta-1",
+  "version": "1.0.0-delta-2",
   "authors": [ "Stephen Cleary" ],
   "description": "Comparer extension methods for System.Interactive.",
   "dependencies": {
     "System.Interactive": "3.0.0",
-    "Nito.Comparers": "1.0.0-delta-1"
+    "Nito.Comparers": "1.0.0-delta-2"
   },
   "buildOptions": {
     "warningsAsErrors": true
   },
   "frameworks": {
-    "netstandard1.0": { }
+    "netstandard1.0": {},
+    ".NETPortable,Version=v4.5,Profile=Profile259": {}
   }
 }
