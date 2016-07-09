@@ -1,13 +1,14 @@
 ﻿{
-  "version": "1.0.0-delta-2",
+  "version": "1.0.0-delta-3",
   "authors": [ "Stephen Cleary" ],
   "description": "Comparer extension methods for System.Reactive.",
   "dependencies": {
-    "Nito.Comparers.Linq": "1.0.0-delta-2",
+    "Nito.Comparers.Linq": "1.0.0-delta-3",
     "System.Reactive": "3.0.0"
   },
   "buildOptions": {
-    "warningsAsErrors": true
+    "warningsAsErrors": true,
+    "xmlDoc": true
   },
   "frameworks": {
     "netstandard1.0": {},

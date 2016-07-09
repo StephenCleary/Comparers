@@ -1,9 +1,10 @@
 {
-  "version": "1.0.0-delta-2",
+  "version": "1.0.0-delta-3",
   "authors": [ "Stephen Cleary" ],
   "description": "The last comparison library you'll ever need!",
   "buildOptions": {
-    "warningsAsErrors": true
+    "warningsAsErrors": true,
+    "xmlDoc": true
   },
   "frameworks": {
     "netstandard1.0": {
