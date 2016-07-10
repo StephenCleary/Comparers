@@ -4,6 +4,9 @@ configuration: Debug
 environment:
   COVERALLS_REPO_TOKEN:
     secure: ObMCktoYTWmEAsA8Khx4nllZEQxs/RqVS/9AkVxBXyml5zJXByQ/odckmKWblpYe
+branches:
+  only:
+    - master
 install:
 - ps: >-
     nuget update -self
@@ -14,11 +17,22 @@ install:
 
     & .\dotnet-install.ps1 -Channel "preview" -Version "1.0.0-preview2-003121" -InstallDir "$env:DOTNET_INSTALL_DIR"
 
-build: off
+build_script:
+- ps: >-
+    cd NETCore
+
+    ./Build.ps1
 test_script:
 - ps: >-
     cd NETCore
 
-    dotnet restore
-
     ./Coverage.ps1
+artifacts:
+  - path: 'NETCore\**\*.nupkg'
+    name: NuGet Packages
+deploy:
+  provider: NuGet
+  api_key:
+    secure: QeC34B7ohkvqbwCOKmavQWhitZNYLX/EFdgK8CfL5jEujWw2L85qrzuME8CQRBEb
+  on:
+    appveyor_repo_tag: true
