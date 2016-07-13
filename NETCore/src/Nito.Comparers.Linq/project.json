@@ -1,13 +1,22 @@
 ﻿{
-  "version": "1.0.0-delta-3",
+  "version": "1.0.0-eta-01",
   "authors": [ "Stephen Cleary" ],
   "description": "Comparer extension methods for System.Linq.",
   "dependencies": {
-    "Nito.Comparers": "1.0.0-delta-3"
+    "Nito.Comparers": "1.0.0-eta-01"
   },
   "buildOptions": {
     "warningsAsErrors": true,
     "xmlDoc": true
+  },
+  "packOptions": {
+    "tags": [ "comparer", "equalitycomparer", "icomparable", "iequatable" ],
+    "projectUrl": "https://github.com/StephenCleary/Comparers",
+    "licenseUrl": "https://raw.githubusercontent.com/StephenCleary/Comparers/master/LICENSE",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/StephenCleary/Comparers.git"
+    }
   },
   "frameworks": {
     "netstandard1.0": {
@@ -17,7 +26,7 @@
     },
     ".NETPortable,Version=v4.5,Profile=Profile259": {
       "frameworkAssemblies": {
-        "System.Linq": ""
+        "System.Linq": { "type": "build" }
       }
     }
   }

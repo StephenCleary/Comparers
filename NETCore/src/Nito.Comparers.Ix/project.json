@@ -1,10 +1,19 @@
 {
-  "version": "1.0.0-delta-3",
+  "version": "1.0.0-eta-01",
   "authors": [ "Stephen Cleary" ],
   "description": "Comparer extension methods for System.Interactive.",
   "dependencies": {
     "System.Interactive": "3.0.0",
-    "Nito.Comparers": "1.0.0-delta-3"
+    "Nito.Comparers": "1.0.0-eta-01"
+  },
+  "packOptions": {
+    "tags": [ "comparer", "equalitycomparer", "icomparable", "iequatable" ],
+    "projectUrl": "https://github.com/StephenCleary/Comparers",
+    "licenseUrl": "https://raw.githubusercontent.com/StephenCleary/Comparers/master/LICENSE",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/StephenCleary/Comparers.git"
+    }
   },
   "buildOptions": {
     "warningsAsErrors": true,
