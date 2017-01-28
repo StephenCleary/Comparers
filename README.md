@@ -2,29 +2,18 @@
 
 # Comparers
 
-The last comparison library you'll ever need! For .NET 4.0, Windows 8.0, Windows Phone Silverlight 7.0, Windows Phone Applications 8.1, .NET 4.0 Client, and Silverlight 4.0.
+The last comparison library you'll ever need! For `netstandard1.0` (including .NET 4.5, .NET Core 1.0, Universal Windows 10, Windows 8, Windows Phone Applications 8.1, and Windows Phone Silverlight 8.0).
 
-> ## .NET Core / ASP.NET vNext Status
->  [![AppVeyor](https://img.shields.io/appveyor/ci/StephenCleary/Comparers.svg?style=plastic)](https://ci.appveyor.com/project/StephenCleary/Comparers) [![Coveralls](https://img.shields.io/coveralls/StephenCleary/Comparers.svg?style=plastic)](https://coveralls.io/r/StephenCleary/Comparers)
-> [![NuGet Pre Release](https://img.shields.io/nuget/vpre/Nito.Comparers.svg?style=plastic)](https://www.nuget.org/packages/Nito.Comparers/)
->
-> The API has been changed significantly in the prerelease version:
-> - Code formerly using `Comparer<T>` and `CompareSource` should now use `ComparerBuilder`.
-> - Similarly, `EqualityComparer<T>` and `EqualityCompareSource` have been replaced by `EqualityComparerBuilder`.
-> - The anonymous comparers have been removed.
-> - `OrderByDescending` and `ThenByDescending` have been removed; instead, use the `descending` parameter of `OrderBy`/`ThenBy`.
-> - The `allowNulls` parameter of all methods has been renamed to `specialNullHandling`.
-> - All equality comparer types are in the `Nito.Comparers` namespace instead of `Nito.EqualityComparers`.
+[![AppVeyor](https://img.shields.io/appveyor/ci/StephenCleary/Comparers.svg?style=plastic)](https://ci.appveyor.com/project/StephenCleary/Comparers) [![Coveralls](https://img.shields.io/coveralls/StephenCleary/Comparers.svg?style=plastic)](https://coveralls.io/r/StephenCleary/Comparers)
+[![NuGet Pre Release](https://img.shields.io/nuget/vpre/Nito.Comparers.svg?style=plastic)](https://www.nuget.org/packages/Nito.Comparers/)
 
-[vNext API Docs](http://dotnetapis.com/pkg/Nito.Comparers)
-
-[Current API Docs](http://dotnetapis.com/pkg/Comparers)
+[API Docs](http://dotnetapis.com/pkg/Nito.Comparers)
 
 ## Creating Comparers
 
-Install the [NuGet package](https://www.nuget.org/packages/Comparers). There are also NuGet packages for [Reactive extensions](https://www.nuget.org/packages/Comparers.Rx) and [Interactive extensions](https://www.nuget.org/packages/Comparers.Ix) support.
+Install the [NuGet package](https://www.nuget.org/packages/Nito.Comparers). There are also NuGet packages for [LINQ](https://www.nuget.org/packages/Nito.Comparers.Linq), [Reactive extensions](https://www.nuget.org/packages/Nito.Comparers.Rx) and [Interactive extensions](https://www.nuget.org/packages/Nito.Comparers.Ix) support.
 
-The core comparer types are in the namespace `Comparers`, with extensions in `Comparers.Linq` and equality comparers in `EqualityComparers`.
+The core comparer types are in the namespace `Nito.Comparers`.
 
 Let's say you've got a collection of your POCOs:
 
@@ -122,7 +111,7 @@ By default, `null` values are "less than" anything else, but you can use the sam
 
 ### More?!
 
-For full details, see [the Wiki](https://github.com/StephenCleary/Comparers/wiki).
+For full details, see [the detailed docs](doc).
 
 ### What's with the flying saucer?
 
