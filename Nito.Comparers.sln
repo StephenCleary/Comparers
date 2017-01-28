@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		appveyor.yml = appveyor.yml
 		Build.ps1 = Build.ps1
+		nuspec\Comparers.nuspec = nuspec\Comparers.nuspec
 		Coverage.ps1 = Coverage.ps1
 		global.json = global.json
 		nuspec\Nito.Comparers.nuspec = nuspec\Nito.Comparers.nuspec
