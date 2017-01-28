@@ -1,9 +1,9 @@
 ﻿{
-  "version": "5.0.0-pre-01",
+  "version": "5.0.0-pre-02",
   "authors": [ "Stephen Cleary" ],
   "description": "Comparer extension methods for System.Reactive.",
   "dependencies": {
-    "Nito.Comparers.Linq": "5.0.0-pre-01",
+    "Nito.Comparers.Linq": "5.0.0-pre-02",
     "System.Reactive": "3.0.0"
   },
   "buildOptions": {
