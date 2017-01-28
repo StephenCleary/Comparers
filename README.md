@@ -101,14 +101,16 @@ Need to sort dynamically at runtime? No problem!
 Want a cute trick? Here's one: `true` is "greater than" `false`, so if you want to order by some weird condition, it's not too hard:
 
     // Use the default sort order (last name, then first name), EXCEPT all "Smith"s move to the head of the line.
-    list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.LastName == "Smith", descending: true)
+    var comparer = ComparerBuilder.For<Person>().OrderBy(p => p.LastName == "Smith", descending: true)
         .ThenBy(ComparerBuilder.For<Person>().Default());
+    list.Sort(comparer);
 
 By default, `null` values are "less than" anything else, but you can use the same sort of trick to sort them last:
 
     List<int?> myInts = ...;
-    myInts.Sort(ComparerBuilder.For<int?>().OrderBy(i => i == null, specialNullHandling: true)
-        .ThenBy(ComparerBuilder.For<int?>().Default()));
+    var comparer = ComparerBuilder.For<int?>().OrderBy(i => i == null, specialNullHandling: true)
+        .ThenBy(ComparerBuilder.For<int?>().Default());
+    myInts.Sort(comparer);
     // Yeah, we need to pass "specialNullHandling"; otherwise, the default null-ordering rules will apply.
 
 ### More?!
