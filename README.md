@@ -7,7 +7,7 @@ The last comparison library you'll ever need! For `netstandard1.0` (including .N
 [![AppVeyor](https://img.shields.io/appveyor/ci/StephenCleary/Comparers.svg?style=plastic)](https://ci.appveyor.com/project/StephenCleary/Comparers) [![Coveralls](https://img.shields.io/coveralls/StephenCleary/Comparers.svg?style=plastic)](https://coveralls.io/r/StephenCleary/Comparers)
 [![NuGet Pre Release](https://img.shields.io/nuget/vpre/Nito.Comparers.Core.svg?style=plastic)](https://www.nuget.org/packages/Nito.Comparers.Core/)
 
-[API Docs](http://dotnetapis.com/pkg/Nito.Comparers)
+[API Docs](http://dotnetapis.com/pkg/Nito.Comparers.Core)
 
 ## Creating Comparers
 
