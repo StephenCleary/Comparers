@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0-eta-02",
+  "version": "1.0.0-eta-03",
   "authors": [ "Stephen Cleary" ],
   "description": "The last comparison library you'll ever need!",
   "buildOptions": {
