@@ -1,10 +1,10 @@
 {
-  "version": "1.0.0-eta-03",
+  "version": "5.0.0-pre-01",
   "authors": [ "Stephen Cleary" ],
   "description": "Comparer extension methods for System.Interactive.",
   "dependencies": {
     "System.Interactive": "3.0.0",
-    "Nito.Comparers.Core": "1.0.0-eta-03"
+    "Nito.Comparers.Core": "5.0.0-pre-01"
   },
   "packOptions": {
     "tags": [ "comparer", "equalitycomparer", "icomparable", "iequatable" ],

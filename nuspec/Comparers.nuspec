@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Comparers</id>
-    <version>5.0.0-eta-03</version>
+    <version>5.0.0-pre-01</version>
     <authors>Stephen Cleary</authors>
     <owners>Stephen Cleary</owners>
     <licenseUrl>https://raw.githubusercontent.com/StephenCleary/Comparers/master/LICENSE</licenseUrl>
@@ -11,7 +11,7 @@
     <description>The last comparison library you'll ever need!</description>
     <tags>comparer equalitycomparer icomparable iequatable</tags>
     <dependencies>
-      <dependency id="Nito.Comparers" version="1.0.0-eta-03" />
+      <dependency id="Nito.Comparers" version="5.0.0-pre-01" />
     </dependencies>
   </metadata>
 </package>
