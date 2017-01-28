@@ -1,9 +1,9 @@
 ﻿{
-  "version": "1.0.0-eta-01",
+  "version": "1.0.0-eta-02",
   "authors": [ "Stephen Cleary" ],
   "description": "Comparer extension methods for System.Linq.",
   "dependencies": {
-    "Nito.Comparers": "1.0.0-eta-01"
+    "Nito.Comparers.Core": "1.0.0-eta-02"
   },
   "buildOptions": {
     "warningsAsErrors": true,
