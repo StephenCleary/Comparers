@@ -5,13 +5,13 @@
 The last comparison library you'll ever need! For `netstandard1.0` (including .NET 4.5, .NET Core 1.0, Universal Windows 10, Windows 8, Windows Phone Applications 8.1, and Windows Phone Silverlight 8.0).
 
 [![AppVeyor](https://img.shields.io/appveyor/ci/StephenCleary/Comparers.svg?style=plastic)](https://ci.appveyor.com/project/StephenCleary/Comparers) [![Coveralls](https://img.shields.io/coveralls/StephenCleary/Comparers.svg?style=plastic)](https://coveralls.io/r/StephenCleary/Comparers)
-[![NuGet Pre Release](https://img.shields.io/nuget/vpre/Nito.Comparers.Core.svg?style=plastic)](https://www.nuget.org/packages/Nito.Comparers.Core/)
+[![NuGet Pre Release](https://img.shields.io/nuget/vpre/Nito.Comparers.svg?style=plastic)](https://www.nuget.org/packages/Nito.Comparers/)
 
-[API Docs](http://dotnetapis.com/pkg/Nito.Comparers.Core)
+[API Docs](http://dotnetapis.com/pkg/Nito.Comparers)
 
 ## Creating Comparers
 
-Install the [core NuGet package](https://www.nuget.org/packages/Nito.Comparers.Core). There are also extension NuGet packages for [LINQ](https://www.nuget.org/packages/Nito.Comparers.Linq), [Reactive extensions](https://www.nuget.org/packages/Nito.Comparers.Rx) and [Interactive extensions](https://www.nuget.org/packages/Nito.Comparers.Ix) support.
+Install the [NuGet package](https://www.nuget.org/packages/Nito.Comparers). By default, this includes the [extension package for LINQ](https://www.nuget.org/packages/Nito.Comparers.Linq) support. There are also extension packages available for [Reactive extensions](https://www.nuget.org/packages/Nito.Comparers.Rx) and [Interactive extensions](https://www.nuget.org/packages/Nito.Comparers.Ix) support.
 
 The comparer types are in the namespace `Nito.Comparers`.
 
