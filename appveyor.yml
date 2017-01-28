@@ -24,6 +24,10 @@ build_script:
     nuget pack nuspec/Nito.Comparers.nuspec
 
     nuget pack nuspec/Comparers.nuspec
+
+    nuget pack nuspec/Comparers.Ix.nuspec
+
+    nuget pack nuspec/Comparers.Rx.nuspec
 test_script:
 - ps: ./Coverage.ps1
 artifacts:
