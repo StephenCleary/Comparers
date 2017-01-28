@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Coverage.ps1 = Coverage.ps1
 		global.json = global.json
 		nuspec\Nito.Comparers.nuspec = nuspec\Nito.Comparers.nuspec
+		Version.ps1 = Version.ps1
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nito.Comparers.Linq", "src\Nito.Comparers.Linq\Nito.Comparers.Linq.xproj", "{838AB69B-F21C-4FC1-B5D2-1B8202865EE0}"
