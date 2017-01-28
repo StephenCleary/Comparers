@@ -1,5 +1,5 @@
-﻿{
-  "version": "5.0.0-pre-03",
+{
+  "version": "5.0.0-pre-04",
   "authors": [ "Stephen Cleary" ],
   "description": "Comparer extension methods for System.Linq.",
   "dependencies": {
@@ -7,7 +7,7 @@
       "type": "build",
       "version": "*"
     },
-    "Nito.Comparers.Core": "5.0.0-pre-03"
+    "Nito.Comparers.Core": "5.0.0-pre-04"
   },
   "buildOptions": {
     "warningsAsErrors": true,
