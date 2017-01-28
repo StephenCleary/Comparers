@@ -11,9 +11,9 @@ The last comparison library you'll ever need! For `netstandard1.0` (including .N
 
 ## Creating Comparers
 
-Install the [NuGet package](https://www.nuget.org/packages/Nito.Comparers). There are also NuGet packages for [LINQ](https://www.nuget.org/packages/Nito.Comparers.Linq), [Reactive extensions](https://www.nuget.org/packages/Nito.Comparers.Rx) and [Interactive extensions](https://www.nuget.org/packages/Nito.Comparers.Ix) support.
+Install the [core NuGet package](https://www.nuget.org/packages/Nito.Comparers.Core). There are also extension NuGet packages for [LINQ](https://www.nuget.org/packages/Nito.Comparers.Linq), [Reactive extensions](https://www.nuget.org/packages/Nito.Comparers.Rx) and [Interactive extensions](https://www.nuget.org/packages/Nito.Comparers.Ix) support.
 
-The core comparer types are in the namespace `Nito.Comparers`.
+The comparer types are in the namespace `Nito.Comparers`.
 
 Let's say you've got a collection of your POCOs:
 
