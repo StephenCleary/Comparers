@@ -4,21 +4,7 @@
 
 The last comparison library you'll ever need! For .NET 4.0, Windows 8.0, Windows Phone Silverlight 7.0, Windows Phone Applications 8.1, .NET 4.0 Client, and Silverlight 4.0.
 
-> ## .NET Core / ASP.NET vNext Status
->  [![AppVeyor](https://img.shields.io/appveyor/ci/StephenCleary/Comparers.svg?style=plastic)](https://ci.appveyor.com/project/StephenCleary/Comparers) [![Coveralls](https://img.shields.io/coveralls/StephenCleary/Comparers.svg?style=plastic)](https://coveralls.io/r/StephenCleary/Comparers)
-> [![NuGet Pre Release](https://img.shields.io/nuget/vpre/Nito.Comparers.svg?style=plastic)](https://www.nuget.org/packages/Nito.Comparers/)
->
-> The API has been changed significantly in the prerelease version:
-> - Code formerly using `Comparer<T>` and `CompareSource` should now use `ComparerBuilder`.
-> - Similarly, `EqualityComparer<T>` and `EqualityCompareSource` have been replaced by `EqualityComparerBuilder`.
-> - The anonymous comparers have been removed.
-> - `OrderByDescending` and `ThenByDescending` have been removed; instead, use the `descending` parameter of `OrderBy`/`ThenBy`.
-> - The `allowNulls` parameter of all methods has been renamed to `specialNullHandling`.
-> - All equality comparer types are in the `Nito.Comparers` namespace instead of `Nito.EqualityComparers`.
-
-[vNext API Docs](http://dotnetapis.com/pkg/Nito.Comparers)
-
-[Current API Docs](http://dotnetapis.com/pkg/Comparers)
+[API Docs](http://dotnetapis.com/pkg/Comparers)
 
 ## Creating Comparers
 
