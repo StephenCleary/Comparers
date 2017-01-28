@@ -176,4 +176,4 @@ UpgradeLog*.htm
 FakesAssemblies/
 
 *.lock.json
-/NETCore/.vs
+/.vs

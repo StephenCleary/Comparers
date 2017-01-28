@@ -18,17 +18,11 @@ install:
     & .\dotnet-install.ps1 -Channel "preview" -Version "1.0.0-preview2-003121" -InstallDir "$env:DOTNET_INSTALL_DIR"
 
 build_script:
-- ps: >-
-    cd NETCore
-
-    ./Build.ps1
+- ps: ./Build.ps1
 test_script:
-- ps: >-
-    cd NETCore
-
-    ./Coverage.ps1
+- ps: ./Coverage.ps1
 artifacts:
-  - path: 'NETCore\**\*.nupkg'
+  - path: '**\*.nupkg'
     name: NuGet Packages
 deploy:
   provider: NuGet
