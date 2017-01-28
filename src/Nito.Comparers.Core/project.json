@@ -19,6 +19,10 @@
   "frameworks": {
     "netstandard1.0": {
       "dependencies": {
+        "Shared": {
+          "type": "build",
+          "version": "*"
+        },
         "System.Collections": "4.0.11",
         "System.Reflection": "4.1.0"
       }

@@ -3,6 +3,10 @@
   "authors": [ "Stephen Cleary" ],
   "description": "Comparer extension methods for System.Linq.",
   "dependencies": {
+    "Shared": {
+      "type": "build",
+      "version": "*"
+    },
     "Nito.Comparers.Core": "5.0.0-pre-03"
   },
   "buildOptions": {

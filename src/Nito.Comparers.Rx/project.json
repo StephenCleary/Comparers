@@ -3,6 +3,10 @@
   "authors": [ "Stephen Cleary" ],
   "description": "Comparer extension methods for System.Reactive.",
   "dependencies": {
+    "Shared": {
+      "type": "build",
+      "version": "*"
+    },
     "Nito.Comparers.Linq": "5.0.0-pre-03",
     "System.Reactive": "3.0.0"
   },
