@@ -2,29 +2,18 @@
 
 # Comparers
 
-The last comparison library you'll ever need! For .NET 4.0, Windows 8.0, Windows Phone Silverlight 7.0, Windows Phone Applications 8.1, .NET 4.0 Client, and Silverlight 4.0.
+The last comparison library you'll ever need! For `netstandard1.0` (including .NET 4.5, .NET Core 1.0, Universal Windows 10, Windows 8, Windows Phone Applications 8.1, and Windows Phone Silverlight 8.0).
 
-> ## .NET Core / ASP.NET vNext Status
->  [![AppVeyor](https://img.shields.io/appveyor/ci/StephenCleary/Comparers.svg?style=plastic)](https://ci.appveyor.com/project/StephenCleary/Comparers) [![Coveralls](https://img.shields.io/coveralls/StephenCleary/Comparers.svg?style=plastic)](https://coveralls.io/r/StephenCleary/Comparers)
-> [![NuGet Pre Release](https://img.shields.io/nuget/vpre/Nito.Comparers.svg?style=plastic)](https://www.nuget.org/packages/Nito.Comparers/)
->
-> The API has been changed significantly in the prerelease version:
-> - Code formerly using `Comparer<T>` and `CompareSource` should now use `ComparerBuilder`.
-> - Similarly, `EqualityComparer<T>` and `EqualityCompareSource` have been replaced by `EqualityComparerBuilder`.
-> - The anonymous comparers have been removed.
-> - `OrderByDescending` and `ThenByDescending` have been removed; instead, use the `descending` parameter of `OrderBy`/`ThenBy`.
-> - The `allowNulls` parameter of all methods has been renamed to `specialNullHandling`.
-> - All equality comparer types are in the `Nito.Comparers` namespace instead of `Nito.EqualityComparers`.
+[![AppVeyor](https://img.shields.io/appveyor/ci/StephenCleary/Comparers.svg?style=plastic)](https://ci.appveyor.com/project/StephenCleary/Comparers) [![Coveralls](https://img.shields.io/coveralls/StephenCleary/Comparers.svg?style=plastic)](https://coveralls.io/r/StephenCleary/Comparers)
+[![NuGet Pre Release](https://img.shields.io/nuget/vpre/Nito.Comparers.svg?style=plastic)](https://www.nuget.org/packages/Nito.Comparers/)
 
-[vNext API Docs](http://dotnetapis.com/pkg/Nito.Comparers)
-
-[Current API Docs](http://dotnetapis.com/pkg/Comparers)
+[API Docs](http://dotnetapis.com/pkg/Nito.Comparers)
 
 ## Creating Comparers
 
-Install the [NuGet package](https://www.nuget.org/packages/Comparers). There are also NuGet packages for [Reactive extensions](https://www.nuget.org/packages/Comparers.Rx) and [Interactive extensions](https://www.nuget.org/packages/Comparers.Ix) support.
+Install the [NuGet package](https://www.nuget.org/packages/Nito.Comparers). There are also NuGet packages for [LINQ](https://www.nuget.org/packages/Nito.Comparers.Linq), [Reactive extensions](https://www.nuget.org/packages/Nito.Comparers.Rx) and [Interactive extensions](https://www.nuget.org/packages/Nito.Comparers.Ix) support.
 
-The core comparer types are in the namespace `Comparers`, with extensions in `Comparers.Linq` and equality comparers in `EqualityComparers`.
+The core comparer types are in the namespace `Nito.Comparers`.
 
 Let's say you've got a collection of your POCOs:
 
@@ -37,7 +26,7 @@ Let's say you've got a collection of your POCOs:
 
 Here's an easy way to sort them all by last name and then first name:
 
-    IComparer<Person> nameComparer = Compare<Person>.OrderBy(p => p.LastName).ThenBy(p => p.FirstName);
+    IComparer<Person> nameComparer = ComparerBuilder.For<Person>().OrderBy(p => p.LastName).ThenBy(p => p.FirstName);
     list.Sort(nameComparer);
 
 ### Implementing Comparable Types
@@ -46,11 +35,11 @@ How about having Person implement it?
 Let's face it: implementing comparison in .NET is a real pain. `IComparable<T>`, `IComparable`, `IEquatable<T>`, `Object.Equals`, *and* `Object.GetHashCode`?!?!
 But it's easy with a base type:
 
-    public class Person : ComparableBase<Person>
+    class Person : ComparableBase<Person>
     {
       static Person
       {
-        DefaultComparer = Compare<Person>.OrderBy(p => p.LastName).ThenBy(p => p.FirstName);
+        DefaultComparer = ComparerBuilder.For<Person>().OrderBy(p => p.LastName).ThenBy(p => p.FirstName);
       }
 
       public string FirstName { get; }
@@ -63,18 +52,18 @@ But it's easy with a base type:
 
 What about hash-based containers? Every single comparer produced by the Comparers library also implements equality comparison!
 
-    IEqualityComparer<Person> nameComparer = Compare<Person>.OrderBy(p => p.LastName).ThenBy(p => p.FirstName);
+    IEqualityComparer<Person> nameComparer = ComparerBuilder.For<Person>().OrderBy(p => p.LastName).ThenBy(p => p.FirstName);
     Dictionary<Person, Address> dict = new Dictionary<Person, Address>(nameComparer);
 
 ### Equality Comparers
 
-Sometimes, you can only define equality. Well, good news: there's an `EqualityComparers` namespace that parallels the `Comparers` namespace.
+Sometimes, you can only define equality. Well, good news: there are equality comparer types that parallel the full comparer types.
 
     class Entity : EquatableBase<Entity>
     {
       static Entity()
       {
-        DefaultComparer = EqualityCompare<Entity>.EquateBy(e => e.Id);
+        DefaultComparer = EqualityComparerBuilder.For<Entity>().EquateBy(e => e.Id);
       }
 
       public int Id { get; }
@@ -84,7 +73,7 @@ Sometimes, you can only define equality. Well, good news: there's an `EqualityCo
 
 Sequences are sorted lexicographically. The `Sequence` operator takes an existing comparer for one type, and defines a lexicographical comparer for sequences of that type:
 
-    var nameComparer = Compare<Person>.OrderBy(p => p.LastName).ThenBy(p => p.FirstName);
+    var nameComparer = ComparerBuilder.For<Person>().OrderBy(p => p.LastName).ThenBy(p => p.FirstName);
     List<IEnumerable<Person>> groups = ...;
     groups.Sort(nameComparer.Sequence());
 
@@ -99,7 +88,7 @@ There's also natural extensions for LINQ, Rx, and Ix:
 Need to sort dynamically at runtime? No problem!
 
     var sortByProperties = new[] { "LastName", "FirstName" };
-    IComparer<Person> comparer = Compare<Person>.Null();
+    IComparer<Person> comparer = ComparerBuilder.For<Person>().Null();
     foreach (var propertyName in sortByProperties)
     {
       var localPropertyName = propertyName;
@@ -112,22 +101,20 @@ Need to sort dynamically at runtime? No problem!
 Want a cute trick? Here's one: `true` is "greater than" `false`, so if you want to order by some weird condition, it's not too hard:
 
     // Use the default sort order (last name, then first name), EXCEPT all "Smith"s move to the head of the line.
-    list.Sort(Compare<Person>.OrderByDescending(p => p.LastName == "Smith").ThenBy(Compare<Person>.Default());
+    list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.LastName == "Smith", descending: true)
+        .ThenBy(ComparerBuilder.For<Person>().Default());
 
 By default, `null` values are "less than" anything else, but you can use the same sort of trick to sort them last:
 
     List<int?> myInts = ...;
-    myInts.Sort(Compare<int?>.OrderBy(i => i == null, allowNulls: true).ThenBy(Compare<int?>.Default()));
-    // Yeah, we need to pass "allowNulls"; otherwise, the default null-ordering rules will apply.
+    myInts.Sort(ComparerBuilder.For<int?>().OrderBy(i => i == null, specialNullHandling: true)
+        .ThenBy(ComparerBuilder.For<int?>().Default()));
+    // Yeah, we need to pass "specialNullHandling"; otherwise, the default null-ordering rules will apply.
 
 ### More?!
 
-For full details, see [the Wiki](https://github.com/StephenCleary/Comparers/wiki).
+For full details, see [the detailed docs](doc).
 
 ### What's with the flying saucer?
 
 Other languages provide a comparison operator `<=>`, which is called the "spaceship operator". This library provides similar capabilities for C#, hence the "spaceship logo".
-
-### Alternatives
-
-[ComparerExtensions](https://github.com/jehugaleahsa/ComparerExtensions) is a library that was part of [NList](https://www.nuget.org/packages/NList/) at the time I wrote Comparers; ComparerExtensions has been split from NList and is now a separate library. ComparerExtensions takes a slightly different fluent API approach, particularly around handling null values.
