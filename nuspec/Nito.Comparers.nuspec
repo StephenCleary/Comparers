@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Nito.Comparers</id>
+    <version>1.0.0-eta-02</version>
+    <authors>Stephen Cleary</authors>
+    <owners>Stephen Cleary</owners>
+    <licenseUrl>https://raw.githubusercontent.com/StephenCleary/Comparers/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/StephenCleary/Comparers</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The last comparison library you'll ever need!</description>
+    <tags>comparer equalitycomparer icomparable iequatable</tags>
+    <dependencies>
+      <dependency id="Nito.Comparers.Core" version="1.0.0-eta-02" />
+      <dependency id="Nito.Comparers.Linq" version="1.0.0-eta-02" />
+    </dependencies>
+  </metadata>
+</package>

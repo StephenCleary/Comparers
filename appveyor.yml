@@ -18,7 +18,10 @@ install:
     & .\dotnet-install.ps1 -Channel "preview" -Version "1.0.0-preview2-003121" -InstallDir "$env:DOTNET_INSTALL_DIR"
 
 build_script:
-- ps: ./Build.ps1
+- ps: >-
+    ./Build.ps1
+
+    nuget pack nuspec/Nito.Comparers.nuspec
 test_script:
 - ps: ./Coverage.ps1
 artifacts:

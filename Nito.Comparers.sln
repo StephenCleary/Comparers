@@ -7,10 +7,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BC7CC3DD-D39
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{395C3147-784D-4194-8111-38EE23E8042F}"
 	ProjectSection(SolutionItems) = preProject
-		..\appveyor.yml = ..\appveyor.yml
+		appveyor.yml = appveyor.yml
 		Build.ps1 = Build.ps1
 		Coverage.ps1 = Coverage.ps1
 		global.json = global.json
+		nuspec\Nito.Comparers.nuspec = nuspec\Nito.Comparers.nuspec
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nito.Comparers.Linq", "src\Nito.Comparers.Linq\Nito.Comparers.Linq.xproj", "{838AB69B-F21C-4FC1-B5D2-1B8202865EE0}"
