@@ -122,7 +122,7 @@ By default, `null` values are "less than" anything else, but you can use the sam
 
 ### More?!
 
-For full details, see [the Wiki](https://github.com/StephenCleary/Comparers/wiki).
+For full details, see [the detailed documentation](doc/home).
 
 ### What's with the flying saucer?
 
