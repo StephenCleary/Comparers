@@ -1,5 +1,5 @@
 {
-  "version": "5.0.0-pre-02",
+  "version": "5.0.0-pre-03",
   "authors": [ "Stephen Cleary" ],
   "description": "The last comparison library you'll ever need!",
   "buildOptions": {
@@ -9,6 +9,7 @@
   "packOptions": {
     "tags": [ "comparer", "equalitycomparer", "icomparable", "iequatable" ],
     "projectUrl": "https://github.com/StephenCleary/Comparers",
+    "iconUrl": "https://raw.githubusercontent.com/StephenCleary/Comparers/master/Comparers.128.png",
     "licenseUrl": "https://raw.githubusercontent.com/StephenCleary/Comparers/master/LICENSE",
     "repository": {
       "type": "git",

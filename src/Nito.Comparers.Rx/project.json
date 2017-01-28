@@ -1,9 +1,9 @@
 ﻿{
-  "version": "5.0.0-pre-02",
+  "version": "5.0.0-pre-03",
   "authors": [ "Stephen Cleary" ],
   "description": "Comparer extension methods for System.Reactive.",
   "dependencies": {
-    "Nito.Comparers.Linq": "5.0.0-pre-02",
+    "Nito.Comparers.Linq": "5.0.0-pre-03",
     "System.Reactive": "3.0.0"
   },
   "buildOptions": {
@@ -13,6 +13,7 @@
   "packOptions": {
     "tags": [ "comparer", "equalitycomparer", "icomparable", "iequatable" ],
     "projectUrl": "https://github.com/StephenCleary/Comparers",
+    "iconUrl": "https://raw.githubusercontent.com/StephenCleary/Comparers/master/Comparers.128.png",
     "licenseUrl": "https://raw.githubusercontent.com/StephenCleary/Comparers/master/LICENSE",
     "repository": {
       "type": "git",
