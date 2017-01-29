@@ -1,2 +1,2 @@
 param([String]$oldVersion="", [String]$newVersion="")
-iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/StephenCleary/BuildTools/0297d9e34cc1ff5391b474b4fa29d6be9b236b83/Version.ps1'))
+iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/StephenCleary/BuildTools/3823868f19eb286d490e3d7304bfd25cf317d015/Version.ps1'))
