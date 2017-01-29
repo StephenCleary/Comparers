@@ -1,5 +1,5 @@
 {
-  "version": "5.0.0-pre-04",
+  "version": "5.0.0-pre-05",
   "authors": [ "Stephen Cleary" ],
   "description": "The last comparison library you'll ever need!",
   "buildOptions": {
