@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Description>Comparer extension methods for System.Interactive.</Description>
-    <VersionPrefix>5.0.2</VersionPrefix>
+    <VersionPrefix>5.0.3</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <Authors>Stephen Cleary</Authors>
     <TargetFrameworks>netstandard1.0</TargetFrameworks>
