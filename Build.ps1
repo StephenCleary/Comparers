@@ -1,1 +1,1 @@
-iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/StephenCleary/BuildTools/bd44aef57d6df1acb1cab45eebb983f68a218528/Build.ps1'))
+iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/StephenCleary/BuildTools/3b91ded6dceccf15ca2f48e96339c1b076b47b72/Build.ps1'))
