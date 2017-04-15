@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Comparer extension methods for System.Reactive.</Description>
+    <VersionPrefix>5.0.0</VersionPrefix>
+    <Authors>Stephen Cleary</Authors>
+    <TargetFrameworks>netstandard1.0</TargetFrameworks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyName>Nito.Comparers.Rx</AssemblyName>
+    <PackageId>Nito.Comparers.Rx</PackageId>
+    <PackageTags>comparer;equalitycomparer;icomparable;iequatable</PackageTags>
+    <PackageIconUrl>https://raw.githubusercontent.com/StephenCleary/Comparers/master/Comparers.128.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/StephenCleary/Comparers</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/StephenCleary/Comparers/master/LICENSE</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/StephenCleary/Comparers.git</RepositoryUrl>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.0|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>True</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Nito.Comparers.Linq\Nito.Comparers.Linq.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Reactive" Version="3.0.0" />
+  </ItemGroup>
+
+</Project>

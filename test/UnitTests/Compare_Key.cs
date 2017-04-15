@@ -29,7 +29,7 @@ namespace UnitTests
         public void OrderByUsesKeyComparer()
         {
             var list = new List<Person> { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson };
-#if NETCOREAPP1_0
+#if NETCOREAPP1_1
             StringComparer invariantCultureComparer = CultureInfo.InvariantCulture.CompareInfo.GetStringComparer(CompareOptions.None);
 #else
             StringComparer invariantCultureComparer = StringComparer.InvariantCulture;
@@ -50,7 +50,7 @@ namespace UnitTests
         public void OrderByDescendingUsesKeyComparer()
         {
             var list = new List<Person> { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson };
-#if NETCOREAPP1_0
+#if NETCOREAPP1_1
             StringComparer invariantCultureComparer = CultureInfo.InvariantCulture.CompareInfo.GetStringComparer(CompareOptions.None);
 #else
             StringComparer invariantCultureComparer = StringComparer.InvariantCulture;
@@ -71,7 +71,7 @@ namespace UnitTests
         public void ThenByUsesKeyComparer()
         {
             var list = new List<Person> { AbeAbrams, WilliamAbrams, CaseyJohnson, JackAbrams };
-#if NETCOREAPP1_0
+#if NETCOREAPP1_1
             StringComparer invariantCultureComparer = CultureInfo.InvariantCulture.CompareInfo.GetStringComparer(CompareOptions.None);
 #else
             StringComparer invariantCultureComparer = StringComparer.InvariantCulture;
@@ -92,7 +92,7 @@ namespace UnitTests
         public void ThenByDescendingUsesKeyComparer()
         {
             var list = new List<Person> { AbeAbrams, WilliamAbrams, CaseyJohnson, JackAbrams };
-#if NETCOREAPP1_0
+#if NETCOREAPP1_1
             StringComparer invariantCultureComparer = CultureInfo.InvariantCulture.CompareInfo.GetStringComparer(CompareOptions.None);
 #else
             StringComparer invariantCultureComparer = StringComparer.InvariantCulture;
