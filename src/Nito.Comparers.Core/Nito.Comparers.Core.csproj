@@ -17,9 +17,6 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/StephenCleary/Comparers.git</RepositoryUrl>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
-    <PublicSign>True</PublicSign>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
