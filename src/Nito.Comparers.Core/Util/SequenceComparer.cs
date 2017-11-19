@@ -6,16 +6,28 @@ namespace Nito.Comparers.Util
     /// A comparer that performs a lexicographical ordering on a sequence.
     /// </summary>
     /// <typeparam name="T">The type of sequence elements being compared.</typeparam>
-    internal sealed class SequenceComparer<T> : SourceComparerBase<IEnumerable<T>, T>
+    internal sealed class SequenceComparer<T> : ComparerBase<IEnumerable<T>>
     {
+        /// <summary>
+        /// The source comparer.
+        /// </summary>
+        private readonly IComparer<T> _source;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SequenceComparer{T}"/> class.
         /// </summary>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
         public SequenceComparer(IComparer<T> source)
-            : base(source, false)
+            : base(false)
         {
+            _source = ComparerHelpers.NormalizeDefault(source);
+            _sourceSequenceEqualityComparer = ComparerHelpers.GetEqualityComparerFromComparer(_source).EquateSequence();
         }
+
+        /// <summary>
+        /// The source equality comparer.
+        /// </summary>
+        private readonly IEqualityComparer<IEnumerable<T>> _sourceSequenceEqualityComparer;
 
         /// <summary>
         /// Returns a hash code for the specified object.
@@ -24,16 +36,7 @@ namespace Nito.Comparers.Util
         /// <returns>A hash code for the specified object.</returns>
         protected override int DoGetHashCode(IEnumerable<T> obj)
         {
-            unchecked
-            {
-                var ret = (int)2166136261;
-                foreach (var item in obj)
-                {
-                    ret += _sourceEqualityComparer.GetHashCode(item);
-                    ret *= 16777619;
-                }
-                return ret;
-            }
+            return _sourceSequenceEqualityComparer.GetHashCode(obj);
         }
 
         /// <summary>
@@ -73,7 +76,7 @@ namespace Nito.Comparers.Util
         /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise, <c>false</c>.</returns>
         protected override bool DoEquals(IEnumerable<T> x, IEnumerable<T> y)
         {
-            return System.Linq.Enumerable.SequenceEqual(x, y, _sourceEqualityComparer);
+            return _sourceSequenceEqualityComparer.Equals(x, y);
         }
 
         /// <summary>

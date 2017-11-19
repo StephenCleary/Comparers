@@ -6,14 +6,11 @@ internal static class CollectionHelpers
 {
     public static int? TryGetCount<T>(this IEnumerable<T> source)
     {
-        var result = source as IReadOnlyCollection<T>;
-        if (result != null)
+        if (source is IReadOnlyCollection<T> result)
             return result.Count;
-        var collection = source as ICollection<T>;
-        if (collection != null)
+        if (source is ICollection<T> collection)
             return collection.Count;
-        var nongenericCollection = source as ICollection;
-        if (nongenericCollection != null)
+        if (source is ICollection nongenericCollection)
             return nongenericCollection.Count;
 
         return null;
