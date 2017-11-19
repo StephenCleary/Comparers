@@ -83,7 +83,7 @@ namespace Nito.Comparers.Util
                         return false;
 
                     var ret = _sourceEqualityComparer.Equals(xIter.Current, yIter.Current);
-                    if (ret !=false)
+                    if (ret !=true)
                         return ret;
                 }
             }

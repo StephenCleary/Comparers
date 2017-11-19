@@ -38,14 +38,18 @@ namespace UnitTests
         public void ShorterSequenceIsSmallerIfElementsAreEqual()
         {
             Assert.True(ComparerBuilder.For<int>().Default().Sequence().Compare(new[] { 3, 4 }, new[] { 3, 4, 5 }) < 0);
+            Assert.False(ComparerBuilder.For<int>().Default().Sequence().Equals(new[] { 3, 4 }, new[] { 3, 4, 5 }));
             Assert.True(ComparerBuilder.For<int>().Default().Sequence().Compare(new[] { 3, 4, 5 }, new[] { 3, 4 }) > 0);
+            Assert.False(ComparerBuilder.For<int>().Default().Sequence().Equals(new[] { 3, 4, 5 }, new[] { 3, 4 }));
         }
 
         [Fact]
         public void EqualSequencesAreEqualIfElementsAreEqual()
         {
             Assert.True(ComparerBuilder.For<int>().Default().Sequence().Compare(new[] { 3, 4 }, new[] { 3, 4 }) == 0);
+            Assert.True(ComparerBuilder.For<int>().Default().Sequence().Equals(new[] { 3, 4 }, new[] { 3, 4 }));
             Assert.True(ComparerBuilder.For<int>().Default().Sequence().Compare(new[] { 3, 4, 5 }, new[] { 3, 4, 5 }) == 0);
+            Assert.True(ComparerBuilder.For<int>().Default().Sequence().Equals(new[] { 3, 4, 5 }, new[] { 3, 4, 5 }));
             Assert.Equal(ComparerBuilder.For<int>().Default().Sequence().GetHashCode(new[] { 3, 4 }), ComparerBuilder.For<int>().Default().Sequence().GetHashCode(new[] { 3, 4 }));
         }
 
@@ -53,7 +57,9 @@ namespace UnitTests
         public void SequenceOrderDeterminedByElementsIfElementsAreNotEqual()
         {
             Assert.True(ComparerBuilder.For<int>().Default().Sequence().Compare(new[] { 3, 4 }, new[] { 3, 5 }) < 0);
+            Assert.False(ComparerBuilder.For<int>().Default().Sequence().Equals(new[] { 3, 4 }, new[] { 3, 5 }));
             Assert.True(ComparerBuilder.For<int>().Default().Sequence().Compare(new[] { 3, 4, 5 }, new[] { 3, 3, 5 }) > 0);
+            Assert.False(ComparerBuilder.For<int>().Default().Sequence().Equals(new[] { 3, 4, 5 }, new[] { 3, 3, 5 }));
         }
 
         [Fact]

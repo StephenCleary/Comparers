@@ -9,6 +9,13 @@ namespace UnitTests
     public class Compare_ReverseUnitTests
     {
         [Fact]
+        public void EqualReversesComparer()
+        {
+            var comparer = ComparerBuilder.For<int>().Default().Reverse();
+            Assert.True(comparer.Equals(3, 3));
+            Assert.False(comparer.Equals(3, -1));
+        }
+        [Fact]
         public void SubstitutesCompareDefaultForComparerDefault()
         {
             var comparer = Comparer<int>.Default.Reverse();
@@ -48,6 +55,32 @@ namespace UnitTests
         }
 
         [Fact]
+        public void PassesEqualThrough()
+        {
+            var comparer = ComparerBuilder.For<int?>().Default().Reverse();
+            var bclComparer = EqualityComparer<int?>.Default;
+            var num = new Random().Next();
+            Assert.Equal(bclComparer.Equals(num,num),comparer.Equals(num,num));
+            Assert.Equal(bclComparer.Equals(num, num+1), comparer.Equals(num, num-1));
+        }
+
+        [Fact]
+        public void PassesEqualThrough_NonGeneric()
+        {
+            var comparer = new NongenericEqualityComparer2().Reverse();
+            var num = new Random().Next();
+            Assert.False(comparer.Equals(num, num));
+        }
+
+        [Fact]
+        public void PassesEqualThrough_Plain()
+        {
+            var comparer = new PlainComparer2().Reverse();
+            var num = new Random().Next();
+            Assert.True(comparer.Equals(num, num+1));
+        }
+
+        [Fact]
         public void PassesGetHashCodeThrough()
         {
             var comparer = ComparerBuilder.For<int?>().Default().Reverse();
@@ -79,6 +112,23 @@ namespace UnitTests
                 return 17;
             }
         }
+        private sealed class NongenericEqualityComparer2 : IComparer<int>, System.Collections.IEqualityComparer
+        {
+            public int Compare(int x, int y)
+            {
+                return 0;
+            }
+
+            public new bool Equals(object x, object y)
+            {
+                return false;
+            }
+
+            public int GetHashCode(object obj)
+            {
+                return 17;
+            }
+        }
 
         [Fact]
         public void NoGetHashCodeImplementation_ThrowsNotImplementedException()
@@ -93,10 +143,12 @@ namespace UnitTests
             {
                 throw new Exception();
             }
-
-            public new bool Equals(object x, object y)
+        }
+        private sealed class PlainComparer2 : IComparer<int>
+        {
+            public int Compare(int x, int y)
             {
-                throw new Exception();
+                return 0;
             }
         }
 
