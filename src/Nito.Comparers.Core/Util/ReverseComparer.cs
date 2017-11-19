@@ -24,7 +24,7 @@ namespace Nito.Comparers.Util
         /// <returns>A hash code for the specified object.</returns>
         protected override int DoGetHashCode(T obj)
         {
-            return ComparerHelpers.GetHashCodeFromComparer(_source, obj);
+            return _sourceEqualityComparer.GetHashCode(obj);
         }
 
         /// <summary>
@@ -36,6 +36,10 @@ namespace Nito.Comparers.Util
         protected override int DoCompare(T x, T y)
         {
             return _source.Compare(y, x);
+        }
+        protected override bool DoEquals(T x, T y)
+        {
+            return _sourceEqualityComparer.Equals(x, y);
         }
 
         /// <summary>

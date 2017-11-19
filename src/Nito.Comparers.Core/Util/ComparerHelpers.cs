@@ -18,16 +18,54 @@ namespace Nito.Comparers.Util
         /// <returns>A hash code for the specified object.</returns>
         public static int GetHashCodeFromComparer<T>(IComparer<T> comparer, T obj)
         {
-            var equalityComparer = comparer as IEqualityComparer<T>;
-            if (equalityComparer != null)
-                return equalityComparer.GetHashCode(obj);
-            var objectEqualityComparer = comparer as System.Collections.IEqualityComparer;
-            if (objectEqualityComparer != null)
-                return objectEqualityComparer.GetHashCode(obj);
-
-            throw new NotImplementedException();
+            return GetEqualityComparerFromComparer(comparer).GetHashCode(obj);
         }
 
+        internal static IEqualityComparer<T> GetEqualityComparerFromComparer<T>(IComparer<T> comparer)
+        {
+            //if (comparer is SourceComparerBase<T, T>)
+            //{
+            //    return new EasyComparer2<T>() { equalityComparer = comparer };
+            //}
+            if (comparer is IEqualityComparer<T> equalityComparer)
+            {
+                return equalityComparer;
+            }
+            else if (comparer is System.Collections.IEqualityComparer objectEqualityComparer)
+            {
+                return new EasyComparer<T>() { equalityComparer = objectEqualityComparer };
+            }
+            else
+            {
+                return new EasyComparer2<T>() { equalityComparer = comparer };
+            }
+        }
+        class EasyComparer<T> : IEqualityComparer<T>
+        {
+            public System.Collections.IEqualityComparer equalityComparer;
+            public bool Equals(T x, T y)
+            {
+                return equalityComparer.Equals(x, y);
+            }
+
+            public int GetHashCode(T obj)
+            {
+                return equalityComparer.GetHashCode(obj);
+            }
+        }
+        class EasyComparer2<T> : IEqualityComparer<T>
+        {
+            public IComparer<T> equalityComparer;
+            public bool Equals(T x, T y)
+            {
+                return equalityComparer.Compare(x, y) == 0;
+            }
+
+            public int GetHashCode(T obj)
+            {
+                throw new NotImplementedException();
+            }
+        }
         /// <summary>
         /// Converts a <c>null</c> or default comparer into a default comparer that supports hash codes (and sequences, if necessary).
         /// </summary>

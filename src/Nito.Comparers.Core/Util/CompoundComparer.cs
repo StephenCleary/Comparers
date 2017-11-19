@@ -12,6 +12,9 @@ namespace Nito.Comparers.Util
         /// The second comparer.
         /// </summary>
         private readonly IComparer<T> _secondSource;
+        private readonly IEqualityComparer<T> _secondSourceEqualityComparer;
+
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CompoundComparer&lt;T&gt;"/> class.
@@ -22,8 +25,9 @@ namespace Nito.Comparers.Util
             : base(source, true)
         {
             _secondSource = ComparerHelpers.NormalizeDefault(secondSource);
+            _secondSourceEqualityComparer = ComparerHelpers.GetEqualityComparerFromComparer(_secondSource);
         }
-
+        
         /// <summary>
         /// Returns a hash code for the specified object.
         /// </summary>
@@ -34,12 +38,16 @@ namespace Nito.Comparers.Util
             unchecked
             {
                 var ret = (int)2166136261;
-                ret += ComparerHelpers.GetHashCodeFromComparer(_source, obj);
+                ret += _sourceEqualityComparer.GetHashCode(obj);
                 ret *= 16777619;
-                ret += ComparerHelpers.GetHashCodeFromComparer(_secondSource, obj);
+                ret += _secondSourceEqualityComparer.GetHashCode(obj);
                 ret *= 16777619;
                 return ret;
             }
+        }
+        protected override bool DoEquals(T x, T y)
+        {
+            return _sourceEqualityComparer.Equals(x, y) && _secondSourceEqualityComparer.Equals(x, y);
         }
 
         /// <summary>

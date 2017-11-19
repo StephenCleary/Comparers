@@ -29,7 +29,7 @@ namespace Nito.Comparers.Util
                 var ret = (int)2166136261;
                 foreach (var item in obj)
                 {
-                    ret += ComparerHelpers.GetHashCodeFromComparer(_source, item);
+                    ret += _sourceEqualityComparer.GetHashCode(item);
                     ret *= 16777619;
                 }
                 return ret;
@@ -61,6 +61,29 @@ namespace Nito.Comparers.Util
 
                     var ret = _source.Compare(xIter.Current, yIter.Current);
                     if (ret != 0)
+                        return ret;
+                }
+            }
+        }
+        protected override bool DoEquals(IEnumerable<T> x, IEnumerable<T> y)
+        {
+            using (var xIter = x.GetEnumerator())
+            using (var yIter = y.GetEnumerator())
+            {
+                while (true)
+                {
+                    if (!xIter.MoveNext())
+                    {
+                        if (!yIter.MoveNext())
+                            return true;
+                        return false;
+                    }
+
+                    if (!yIter.MoveNext())
+                        return false;
+
+                    var ret = _sourceEqualityComparer.Equals(xIter.Current, yIter.Current);
+                    if (ret !=false)
                         return ret;
                 }
             }
