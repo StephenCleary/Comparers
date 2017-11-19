@@ -14,27 +14,28 @@ namespace Nito.Comparers.Util
         /// </summary>
         /// <typeparam name="T">The type of objects being compared.</typeparam>
         /// <param name="comparer">The comparer to use to calculate a hash code. May not be <c>null</c>.</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="IEqualityComparer{T}"/> for the specified object</returns>
         public static IEqualityComparer<T> GetEqualityComparerFromComparer<T>(IComparer<T> comparer)
         {
-            //if (comparer is SourceComparerBase<T, T>)
-            //{
-            //    return new EasyComparer2<T>() { equalityComparer = comparer };
-            //}
             if (comparer is IEqualityComparer<T> equalityComparer)
             {
                 return equalityComparer;
             }
             else if (comparer is System.Collections.IEqualityComparer objectEqualityComparer)
             {
-                return new EasyComparer<T>() { equalityComparer = objectEqualityComparer };
+                return new NongenericComparerWrapperComparer<T>() { equalityComparer = objectEqualityComparer };
             }
             else
             {
-                return new EasyComparer2<T>() { equalityComparer = comparer };
+                return new PlainComparerWrapperComparer<T>() { equalityComparer = comparer };
             }
         }
-        class EasyComparer<T> : IEqualityComparer<T>
+
+        /// <summary>
+        /// A comparer that wrap a <see cref="System.Collections.IEqualityComparer"/>
+        /// </summary>
+        /// <typeparam name="T">The type of objects being compared.</typeparam>
+        class NongenericComparerWrapperComparer<T> : IEqualityComparer<T>
         {
             public System.Collections.IEqualityComparer equalityComparer;
             public bool Equals(T x, T y)
@@ -47,7 +48,12 @@ namespace Nito.Comparers.Util
                 return equalityComparer.GetHashCode(obj);
             }
         }
-        class EasyComparer2<T> : IEqualityComparer<T>
+
+        /// <summary>
+        /// A comparer that wrap a <see cref="IEqualityComparer{T}"/>
+        /// </summary>
+        /// <typeparam name="T">The type of objects being compared.</typeparam>
+        class PlainComparerWrapperComparer<T> : IEqualityComparer<T>
         {
             public IComparer<T> equalityComparer;
             public bool Equals(T x, T y)
@@ -60,6 +66,7 @@ namespace Nito.Comparers.Util
                 throw new NotImplementedException();
             }
         }
+
         /// <summary>
         /// Converts a <c>null</c> or default comparer into a default comparer that supports hash codes (and sequences, if necessary).
         /// </summary>

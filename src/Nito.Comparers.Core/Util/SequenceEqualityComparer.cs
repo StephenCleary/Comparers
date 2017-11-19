@@ -9,7 +9,7 @@ namespace Nito.Comparers.Util
     internal sealed class SequenceEqualityComparer<T> : SourceEqualityComparerBase<IEnumerable<T>, T>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SequenceEqualityComparer&lt;T&gt;"/> class.
+        /// Initializes a new instance of the <see cref="SequenceEqualityComparer{T}"/> class.
         /// </summary>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
         public SequenceEqualityComparer(IEqualityComparer<T> source)

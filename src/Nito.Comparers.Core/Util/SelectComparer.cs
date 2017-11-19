@@ -16,7 +16,7 @@ namespace Nito.Comparers.Util
         private readonly Func<T, TSource> _selector;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SelectComparer&lt;T, TSource&gt;"/> class.
+        /// Initializes a new instance of the <see cref="SelectComparer{T, TSource}"/> class.
         /// </summary>
         /// <param name="selector">The key selector. May not be <c>null</c>.</param>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
@@ -48,6 +48,12 @@ namespace Nito.Comparers.Util
             return _source.Compare(_selector(x), _selector(y));
         }
 
+        /// <summary>
+        /// Compares two objects and returns <c>true</c> if they are equal and <c>false</c> if they are not equal.
+        /// </summary>
+        /// <param name="x">The first object to compare.</param>
+        /// <param name="y">The second object to compare.</param>
+        /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise, <c>false</c>.</returns>
         protected override bool DoEquals(T x, T y)
         {
             return _sourceEqualityComparer.Equals(_selector(x), _selector(y));

@@ -16,7 +16,7 @@ namespace Nito.Comparers.Util
         private readonly Func<T, TSource> _selector;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SelectEqualityComparer&lt;T, TSource&gt;"/> class.
+        /// Initializes a new instance of the <see cref="SelectEqualityComparer{T, TSource}"/> class.
         /// </summary>
         /// <param name="selector">The key selector. May not be <c>null</c>.</param>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>

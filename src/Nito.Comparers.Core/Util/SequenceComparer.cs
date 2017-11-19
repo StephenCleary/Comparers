@@ -9,7 +9,7 @@ namespace Nito.Comparers.Util
     internal sealed class SequenceComparer<T> : SourceComparerBase<IEnumerable<T>, T>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SequenceComparer&lt;T&gt;"/> class.
+        /// Initializes a new instance of the <see cref="SequenceComparer{T}"/> class.
         /// </summary>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
         public SequenceComparer(IComparer<T> source)
@@ -65,28 +65,15 @@ namespace Nito.Comparers.Util
                 }
             }
         }
+        /// <summary>
+        /// Compares two objects and returns <c>true</c> if they are equal and <c>false</c> if they are not equal.
+        /// </summary>
+        /// <param name="x">The first object to compare.</param>
+        /// <param name="y">The second object to compare.</param>
+        /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise, <c>false</c>.</returns>
         protected override bool DoEquals(IEnumerable<T> x, IEnumerable<T> y)
         {
-            using (var xIter = x.GetEnumerator())
-            using (var yIter = y.GetEnumerator())
-            {
-                while (true)
-                {
-                    if (!xIter.MoveNext())
-                    {
-                        if (!yIter.MoveNext())
-                            return true;
-                        return false;
-                    }
-
-                    if (!yIter.MoveNext())
-                        return false;
-
-                    var ret = _sourceEqualityComparer.Equals(xIter.Current, yIter.Current);
-                    if (ret !=true)
-                        return ret;
-                }
-            }
+            return System.Linq.Enumerable.SequenceEqual(x, y, _sourceEqualityComparer);
         }
 
         /// <summary>

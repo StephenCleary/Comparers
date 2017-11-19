@@ -12,12 +12,14 @@ namespace Nito.Comparers.Util
         /// The second comparer.
         /// </summary>
         private readonly IComparer<T> _secondSource;
-        private readonly IEqualityComparer<T> _secondSourceEqualityComparer;
-
-
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CompoundComparer&lt;T&gt;"/> class.
+        /// The second source equality comparer.
+        /// </summary>
+        private readonly IEqualityComparer<T> _secondSourceEqualityComparer;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CompoundComparer{T}"/> class.
         /// </summary>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
         /// <param name="secondSource">The second comparer. If this is <c>null</c>, the default comparer is used.</param>
@@ -45,6 +47,13 @@ namespace Nito.Comparers.Util
                 return ret;
             }
         }
+
+        /// <summary>
+        /// Compares two objects and returns <c>true</c> if they are equal and <c>false</c> if they are not equal.
+        /// </summary>
+        /// <param name="x">The first object to compare.</param>
+        /// <param name="y">The second object to compare.</param>
+        /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise, <c>false</c>.</returns>
         protected override bool DoEquals(T x, T y)
         {
             return _sourceEqualityComparer.Equals(x, y) && _secondSourceEqualityComparer.Equals(x, y);

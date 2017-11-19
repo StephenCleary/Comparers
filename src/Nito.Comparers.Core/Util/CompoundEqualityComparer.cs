@@ -14,7 +14,7 @@ namespace Nito.Comparers.Util
         private readonly IEqualityComparer<T> _secondSource;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CompoundEqualityComparer&lt;T&gt;"/> class.
+        /// Initializes a new instance of the <see cref="CompoundEqualityComparer{T}"/> class.
         /// </summary>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
         /// <param name="secondSource">The second comparer. If this is <c>null</c>, the default comparer is used.</param>
