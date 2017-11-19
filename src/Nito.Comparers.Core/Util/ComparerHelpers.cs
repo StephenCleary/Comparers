@@ -14,7 +14,7 @@ namespace Nito.Comparers.Util
         /// </summary>
         /// <typeparam name="T">The type of objects being compared.</typeparam>
         /// <param name="comparer">The comparer to use to calculate a hash code. May not be <c>null</c>.</param>
-        /// <returns>The <see cref="IEqualityComparer{T}"/> for the specified object</returns>
+        /// <returns>A <see cref="IEqualityComparer{T}"/> for the specified object</returns>
         public static IEqualityComparer<T> GetEqualityComparerFromComparer<T>(IComparer<T> comparer)
         {
             if (comparer is IEqualityComparer<T> equalityComparer)
