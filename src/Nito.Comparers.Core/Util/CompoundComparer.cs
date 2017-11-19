@@ -6,17 +6,22 @@ namespace Nito.Comparers.Util
     /// A comparer that uses another comparer if the source comparer determines the objects are equal.
     /// </summary>
     /// <typeparam name="T">The type of objects being compared.</typeparam>
-    internal sealed class CompoundComparer<T> : SourceComparerBase<T, T>
+    internal sealed class CompoundComparer<T> : ComparerBase<T>
     {
+        /// <summary>
+        /// The source comparer.
+        /// </summary>
+        private readonly IComparer<T> _source;
+
         /// <summary>
         /// The second comparer.
         /// </summary>
         private readonly IComparer<T> _secondSource;
 
         /// <summary>
-        /// The second source equality comparer.
+        /// The equality comparer.
         /// </summary>
-        private readonly IEqualityComparer<T> _secondSourceEqualityComparer;
+        private readonly IEqualityComparer<T> _equalityComparer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CompoundComparer{T}"/> class.
@@ -24,12 +29,13 @@ namespace Nito.Comparers.Util
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
         /// <param name="secondSource">The second comparer. If this is <c>null</c>, the default comparer is used.</param>
         public CompoundComparer(IComparer<T> source, IComparer<T> secondSource)
-            : base(source, true)
+            : base(true)
         {
+            _source = ComparerHelpers.NormalizeDefault(source);
             _secondSource = ComparerHelpers.NormalizeDefault(secondSource);
-            _secondSourceEqualityComparer = ComparerHelpers.GetEqualityComparerFromComparer(_secondSource);
+            _equalityComparer = ComparerHelpers.GetEqualityComparerFromComparer(_source).ThenEquateBy(ComparerHelpers.GetEqualityComparerFromComparer(_secondSource));
         }
-        
+
         /// <summary>
         /// Returns a hash code for the specified object.
         /// </summary>
@@ -37,15 +43,7 @@ namespace Nito.Comparers.Util
         /// <returns>A hash code for the specified object.</returns>
         protected override int DoGetHashCode(T obj)
         {
-            unchecked
-            {
-                var ret = (int)2166136261;
-                ret += _sourceEqualityComparer.GetHashCode(obj);
-                ret *= 16777619;
-                ret += _secondSourceEqualityComparer.GetHashCode(obj);
-                ret *= 16777619;
-                return ret;
-            }
+            return _equalityComparer.GetHashCode(obj);
         }
 
         /// <summary>
@@ -56,7 +54,7 @@ namespace Nito.Comparers.Util
         /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise, <c>false</c>.</returns>
         protected override bool DoEquals(T x, T y)
         {
-            return _sourceEqualityComparer.Equals(x, y) && _secondSourceEqualityComparer.Equals(x, y);
+            return _equalityComparer.Equals(x, y);
         }
 
         /// <summary>

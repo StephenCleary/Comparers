@@ -8,8 +8,18 @@ namespace Nito.Comparers.Util
     /// </summary>
     /// <typeparam name="TSource">The type of key objects being compared.</typeparam>
     /// <typeparam name="T">The type of objects being compared.</typeparam>
-    internal sealed class SelectComparer<T, TSource> : SourceComparerBase<T, TSource>
+    internal sealed class SelectComparer<T, TSource> : ComparerBase<T>
     {
+        /// <summary>
+        /// The source comparer.
+        /// </summary>
+        private readonly IComparer<TSource> _source;
+
+        /// <summary>
+        /// The source equality comparer.
+        /// </summary>
+        private readonly IEqualityComparer<TSource> _sourceEqualityComparer;
+
         /// <summary>
         /// The key selector.
         /// </summary>
@@ -22,9 +32,11 @@ namespace Nito.Comparers.Util
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
         /// <param name="specialNullHandling">A value indicating whether <c>null</c> values are passed to <paramref name="selector"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <paramref name="selector"/>.</param>
         public SelectComparer(Func<T, TSource> selector, IComparer<TSource> source, bool specialNullHandling)
-            : base(source, specialNullHandling)
+            : base(specialNullHandling)
         {
+            _source = ComparerHelpers.NormalizeDefault(source);
             _selector = selector;
+            _sourceEqualityComparer = ComparerHelpers.GetEqualityComparerFromComparer(_source);
         }
 
         /// <summary>
