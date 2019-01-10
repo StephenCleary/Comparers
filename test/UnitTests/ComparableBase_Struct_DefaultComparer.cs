@@ -44,8 +44,8 @@ namespace UnitTests
         public void ImplementsComparerDefault_Hash()
         {
             var set = new HashSet<Person> { JackAbrams, CaseyJohnson, AbeAbrams };
-            Assert.True(set.Contains(new Person { FirstName = AbeAbrams.FirstName, LastName = AbeAbrams.LastName }));
-            Assert.False(set.Contains(WilliamAbrams));
+            Assert.Contains(new Person { FirstName = AbeAbrams.FirstName, LastName = AbeAbrams.LastName }, set);
+            Assert.DoesNotContain(WilliamAbrams, set);
         }
 
         [Fact]

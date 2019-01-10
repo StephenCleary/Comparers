@@ -29,12 +29,7 @@ namespace UnitTests
         public void OrderByUsesKeyComparer()
         {
             var list = new List<Person> { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson };
-#if NETCOREAPP1_1
-            StringComparer invariantCultureComparer = CultureInfo.InvariantCulture.CompareInfo.GetStringComparer(CompareOptions.None);
-#else
-            StringComparer invariantCultureComparer = StringComparer.InvariantCulture;
-#endif
-            list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.FirstName, invariantCultureComparer.Reverse()));
+            list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.FirstName, StringComparer.InvariantCulture.Reverse()));
             Assert.Equal(new[] { WilliamAbrams, JackAbrams, CaseyJohnson, AbeAbrams }, list);
         }
 
@@ -50,12 +45,7 @@ namespace UnitTests
         public void OrderByDescendingUsesKeyComparer()
         {
             var list = new List<Person> { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson };
-#if NETCOREAPP1_1
-            StringComparer invariantCultureComparer = CultureInfo.InvariantCulture.CompareInfo.GetStringComparer(CompareOptions.None);
-#else
-            StringComparer invariantCultureComparer = StringComparer.InvariantCulture;
-#endif
-            list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.FirstName, invariantCultureComparer.Reverse(), descending: true));
+            list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.FirstName, StringComparer.InvariantCulture.Reverse(), descending: true));
             Assert.Equal(new[] { AbeAbrams, CaseyJohnson, JackAbrams, WilliamAbrams }, list);
         }
 
@@ -71,12 +61,7 @@ namespace UnitTests
         public void ThenByUsesKeyComparer()
         {
             var list = new List<Person> { AbeAbrams, WilliamAbrams, CaseyJohnson, JackAbrams };
-#if NETCOREAPP1_1
-            StringComparer invariantCultureComparer = CultureInfo.InvariantCulture.CompareInfo.GetStringComparer(CompareOptions.None);
-#else
-            StringComparer invariantCultureComparer = StringComparer.InvariantCulture;
-#endif
-            list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.LastName).ThenBy(p => p.FirstName, invariantCultureComparer.Reverse()));
+            list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.LastName).ThenBy(p => p.FirstName, StringComparer.InvariantCulture.Reverse()));
             Assert.Equal(new[] { WilliamAbrams, JackAbrams, AbeAbrams, CaseyJohnson }, list);
         }
 
@@ -92,12 +77,7 @@ namespace UnitTests
         public void ThenByDescendingUsesKeyComparer()
         {
             var list = new List<Person> { AbeAbrams, WilliamAbrams, CaseyJohnson, JackAbrams };
-#if NETCOREAPP1_1
-            StringComparer invariantCultureComparer = CultureInfo.InvariantCulture.CompareInfo.GetStringComparer(CompareOptions.None);
-#else
-            StringComparer invariantCultureComparer = StringComparer.InvariantCulture;
-#endif
-            list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.LastName).ThenBy(p => p.FirstName, invariantCultureComparer.Reverse(), descending: true));
+            list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.LastName).ThenBy(p => p.FirstName, StringComparer.InvariantCulture.Reverse(), descending: true));
             Assert.Equal(new[] { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson }, list);
         }
 

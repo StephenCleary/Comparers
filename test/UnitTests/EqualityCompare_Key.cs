@@ -33,12 +33,7 @@ namespace UnitTests
         [Fact]
         public void OrderByUsesKeyComparer()
         {
-#if NETCOREAPP1_1
-            StringComparer invariantCultureComparerIgnoreCase = CultureInfo.InvariantCulture.CompareInfo.GetStringComparer(CompareOptions.IgnoreCase);
-#else
-            StringComparer invariantCultureComparerIgnoreCase = StringComparer.InvariantCultureIgnoreCase;
-#endif
-            var keyComparer = invariantCultureComparerIgnoreCase;
+            var keyComparer = StringComparer.InvariantCultureIgnoreCase;
             var comparer = EqualityComparerBuilder.For<Person>().EquateBy(p => p.LastName, keyComparer);
             var objectComparer = comparer as System.Collections.IEqualityComparer;
             Assert.True(comparer.Equals(AbeAbrams, Williamabrams));
@@ -67,12 +62,7 @@ namespace UnitTests
         [Fact]
         public void ThenByUsesKeyComparer()
         {
-#if NETCOREAPP1_1
-            StringComparer invariantCultureComparerIgnoreCase = CultureInfo.InvariantCulture.CompareInfo.GetStringComparer(CompareOptions.IgnoreCase);
-#else
-            StringComparer invariantCultureComparerIgnoreCase = StringComparer.InvariantCultureIgnoreCase;
-#endif
-            var comparer = EqualityComparerBuilder.For<Person>().EquateBy(p => p.LastName).ThenEquateBy(p => p.FirstName, invariantCultureComparerIgnoreCase);
+            var comparer = EqualityComparerBuilder.For<Person>().EquateBy(p => p.LastName).ThenEquateBy(p => p.FirstName, StringComparer.InvariantCultureIgnoreCase);
             var objectComparer = comparer as System.Collections.IEqualityComparer;
             Assert.True(comparer.Equals(JackAbrams, jackAbrams));
             Assert.True(objectComparer.Equals(JackAbrams, jackAbrams));

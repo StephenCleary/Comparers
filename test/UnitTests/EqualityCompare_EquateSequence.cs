@@ -199,12 +199,7 @@ namespace UnitTests
         [Fact]
         public void SequenceUsesSourceComparerForElementComparisons()
         {
-#if NETCOREAPP1_1
-            StringComparer invariantCultureComparerIgnoreCase = CultureInfo.InvariantCulture.CompareInfo.GetStringComparer(CompareOptions.IgnoreCase);
-#else
-            StringComparer invariantCultureComparerIgnoreCase = StringComparer.InvariantCultureIgnoreCase;
-#endif
-            var comparer = invariantCultureComparerIgnoreCase.EquateSequence();
+            var comparer = StringComparer.InvariantCultureIgnoreCase.EquateSequence();
             Assert.True(comparer.Equals(new[] { "a" }, new[] { "A" }));
             Assert.Equal(comparer.GetHashCode(new[] { "a" }), comparer.GetHashCode(new[] { "A" }));
         }
