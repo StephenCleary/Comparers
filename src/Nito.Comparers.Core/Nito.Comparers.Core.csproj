@@ -13,7 +13,7 @@
     <PackageTags>comparer;equalitycomparer;icomparable;iequatable</PackageTags>
     <PackageIconUrl>https://raw.githubusercontent.com/StephenCleary/Comparers/master/Comparers.128.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/StephenCleary/Comparers</PackageProjectUrl>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/StephenCleary/Comparers/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
