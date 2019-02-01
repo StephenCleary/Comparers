@@ -4,7 +4,7 @@
 
 The last comparison library you'll ever need! For `netstandard1.0` (including .NET 4.5, .NET Core 1.0, Xamarin.iOS 10, Xamarin.Android 7, Mono 4.6, Universal Windows 10, Windows 8, Windows Phone Applications 8.1, and Windows Phone Silverlight 8.0).
 
-[![AppVeyor](https://img.shields.io/appveyor/ci/StephenCleary/Comparers.svg?style=plastic)](https://ci.appveyor.com/project/StephenCleary/Comparers) [![Coveralls](https://img.shields.io/coveralls/StephenCleary/Comparers.svg?style=plastic)](https://coveralls.io/r/StephenCleary/Comparers)
+[![AppVeyor](https://img.shields.io/appveyor/ci/StephenCleary/Comparers.svg?style=plastic)](https://ci.appveyor.com/project/StephenCleary/Comparers) [![codecov](https://codecov.io/gh/StephenCleary/Comparers/branch/master/graph/badge.svg)](https://codecov.io/gh/StephenCleary/Comparers)
 [![NuGet Pre Release](https://img.shields.io/nuget/vpre/Nito.Comparers.svg?style=plastic)](https://www.nuget.org/packages/Nito.Comparers/)
 
 [API Docs](http://dotnetapis.com/pkg/Nito.Comparers)
