@@ -25,7 +25,7 @@ If `Person` has another base class it wants to derive from, it can still define 
 
     public sealed class Person : MyBase, IEquatable<Person>, IComparable<Person>, IComparable
     {
-      static public readonly IComparer<Person> DefaultComparer = ComparerBuilder.For<Person>().OrderBy(p => p.LastName).ThenBy(p => p.FirstName);
+      public static readonly IFullComparer<Person> DefaultComparer = ComparerBuilder.For<Person>().OrderBy(p => p.LastName).ThenBy(p => p.FirstName);
 
       public string FirstName { get; set; }
       public string LastName { get; set; }
