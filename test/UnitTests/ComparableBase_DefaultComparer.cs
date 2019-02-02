@@ -2,6 +2,7 @@
 using System.Linq;
 using Nito.Comparers;
 using Xunit;
+using static UnitTests.Util.ComparisonInvariantTests;
 
 namespace UnitTests
 {
@@ -45,6 +46,14 @@ namespace UnitTests
             var set = new System.Collections.ArrayList() { JackAbrams, CaseyJohnson, AbeAbrams };
             Assert.True(set.Contains(new Person { FirstName = AbeAbrams.FirstName, LastName = AbeAbrams.LastName }));
             Assert.False(set.Contains(WilliamAbrams));
+        }
+
+        [Fact]
+        public void Invariants()
+        {
+            AssertIComparableTCompareTo(AbeAbrams, JackAbrams, CaseyJohnson);
+            AssertIComparableCompareTo(AbeAbrams, JackAbrams, CaseyJohnson);
+            AssertIFullComparerT(Person.DefaultComparer, AbeAbrams, JackAbrams, CaseyJohnson);
         }
     }
 }

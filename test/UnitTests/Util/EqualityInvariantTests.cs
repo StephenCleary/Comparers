@@ -65,16 +65,18 @@ namespace UnitTests.Util
 
             Assert.True(equals(a, a));
             Assert.True(equals(b, b));
+            if (allowNullAsFirstArgument)
+                Assert.True(equals(null, null));
+
+            Assert.False(equals(a, b));
+            Assert.False(equals(b, a));
+
             Assert.False(equals(a, null));
             if (allowNullAsFirstArgument)
                 Assert.False(equals(null, a));
             Assert.False(equals(b, null));
             if (allowNullAsFirstArgument)
                 Assert.False(equals(null, b));
-            Assert.False(equals(a, b));
-            Assert.False(equals(b, a));
-            if (allowNullAsFirstArgument)
-                Assert.True(equals(null, null));
         }
     }
 }
