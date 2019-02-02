@@ -1,4 +1,6 @@
-﻿namespace Nito.Comparers.Util
+﻿using System;
+
+namespace Nito.Comparers.Util
 {
     /// <summary>
     /// Common implementations for comparers.
@@ -54,6 +56,24 @@
                 {
                     return 1;
                 }
+            }
+
+            var xValid = x is T || x == null;
+            var yValid = y is T || y == null;
+            if (!xValid || !yValid)
+            {
+                // Similar to https://github.com/dotnet/corefx/blob/5e3fe25d1236cd0192dd966f7286fe008d5cf875/src/Common/src/CoreLib/System/Collections/Comparer.cs
+                if (x == y)
+                    return 0;
+                if (x == null)
+                    return -1;
+                if (y == null)
+                    return 1;
+                if (!xValid && x is IComparable comparableX)
+                    return comparableX.CompareTo(y);
+                if (!yValid && y is IComparable comparableY)
+                    return -comparableY.CompareTo(x);
+                throw new ArgumentException("Objects cannot be compared.");
             }
 
             return DoCompare((T)x, (T)y);

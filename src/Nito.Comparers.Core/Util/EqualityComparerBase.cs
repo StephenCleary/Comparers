@@ -63,7 +63,9 @@
             {
                 if (x == null)
                     return y.Equals(null);
-                return x.Equals(y);
+                if (!xValid)
+                    return x.Equals(y);
+                return y.Equals(x);
             }
 
             return DoEquals((T)x, (T)y);
