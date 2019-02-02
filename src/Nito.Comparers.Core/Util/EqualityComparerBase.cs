@@ -57,6 +57,15 @@
                     return (x == null && y == null);
             }
 
+            var xValid = x is T || x == null;
+            var yValid = y is T || y == null;
+            if (!xValid || !yValid)
+            {
+                if (x == null)
+                    return y.Equals(null);
+                return x.Equals(y);
+            }
+
             return DoEquals((T)x, (T)y);
         }
 

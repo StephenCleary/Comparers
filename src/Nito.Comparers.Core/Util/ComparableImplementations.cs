@@ -73,6 +73,9 @@ namespace Nito.Comparers.Util
         /// <param name="obj">The other object.</param>
         public static bool ImplementEquals<T>(IEqualityComparer<T> equalityComparer, T @this, object obj)
         {
+            var objValid = obj is T || obj == null;
+            if (!objValid)
+                return false;
             return equalityComparer.Equals(@this, (T)obj);
         }
 
