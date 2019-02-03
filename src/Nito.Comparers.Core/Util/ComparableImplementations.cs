@@ -66,20 +66,6 @@ namespace Nito.Comparers.Util
         }
 
         /// <summary>
-        /// Implements <see cref="Object.Equals(Object)"/>. Types overriding <see cref="Object.Equals(Object)"/> should also override <see cref="Object.GetHashCode"/>.
-        /// </summary>
-        /// <param name="equalityComparer">The comparer.</param>
-        /// <param name="this">The object doing the implementing.</param>
-        /// <param name="obj">The other object.</param>
-        public static bool ImplementEquals<T>(IEqualityComparer<T> equalityComparer, T @this, object obj)
-        {
-            var objValid = obj is T || obj == null;
-            if (!objValid)
-                return false;
-            return equalityComparer.Equals(@this, (T)obj);
-        }
-
-        /// <summary>
         /// Implements <c>op_Eqality</c>. Types overloading <c>op_Equality</c> should also overload <c>op_Inequality</c> and override <see cref="Object.Equals(Object)"/> and <see cref="Object.GetHashCode"/>.
         /// </summary>
         /// <typeparam name="T">The type of objects being compared.</typeparam>
