@@ -62,17 +62,9 @@ namespace Nito.Comparers.Util
             var yValid = y is T || y == null;
             if (!xValid || !yValid)
             {
-                // Similar to https://github.com/dotnet/corefx/blob/5e3fe25d1236cd0192dd966f7286fe008d5cf875/src/Common/src/CoreLib/System/Collections/Comparer.cs
-                if (x == y)
-                    return 0;
-                if (x == null)
-                    return -1;
-                if (y == null)
-                    return 1;
-                if (!xValid && x is IComparable comparableX)
-                    return comparableX.CompareTo(y);
-                if (!yValid && y is IComparable comparableY)
-                    return -comparableY.CompareTo(x);
+                // System.Collections.Comparer.Compare forwards to the IComparable implementation of either argument, throwing if neither of them implement IComparable.
+                // However, System.Collections.Generic.Comparer<T>.IComparer.Compare throws if either argument is not T.
+                // To avoid the possibility of infinite recursion, we take the latter approach.
                 throw new ArgumentException("Objects cannot be compared.");
             }
 
