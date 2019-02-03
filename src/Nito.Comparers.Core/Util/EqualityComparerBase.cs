@@ -84,6 +84,10 @@
                     return 0;
             }
 
+            var objValid = obj is T || obj == null;
+            if (!objValid)
+                return obj.GetHashCode();
+
             return DoGetHashCode((T)obj);
         }
 
