@@ -24,7 +24,7 @@ namespace UnitTests.Util
         /// Assertions for <see cref="IEquatable{T}.Equals(T)"/> and <see cref="object.GetHashCode"/>.
         /// </summary>
         public static void AssertIEquatableTEquals<T>(T instance, T different, T equivalent)
-            where T : class, IEquatable<T>
+            where T: IEquatable<T>
         {
             AssertEquals(instance, different, equivalent, (a, b) => a.Equals(b), a => a.GetHashCode(),
                 allowNullAsFirstArgumentForEquals: false, allowNullArgumentForGetHashCode: false);
@@ -34,7 +34,6 @@ namespace UnitTests.Util
         /// Assertions for <see cref="IEqualityComparer"/> and <see cref="IEqualityComparer{T}"/>.
         /// </summary>
         public static void AssertIFullEqualityComparerT<T>(IFullEqualityComparer<T> comparer, T instance, T different, T equivalent)
-            where T : class
         {
             AssertIEqualityComparer(comparer, instance, different, equivalent);
             AssertIEqualityComparerT(comparer, instance, different, equivalent);
@@ -53,7 +52,6 @@ namespace UnitTests.Util
         /// Assertions for <see cref="IEqualityComparer{T}.Equals(T,T)"/> and <see cref="IEqualityComparer{T}.GetHashCode(T)"/>.
         /// </summary>
         public static void AssertIEqualityComparerT<T>(IEqualityComparer<T> comparer, T instance, T different, T equivalent)
-            where T : class
         {
             AssertEquals(instance, different, equivalent, comparer.Equals, comparer.GetHashCode,
                 allowNullAsFirstArgumentForEquals: true, allowNullArgumentForGetHashCode: true);
@@ -71,7 +69,6 @@ namespace UnitTests.Util
         /// <param name="allowNullArgumentForGetHashCode">Whether <paramref name="getHashCode"/> may take <c>null</c> as its argument.</param>
         public static void AssertEquals<T>(T a, T b, T c, Func<T, T, bool> equals, Func<T, int> getHashCode,
             bool allowNullAsFirstArgumentForEquals, bool allowNullArgumentForGetHashCode)
-            where T : class
         {
             // Usage errors.
             Assert.NotNull(a);
@@ -84,7 +81,7 @@ namespace UnitTests.Util
             Assert.True(equals(b, b));
             Assert.True(equals(c, c));
             if (allowNullAsFirstArgumentForEquals)
-                Assert.True(equals(null, null));
+                Assert.True(equals(default(T), default(T)));
 
             // Inequality
             Assert.False(equals(a, b));
@@ -93,15 +90,15 @@ namespace UnitTests.Util
             Assert.False(equals(c, b));
 
             // Inequality with null
-            Assert.False(equals(a, null));
+            Assert.False(equals(a, default(T)));
             if (allowNullAsFirstArgumentForEquals)
-                Assert.False(equals(null, a));
-            Assert.False(equals(b, null));
+                Assert.False(equals(default(T), a));
+            Assert.False(equals(b, default(T)));
             if (allowNullAsFirstArgumentForEquals)
-                Assert.False(equals(null, b));
-            Assert.False(equals(c, null));
+                Assert.False(equals(default(T), b));
+            Assert.False(equals(c, default(T)));
             if (allowNullAsFirstArgumentForEquals)
-                Assert.False(equals(null, c));
+                Assert.False(equals(default(T), c));
 
             // Equality
             Assert.True(equals(a, c));
@@ -110,7 +107,7 @@ namespace UnitTests.Util
             // GetHashCode
             Assert.Equal(getHashCode(a), getHashCode(c));
             if (allowNullArgumentForGetHashCode)
-                getHashCode(null); // assert does not throw
+                getHashCode(default(T)); // assert does not throw
         }
     }
 }

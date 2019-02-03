@@ -41,6 +41,8 @@
         protected EqualityComparerBase(bool specialNullHandling)
         {
             _specialNullHandling = specialNullHandling;
+            if (default(T) != null)
+                _specialNullHandling = false;
         }
 
         /// <summary>

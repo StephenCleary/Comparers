@@ -57,12 +57,5 @@ namespace UnitTests
             AssertIComparableCompareTo(AbeAbrams, JackAbrams, CaseyJohnson);
             AssertIFullComparerT(Person.DefaultComparer, AbeAbrams, JackAbrams, CaseyJohnson, CaseyJohnson2);
         }
-
-        [Fact]
-        public void FrameworkBehavior()
-        {
-            Assert.Throws<ArgumentException>(() => ((IComparable) 13.0).CompareTo(13));
-            Assert.Throws<ArgumentException>(() => System.Collections.Comparer.Default.Compare(13, 13.0));
-        }
     }
 }
