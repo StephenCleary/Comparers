@@ -78,7 +78,8 @@ namespace UnitTests.Util
 
             // Identity
             Assert.True(equals(a, a));
-            Assert.True(equals(b, b));
+            if (a.GetType() == b.GetType())
+                Assert.True(equals(b, b));
             Assert.True(equals(c, c));
             if (allowNullAsFirstArgumentForEquals)
                 Assert.True(equals(default(T), default(T)));

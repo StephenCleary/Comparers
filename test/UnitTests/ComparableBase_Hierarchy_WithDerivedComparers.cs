@@ -41,6 +41,7 @@ namespace UnitTests
 
         private static readonly Derived1 Smallest = new Derived1 { Id = -1 };
         private static readonly Derived2 Middle = new Derived2 { Id = 0 };
+        private static readonly Derived2 Middle2 = new Derived2 { Id = 0 };
         private static readonly Derived1 Largest = new Derived1 { Id = 1 };
         private static readonly Derived1 Largest2 = new Derived1 { Id = 1 };
 
@@ -97,7 +98,7 @@ namespace UnitTests
         {
             AssertObjectEquals(Largest, Middle, Largest2);
             AssertIEqualityComparer(Derived1.DefaultComparer, Largest, Middle, Largest2);
-            AssertIEqualityComparer(Derived2.DefaultComparer, Largest, Middle, Largest2);
+            AssertIEqualityComparer(Derived2.DefaultComparer, Middle, Largest, Middle2);
         }
     }
 }
