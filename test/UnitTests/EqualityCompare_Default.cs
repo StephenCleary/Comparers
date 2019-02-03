@@ -103,8 +103,6 @@ namespace UnitTests
         [Fact]
         public void Invariants()
         {
-            ((System.Collections.IEqualityComparer)EqualityComparer<int>.Default).GetHashCode(null);
-
             AssertIFullEqualityComparerT(EqualityComparerBuilder.For<string>().Default(), "first", "second", string.Format("{0}", "first"));
             AssertIFullEqualityComparerT(EqualityComparerBuilder.For<int>().Default(), 13, 7, 13);
             AssertIFullEqualityComparerT(EqualityComparerBuilder.For<int?>().Default(), 13, 7, 13);
