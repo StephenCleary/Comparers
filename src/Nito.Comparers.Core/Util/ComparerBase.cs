@@ -30,7 +30,7 @@ namespace Nito.Comparers.Util
         /// <summary>
         /// Initializes a new instance of the <see cref="ComparerBase{T}"/> class.
         /// </summary>
-        /// <param name="specialNullHandling">A value indicating whether <c>null</c> values are passed to <see cref="EqualityComparerBase{T}.DoGetHashCode"/> and <see cref="DoCompare"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <see cref="EqualityComparerBase{T}.DoGetHashCode"/> nor <see cref="DoCompare"/>.</param>
+        /// <param name="specialNullHandling">A value indicating whether <c>null</c> values are passed to <see cref="EqualityComparerBase{T}.DoGetHashCode"/> and <see cref="DoCompare"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <see cref="EqualityComparerBase{T}.DoGetHashCode"/> nor <see cref="DoCompare"/>. This value is ignored if <typeparamref name="T"/> is a non-nullable type.</param>
         protected ComparerBase(bool specialNullHandling)
             : base(specialNullHandling)
         {
