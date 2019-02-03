@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Nito.Comparers;
 using Xunit;
@@ -23,6 +24,7 @@ namespace UnitTests
         private static readonly Person JackAbrams = new Person { FirstName = "Jack", LastName = "Abrams" };
         private static readonly Person WilliamAbrams = new Person { FirstName = "William", LastName = "Abrams" };
         private static readonly Person CaseyJohnson = new Person { FirstName = "Casey", LastName = "Johnson" };
+        private static readonly Person CaseyJohnson2 = new Person { FirstName = "Casey", LastName = "Johnson" };
 
         [Fact]
         public void ImplementsComparerDefault()
@@ -53,7 +55,14 @@ namespace UnitTests
         {
             AssertIComparableTCompareTo(AbeAbrams, JackAbrams, CaseyJohnson);
             AssertIComparableCompareTo(AbeAbrams, JackAbrams, CaseyJohnson);
-            AssertIFullComparerT(Person.DefaultComparer, AbeAbrams, JackAbrams, CaseyJohnson);
+            AssertIFullComparerT(Person.DefaultComparer, AbeAbrams, JackAbrams, CaseyJohnson, CaseyJohnson2);
+        }
+
+        [Fact]
+        public void FrameworkBehavior()
+        {
+            Assert.Throws<ArgumentException>(() => ((IComparable) 13.0).CompareTo(13));
+            Assert.Throws<ArgumentException>(() => System.Collections.Comparer.Default.Compare(13, 13.0));
         }
     }
 }

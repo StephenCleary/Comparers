@@ -10,73 +10,107 @@ namespace UnitTests.Util
     public static class EqualityInvariantTests
     {
         /// <summary>
-        /// Assertions for <see cref="object.Equals(object)"/> and <see cref="object.Equals(object,object)"/>.
+        /// Assertions for <see cref="object.Equals(object)"/>, <see cref="object.Equals(object,object)"/>, and <see cref="object.GetHashCode"/>.
         /// </summary>
-        public static void AssertObjectEquals(object instance)
+        public static void AssertObjectEquals(object instance, object different, object equivalent)
         {
-            AssertEquals(instance, new object(), object.Equals, allowNullAsFirstArgument: true);
-            AssertEquals(instance, new object(), (a, b) => a.Equals(b), allowNullAsFirstArgument: false);
+            AssertEquals(instance, different, equivalent, object.Equals, a => a.GetHashCode(),
+                allowNullAsFirstArgumentForEquals: true, allowNullArgumentForGetHashCode: false);
+            AssertEquals(instance, different, equivalent, (a, b) => a.Equals(b), a => a.GetHashCode(),
+                allowNullAsFirstArgumentForEquals: false, allowNullArgumentForGetHashCode: false);
         }
 
         /// <summary>
-        /// Assertions for <see cref="IEquatable{T}.Equals(T)"/>.
+        /// Assertions for <see cref="IEquatable{T}.Equals(T)"/> and <see cref="object.GetHashCode"/>.
         /// </summary>
-        public static void AssertIEquatableTEquals<T>(T instance, T different)
+        public static void AssertIEquatableTEquals<T>(T instance, T different, T equivalent)
             where T : class, IEquatable<T>
         {
-            AssertEquals(instance, different, (a, b) => a.Equals(b), allowNullAsFirstArgument: false);
+            AssertEquals(instance, different, equivalent, (a, b) => a.Equals(b), a => a.GetHashCode(),
+                allowNullAsFirstArgumentForEquals: false, allowNullArgumentForGetHashCode: false);
         }
 
         /// <summary>
-        /// Assertions for <see cref="IEqualityComparer.Equals(object,object)"/> and <see cref="IEqualityComparer{T}.Equals(T,T)"/>.
+        /// Assertions for <see cref="IEqualityComparer"/> and <see cref="IEqualityComparer{T}"/>.
         /// </summary>
-        public static void AssertIFullEqualityComparerT<T>(IFullEqualityComparer<T> comparer, T instance, T different)
+        public static void AssertIFullEqualityComparerT<T>(IFullEqualityComparer<T> comparer, T instance, T different, T equivalent)
             where T : class
         {
-            AssertIEqualityComparer(comparer, instance);
-            AssertIEqualityComparerT(comparer, instance, different);
+            AssertIEqualityComparer(comparer, instance, different, equivalent);
+            AssertIEqualityComparerT(comparer, instance, different, equivalent);
         }
 
         /// <summary>
-        /// Assertions for <see cref="IEqualityComparer.Equals(object,object)"/>.
+        /// Assertions for <see cref="IEqualityComparer.Equals(object,object)"/> and <see cref="IEqualityComparer.GetHashCode(object)"/>.
         /// </summary>
-        public static void AssertIEqualityComparer(IEqualityComparer comparer, object instance) =>
-            AssertEquals(instance, new object(), comparer.Equals, allowNullAsFirstArgument: true);
+        public static void AssertIEqualityComparer(IEqualityComparer comparer, object instance, object different, object equivalent)
+        {
+            AssertEquals(instance, different, equivalent, comparer.Equals, comparer.GetHashCode,
+                allowNullAsFirstArgumentForEquals: true, allowNullArgumentForGetHashCode: true);
+        }
 
         /// <summary>
-        /// Assertions for <see cref="IEqualityComparer{T}.Equals(T,T)"/>.
+        /// Assertions for <see cref="IEqualityComparer{T}.Equals(T,T)"/> and <see cref="IEqualityComparer{T}.GetHashCode(T)"/>.
         /// </summary>
-        public static void AssertIEqualityComparerT<T>(IEqualityComparer<T> comparer, T instance, T different)
-            where T : class =>
-            AssertEquals(instance, different, comparer.Equals, allowNullAsFirstArgument: true);
+        public static void AssertIEqualityComparerT<T>(IEqualityComparer<T> comparer, T instance, T different, T equivalent)
+            where T : class
+        {
+            AssertEquals(instance, different, equivalent, comparer.Equals, comparer.GetHashCode,
+                allowNullAsFirstArgumentForEquals: true, allowNullArgumentForGetHashCode: true);
+        }
 
         /// <summary>
-        /// Given two non-null, non-equal instances, verifies the equality implementation.
+        /// Given example instances, verifies the equality and hash code implementations.
         /// </summary>
-        /// <param name="a">An instance not equal to <paramref name="b"/>. May not be <c>null</c>.</param>
+        /// <param name="a">An instance not equal to <paramref name="b"/> but equal to <paramref name="c"/>. May not be <c>null</c>.</param>
         /// <param name="b">An instance not equal to <paramref name="a"/>. May not be <c>null</c>.</param>
+        /// <param name="c">An instance not equal to <paramref name="b"/> but equal to <paramref name="a"/>. May not be <c>null</c>.</param>
         /// <param name="equals">The equality implementation to test. The second parameter to this method must allow <c>null</c> values.</param>
-        /// <param name="allowNullAsFirstArgument">Whether <paramref name="equals"/> may take <c>null</c> as its first parameter.</param>
-        public static void AssertEquals<T>(T a, T b, Func<T, T, bool> equals, bool allowNullAsFirstArgument)
+        /// <param name="getHashCode">The hash code implementation to test.</param>
+        /// <param name="allowNullAsFirstArgumentForEquals">Whether <paramref name="equals"/> may take <c>null</c> as its first argument.</param>
+        /// <param name="allowNullArgumentForGetHashCode">Whether <paramref name="getHashCode"/> may take <c>null</c> as its argument.</param>
+        public static void AssertEquals<T>(T a, T b, T c, Func<T, T, bool> equals, Func<T, int> getHashCode,
+            bool allowNullAsFirstArgumentForEquals, bool allowNullArgumentForGetHashCode)
             where T : class
         {
+            // Usage errors.
             Assert.NotNull(a);
             Assert.NotNull(b);
+            Assert.NotNull(c);
+            Assert.False(object.ReferenceEquals(a, c));
 
+            // Identity
             Assert.True(equals(a, a));
             Assert.True(equals(b, b));
-            if (allowNullAsFirstArgument)
+            Assert.True(equals(c, c));
+            if (allowNullAsFirstArgumentForEquals)
                 Assert.True(equals(null, null));
 
+            // Inequality
             Assert.False(equals(a, b));
             Assert.False(equals(b, a));
+            Assert.False(equals(b, c));
+            Assert.False(equals(c, b));
 
+            // Inequality with null
             Assert.False(equals(a, null));
-            if (allowNullAsFirstArgument)
+            if (allowNullAsFirstArgumentForEquals)
                 Assert.False(equals(null, a));
             Assert.False(equals(b, null));
-            if (allowNullAsFirstArgument)
+            if (allowNullAsFirstArgumentForEquals)
                 Assert.False(equals(null, b));
+            Assert.False(equals(c, null));
+            if (allowNullAsFirstArgumentForEquals)
+                Assert.False(equals(null, c));
+
+            // Equality
+            Assert.True(equals(a, c));
+            Assert.True(equals(c, a));
+
+            // GetHashCode
+            Assert.Equal(getHashCode(a), getHashCode(c));
+            if (allowNullArgumentForGetHashCode)
+                getHashCode(null); // assert does not throw
         }
     }
 }

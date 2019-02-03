@@ -17,6 +17,7 @@ namespace UnitTests.Util
         {
             AssertCompare(smallest, middle, largest, (a, b) => a.CompareTo(b), allowNullAsFirstArgument: false);
             Assert.Throws<ArgumentException>(() => smallest.CompareTo(new object()));
+            Assert.Throws<ArgumentException>(() => smallest.CompareTo("test"));
         }
 
         /// <summary>
@@ -29,10 +30,10 @@ namespace UnitTests.Util
         /// <summary>
         /// Assertions for all compare and equality comparisons.
         /// </summary>
-        public static void AssertIFullComparerT<T>(IFullComparer<T> comparer, T smallest, T middle, T largest)
+        public static void AssertIFullComparerT<T>(IFullComparer<T> comparer, T smallest, T middle, T largest, T largest2)
             where T : class
         {
-            EqualityInvariantTests.AssertIFullEqualityComparerT(comparer, smallest, middle);
+            EqualityInvariantTests.AssertIFullEqualityComparerT(comparer, largest, middle, largest2);
             AssertIComparerT(comparer, smallest, middle, largest);
             AssertIComparer(comparer, smallest, middle, largest);
         }
@@ -44,6 +45,7 @@ namespace UnitTests.Util
         {
             AssertCompare(smallest, middle, largest, comparer.Compare, allowNullAsFirstArgument: true);
             Assert.Throws<ArgumentException>(() => comparer.Compare(smallest, new object()));
+            Assert.Throws<ArgumentException>(() => comparer.Compare(smallest, "test"));
         }
 
         /// <summary>
