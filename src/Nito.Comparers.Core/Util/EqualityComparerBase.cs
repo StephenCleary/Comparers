@@ -1,4 +1,6 @@
-﻿namespace Nito.Comparers.Util
+﻿using System;
+
+namespace Nito.Comparers.Util
 {
     /// <summary>
     /// Common implementations for equality comparers.
@@ -59,6 +61,7 @@
                     return (x == null && y == null);
             }
 
+            // EqualityComparer<T>.IEqualityComparer.Equals will throw in this situation, but int.Equals returns false.
             var xValid = x is T || x == null;
             var yValid = y is T || y == null;
             if (!xValid || !yValid)
@@ -82,7 +85,7 @@
 
             var objValid = obj is T || obj == null;
             if (!objValid)
-                return obj.GetHashCode();
+                throw new ArgumentException("Invalid type for comparison.");
 
             return DoGetHashCode((T)obj);
         }
