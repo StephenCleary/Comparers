@@ -99,6 +99,7 @@ namespace UnitTests
         }
         public static readonly TheoryData<IEqualityComparer, object, object> ThrowsData = new TheoryData<IEqualityComparer, object, object>
         {
+            { EqualityComparerBuilder.For<int>().Default(), "test", Duplicate("test") },
             { EqualityComparer<int>.Default, new HierarchyBase { Id = 13 }, new HierarchyBase { Id = 13 } },
             { HierarchyComparers.Derived1EqualityComparer, new HierarchyBase { Id = 13 }, new HierarchyBase { Id = 13 } },
         };

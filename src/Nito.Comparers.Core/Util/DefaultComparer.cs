@@ -28,6 +28,11 @@ namespace Nito.Comparers.Util
             return EqualityComparer<T>.Default.GetHashCode(obj);
         }
 
+        protected override bool DoEquals(T x, T y)
+        {
+            return EqualityComparer<T>.Default.Equals(x, y);
+        }
+
         /// <summary>
         /// Compares two objects and returns a value less than 0 if <paramref name="x"/> is less than <paramref name="y"/>, 0 if <paramref name="x"/> is equal to <paramref name="y"/>, or greater than 0 if <paramref name="x"/> is greater than <paramref name="y"/>.
         /// </summary>
@@ -50,28 +55,6 @@ namespace Nito.Comparers.Util
             {
                 return instance;
             }
-        }
-
-        /// <summary>
-        /// Compares two objects and returns a value indicating whether they are equal.
-        /// </summary>
-        /// <param name="x">The first object to compare.</param>
-        /// <param name="y">The second object to compare.</param>
-        /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise <c>false</c>.</returns>
-        bool IEqualityComparer<T>.Equals(T x, T y)
-        {
-            return EqualityComparer<T>.Default.Equals(x, y);
-        }
-
-        /// <summary>
-        /// Compares two objects and returns a value indicating whether they are equal.
-        /// </summary>
-        /// <param name="x">The first object to compare.</param>
-        /// <param name="y">The second object to compare.</param>
-        /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise <c>false</c>.</returns>
-        bool System.Collections.IEqualityComparer.Equals(object x, object y)
-        {
-            return object.Equals(x, y);
         }
 
         /// <summary>
