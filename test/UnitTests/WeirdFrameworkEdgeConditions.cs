@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Nito.Comparers;
 using Xunit;
+// ReSharper disable ReturnValueOfPureMethodIsNotUsed
 
 namespace UnitTests
 {
@@ -22,15 +23,40 @@ namespace UnitTests
             Assert.True(frameworkComparer.Equals(obj1, obj1));
             
             // But throws if that same object is passed to GetHashCode.
-            Assert.Throws<ArgumentException>(() => frameworkComparer.GetHashCode(obj1));
+            Assert.ThrowsAny<ArgumentException>(() => frameworkComparer.GetHashCode(obj1));
 
             // It also throws if different instances are passed in that are not the expected type.
-            Assert.Throws<ArgumentException>(() => frameworkComparer.Equals(obj1, new object()));
+            Assert.ThrowsAny<ArgumentException>(() => frameworkComparer.Equals(obj1, new object()));
 
             // Nito Comparers throw in all scenarios for consistency.
-            Assert.Throws<ArgumentException>(() => nitoComparer.Equals(obj1, obj1));
-            Assert.Throws<ArgumentException>(() => nitoComparer.GetHashCode(obj1));
-            Assert.Throws<ArgumentException>(() => nitoComparer.Equals(obj1, new object()));
+            Assert.ThrowsAny<ArgumentException>(() => nitoComparer.Equals(obj1, obj1));
+            Assert.ThrowsAny<ArgumentException>(() => nitoComparer.GetHashCode(obj1));
+            Assert.ThrowsAny<ArgumentException>(() => nitoComparer.Equals(obj1, new object()));
+        }
+
+        [Fact]
+        public void StringComparer_Null()
+        {
+            var frameworkStringComparer = StringComparer.Ordinal;
+            var frameworkDefaultComparer = EqualityComparer<string>.Default;
+            var nitoStringComparer = ComparerBuilder.For<string>().OrderBy(x => x, StringComparer.Ordinal);
+
+            // The string comparer allows equating to null
+            Assert.True(frameworkStringComparer.Equals(null, null));
+            Assert.False(frameworkStringComparer.Equals("test", null));
+
+            // But throws if null is passed to GetHashCode.
+            Assert.ThrowsAny<ArgumentException>(() => frameworkStringComparer.GetHashCode(null));
+
+            // The framework default comparer does not throw.
+            Assert.True(frameworkDefaultComparer.Equals(null, null));
+            Assert.False(frameworkDefaultComparer.Equals("test", null));
+            frameworkDefaultComparer.GetHashCode(null);
+
+            // And neither does the Nito string comparer wrapper.
+            Assert.True(nitoStringComparer.Equals(null, null));
+            Assert.False(nitoStringComparer.Equals("test", null));
+            nitoStringComparer.GetHashCode(null);
         }
     }
 }
