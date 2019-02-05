@@ -30,26 +30,29 @@ namespace UnitTests
             { Key(() => HierarchyComparers.BaseEqualityComparer), new HierarchyBase { Id = 13 } },
             { Key(() => HierarchyComparers.BaseEqualityComparer), new HierarchyDerived1 { Id = 13 } },
             { Key(() => HierarchyComparers.Derived1EqualityComparer), new HierarchyDerived1 { Id = 13 } },
+            { Key(() => EqualityComparerBuilder.For<int>().Null()), 13 },
         };
 
         [Theory]
         [MemberData(nameof(NullReflexiveData))]
-        public void Equals_BothParametersNull_IsReflexive(string comparerKey, object a)
+        public void Equals_BothParametersNull_IsReflexive(string comparerKey)
         {
             var comparer = EqualityComparers[comparerKey];
-            Assert.True(comparer.Equals(a, a));
-            Assert.Equal(comparer.GetHashCode(a), comparer.GetHashCode(a));
+            Assert.True(comparer.Equals(null, null));
+            Assert.Equal(comparer.GetHashCode(null), comparer.GetHashCode(null));
         }
-        public static readonly TheoryData<string, object> NullReflexiveData = new TheoryData<string, object>
+        public static readonly TheoryData<string> NullReflexiveData = new TheoryData<string>
         {
-            { Key(() => EqualityComparerBuilder.For<int>().Default()), null },
-            { Key(() => EqualityComparerBuilder.For<int?>().Default()), null },
-            { Key(() => EqualityComparerBuilder.For<int[]>().Default()), null },
-            { Key(() => EqualityComparerBuilder.For<string>().Default()), null },
-            { Key(() => HierarchyComparers.BaseEqualityComparer), null },
-            { Key(() => HierarchyComparers.Derived1EqualityComparer), null },
+            { Key(() => EqualityComparerBuilder.For<int>().Default()) },
+            { Key(() => EqualityComparerBuilder.For<int?>().Default()) },
+            { Key(() => EqualityComparerBuilder.For<int[]>().Default()) },
+            { Key(() => EqualityComparerBuilder.For<string>().Default()) },
+            { Key(() => HierarchyComparers.BaseEqualityComparer) },
+            { Key(() => HierarchyComparers.Derived1EqualityComparer) },
+            { Key(() => EqualityComparerBuilder.For<int>().Null()) },
         };
 
+        // TODO: Move this into comparer-specific unit tests.
         [Theory]
         [MemberData(nameof(DifferentInstancesAndEqualData))]
         public void EqualsAndGetHashCode_DifferentEquivalentInstances_AreEqual(string comparerKey, object a, object b)
@@ -72,7 +75,8 @@ namespace UnitTests
             { Key(() => HierarchyComparers.BaseEqualityComparer), new HierarchyDerived1 { Id = 13 }, new HierarchyDerived2 { Id = 13 } },
             { Key(() => HierarchyComparers.Derived1EqualityComparer), new HierarchyDerived1 { Id = 13 }, new HierarchyDerived1 { Id = 13 } },
         };
-        
+
+        // TODO: Move this into comparer-specific unit tests.
         [Theory]
         [MemberData(nameof(NotEqualData))]
         public void Equals_NonequivalentInstances_ReturnsFalse(string comparerKey, object a, object b)
@@ -109,6 +113,7 @@ namespace UnitTests
             { Key(() => HierarchyComparers.BaseEqualityComparer), new HierarchyBase { Id = 7 }, "test" },
             { Key(() => HierarchyComparers.BaseEqualityComparer), new HierarchyDerived1 { Id = 7 }, "test" },
             { Key(() => HierarchyComparers.Derived1EqualityComparer), new HierarchyDerived1 { Id = 7 }, "test" },
+            { Key(() => EqualityComparerBuilder.For<int>().Null()), 7, "test" },
         };
 
         [Theory]
@@ -126,6 +131,7 @@ namespace UnitTests
             { Key(() => EqualityComparerBuilder.For<string>().Default()), 13, 13 },
             { Key(() => HierarchyComparers.BaseEqualityComparer), "test", Duplicate("test") },
             { Key(() => HierarchyComparers.Derived1EqualityComparer), new HierarchyBase { Id = 13 }, new HierarchyBase { Id = 13 } },
+            { Key(() => EqualityComparerBuilder.For<int>().Null()), "test", Duplicate("test") },
         };
 
         [Theory]
@@ -144,6 +150,7 @@ namespace UnitTests
             { Key(() => HierarchyComparers.BaseEqualityComparer), "test" },
             { Key(() => HierarchyComparers.Derived1EqualityComparer), "test" },
             { Key(() => HierarchyComparers.Derived1EqualityComparer), new HierarchyBase { Id = 13 } },
+            { Key(() => EqualityComparerBuilder.For<int>().Null()), "test" },
         };
 
         private static readonly Dictionary<string, IEqualityComparer> EqualityComparers = new ExpressionDictionary<IEqualityComparer>
@@ -154,6 +161,7 @@ namespace UnitTests
             () => EqualityComparerBuilder.For<string>().Default(),
             () => HierarchyComparers.BaseEqualityComparer,
             () => HierarchyComparers.Derived1EqualityComparer,
+            () => EqualityComparerBuilder.For<int>().Null(),
         };
     }
 }
