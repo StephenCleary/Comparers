@@ -16,22 +16,27 @@ namespace UnitTests
             // When accessing the default equality comparer via the nongeneric IEqualityComparer interface...
             IEqualityComparer frameworkComparer = EqualityComparer<int>.Default;
             IEqualityComparer nitoComparer = ComparerBuilder.For<int>().Default();
-            var obj1 = new object();
 
             // The framework version returns true if any reference-equal instances are passed in
             //   https://github.com/dotnet/corefx/blob/53a33cf2662ac8c9a45d13067012d80cf0ba6956/src/Common/src/CoreLib/System/Collections/Generic/EqualityComparer.cs#L29
-            Assert.True(frameworkComparer.Equals(obj1, obj1));
+            var obj = new object();
+            Assert.True(frameworkComparer.Equals(obj, obj));
             
             // But throws if that same object is passed to GetHashCode
-            Assert.ThrowsAny<ArgumentException>(() => frameworkComparer.GetHashCode(obj1));
+            Assert.ThrowsAny<ArgumentException>(() => frameworkComparer.GetHashCode(obj));
 
             // It also throws if different instances are passed in that are not the expected type
-            Assert.ThrowsAny<ArgumentException>(() => frameworkComparer.Equals(obj1, new object()));
+            Assert.ThrowsAny<ArgumentException>(() => frameworkComparer.Equals(obj, new object()));
+
+            // This is particularly interesting with value types; this will throw due to boxing.
+            const double value = 13.0;
+            Assert.ThrowsAny<ArgumentException>(() => frameworkComparer.Equals(value, value));
 
             // Nito Comparers throw in all scenarios for consistency
-            Assert.ThrowsAny<ArgumentException>(() => nitoComparer.Equals(obj1, obj1));
-            Assert.ThrowsAny<ArgumentException>(() => nitoComparer.GetHashCode(obj1));
-            Assert.ThrowsAny<ArgumentException>(() => nitoComparer.Equals(obj1, new object()));
+            Assert.ThrowsAny<ArgumentException>(() => nitoComparer.Equals(obj, obj));
+            Assert.ThrowsAny<ArgumentException>(() => nitoComparer.GetHashCode(obj));
+            Assert.ThrowsAny<ArgumentException>(() => nitoComparer.Equals(obj, new object()));
+            Assert.ThrowsAny<ArgumentException>(() => nitoComparer.Equals(value, value));
         }
 
         [Fact]
