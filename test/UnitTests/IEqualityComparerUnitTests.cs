@@ -10,11 +10,11 @@ using static UnitTests.Util.DataUtility;
 
 namespace UnitTests
 {
-    public class IEqualityComparer_Equals
+    public class IEqualityComparerUnitTests
     {
         [Theory]
         [MemberData(nameof(ReflexiveData))]
-        public void Reflexive(IEqualityComparer comparer, object a)
+        public void Equals_IsReflexive(IEqualityComparer comparer, object a)
         {
             Assert.True(comparer.Equals(a, a));
         }
@@ -39,13 +39,14 @@ namespace UnitTests
 
         [Theory]
         [MemberData(nameof(DifferentInstancesAndEqualData))]
-        public void DifferentInstancesAndEqual(IEqualityComparer comparer, object a, object b)
+        public void EqualsAndGetHashCode_DifferentEquivalentInstances_AreEqual(IEqualityComparer comparer, object a, object b)
         {
             if (object.ReferenceEquals(a, b))
                 throw new ArgumentException("Unit test error: objects must be different instances.");
 
             Assert.True(comparer.Equals(a, b));
             Assert.True(comparer.Equals(b, a));
+            Assert.Equal(comparer.GetHashCode(a), comparer.GetHashCode(b));
         }
         public static readonly TheoryData<IEqualityComparer, object, object> DifferentInstancesAndEqualData = new TheoryData<IEqualityComparer, object, object>
         {
@@ -60,7 +61,7 @@ namespace UnitTests
         
         [Theory]
         [MemberData(nameof(NotEqualData))]
-        public void NotEqual(IEqualityComparer comparer, object a, object b)
+        public void Equals_NonequivalentInstances_ReturnsFalse(IEqualityComparer comparer, object a, object b)
         {
             Assert.False(comparer.Equals(a, b));
             Assert.False(comparer.Equals(b, a));
@@ -92,7 +93,7 @@ namespace UnitTests
 
         [Theory]
         [MemberData(nameof(ThrowsData))]
-        public void Throws(IEqualityComparer comparer, object a, object b)
+        public void Equals_BothInstancesAreIncompatible_Throws(IEqualityComparer comparer, object a, object b)
         {
             Assert.ThrowsAny<ArgumentException>(() => comparer.Equals(a, b));
         }
