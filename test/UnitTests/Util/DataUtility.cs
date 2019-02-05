@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
@@ -14,10 +15,55 @@ namespace UnitTests.Util
         // ReSharper disable once UseStringInterpolation
         public static string Duplicate(string data) => string.Format("{0}", data);
 
+        public static T Fake<T>() => (dynamic)Fake(typeof(T));
+
+        public static object Fake(Type type)
+        {
+            if (type == typeof(int))
+                return Random.Next();
+            if (type == typeof(int?))
+                return Random.Next();
+            if (type == typeof(int[]) || type == typeof(IEnumerable<int>))
+                return new[] { Random.Next() };
+            if (type == typeof(string))
+                return Guid.NewGuid().ToString("N");
+            if (type == typeof(Uri))
+                return new Uri("https://www.example.com/" + Guid.NewGuid().ToString("N"));
+            if (type == typeof(object))
+                return new object();
+            if (type == typeof(HierarchyBase))
+                return new HierarchyBase { Id = Random.Next() };
+            if (type == typeof(HierarchyDerived1))
+                return new HierarchyDerived1 { Id = Random.Next() };
+            if (type == typeof(HierarchyDerived2))
+                return new HierarchyDerived2 { Id = Random.Next() };
+            throw new InvalidOperationException($"Cannot fake; unknown type {type.Name}");
+        }
+
+        private static readonly Random Random = new Random();
+
+        public static object FakeNot<T>() => FakeNot(typeof(T));
+
+        public static object FakeNot(Type type)
+        {
+            if (!type.IsValueType)
+                return Fake(typeof(int));
+            return Fake(typeof(string));
+        }
+
+        public static Type ComparedType(System.Collections.IEqualityComparer comparer)
+        {
+            var genericEqualityComparerInterface = comparer.GetType().GetInterfaces().FirstOrDefault(
+                x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEqualityComparer<>));
+            if (genericEqualityComparerInterface == null)
+                throw new InvalidOperationException($"Unable to determine comparer type for {comparer.GetType().Name}");
+            return genericEqualityComparerInterface.GenericTypeArguments[0];
+        }
+
         public static string Key<T>(Expression<Func<T>> expression)
         {
             var propertyInfo = FindDebugView(expression.GetType());
-            return propertyInfo.GetValue(expression) as string;
+            return expression.Compile()().GetType().Name + " " + propertyInfo.GetValue(expression) as string;
         }
 
         private static PropertyInfo FindDebugView(Type type)
