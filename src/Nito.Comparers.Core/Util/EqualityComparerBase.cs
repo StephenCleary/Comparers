@@ -55,17 +55,25 @@ namespace Nito.Comparers.Util
         /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise <c>false</c>.</returns>
         bool System.Collections.IEqualityComparer.Equals(object x, object y)
         {
+            // If they're the same instance, they have to be equal. This is true for any stable definition of "equality".
+            if (object.ReferenceEquals(x, y))
+                return true;
+
             if (!SpecialNullHandling)
             {
                 if (x == null || y == null)
-                    return (x == null && y == null);
+                    return false;
             }
 
             // EqualityComparer<T>.IEqualityComparer.Equals will throw in this situation, but int.Equals returns false.
             var xValid = x is T || x == null;
             var yValid = y is T || y == null;
             if (!xValid || !yValid)
+            {
+                if (!xValid && !yValid)
+                    throw new ArgumentException("Invalid types for equality comparison.");
                 return false;
+            }
 
             return DoEquals((T)x, (T)y);
         }

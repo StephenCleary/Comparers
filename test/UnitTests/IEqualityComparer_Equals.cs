@@ -32,6 +32,8 @@ namespace UnitTests
             { HierarchyComparers.BaseEqualityComparer, new HierarchyDerived1 { Id = 13 } },
             { HierarchyComparers.BaseEqualityComparer, null },
             { HierarchyComparers.Derived1EqualityComparer, new HierarchyDerived1 { Id = 13 } },
+
+            { HierarchyComparers.Derived1EqualityComparer, new HierarchyBase { Id = 13 } },
             { EqualityComparer<int>.Default, new HierarchyBase { Id = 13 } }, // returns true due to reference equality check: https://github.com/dotnet/corefx/blob/53a33cf2662ac8c9a45d13067012d80cf0ba6956/src/Common/src/CoreLib/System/Collections/Generic/EqualityComparer.cs#L29
         };
 
@@ -53,6 +55,40 @@ namespace UnitTests
             { EqualityComparerBuilder.For<string>().Default(), "test", Duplicate("test") },
             { HierarchyComparers.BaseEqualityComparer, new HierarchyBase { Id = 13 }, new HierarchyBase { Id = 13 } },
             { HierarchyComparers.BaseEqualityComparer, new HierarchyDerived1 { Id = 13 }, new HierarchyDerived2 { Id = 13 } },
+            { HierarchyComparers.Derived1EqualityComparer, new HierarchyDerived1 { Id = 13 }, new HierarchyDerived1 { Id = 13 } },
+        };
+
+
+        [Theory]
+        [MemberData(nameof(NotEqualData))]
+        public void NotEqual(IEqualityComparer comparer, object a, object b)
+        {
+            Assert.False(comparer.Equals(a, b));
+            Assert.False(comparer.Equals(b, a));
+        }
+        public static readonly TheoryData<IEqualityComparer, object, object> NotEqualData = new TheoryData<IEqualityComparer, object, object>
+        {
+            { EqualityComparerBuilder.For<int>().Default(), 7, 13 },
+            { EqualityComparerBuilder.For<int>().Default(), 7, "test" },
+            { EqualityComparerBuilder.For<int>().Default(), "test", 7 },
+            { EqualityComparerBuilder.For<int?>().Default(), 7, 13 },
+            { EqualityComparerBuilder.For<int?>().Default(), 7, "test" },
+            { EqualityComparerBuilder.For<int?>().Default(), "test", 7 },
+            { EqualityComparerBuilder.For<int[]>().Default(), new[] { 7 }, new[] { 13 } },
+            { EqualityComparerBuilder.For<int[]>().Default(), new[] { 7 }, "test" },
+            { EqualityComparerBuilder.For<int[]>().Default(), "test", new[] { 7 } },
+            { EqualityComparerBuilder.For<string>().Default(), "test", "other" },
+            { EqualityComparerBuilder.For<string>().Default(), "test", 13 },
+            { EqualityComparerBuilder.For<string>().Default(), 13, "test" },
+            { HierarchyComparers.BaseEqualityComparer, new HierarchyBase { Id = 7 }, new HierarchyBase { Id = 13 } },
+            { HierarchyComparers.BaseEqualityComparer, new HierarchyBase { Id = 7 }, "test" },
+            { HierarchyComparers.BaseEqualityComparer, "test", new HierarchyBase { Id = 7 } },
+            { HierarchyComparers.BaseEqualityComparer, new HierarchyDerived1 { Id = 7 }, new HierarchyDerived2 { Id = 13 } },
+            { HierarchyComparers.BaseEqualityComparer, new HierarchyDerived1 { Id = 7 }, "test" },
+            { HierarchyComparers.BaseEqualityComparer, "test", new HierarchyDerived1 { Id = 7 } },
+            { HierarchyComparers.Derived1EqualityComparer, new HierarchyDerived1 { Id = 7 }, new HierarchyDerived1 { Id = 13 } },
+            { HierarchyComparers.Derived1EqualityComparer, new HierarchyDerived1 { Id = 7 }, "test" },
+            { HierarchyComparers.Derived1EqualityComparer, "test", new HierarchyDerived1 { Id = 7 } },
         };
 
         [Theory]
