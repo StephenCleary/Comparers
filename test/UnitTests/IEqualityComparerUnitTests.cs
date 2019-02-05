@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Nito.Comparers;
 using Xunit;
@@ -14,27 +15,29 @@ namespace UnitTests
     {
         [Theory]
         [MemberData(nameof(ReflexiveData))]
-        public void Equals_IsReflexive(IEqualityComparer comparer, object a)
+        public void Equals_IsReflexive(IEqualityComparer comparer, object a, bool getHashCodeThrows)
         {
             Assert.True(comparer.Equals(a, a));
+            if (!getHashCodeThrows)
+                Assert.Equal(comparer.GetHashCode(a), comparer.GetHashCode(a));
         }
-        public static readonly TheoryData<IEqualityComparer, object> ReflexiveData = new TheoryData<IEqualityComparer, object>
+        public static readonly TheoryData<IEqualityComparer, object, bool> ReflexiveData = new TheoryData<IEqualityComparer, object, bool>
         {
-            { EqualityComparer<int>.Default, new HierarchyBase { Id = 13 } }, // returns true due to reference equality check: https://github.com/dotnet/corefx/blob/53a33cf2662ac8c9a45d13067012d80cf0ba6956/src/Common/src/CoreLib/System/Collections/Generic/EqualityComparer.cs#L29
+            { EqualityComparer<int>.Default, new HierarchyBase { Id = 13 }, true }, // returns true due to reference equality check: https://github.com/dotnet/corefx/blob/53a33cf2662ac8c9a45d13067012d80cf0ba6956/src/Common/src/CoreLib/System/Collections/Generic/EqualityComparer.cs#L29
 
-            { EqualityComparerBuilder.For<int>().Default(), 13 },
-            { EqualityComparerBuilder.For<int>().Default(), null },
-            { EqualityComparerBuilder.For<int?>().Default(), 13 },
-            { EqualityComparerBuilder.For<int?>().Default(), null },
-            { EqualityComparerBuilder.For<int[]>().Default(), new[] { 13 } },
-            { EqualityComparerBuilder.For<int[]>().Default(), null },
-            { EqualityComparerBuilder.For<string>().Default(), "test" },
-            { EqualityComparerBuilder.For<string>().Default(), null },
-            { HierarchyComparers.BaseEqualityComparer, new HierarchyBase { Id = 13 } },
-            { HierarchyComparers.BaseEqualityComparer, new HierarchyDerived1 { Id = 13 } },
-            { HierarchyComparers.BaseEqualityComparer, null },
-            { HierarchyComparers.Derived1EqualityComparer, new HierarchyDerived1 { Id = 13 } },
-            { HierarchyComparers.Derived1EqualityComparer, new HierarchyBase { Id = 13 } },
+            { EqualityComparerBuilder.For<int>().Default(), 13, false },
+            { EqualityComparerBuilder.For<int>().Default(), null, false },
+            { EqualityComparerBuilder.For<int?>().Default(), 13, false },
+            { EqualityComparerBuilder.For<int?>().Default(), null, false },
+            { EqualityComparerBuilder.For<int[]>().Default(), new[] { 13 }, false },
+            { EqualityComparerBuilder.For<int[]>().Default(), null, false },
+            { EqualityComparerBuilder.For<string>().Default(), "test", false },
+            { EqualityComparerBuilder.For<string>().Default(), null, false },
+            { HierarchyComparers.BaseEqualityComparer, new HierarchyBase { Id = 13 }, false },
+            { HierarchyComparers.BaseEqualityComparer, new HierarchyDerived1 { Id = 13 }, false },
+            { HierarchyComparers.BaseEqualityComparer, null, false },
+            { HierarchyComparers.Derived1EqualityComparer, new HierarchyDerived1 { Id = 13 }, false },
+            { HierarchyComparers.Derived1EqualityComparer, new HierarchyBase { Id = 13 }, true },
         };
 
         [Theory]
@@ -92,12 +95,12 @@ namespace UnitTests
         };
 
         [Theory]
-        [MemberData(nameof(ThrowsData))]
+        [MemberData(nameof(EqualsThrowsData))]
         public void Equals_BothInstancesAreIncompatible_Throws(IEqualityComparer comparer, object a, object b)
         {
             Assert.ThrowsAny<ArgumentException>(() => comparer.Equals(a, b));
         }
-        public static readonly TheoryData<IEqualityComparer, object, object> ThrowsData = new TheoryData<IEqualityComparer, object, object>
+        public static readonly TheoryData<IEqualityComparer, object, object> EqualsThrowsData = new TheoryData<IEqualityComparer, object, object>
         {
             { EqualityComparer<int>.Default, "test", Duplicate("test") },
 
@@ -107,6 +110,18 @@ namespace UnitTests
             { EqualityComparerBuilder.For<string>().Default(), 13, 13 },
             { HierarchyComparers.BaseEqualityComparer, "test", Duplicate("test") },
             { HierarchyComparers.Derived1EqualityComparer, new HierarchyBase { Id = 13 }, new HierarchyBase { Id = 13 } },
+        };
+
+        [Theory]
+        [MemberData(nameof(GetHashCodeThrowsData))]
+        public void GetHashCode_IncompatibleInstance_Throws(IEqualityComparer comparer, object a)
+        {
+            Assert.ThrowsAny<ArgumentException>(() => comparer.GetHashCode(a));
+        }
+        public static readonly TheoryData<IEqualityComparer, object> GetHashCodeThrowsData = new TheoryData<IEqualityComparer, object>
+        {
+            { EqualityComparer<int>.Default, new HierarchyBase { Id = 13 } },
+            { HierarchyComparers.Derived1EqualityComparer, new HierarchyBase { Id = 13 } },
         };
     }
 }
