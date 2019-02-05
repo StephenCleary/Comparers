@@ -15,29 +15,27 @@ namespace UnitTests
     {
         [Theory]
         [MemberData(nameof(ReflexiveData))]
-        public void Equals_IsReflexive(IEqualityComparer comparer, object a, bool getHashCodeThrows)
+        public void Equals_IsReflexive(IEqualityComparer comparer, object a)
         {
             Assert.True(comparer.Equals(a, a));
-            if (!getHashCodeThrows)
-                Assert.Equal(comparer.GetHashCode(a), comparer.GetHashCode(a));
+            Assert.Equal(comparer.GetHashCode(a), comparer.GetHashCode(a));
         }
-        public static readonly TheoryData<IEqualityComparer, object, bool> ReflexiveData = new TheoryData<IEqualityComparer, object, bool>
+        public static readonly TheoryData<IEqualityComparer, object> ReflexiveData = new TheoryData<IEqualityComparer, object>
         {
-            { EqualityComparer<int>.Default, new HierarchyBase { Id = 13 }, true }, // returns true due to reference equality check: https://github.com/dotnet/corefx/blob/53a33cf2662ac8c9a45d13067012d80cf0ba6956/src/Common/src/CoreLib/System/Collections/Generic/EqualityComparer.cs#L29
+            //{ EqualityComparer<int>.Default, new HierarchyBase { Id = 13 } }, // .Equals returns true due to reference equality check, but .GetHashCode throws: https://github.com/dotnet/corefx/blob/53a33cf2662ac8c9a45d13067012d80cf0ba6956/src/Common/src/CoreLib/System/Collections/Generic/EqualityComparer.cs#L29
 
-            { EqualityComparerBuilder.For<int>().Default(), 13, false },
-            { EqualityComparerBuilder.For<int>().Default(), null, false },
-            { EqualityComparerBuilder.For<int?>().Default(), 13, false },
-            { EqualityComparerBuilder.For<int?>().Default(), null, false },
-            { EqualityComparerBuilder.For<int[]>().Default(), new[] { 13 }, false },
-            { EqualityComparerBuilder.For<int[]>().Default(), null, false },
-            { EqualityComparerBuilder.For<string>().Default(), "test", false },
-            { EqualityComparerBuilder.For<string>().Default(), null, false },
-            { HierarchyComparers.BaseEqualityComparer, new HierarchyBase { Id = 13 }, false },
-            { HierarchyComparers.BaseEqualityComparer, new HierarchyDerived1 { Id = 13 }, false },
-            { HierarchyComparers.BaseEqualityComparer, null, false },
-            { HierarchyComparers.Derived1EqualityComparer, new HierarchyDerived1 { Id = 13 }, false },
-            { HierarchyComparers.Derived1EqualityComparer, new HierarchyBase { Id = 13 }, true },
+            { EqualityComparerBuilder.For<int>().Default(), 13 },
+            { EqualityComparerBuilder.For<int>().Default(), null },
+            { EqualityComparerBuilder.For<int?>().Default(), 13 },
+            { EqualityComparerBuilder.For<int?>().Default(), null },
+            { EqualityComparerBuilder.For<int[]>().Default(), new[] { 13 } },
+            { EqualityComparerBuilder.For<int[]>().Default(), null },
+            { EqualityComparerBuilder.For<string>().Default(), "test" },
+            { EqualityComparerBuilder.For<string>().Default(), null },
+            { HierarchyComparers.BaseEqualityComparer, new HierarchyBase { Id = 13 } },
+            { HierarchyComparers.BaseEqualityComparer, new HierarchyDerived1 { Id = 13 } },
+            { HierarchyComparers.BaseEqualityComparer, null },
+            { HierarchyComparers.Derived1EqualityComparer, new HierarchyDerived1 { Id = 13 } },
         };
 
         [Theory]
