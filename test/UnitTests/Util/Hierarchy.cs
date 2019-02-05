@@ -2,12 +2,23 @@
 using System.Collections.Generic;
 using System.Text;
 using Nito.Comparers;
+using Xunit.Abstractions;
 
 namespace UnitTests.Util
 {
-    public class HierarchyBase
+    public class HierarchyBase: IXunitSerializable
     {
         public int Id { get; set; }
+
+        public void Deserialize(IXunitSerializationInfo info)
+        {
+            Id = info.GetValue<int>("id");
+        }
+
+        public void Serialize(IXunitSerializationInfo info)
+        {
+            info.AddValue("id", Id);
+        }
     }
 
     public sealed class HierarchyDerived1 : HierarchyBase { }
