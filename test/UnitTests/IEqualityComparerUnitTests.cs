@@ -23,8 +23,6 @@ namespace UnitTests
         }
         public static readonly TheoryData<string, object> ReflexiveData = new TheoryData<string, object>
         {
-            //{ EqualityComparer<int>.Default, new HierarchyBase { Id = 13 } }, // .Equals returns true due to reference equality check, but .GetHashCode throws: https://github.com/dotnet/corefx/blob/53a33cf2662ac8c9a45d13067012d80cf0ba6956/src/Common/src/CoreLib/System/Collections/Generic/EqualityComparer.cs#L29
-
             { Key(() => EqualityComparerBuilder.For<int>().Default()), 13 },
             { Key(() => EqualityComparerBuilder.For<int?>().Default()), 13 },
             { Key(() => EqualityComparerBuilder.For<int[]>().Default()), new[] { 13 } },
@@ -122,8 +120,6 @@ namespace UnitTests
         }
         public static readonly TheoryData<string, object, object> EqualsThrowsData = new TheoryData<string, object, object>
         {
-            { Key(() => EqualityComparer<int>.Default), "test", Duplicate("test") },
-
             { Key(() => EqualityComparerBuilder.For<int>().Default()), "test", Duplicate("test") },
             { Key(() => EqualityComparerBuilder.For<int?>().Default()), "test", Duplicate("test") },
             { Key(() => EqualityComparerBuilder.For<int[]>().Default()), "test", Duplicate("test") },
@@ -141,8 +137,6 @@ namespace UnitTests
         }
         public static readonly TheoryData<string, object> GetHashCodeThrowsData = new TheoryData<string, object>
         {
-            { Key(() => EqualityComparer<int>.Default), "test" },
-
             { Key(() => EqualityComparerBuilder.For<int>().Default()), "test" },
             { Key(() => EqualityComparerBuilder.For<int?>().Default()), "test" },
             { Key(() => EqualityComparerBuilder.For<int[]>().Default()), "test" },
@@ -154,7 +148,6 @@ namespace UnitTests
 
         private static readonly Dictionary<string, IEqualityComparer> EqualityComparers = new ExpressionDictionary<IEqualityComparer>
         {
-            () => EqualityComparer<int>.Default,
             () => EqualityComparerBuilder.For<int>().Default(),
             () => EqualityComparerBuilder.For<int?>().Default(),
             () => EqualityComparerBuilder.For<int[]>().Default(),
