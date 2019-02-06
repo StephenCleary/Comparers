@@ -23,7 +23,7 @@ namespace UnitTests.Util
                 return Random.Next();
             if (type == typeof(int?))
                 return Random.Next();
-            if (type == typeof(int[]) || type == typeof(IEnumerable<int>))
+            if (type == typeof(int[]))
                 return new[] { Random.Next() };
             if (type == typeof(string))
                 return Guid.NewGuid().ToString("N");
@@ -37,6 +37,14 @@ namespace UnitTests.Util
                 return new HierarchyDerived1 { Id = Random.Next() };
             if (type == typeof(HierarchyDerived2))
                 return new HierarchyDerived2 { Id = Random.Next() };
+            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+            {
+                var innerType = type.GetGenericArguments()[0];
+                var result = Array.CreateInstance(innerType, 1);
+                result.SetValue(Fake(innerType), 0);
+                return result;
+            }
+
             throw new InvalidOperationException($"Cannot fake; unknown type {type.Name}");
         }
 

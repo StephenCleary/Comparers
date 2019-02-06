@@ -40,17 +40,36 @@ namespace UnitTests
             () => EqualityComparerBuilder.For<string>().Null(),
             () => EqualityComparerBuilder.For<object>().Null(),
 
+            // Reference
+            () => EqualityComparerBuilder.For<int>().Reference(),
+            () => EqualityComparerBuilder.For<int?>().Reference(),
+            () => EqualityComparerBuilder.For<int[]>().Reference(),
+            () => EqualityComparerBuilder.For<HierarchyBase>().Reference(),
+            () => EqualityComparerBuilder.For<string>().Reference(),
+            () => EqualityComparerBuilder.For<object>().Reference(),
+
+            // Key
+            () => EqualityComparerBuilder.For<int>().EquateBy(x => x % 13, null, false),
+            () => EqualityComparerBuilder.For<int?>().EquateBy(x => x % 13, null, false),
+            () => EqualityComparerBuilder.For<int[]>().EquateBy(x => x.Length, null, false),
+            () => EqualityComparerBuilder.For<HierarchyBase>().EquateBy(x => x.Id % 13, null, false),
+            () => EqualityComparerBuilder.For<string>().EquateBy(x => x.ToLowerInvariant(), null, false),
+            () => EqualityComparerBuilder.For<object>().EquateBy(x => x.GetHashCode(), null, false),
+
+            // Sequence
+            () => EqualityComparerBuilder.For<int>().Default().EquateSequence(),
+            () => EqualityComparerBuilder.For<int?>().Default().EquateSequence(),
+            () => EqualityComparerBuilder.For<int[]>().Default().EquateSequence(),
+            () => EqualityComparerBuilder.For<HierarchyBase>().Default().EquateSequence(),
+            () => EqualityComparerBuilder.For<string>().Default().EquateSequence(),
+            () => EqualityComparerBuilder.For<object>().Default().EquateSequence(),
+
             // Hierarchy
             () => HierarchyComparers.BaseEqualityComparer,
             () => HierarchyComparers.Derived1EqualityComparer,
         };
 
         public static readonly TheoryData<string> All = EqualityComparers.AllKeys();
-
-        public static readonly TheoryData<string, Type> AllWithComparedTypes =
-            EqualityComparers.Select(x => (x.Key, ComparedType(x.Value)))
-                .Append((Key(() => HierarchyComparers.BaseEqualityComparer), typeof(HierarchyDerived1)))
-                .ToTheoryData();
 
         public static readonly TheoryData<string> AllExceptObject =
             EqualityComparers.Where(x => ComparedType(x.Value) != typeof(object))
@@ -59,7 +78,7 @@ namespace UnitTests
 
 
         [Theory]
-        [MemberData(nameof(AllWithComparedTypes))]
+        [MemberData(nameof(ReflexiveData))]
         public void Equals_IsReflexive(string comparerKey, Type comparedType)
         {
             var comparer = EqualityComparers[comparerKey];
@@ -67,6 +86,14 @@ namespace UnitTests
             Assert.True(comparer.Equals(instance, instance));
             Assert.Equal(comparer.GetHashCode(instance), comparer.GetHashCode(instance));
         }
+        public static readonly TheoryData<string, Type> ReflexiveData =
+            EqualityComparers
+                // Test doesn't work for reference comparers on value types
+                .Where(x => x.Key != Key(() => EqualityComparerBuilder.For<int>().Reference()))
+                .Where(x => x.Key != Key(() => EqualityComparerBuilder.For<int?>().Reference()))
+                .Select(x => (x.Key, ComparedType(x.Value)))
+                .Append((Key(() => HierarchyComparers.BaseEqualityComparer), typeof(HierarchyDerived1)))
+                .ToTheoryData();
 
         [Theory]
         [MemberData(nameof(All))]
