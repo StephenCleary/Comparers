@@ -14,109 +14,6 @@ namespace UnitTests
 {
     public class IEqualityComparerUnitTests
     {
-        [Theory]
-        [MemberData(nameof(ReflexiveData))]
-        public void Equals_IsReflexive(string comparerKey, Type comparedTypeOverride)
-        {
-            var comparer = EqualityComparers[comparerKey];
-            var instance = Fake(comparedTypeOverride ?? ComparedType(comparer));
-            Assert.True(comparer.Equals(instance, instance));
-            Assert.Equal(comparer.GetHashCode(instance), comparer.GetHashCode(instance));
-        }
-        public static readonly TheoryData<string, Type> ReflexiveData = new TheoryData<string, Type>
-        {
-            { Key(() => EqualityComparerBuilder.For<int>().Default()), null },
-            { Key(() => EqualityComparerBuilder.For<int?>().Default()), null },
-            { Key(() => EqualityComparerBuilder.For<int[]>().Default()), null },
-            { Key(() => EqualityComparerBuilder.For<HierarchyBase>().Default()), null },
-            { Key(() => EqualityComparerBuilder.For<string>().Default()), null },
-            { Key(() => EqualityComparerBuilder.For<object>().Default()), null },
-            { Key(() => HierarchyComparers.BaseEqualityComparer), null },
-            { Key(() => HierarchyComparers.BaseEqualityComparer), typeof(HierarchyDerived1) },
-            { Key(() => HierarchyComparers.Derived1EqualityComparer), null },
-            { Key(() => EqualityComparerBuilder.For<int>().Null()), null },
-            { Key(() => EqualityComparerBuilder.For<int?>().Null()), null },
-            { Key(() => EqualityComparerBuilder.For<int[]>().Null()), null },
-            { Key(() => EqualityComparerBuilder.For<HierarchyBase>().Null()), null },
-            { Key(() => EqualityComparerBuilder.For<string>().Null()), null },
-            { Key(() => EqualityComparerBuilder.For<object>().Null()), null },
-        };
-
-        [Theory]
-        [MemberData(nameof(All))]
-        public void Equals_BothParametersNull_IsReflexive(string comparerKey)
-        {
-            var comparer = EqualityComparers[comparerKey];
-            Assert.True(comparer.Equals(null, null));
-            Assert.Equal(comparer.GetHashCode(null), comparer.GetHashCode(null));
-        }
-
-        [Theory]
-        [MemberData(nameof(DifferentTypesData))]
-        public void Equals_OneInstanceIsIncompatible_ReturnsFalse(string comparerKey, Type comparedTypeOverride)
-        {
-            var comparer = EqualityComparers[comparerKey];
-            var comparedType = comparedTypeOverride ?? ComparedType(comparer);
-            var a = Fake(comparedType);
-            var b = FakeNot(comparedType);
-            Assert.False(comparer.Equals(a, b));
-            Assert.False(comparer.Equals(b, a));
-        }
-        public static readonly TheoryData<string, Type> DifferentTypesData = new TheoryData<string, Type>
-        {
-            { Key(() => EqualityComparerBuilder.For<int>().Default()), null },
-            { Key(() => EqualityComparerBuilder.For<int?>().Default()), null },
-            { Key(() => EqualityComparerBuilder.For<int[]>().Default()), null },
-            { Key(() => EqualityComparerBuilder.For<HierarchyBase>().Default()), null },
-            { Key(() => EqualityComparerBuilder.For<string>().Default()), null },
-            { Key(() => EqualityComparerBuilder.For<object>().Default()), null },
-            { Key(() => HierarchyComparers.BaseEqualityComparer), null },
-            { Key(() => HierarchyComparers.BaseEqualityComparer), typeof(HierarchyDerived1) },
-            { Key(() => HierarchyComparers.Derived1EqualityComparer), null },
-            { Key(() => EqualityComparerBuilder.For<int>().Null()), null },
-        };
-
-        [Theory]
-        [MemberData(nameof(EqualsThrowsData))]
-        public void Equals_BothInstancesAreIncompatible_Throws(string comparerKey, object a, object b)
-        {
-            var comparer = EqualityComparers[comparerKey];
-            Assert.ThrowsAny<ArgumentException>(() => comparer.Equals(a, b));
-        }
-        public static readonly TheoryData<string, object, object> EqualsThrowsData = new TheoryData<string, object, object>
-        {
-            // Note: Test is not meaningful for <object> comparers.
-            { Key(() => EqualityComparerBuilder.For<int>().Default()), FakeNot<int>(), FakeNot<int>() },
-            { Key(() => EqualityComparerBuilder.For<int?>().Default()), FakeNot<int?>(), FakeNot<int?>() },
-            { Key(() => EqualityComparerBuilder.For<int[]>().Default()), FakeNot<int[]>(), FakeNot<int[]>() },
-            { Key(() => EqualityComparerBuilder.For<HierarchyBase>().Default()), FakeNot<HierarchyBase>(), FakeNot<HierarchyBase>() },
-            { Key(() => EqualityComparerBuilder.For<string>().Default()), FakeNot<string>(), FakeNot<string>() },
-            { Key(() => HierarchyComparers.BaseEqualityComparer), FakeNot<HierarchyBase>(), FakeNot<HierarchyBase>() },
-            { Key(() => HierarchyComparers.Derived1EqualityComparer), FakeNot<HierarchyDerived1>(), FakeNot<HierarchyDerived1>() },
-            { Key(() => EqualityComparerBuilder.For<int>().Null()), FakeNot<int>(), FakeNot<int>() },
-        };
-
-        [Theory]
-        [MemberData(nameof(GetHashCodeThrowsData))]
-        public void GetHashCode_IncompatibleInstance_Throws(string comparerKey, object a)
-        {
-            var comparer = EqualityComparers[comparerKey];
-            Assert.ThrowsAny<ArgumentException>(() => comparer.GetHashCode(a));
-        }
-        public static readonly TheoryData<string, object> GetHashCodeThrowsData = new TheoryData<string, object>
-        {
-            // Note: Test is not meaningful for <object> comparers.
-            { Key(() => EqualityComparerBuilder.For<int>().Default()), "test" },
-            { Key(() => EqualityComparerBuilder.For<int?>().Default()), "test" },
-            { Key(() => EqualityComparerBuilder.For<int[]>().Default()), "test" },
-            { Key(() => EqualityComparerBuilder.For<HierarchyBase>().Default()), 13 },
-            { Key(() => EqualityComparerBuilder.For<string>().Default()), 13 },
-            { Key(() => HierarchyComparers.BaseEqualityComparer), "test" },
-            { Key(() => HierarchyComparers.Derived1EqualityComparer), "test" },
-            { Key(() => HierarchyComparers.Derived1EqualityComparer), new HierarchyBase { Id = 13 } },
-            { Key(() => EqualityComparerBuilder.For<int>().Null()), "test" },
-        };
-
         // For each general class of comparers, include tests for:
         //  Value type (int)
         //  Nullable value type (int?)
@@ -149,6 +46,75 @@ namespace UnitTests
         };
 
         public static readonly TheoryData<string> All = EqualityComparers.AllKeys();
+
+        public static readonly TheoryData<string, Type> AllWithComparedTypes =
+            EqualityComparers.Select(x => (x.Key, ComparedType(x.Value)))
+                .Append((Key(() => HierarchyComparers.BaseEqualityComparer), typeof(HierarchyDerived1)))
+                .ToTheoryData();
+
+        public static readonly TheoryData<string> AllExceptObject =
+            EqualityComparers.Where(x => ComparedType(x.Value) != typeof(object))
+                .Select(x => x.Key)
+                .ToTheoryData();
+
+
+        [Theory]
+        [MemberData(nameof(AllWithComparedTypes))]
+        public void Equals_IsReflexive(string comparerKey, Type comparedType)
+        {
+            var comparer = EqualityComparers[comparerKey];
+            var instance = Fake(comparedType);
+            Assert.True(comparer.Equals(instance, instance));
+            Assert.Equal(comparer.GetHashCode(instance), comparer.GetHashCode(instance));
+        }
+
+        [Theory]
+        [MemberData(nameof(All))]
+        public void Equals_BothParametersNull_IsReflexive(string comparerKey)
+        {
+            var comparer = EqualityComparers[comparerKey];
+            Assert.True(comparer.Equals(null, null));
+            Assert.Equal(comparer.GetHashCode(null), comparer.GetHashCode(null));
+        }
+
+        [Theory]
+        [MemberData(nameof(DifferentTypesData))]
+        public void Equals_OneInstanceIsIncompatible_ReturnsFalse(string comparerKey, Type comparedType)
+        {
+            var comparer = EqualityComparers[comparerKey];
+            comparedType = comparedType ?? ComparedType(comparer);
+            var a = Fake(comparedType);
+            var b = FakeNot(comparedType);
+            Assert.False(comparer.Equals(a, b));
+            Assert.False(comparer.Equals(b, a));
+        }
+        public static readonly TheoryData<string, Type> DifferentTypesData =
+            EqualityComparers
+                .Where(x => x.Key != Key(() => EqualityComparerBuilder.For<object>().Null())) // Null comparer for object will always return true from Equals
+                .Select(x => (x.Key, ComparedType(x.Value)))
+                .Append((Key(() => HierarchyComparers.BaseEqualityComparer), typeof(HierarchyDerived1)))
+                .ToTheoryData();
+
+        [Theory]
+        [MemberData(nameof(AllExceptObject))]
+        public void Equals_BothInstancesAreIncompatible_Throws(string comparerKey)
+        {
+            var comparer = EqualityComparers[comparerKey];
+            var comparedType = ComparedType(comparer);
+            var a = FakeNot(comparedType);
+            var b = FakeNot(comparedType);
+            Assert.ThrowsAny<ArgumentException>(() => comparer.Equals(a, b));
+        }
+
+        [Theory]
+        [MemberData(nameof(AllExceptObject))]
+        public void GetHashCode_IncompatibleInstance_Throws(string comparerKey)
+        {
+            var comparer = EqualityComparers[comparerKey];
+            var comparedType = ComparedType(comparer);
+            var a = FakeNot(comparedType);
+            Assert.ThrowsAny<ArgumentException>(() => comparer.GetHashCode(a));
+        }
 
 
         // TODO: Move this into comparer-specific unit tests.
