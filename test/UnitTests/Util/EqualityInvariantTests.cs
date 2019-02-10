@@ -63,7 +63,7 @@ namespace UnitTests.Util
             Assert.False(equals(b, c));
             Assert.False(equals(c, b));
 
-            // Inequality with null
+            // Inequality with null // TODO: need this in new-style tests
             Assert.False(equals(a, default(T)));
             if (allowNullAsFirstArgumentForEquals)
                 Assert.False(equals(default(T), a));
