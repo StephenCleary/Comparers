@@ -43,7 +43,6 @@ namespace UnitTests
         {
             AssertObjectEquals(AbeAbrams, JackAbrams, AbeAbrams2);
             AssertIEquatableTEquals(AbeAbrams, JackAbrams, AbeAbrams2);
-            AssertIFullEqualityComparerT(Person.DefaultComparer, AbeAbrams, JackAbrams, AbeAbrams2);
         }
     }
 }

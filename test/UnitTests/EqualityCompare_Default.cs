@@ -99,14 +99,5 @@ namespace UnitTests
         {
             Assert.Equal("Default(Int32: IComparable<T>)", EqualityComparerBuilder.For<int>().Default().ToString());
         }
-
-        [Fact]
-        public void Invariants()
-        {
-            AssertIFullEqualityComparerT(EqualityComparerBuilder.For<string>().Default(), "first", "second", string.Format("{0}", "first"));
-            AssertIFullEqualityComparerT(EqualityComparerBuilder.For<int>().Default(), 13, 7, 13);
-            AssertIFullEqualityComparerT(EqualityComparerBuilder.For<int?>().Default(), 13, 7, 13);
-            AssertIFullEqualityComparerT(EqualityComparerBuilder.For<int[]>().Default(), new[] { 13 }, new[] { 7 }, new[] { 13 });
-        }
     }
 }
