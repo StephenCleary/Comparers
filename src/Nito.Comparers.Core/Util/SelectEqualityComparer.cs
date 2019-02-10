@@ -28,23 +28,14 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        protected override int DoGetHashCode(T obj)
-        {
-            return _source.GetHashCode(_selector(obj));
-        }
+        protected override int DoGetHashCode(T obj) => Source.GetHashCode(_selector(obj));
 
         /// <inheritdoc />
-        protected override bool DoEquals(T x, T y)
-        {
-            return _source.Equals(_selector(x), _selector(y));
-        }
+        protected override bool DoEquals(T x, T y) => Source.Equals(_selector(x), _selector(y));
 
         /// <summary>
         /// Returns a short, human-readable description of the comparer. This is intended for debugging and not for other purposes.
         /// </summary>
-        public override string ToString()
-        {
-            return "Select<" + typeof(TSource).Name + ">(" + _source + ")";
-        }
+        public override string ToString() => $"Select<{typeof(TSource).Name}>({Source})";
     }
 }

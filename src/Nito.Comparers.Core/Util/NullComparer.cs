@@ -16,37 +16,20 @@
             // This type constructor does nothing; it only exists to make static field initialization deterministic.
         }
 
-        private static readonly NullComparer<T> instance = new NullComparer<T>();
-
         /// <summary>
         /// Gets the null comparer for this type.
         /// </summary>
-        public static NullComparer<T> Instance
-        {
-            get
-            {
-                return instance;
-            }
-        }
+        public static NullComparer<T> Instance { get; } = new NullComparer<T>();
 
         /// <inheritdoc />
-        protected override int DoGetHashCode(T obj)
-        {
-            return unchecked((int)2166136261);
-        }
+        protected override int DoGetHashCode(T obj) => unchecked((int)2166136261);
 
         /// <inheritdoc />
-        protected override int DoCompare(T x, T y)
-        {
-            return 0;
-        }
+        protected override int DoCompare(T x, T y) => 0;
 
         /// <summary>
         /// Returns a short, human-readable description of the comparer. This is intended for debugging and not for other purposes.
         /// </summary>
-        public override string ToString()
-        {
-            return "Null";
-        }
+        public override string ToString() => "Null";
     }
 }

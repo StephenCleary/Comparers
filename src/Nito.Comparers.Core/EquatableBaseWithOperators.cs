@@ -16,10 +16,8 @@ namespace Nito.Comparers
         /// <param name="left">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <param name="right">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <returns><c>true</c> if two <typeparamref name="T"/> objects have the same value; otherwise, <c>false</c>.</returns>
-        public static bool operator ==(EquatableBaseWithOperators<T> left, EquatableBaseWithOperators<T> right)
-        {
-            return ComparableImplementations.ImplementOpEquality(DefaultComparer, (T)left, (T)right);
-        }
+        public static bool operator ==(EquatableBaseWithOperators<T> left, EquatableBaseWithOperators<T> right) =>
+            ComparableImplementations.ImplementOpEquality(DefaultComparer, (T)left, (T)right);
 
         /// <summary>
         /// Returns <c>true</c> if two <typeparamref name="T"/> objects have different values.
@@ -27,9 +25,7 @@ namespace Nito.Comparers
         /// <param name="left">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <param name="right">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <returns><c>true</c> if two <typeparamref name="T"/> objects have different values; otherwise, <c>false</c>.</returns>
-        public static bool operator !=(EquatableBaseWithOperators<T> left, EquatableBaseWithOperators<T> right)
-        {
-            return ComparableImplementations.ImplementOpInequality(DefaultComparer, (T)left, (T)right);
-        }
+        public static bool operator !=(EquatableBaseWithOperators<T> left, EquatableBaseWithOperators<T> right) =>
+            ComparableImplementations.ImplementOpInequality(DefaultComparer, (T)left, (T)right);
     }
 }

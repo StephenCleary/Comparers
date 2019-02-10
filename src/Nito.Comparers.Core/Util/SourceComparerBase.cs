@@ -12,7 +12,7 @@ namespace Nito.Comparers.Util
         /// <summary>
         /// The source comparer.
         /// </summary>
-        protected readonly IComparer<TSource> _source;
+        protected readonly IComparer<TSource> Source;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SourceComparerBase&lt;T, TSource&gt;"/> class.
@@ -22,7 +22,7 @@ namespace Nito.Comparers.Util
         protected SourceComparerBase(IComparer<TSource> source, bool specialNullHandling)
             : base(specialNullHandling)
         {
-            _source = ComparerHelpers.NormalizeDefault(source);
+            Source = ComparerHelpers.NormalizeDefault(source);
         }
     }
 }

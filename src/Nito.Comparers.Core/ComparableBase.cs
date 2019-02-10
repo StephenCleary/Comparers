@@ -18,49 +18,34 @@ namespace Nito.Comparers
         /// Gets the hash code for this instance.
         /// </summary>
         /// <returns>The hash code for this instance.</returns>
-        public override int GetHashCode()
-        {
-            return ComparableImplementations.ImplementGetHashCode(DefaultComparer, (T)this);
-        }
+        public override int GetHashCode() => ComparableImplementations.ImplementGetHashCode(DefaultComparer, (T)this);
 
         /// <summary>
         /// Returns a value indicating whether this instance is equal to the specified object.
         /// </summary>
         /// <param name="obj">The object to compare with this instance.</param>
         /// <returns>A value indicating whether this instance is equal to the specified object.</returns>
-        public override bool Equals(object obj)
-        {
-            return ComparableImplementations.ImplementEquals(DefaultComparer, this, obj);
-        }
+        public override bool Equals(object obj) => ComparableImplementations.ImplementEquals(DefaultComparer, this, obj);
 
         /// <summary>
         /// Returns a value indicating whether this instance is equal to the specified object.
         /// </summary>
         /// <param name="other">The object to compare with this instance.</param>
         /// <returns>A value indicating whether this instance is equal to the specified object.</returns>
-        public bool Equals(T other)
-        {
-            return ComparableImplementations.ImplementEquals(DefaultComparer, (T)this, other);
-        }
+        public bool Equals(T other) => ComparableImplementations.ImplementEquals(DefaultComparer, (T)this, other);
 
         /// <summary>
         /// Returns a value indicating the relative order of this instance and the specified object: a negative value if this instance is less than the specified object; zero if this instance is equal to the specified object; and a positive value if this instance is greater than the specified object.
         /// </summary>
         /// <param name="obj">The object to compare with this instance.</param>
         /// <returns>A value indicating the relative order of this instance and the specified object: a negative value if this instance is less than the specified object; zero if this instance is equal to the specified object; and a positive value if this instance is greater than the specified object.</returns>
-        int IComparable.CompareTo(object obj)
-        {
-            return ComparableImplementations.ImplementCompareTo(DefaultComparer, this, obj);
-        }
+        int IComparable.CompareTo(object obj) => ComparableImplementations.ImplementCompareTo(DefaultComparer, this, obj);
 
         /// <summary>
         /// Returns a value indicating the relative order of this instance and the specified object: a negative value if this instance is less than the specified object; zero if this instance is equal to the specified object; and a positive value if this instance is greater than the specified object.
         /// </summary>
         /// <param name="other">The object to compare with this instance.</param>
         /// <returns>A value indicating the relative order of this instance and the specified object: a negative value if this instance is less than the specified object; zero if this instance is equal to the specified object; and a positive value if this instance is greater than the specified object.</returns>
-        public int CompareTo(T other)
-        {
-            return ComparableImplementations.ImplementCompareTo(DefaultComparer, (T)this, other);
-        }
+        public int CompareTo(T other) => ComparableImplementations.ImplementCompareTo(DefaultComparer, (T)this, other);
     }
 }

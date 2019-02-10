@@ -30,8 +30,6 @@ namespace Nito.Comparers.Util
             var elementTypes = enumerable.GenericTypeArguments;
             var genericSequenceComparerType = typeof(SequenceEqualityComparer<>);
             var sequenceComparerType = genericSequenceComparerType.MakeGenericType(elementTypes);
-            var genericComparerType = typeof(IEqualityComparer<>);
-            var comparerType = genericComparerType.MakeGenericType(elementTypes);
             var constructor = sequenceComparerType.GetTypeInfo().DeclaredConstructors.First();
             var instance = constructor.Invoke(new object[] { null });
             return (IEqualityComparer<T>)instance;

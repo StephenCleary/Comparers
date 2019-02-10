@@ -19,35 +19,18 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        protected override int DoGetHashCode(T obj)
-        {
-            return EqualityComparer<T>.Default.GetHashCode(obj);
-        }
+        protected override int DoGetHashCode(T obj) => EqualityComparer<T>.Default.GetHashCode(obj);
 
         /// <inheritdoc />
-        protected override bool DoEquals(T x, T y)
-        {
-            return EqualityComparer<T>.Default.Equals(x, y);
-        }
+        protected override bool DoEquals(T x, T y) => EqualityComparer<T>.Default.Equals(x, y);
 
         /// <inheritdoc />
-        protected override int DoCompare(T x, T y)
-        {
-            return Comparer<T>.Default.Compare(x, y);
-        }
-
-        private static readonly DefaultComparer<T> instance = new DefaultComparer<T>();
+        protected override int DoCompare(T x, T y) => Comparer<T>.Default.Compare(x, y);
 
         /// <summary>
         /// Gets the default comparer for this type.
         /// </summary>
-        public static DefaultComparer<T> Instance
-        {
-            get
-            {
-                return instance;
-            }
-        }
+        public static DefaultComparer<T> Instance { get; } = new DefaultComparer<T>();
 
         /// <summary>
         /// Returns a short, human-readable description of the comparer. This is intended for debugging and not for other purposes.
@@ -69,12 +52,12 @@ namespace Nito.Comparers.Util
             }
 
             if (comparableBaseString != null)
-                return "Default(" + comparableBaseString + ")";
+                return $"Default({comparableBaseString})";
             if (ReflectionHelpers.TryFindInterfaceType(typeofT, "IComparable`1") != null)
-                return "Default(" + typeofT.Name + ": IComparable<T>)";
+                return $"Default({typeofT.Name}: IComparable<T>)";
             if (ReflectionHelpers.TryFindInterfaceType(typeofT, "IComparable") != null)
-                return "Default(" + typeofT.Name + ": IComparable)";
-            return "Default(" + typeofT.Name + ": undefined)";
+                return $"Default({typeofT.Name}: IComparable)";
+            return $"Default({typeofT.Name}: undefined)";
         }
 
         /// <summary>

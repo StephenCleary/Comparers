@@ -25,7 +25,7 @@ namespace Nito.Comparers.Util
                 var ret = (int)2166136261;
                 foreach (var item in obj)
                 {
-                    ret += ComparerHelpers.GetHashCodeFromComparer(_source, item);
+                    ret += ComparerHelpers.GetHashCodeFromComparer(Source, item);
                     ret *= 16777619;
                 }
                 return ret;
@@ -50,7 +50,7 @@ namespace Nito.Comparers.Util
                     if (!yIter.MoveNext())
                         return 1;
 
-                    var ret = _source.Compare(xIter.Current, yIter.Current);
+                    var ret = Source.Compare(xIter.Current, yIter.Current);
                     if (ret != 0)
                         return ret;
                 }
@@ -60,9 +60,6 @@ namespace Nito.Comparers.Util
         /// <summary>
         /// Returns a short, human-readable description of the comparer. This is intended for debugging and not for other purposes.
         /// </summary>
-        public override string ToString()
-        {
-            return "Sequence<" + typeof(T).Name + ">(" + _source + ")";
-        }
+        public override string ToString() => $"Sequence<{typeof(T).Name}>({Source})";
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -18,11 +19,9 @@ namespace Nito.Comparers.Util
         /// <returns>A hash code for the specified object.</returns>
         public static int GetHashCodeFromComparer<T>(IComparer<T> comparer, T obj)
         {
-            var equalityComparer = comparer as IEqualityComparer<T>;
-            if (equalityComparer != null)
+            if (comparer is IEqualityComparer<T> equalityComparer)
                 return equalityComparer.GetHashCode(obj);
-            var objectEqualityComparer = comparer as System.Collections.IEqualityComparer;
-            if (objectEqualityComparer != null)
+            if (comparer is IEqualityComparer objectEqualityComparer)
                 return objectEqualityComparer.GetHashCode(obj);
 
             throw new NotImplementedException();
@@ -48,8 +47,6 @@ namespace Nito.Comparers.Util
             var elementTypes = enumerable.GenericTypeArguments;
             var genericSequenceComparerType = typeof(SequenceComparer<>);
             var sequenceComparerType = genericSequenceComparerType.MakeGenericType(elementTypes);
-            var genericComparerType = typeof(IComparer<>);
-            var comparerType = genericComparerType.MakeGenericType(elementTypes);
             var constructor = sequenceComparerType.GetTypeInfo().DeclaredConstructors.First();
             var instance = constructor.Invoke(new object[] { null });
             return (IComparer<T>)instance;

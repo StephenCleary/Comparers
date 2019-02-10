@@ -3,10 +3,7 @@ using System.Reflection;
 
 internal static class ReflectionHelpers
 {
-    public static Type TryGetEnumeratorType(Type source)
-    {
-        return TryFindInterfaceType(source, "IEnumerable`1");
-    }
+    public static Type TryGetEnumeratorType(Type source) => TryFindInterfaceType(source, "IEnumerable`1");
 
     public static Type TryFindInterfaceType(Type type, string name)
     {

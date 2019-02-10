@@ -15,10 +15,7 @@ namespace Nito.Comparers
         /// <typeparam name="T">The type of objects being compared.</typeparam>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
         /// <returns>A comparer that reverses the evaluation of the specified source comparer.</returns>
-        public static IFullComparer<T> Reverse<T>(this IComparer<T> source)
-        {
-            return new ReverseComparer<T>(source);
-        }
+        public static IFullComparer<T> Reverse<T>(this IComparer<T> source) => new ReverseComparer<T>(source);
 
         /// <summary>
         /// Returns a comparer that uses another comparer if the source comparer determines the objects are equal.
@@ -28,10 +25,8 @@ namespace Nito.Comparers
         /// <param name="thenBy">The comparer that is used if <paramref name="source"/> determines the objects are equal. If this is <c>null</c>, the default comparer is used.</param>
         /// <param name="descending">A value indicating whether the sorting is done in descending order. If <c>false</c> (the default), then the sort is in ascending order.</param>
         /// <returns>A comparer that uses another comparer if the source comparer determines the objects are equal.</returns>
-        public static IFullComparer<T> ThenBy<T>(this IComparer<T> source, IComparer<T> thenBy, bool descending = false)
-        {
-            return new CompoundComparer<T>(source, descending ? thenBy.Reverse() : thenBy);
-        }
+        public static IFullComparer<T> ThenBy<T>(this IComparer<T> source, IComparer<T> thenBy, bool descending = false) =>
+            new CompoundComparer<T>(source, descending ? thenBy.Reverse() : thenBy);
 
         /// <summary>
         /// Returns a comparer that uses a key comparer if the source comparer determines the objects are equal.
@@ -55,9 +50,6 @@ namespace Nito.Comparers
         /// <typeparam name="T">The type of sequence elements being compared.</typeparam>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
         /// <returns>A comparer that will perform a lexicographical ordering on a sequence of items.</returns>
-        public static IFullComparer<IEnumerable<T>> Sequence<T>(this IComparer<T> source)
-        {
-            return new SequenceComparer<T>(source);
-        }
+        public static IFullComparer<IEnumerable<T>> Sequence<T>(this IComparer<T> source) => new SequenceComparer<T>(source);
     }
 }

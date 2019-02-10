@@ -30,7 +30,7 @@ namespace Nito.Comparers.Util
             unchecked
             {
                 var ret = (int)2166136261;
-                ret += ComparerHelpers.GetHashCodeFromComparer(_source, obj);
+                ret += ComparerHelpers.GetHashCodeFromComparer(Source, obj);
                 ret *= 16777619;
                 ret += ComparerHelpers.GetHashCodeFromComparer(_secondSource, obj);
                 ret *= 16777619;
@@ -41,7 +41,7 @@ namespace Nito.Comparers.Util
         /// <inheritdoc />
         protected override int DoCompare(T x, T y)
         {
-            var ret = _source.Compare(x, y);
+            var ret = Source.Compare(x, y);
             if (ret != 0)
                 return ret;
             return _secondSource.Compare(x, y);
@@ -50,9 +50,6 @@ namespace Nito.Comparers.Util
         /// <summary>
         /// Returns a short, human-readable description of the comparer. This is intended for debugging and not for other purposes.
         /// </summary>
-        public override string ToString()
-        {
-            return "Compound(" + _source + ", " + _secondSource + ")";
-        }
+        public override string ToString() => $"Compound({Source}, {_secondSource})";
     }
 }

@@ -9,17 +9,9 @@ namespace Nito.Comparers.Util
     internal abstract class EqualityComparerBase<T> : IFullEqualityComparer<T>
     {
         /// <summary>
-        /// A value indicating whether <c>null</c> values will be passed down to derived implementations.
-        /// </summary>
-        private readonly bool _specialNullHandling;
-
-        /// <summary>
         /// Gets a value indicating whether <c>null</c> values will be passed down to derived implementations.
         /// </summary>
-        protected bool SpecialNullHandling
-        {
-            get { return _specialNullHandling; }
-        }
+        protected bool SpecialNullHandling { get; }
 
         /// <summary>
         /// Returns a hash code for the specified object.
@@ -42,9 +34,9 @@ namespace Nito.Comparers.Util
         /// <param name="specialNullHandling">A value indicating whether <c>null</c> values are passed to <see cref="DoGetHashCode"/> and <see cref="DoEquals"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <see cref="DoGetHashCode"/> nor <see cref="DoEquals"/>. This value is ignored if <typeparamref name="T"/> is a non-nullable type.</param>
         protected EqualityComparerBase(bool specialNullHandling)
         {
-            _specialNullHandling = specialNullHandling;
+            SpecialNullHandling = specialNullHandling;
             if (default(T) != null)
-                _specialNullHandling = false;
+                SpecialNullHandling = false;
         }
 
         /// <inheritdoc />

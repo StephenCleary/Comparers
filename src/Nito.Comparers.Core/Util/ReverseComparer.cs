@@ -18,23 +18,14 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        protected override int DoGetHashCode(T obj)
-        {
-            return ComparerHelpers.GetHashCodeFromComparer(_source, obj);
-        }
+        protected override int DoGetHashCode(T obj) => ComparerHelpers.GetHashCodeFromComparer(Source, obj);
 
         /// <inheritdoc />
-        protected override int DoCompare(T x, T y)
-        {
-            return _source.Compare(y, x);
-        }
+        protected override int DoCompare(T x, T y) => Source.Compare(y, x);
 
         /// <summary>
         /// Returns a short, human-readable description of the comparer. This is intended for debugging and not for other purposes.
         /// </summary>
-        public override string ToString()
-        {
-            return "Reverse(" + _source + ")";
-        }
+        public override string ToString() => $"Reverse({Source})";
     }
 }

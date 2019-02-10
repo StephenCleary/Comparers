@@ -13,18 +13,12 @@ namespace Nito.Comparers
         /// <summary>
         /// Gets the null comparer for this type, which evaluates all objects as equivalent.
         /// </summary>
-        public IFullComparer<T> Null()
-        {
-            return NullComparer<T>.Instance;
-        }
+        public IFullComparer<T> Null() => NullComparer<T>.Instance;
 
         /// <summary>
         /// Gets the default comparer for this type.
         /// </summary>
-        public IFullComparer<T> Default()
-        {
-            return (IFullComparer<T>)ComparerHelpers.NormalizeDefault<T>(null);
-        }
+        public IFullComparer<T> Default() => (IFullComparer<T>)ComparerHelpers.NormalizeDefault<T>(null);
 
         /// <summary>
         /// Creates a key comparer.
@@ -50,39 +44,27 @@ namespace Nito.Comparers
         /// Creates a source for a comparer of type <typeparamref name="T"/>.
         /// </summary>
         /// <typeparam name="T">The type of objects being compared.</typeparam>
-        public static ComparerBuilder<T> For<T>()
-        {
-            return new ComparerBuilder<T>();
-        }
+        public static ComparerBuilder<T> For<T>() => new ComparerBuilder<T>();
 
         /// <summary>
         /// Creates a source for a comparer of type <typeparamref name="T"/>. <paramref name="expression"/> is only used to infer the type <typeparamref name="T"/>; it is not evaluated.
         /// </summary>
         /// <typeparam name="T">The type of objects being compared.</typeparam>
         /// <param name="expression">An expression of the type of objects being compared. The expression is only used to infer the type <typeparamref name="T"/>; it is not evaluated.</param>
-        public static ComparerBuilder<T> For<T>(Func<T> expression)
-        {
-            return new ComparerBuilder<T>();
-        }
+        public static ComparerBuilder<T> For<T>(Func<T> expression) => new ComparerBuilder<T>();
 
         /// <summary>
         /// Creates a source for a comparer of type <typeparamref name="T"/>. <paramref name="expression"/> is only used to infer the type <typeparamref name="T"/>; it is not evaluated.
         /// </summary>
         /// <typeparam name="T">The type of objects being compared.</typeparam>
         /// <param name="expression">An expression whose results are a sequence of objects being compared. The expression is only used to infer the type <typeparamref name="T"/>; it is not evaluated.</param>
-        public static ComparerBuilder<T> ForElementsOf<T>(Func<IEnumerable<T>> expression)
-        {
-            return new ComparerBuilder<T>();
-        }
+        public static ComparerBuilder<T> ForElementsOf<T>(Func<IEnumerable<T>> expression) => new ComparerBuilder<T>();
 
         /// <summary>
         /// Creates a source for a comparer of type <typeparamref name="T"/>. <paramref name="sequence"/> is only used to infer the type <typeparamref name="T"/>; it is not enumerated.
         /// </summary>
         /// <typeparam name="T">The type of objects being compared.</typeparam>
         /// <param name="sequence">A sequence of objects being compared. This argument is only used to infer the type <typeparamref name="T"/>; it is not enumerated.</param>
-        public static ComparerBuilder<T> ForElementsOf<T>(IEnumerable<T> sequence)
-        {
-            return new ComparerBuilder<T>();
-        }
+        public static ComparerBuilder<T> ForElementsOf<T>(IEnumerable<T> sequence) => new ComparerBuilder<T>();
     }
 }
