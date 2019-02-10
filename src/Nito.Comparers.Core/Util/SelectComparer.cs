@@ -27,22 +27,13 @@ namespace Nito.Comparers.Util
             _selector = selector;
         }
 
-        /// <summary>
-        /// Returns a hash code for the specified object.
-        /// </summary>
-        /// <param name="obj">The object for which to return a hash code.</param>
-        /// <returns>A hash code for the specified object.</returns>
+        /// <inheritdoc />
         protected override int DoGetHashCode(T obj)
         {
             return ComparerHelpers.GetHashCodeFromComparer(_source, _selector(obj));
         }
 
-        /// <summary>
-        /// Compares two objects and returns a value less than 0 if <paramref name="x"/> is less than <paramref name="y"/>, 0 if <paramref name="x"/> is equal to <paramref name="y"/>, or greater than 0 if <paramref name="x"/> is greater than <paramref name="y"/>.
-        /// </summary>
-        /// <param name="x">The first object to compare.</param>
-        /// <param name="y">The second object to compare.</param>
-        /// <returns>A value less than 0 if <paramref name="x"/> is less than <paramref name="y"/>, 0 if <paramref name="x"/> is equal to <paramref name="y"/>, or greater than 0 if <paramref name="x"/> is greater than <paramref name="y"/>.</returns>
+        /// <inheritdoc />
         protected override int DoCompare(T x, T y)
         {
             return _source.Compare(_selector(x), _selector(y));

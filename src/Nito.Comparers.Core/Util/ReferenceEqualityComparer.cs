@@ -31,22 +31,13 @@ namespace Nito.Comparers.Util
             }
         }
 
-        /// <summary>
-        /// Returns a hash code for the specified object.
-        /// </summary>
-        /// <param name="obj">The object for which to return a hash code.</param>
-        /// <returns>A hash code for the specified object.</returns>
+        /// <inheritdoc />
         protected override int DoGetHashCode(T obj)
         {
             return RuntimeHelpers.GetHashCode(obj);
         }
 
-        /// <summary>
-        /// Compares two objects and returns <c>true</c> if they are equal and <c>false</c> if they are not equal.
-        /// </summary>
-        /// <param name="x">The first object to compare.</param>
-        /// <param name="y">The second object to compare.</param>
-        /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise, <c>false</c>.</returns>
+        /// <inheritdoc />
         protected override bool DoEquals(T x, T y)
         {
             return object.ReferenceEquals(x, y);

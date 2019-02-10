@@ -24,15 +24,15 @@ namespace Nito.Comparers.Util
         /// <summary>
         /// Returns a hash code for the specified object.
         /// </summary>
-        /// <param name="obj">The object for which to return a hash code.</param>
+        /// <param name="obj">The object for which to return a hash code. May be <c>null</c> if <see cref="SpecialNullHandling"/> is <c>true</c>.</param>
         /// <returns>A hash code for the specified object.</returns>
         protected abstract int DoGetHashCode(T obj);
 
         /// <summary>
         /// Compares two objects and returns <c>true</c> if they are equal and <c>false</c> if they are not equal.
         /// </summary>
-        /// <param name="x">The first object to compare.</param>
-        /// <param name="y">The second object to compare.</param>
+        /// <param name="x">The first object to compare. May be <c>null</c> if <see cref="SpecialNullHandling"/> is <c>true</c>.</param>
+        /// <param name="y">The second object to compare. May be <c>null</c> if <see cref="SpecialNullHandling"/> is <c>true</c>.</param>
         /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise, <c>false</c>.</returns>
         protected abstract bool DoEquals(T x, T y);
 
@@ -47,12 +47,7 @@ namespace Nito.Comparers.Util
                 _specialNullHandling = false;
         }
 
-        /// <summary>
-        /// Compares two objects and returns a value indicating whether they are equal.
-        /// </summary>
-        /// <param name="x">The first object to compare.</param>
-        /// <param name="y">The second object to compare.</param>
-        /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise <c>false</c>.</returns>
+        /// <inheritdoc />
         bool System.Collections.IEqualityComparer.Equals(object x, object y)
         {
             if (!SpecialNullHandling)
@@ -74,11 +69,7 @@ namespace Nito.Comparers.Util
             return DoEquals((T)x, (T)y);
         }
 
-        /// <summary>
-        /// Returns a hash code for the specified object.
-        /// </summary>
-        /// <param name="obj">The object for which to return a hash code.</param>
-        /// <returns>A hash code for the specified object.</returns>
+        /// <inheritdoc />
         int System.Collections.IEqualityComparer.GetHashCode(object obj)
         {
             if (!SpecialNullHandling)
@@ -94,12 +85,7 @@ namespace Nito.Comparers.Util
             return DoGetHashCode((T)obj);
         }
 
-        /// <summary>
-        /// Compares two objects and returns a value indicating whether they are equal.
-        /// </summary>
-        /// <param name="x">The first object to compare.</param>
-        /// <param name="y">The second object to compare.</param>
-        /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise <c>false</c>.</returns>
+        /// <inheritdoc />
         public bool Equals(T x, T y)
         {
             if (!SpecialNullHandling)
@@ -111,11 +97,7 @@ namespace Nito.Comparers.Util
             return DoEquals(x, y);
         }
 
-        /// <summary>
-        /// Returns a hash code for the specified object.
-        /// </summary>
-        /// <param name="obj">The object for which to return a hash code.</param>
-        /// <returns>A hash code for the specified object.</returns>
+        /// <inheritdoc />
         public int GetHashCode(T obj)
         {
             if (!SpecialNullHandling)

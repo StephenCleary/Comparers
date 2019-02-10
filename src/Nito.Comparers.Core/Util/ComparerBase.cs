@@ -11,17 +11,12 @@ namespace Nito.Comparers.Util
         /// <summary>
         /// Compares two objects and returns a value less than 0 if <paramref name="x"/> is less than <paramref name="y"/>, 0 if <paramref name="x"/> is equal to <paramref name="y"/>, or greater than 0 if <paramref name="x"/> is greater than <paramref name="y"/>.
         /// </summary>
-        /// <param name="x">The first object to compare.</param>
-        /// <param name="y">The second object to compare.</param>
+        /// <param name="x">The first object to compare. May be <c>null</c> if <see cref="SpecialNullHandling"/> is <c>true</c>.</param>
+        /// <param name="y">The second object to compare. May be <c>null</c> if <see cref="SpecialNullHandling"/> is <c>true</c>.</param>
         /// <returns>A value less than 0 if <paramref name="x"/> is less than <paramref name="y"/>, 0 if <paramref name="x"/> is equal to <paramref name="y"/>, or greater than 0 if <paramref name="x"/> is greater than <paramref name="y"/>.</returns>
         protected abstract int DoCompare(T x, T y);
 
-        /// <summary>
-        /// Compares two objects and returns <c>true</c> if they are equal and <c>false</c> if they are not equal.
-        /// </summary>
-        /// <param name="x">The first object to compare.</param>
-        /// <param name="y">The second object to compare.</param>
-        /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise, <c>false</c>.</returns>
+        /// <inheritdoc />
         protected override bool DoEquals(T x, T y)
         {
             return Compare(x, y) == 0;
@@ -36,12 +31,7 @@ namespace Nito.Comparers.Util
         {
         }
 
-        /// <summary>
-        /// Compares two objects and returns a value less than 0 if <paramref name="x"/> is less than <paramref name="y"/>, 0 if <paramref name="x"/> is equal to <paramref name="y"/>, or greater than 0 if <paramref name="x"/> is greater than <paramref name="y"/>.
-        /// </summary>
-        /// <param name="x">The first object to compare.</param>
-        /// <param name="y">The second object to compare.</param>
-        /// <returns>A value less than 0 if <paramref name="x"/> is less than <paramref name="y"/>, 0 if <paramref name="x"/> is equal to <paramref name="y"/>, or greater than 0 if <paramref name="x"/> is greater than <paramref name="y"/>.</returns>
+        /// <inheritdoc />
         int System.Collections.IComparer.Compare(object x, object y)
         {
             if (!SpecialNullHandling)
@@ -71,12 +61,7 @@ namespace Nito.Comparers.Util
             return DoCompare((T)x, (T)y);
         }
 
-        /// <summary>
-        /// Compares two objects and returns a value less than 0 if <paramref name="x"/> is less than <paramref name="y"/>, 0 if <paramref name="x"/> is equal to <paramref name="y"/>, or greater than 0 if <paramref name="x"/> is greater than <paramref name="y"/>.
-        /// </summary>
-        /// <param name="x">The first object to compare.</param>
-        /// <param name="y">The second object to compare.</param>
-        /// <returns>A value less than 0 if <paramref name="x"/> is less than <paramref name="y"/>, 0 if <paramref name="x"/> is equal to <paramref name="y"/>, or greater than 0 if <paramref name="x"/> is greater than <paramref name="y"/>.</returns>
+        /// <inheritdoc />
         public int Compare(T x, T y)
         {
             if (!SpecialNullHandling)

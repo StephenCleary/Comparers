@@ -43,7 +43,7 @@ namespace Nito.Comparers.Util
         }
 
         /// <summary>
-        /// Implements <see cref="IEquatable{T}.Equals"/>. Types implementing <see cref="IEquatable{T}"/> should also override <see cref="Object.Equals(Object)"/> and <see cref="Object.GetHashCode"/>.
+        /// Implements <see cref="IEquatable{T}.Equals(T)"/>. Types implementing <see cref="IEquatable{T}"/> should also override <see cref="Object.Equals(Object)"/> and <see cref="Object.GetHashCode"/>.
         /// </summary>
         /// <typeparam name="T">The type of objects being compared.</typeparam>
         /// <param name="equalityComparer">The comparer.</param>
@@ -66,7 +66,7 @@ namespace Nito.Comparers.Util
         }
 
         /// <summary>
-        /// Implements <c>op_Eqality</c>. Types overloading <c>op_Equality</c> should also overload <c>op_Inequality</c> and override <see cref="Object.Equals(Object)"/> and <see cref="Object.GetHashCode"/>.
+        /// Implements <c>op_Equality</c>. Types overloading <c>op_Equality</c> should also overload <c>op_Inequality</c> and override <see cref="Object.Equals(Object)"/> and <see cref="Object.GetHashCode"/>.
         /// </summary>
         /// <typeparam name="T">The type of objects being compared.</typeparam>
         /// <param name="equalityComparer">The comparer.</param>
@@ -78,7 +78,7 @@ namespace Nito.Comparers.Util
         }
 
         /// <summary>
-        /// Implements <c>op_Ineqality</c>. Types overloading <c>op_Inequality</c> should also overload <c>op_Equality</c> and override <see cref="Object.Equals(Object)"/> and <see cref="Object.GetHashCode"/>.
+        /// Implements <c>op_Inequality</c>. Types overloading <c>op_Inequality</c> should also overload <c>op_Equality</c> and override <see cref="Object.Equals(Object)"/> and <see cref="Object.GetHashCode"/>.
         /// </summary>
         /// <typeparam name="T">The type of objects being compared.</typeparam>
         /// <param name="equalityComparer">The comparer.</param>
