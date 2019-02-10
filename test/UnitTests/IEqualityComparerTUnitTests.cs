@@ -12,19 +12,11 @@ using static UnitTests.Util.DataUtility;
 namespace UnitTests
 {
     /// <summary>
-    /// Unit tests for (nongeneric) <see cref="IEqualityComparer.Equals(object,object)"/> and <see cref="IEqualityComparer.GetHashCode(object)"/>.
+    /// Unit tests for <see cref="IEqualityComparer{T}.Equals(T,T)"/> and <see cref="IEqualityComparer{T}.GetHashCode(T)"/>.
     /// </summary>
-    public class IEqualityComparerUnitTests
+    public class IEqualityComparerTUnitTests
     {
-        // For each general class of comparers, include tests for:
-        //  Value type (int)
-        //  Nullable value type (int?)
-        //  Sequence type (int[])
-        //  Non-sequence reference type (HierarchyBase)
-        //  string
-        //  object
-
-        private static readonly ExpressionDictionary<IEqualityComparer> EqualityComparers = new ExpressionDictionary<IEqualityComparer>
+        private static readonly ExpressionDictionary<object> EqualityComparers = new ExpressionDictionary<object>
         {
             // Default
             () => EqualityComparerBuilder.For<int>().Default(),
@@ -69,8 +61,8 @@ namespace UnitTests
             () => HierarchyComparers.Derived1EqualityComparer,
         };
 
-        public static readonly List<KeyValuePair<string, IEqualityComparer>> EqualityComparersExceptObject =
-            EqualityComparers.Where(x => ComparedType(x.Value) != typeof(object)).ToList();
+        public static readonly List<KeyValuePair<string, dynamic>> EqualityComparersExceptObject =
+            EqualityComparers.Where(x => ComparedType(x.Value as IEqualityComparer) != typeof(object)).ToList();
 
         public static readonly TheoryData<string> All = EqualityComparers.Keys.ToTheoryData();
 
@@ -83,12 +75,14 @@ namespace UnitTests
         {
             var comparer = EqualityComparers[comparerKey];
             var instance = Fake(comparedType);
-            Assert.True(comparer.Equals(instance, instance));
-            Assert.Equal(comparer.GetHashCode(instance), comparer.GetHashCode(instance));
+            var equals = FindIComparerTEquals(comparer);
+            var getHashCode = FindIComparerTGetHashCode(comparer);
+            Assert.True(equals(instance, instance));
+            Assert.Equal(getHashCode(instance), getHashCode(instance));
         }
         public static readonly TheoryData<string, Type> ReflexiveData =
             EqualityComparers
-                .Select(x => (x.Key, ComparedType(x.Value)))
+                .Select(x => (x.Key, ComparedType(x.Value as IEqualityComparer)))
                 .Append((Key(() => HierarchyComparers.BaseEqualityComparer), typeof(HierarchyDerived1)))
                 .ToTheoryData();
 
@@ -97,46 +91,10 @@ namespace UnitTests
         public void Equals_BothParametersNull_IsReflexive(string comparerKey)
         {
             var comparer = EqualityComparers[comparerKey];
-            Assert.True(comparer.Equals(null, null));
-            Assert.Equal(comparer.GetHashCode(null), comparer.GetHashCode(null));
-        }
-
-        [Theory]
-        [MemberData(nameof(DifferentTypesData))]
-        public void Equals_OneInstanceIsIncompatible_ReturnsFalse(string comparerKey, Type comparedType)
-        {
-            var comparer = EqualityComparers[comparerKey];
-            comparedType = comparedType ?? ComparedType(comparer);
-            var a = Fake(comparedType);
-            var b = FakeNot(comparedType);
-            Assert.False(comparer.Equals(a, b));
-            Assert.False(comparer.Equals(b, a));
-        }
-        public static readonly TheoryData<string, Type> DifferentTypesData =
-            EqualityComparersExceptObject
-                .Select(x => (x.Key, ComparedType(x.Value)))
-                .Append((Key(() => HierarchyComparers.BaseEqualityComparer), typeof(HierarchyDerived1)))
-                .ToTheoryData();
-
-        [Theory]
-        [MemberData(nameof(AllExceptObject))]
-        public void Equals_BothInstancesAreIncompatible_Throws(string comparerKey)
-        {
-            var comparer = EqualityComparers[comparerKey];
-            var comparedType = ComparedType(comparer);
-            var a = FakeNot(comparedType);
-            var b = FakeNot(comparedType);
-            Assert.ThrowsAny<ArgumentException>(() => comparer.Equals(a, b));
-        }
-
-        [Theory]
-        [MemberData(nameof(AllExceptObject))]
-        public void GetHashCode_IncompatibleInstance_Throws(string comparerKey)
-        {
-            var comparer = EqualityComparers[comparerKey];
-            var comparedType = ComparedType(comparer);
-            var a = FakeNot(comparedType);
-            Assert.ThrowsAny<ArgumentException>(() => comparer.GetHashCode(a));
+            var equals = FindIComparerTEquals(comparer);
+            var getHashCode = FindIComparerTGetHashCode(comparer);
+            Assert.True(equals(null, null));
+            Assert.Equal(getHashCode(null), getHashCode(null));
         }
 
         [Theory]
@@ -147,9 +105,11 @@ namespace UnitTests
                 throw new ArgumentException("Unit test error: objects must be different instances.");
 
             var comparer = EqualityComparers[comparerKey];
-            Assert.True(comparer.Equals(a, b));
-            Assert.True(comparer.Equals(b, a));
-            Assert.Equal(comparer.GetHashCode(a), comparer.GetHashCode(b));
+            var equals = FindIComparerTEquals(comparer);
+            var getHashCode = FindIComparerTGetHashCode(comparer);
+            Assert.True(equals(a, b));
+            Assert.True(equals(b, a));
+            Assert.Equal(getHashCode(a), getHashCode(b));
         }
         public static readonly TheoryData<string, object, object> DifferentInstancesAndEqualData = new TheoryData<string, object, object>
         {
@@ -195,8 +155,9 @@ namespace UnitTests
         public void Equals_NonequivalentInstances_ReturnsFalse(string comparerKey, object a, object b)
         {
             var comparer = EqualityComparers[comparerKey];
-            Assert.False(comparer.Equals(a, b));
-            Assert.False(comparer.Equals(b, a));
+            var equals = FindIComparerTEquals(comparer);
+            Assert.False(equals(a, b));
+            Assert.False(equals(b, a));
         }
         public static readonly TheoryData<string, object, object> NotEqualData = new TheoryData<string, object, object>
         {

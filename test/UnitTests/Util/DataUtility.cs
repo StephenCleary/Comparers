@@ -66,6 +66,26 @@ namespace UnitTests.Util
             return genericEqualityComparerInterface.GenericTypeArguments[0];
         }
 
+        public static Func<object, object, bool> FindIComparerTEquals(object comparer)
+        {
+            var genericEqualityComparerInterface = comparer.GetType().GetInterfaces().FirstOrDefault(
+                x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEqualityComparer<>));
+            if (genericEqualityComparerInterface == null)
+                throw new InvalidOperationException($"Unable to find IEqualityComparer<T> interface for {comparer.GetType().Name}");
+            var method = genericEqualityComparerInterface.GetMethod("Equals");
+            return (x, y) => (bool)method.Invoke(comparer, new[] { x, y });
+        }
+
+        public static Func<object, int> FindIComparerTGetHashCode(object comparer, Type comparedType = null)
+        {
+            var genericEqualityComparerInterface = comparer.GetType().GetInterfaces().FirstOrDefault(
+                x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEqualityComparer<>));
+            if (genericEqualityComparerInterface == null)
+                throw new InvalidOperationException($"Unable to find IEqualityComparer<T> interface for {comparer.GetType().Name}");
+            var method = genericEqualityComparerInterface.GetMethod("GetHashCode");
+            return x => (int)method.Invoke(comparer, new[] { x });
+        }
+
         public static string Key<T>(Expression<Func<T>> expression)
         {
             var propertyInfo = FindDebugView(expression.GetType());
