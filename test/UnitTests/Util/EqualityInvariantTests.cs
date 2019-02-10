@@ -31,33 +31,6 @@ namespace UnitTests.Util
         }
 
         /// <summary>
-        /// Assertions for <see cref="IEqualityComparer"/> and <see cref="IEqualityComparer{T}"/>.
-        /// </summary>
-        public static void AssertIFullEqualityComparerT<T>(IFullEqualityComparer<T> comparer, T instance, T different, T equivalent)
-        {
-            AssertIEqualityComparer(comparer, instance, different, equivalent);
-            AssertIEqualityComparerT(comparer, instance, different, equivalent);
-        }
-
-        /// <summary>
-        /// Assertions for <see cref="IEqualityComparer.Equals(object,object)"/> and <see cref="IEqualityComparer.GetHashCode(object)"/>.
-        /// </summary>
-        public static void AssertIEqualityComparer(IEqualityComparer comparer, object instance, object different, object equivalent)
-        {
-            AssertEquals(instance, different, equivalent, comparer.Equals, comparer.GetHashCode,
-                allowNullAsFirstArgumentForEquals: true, allowNullArgumentForGetHashCode: true);
-        }
-
-        /// <summary>
-        /// Assertions for <see cref="IEqualityComparer{T}.Equals(T,T)"/> and <see cref="IEqualityComparer{T}.GetHashCode(T)"/>.
-        /// </summary>
-        public static void AssertIEqualityComparerT<T>(IEqualityComparer<T> comparer, T instance, T different, T equivalent)
-        {
-            AssertEquals(instance, different, equivalent, comparer.Equals, comparer.GetHashCode,
-                allowNullAsFirstArgumentForEquals: true, allowNullArgumentForGetHashCode: true);
-        }
-
-        /// <summary>
         /// Given example instances, verifies the equality and hash code implementations.
         /// </summary>
         /// <param name="a">An instance not equal to <paramref name="b"/> but equal to <paramref name="c"/>. May not be <c>null</c>.</param>

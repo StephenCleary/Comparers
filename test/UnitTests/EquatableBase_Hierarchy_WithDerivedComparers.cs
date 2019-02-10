@@ -44,8 +44,6 @@ namespace UnitTests
         public void ObjectEquality()
         {
             AssertObjectEquals(Largest, Middle, Largest2);
-            AssertIEqualityComparer(Derived1.DefaultComparer, Largest, Middle, Largest2);
-            AssertIEqualityComparer(Derived2.DefaultComparer, Middle, Largest, Middle2);
         }
     }
 }

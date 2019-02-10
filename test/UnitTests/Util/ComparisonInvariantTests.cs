@@ -33,7 +33,6 @@ namespace UnitTests.Util
         public static void AssertIFullComparerT<T>(IFullComparer<T> comparer, T smallest, T middle, T largest, T largest2)
             where T : class
         {
-            EqualityInvariantTests.AssertIFullEqualityComparerT(comparer, largest, middle, largest2);
             AssertIComparerT(comparer, smallest, middle, largest);
             AssertIComparer(comparer, smallest, middle, largest);
         }
