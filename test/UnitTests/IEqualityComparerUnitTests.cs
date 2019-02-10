@@ -72,7 +72,7 @@ namespace UnitTests
             () => EqualityComparerBuilder.For<int>().Default().EquateSequence(),
             () => EqualityComparerBuilder.For<int?>().Default().EquateSequence(),
             () => EqualityComparerBuilder.For<int[]>().Default().EquateSequence(),
-            () => EqualityComparerBuilder.For<HierarchyBase>().Default().EquateSequence(),
+            () => EqualityComparerBuilder.For<HierarchyBase>().EquateBy(x => x.Id, null, false).EquateSequence(),
             () => EqualityComparerBuilder.For<string>().Default().EquateSequence(),
             () => EqualityComparerBuilder.For<object>().Default().EquateSequence(),
             () => ComparerBuilder.For<int>().Default().Sequence(),
@@ -101,6 +101,7 @@ namespace UnitTests
             () => ComparerBuilder.For<HierarchyBase>().OrderBy(x => x.Id, null, false, false).Reverse(),
             () => ComparerBuilder.For<string>().Default().Reverse(),
             () => ComparerBuilder.For<object>().Default().Reverse(),
+            () => ComparerBuilder.For<object>().OrderBy(x => 13, null, false, false).Reverse(),
         };
 
         public static readonly List<KeyValuePair<string, IEqualityComparer>> EqualityComparersExceptObject =
@@ -227,10 +228,11 @@ namespace UnitTests
             { Key(() => ComparerBuilder.For<string>().OrderBy(x => x.ToLowerInvariant(), null, false, false)), "test", "Test" },
             { Key(() => ComparerBuilder.For<object>().OrderBy(x => x.GetHashCode(), null, false, false)), "test", Duplicate("test") },
 
-            // Sequence comparer cannot test <HierarchyBase>, since the xUnit serialization cannot restore equivalent references.
+            // Sequence
             { Key(() => EqualityComparerBuilder.For<int>().Default().EquateSequence()), new[] { 13 }, new[] { 13 } },
             { Key(() => EqualityComparerBuilder.For<int?>().Default().EquateSequence()), new int?[] { 13 }, new int?[] { 13 } },
             { Key(() => EqualityComparerBuilder.For<int[]>().Default().EquateSequence()), new[] { new[] { 13 } }, new[] { new[] { 13 } } },
+            { Key(() => EqualityComparerBuilder.For<HierarchyBase>().EquateBy(x => x.Id, null, false).EquateSequence()), new[] { new HierarchyBase { Id = 13 } }, new[] { new HierarchyBase { Id = 13 } } },
             { Key(() => EqualityComparerBuilder.For<string>().Default().EquateSequence()), new[] { "test" }, new[] { "test" } },
             { Key(() => EqualityComparerBuilder.For<object>().Default().EquateSequence()), new[] { "test" }, new[] { "test" } },
             { Key(() => ComparerBuilder.For<int>().Default().Sequence()), new[] { 13 }, new[] { 13 } },
@@ -250,12 +252,13 @@ namespace UnitTests
 
             // Reference comparer cannot be tested here, since no reference comparer can have different instances that are equivalent.
 
-            // Reverse comparer cannot test <object>, since it cannot have different instances that are equivalent.
+            // Reverse
             { Key(() => ComparerBuilder.For<int>().Default().Reverse()), 13, 13 },
             { Key(() => ComparerBuilder.For<int?>().Default().Reverse()), 13, 13 },
             { Key(() => ComparerBuilder.For<int[]>().Default().Reverse()), new[] { 13 }, new[] { 13 } },
             { Key(() => ComparerBuilder.For<HierarchyBase>().OrderBy(x => x.Id, null, false, false).Reverse()), new HierarchyBase { Id = 13 }, new HierarchyBase { Id = 13 } },
             { Key(() => ComparerBuilder.For<string>().Default().Reverse()), "test", Duplicate("test") },
+            { Key(() => ComparerBuilder.For<object>().OrderBy(x => 13, null, false, false).Reverse()), "test", Duplicate("test") },
         };
 
         [Theory]
@@ -301,7 +304,7 @@ namespace UnitTests
             { Key(() => EqualityComparerBuilder.For<int>().Default().EquateSequence()), new[] { 7 }, new[] { 13 } },
             { Key(() => EqualityComparerBuilder.For<int?>().Default().EquateSequence()), new int?[] { 7 }, new int?[] { 13 } },
             { Key(() => EqualityComparerBuilder.For<int[]>().Default().EquateSequence()), new[] { new[] { 7 } }, new[] { new[] { 13 } } },
-            { Key(() => EqualityComparerBuilder.For<HierarchyBase>().Default().EquateSequence()), new[] { new HierarchyBase { Id = 7 } }, new[] { new HierarchyBase { Id = 13 } } },
+            { Key(() => EqualityComparerBuilder.For<HierarchyBase>().EquateBy(x => x.Id, null, false).EquateSequence()), new[] { new HierarchyBase { Id = 7 } }, new[] { new HierarchyBase { Id = 13 } } },
             { Key(() => EqualityComparerBuilder.For<string>().Default().EquateSequence()), new[] { "test" }, new[] { "other" } },
             { Key(() => EqualityComparerBuilder.For<object>().Default().EquateSequence()), new[] { "test" }, new[] { "other" } },
             { Key(() => ComparerBuilder.For<int>().Default().Sequence()), new[] { 7 }, new[] { 13 } },
