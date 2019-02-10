@@ -7,7 +7,6 @@ using Nito.Comparers;
 using Xunit;
 using UnitTests.Util;
 using static UnitTests.Util.DataUtility;
-// ReSharper disable UseStringInterpolation
 
 namespace UnitTests
 {

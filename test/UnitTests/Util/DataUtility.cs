@@ -66,6 +66,15 @@ namespace UnitTests.Util
             return genericEqualityComparerInterface.GenericTypeArguments[0];
         }
 
+        public static Type ComparedType(System.Collections.IComparer comparer)
+        {
+            var genericComparerInterface = comparer.GetType().GetInterfaces().FirstOrDefault(
+                x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IComparer<>));
+            if (genericComparerInterface == null)
+                throw new InvalidOperationException($"Unable to determine comparer type for {comparer.GetType().Name}");
+            return genericComparerInterface.GenericTypeArguments[0];
+        }
+
         public static Func<object, object, bool> FindIComparerTEquals(object comparer)
         {
             var genericEqualityComparerInterface = comparer.GetType().GetInterfaces().FirstOrDefault(
