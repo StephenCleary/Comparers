@@ -27,8 +27,6 @@ namespace UnitTests.Util
                 return new[] { Random.Next() };
             if (type == typeof(string))
                 return Guid.NewGuid().ToString("N");
-            if (type == typeof(Uri))
-                return new Uri("https://www.example.com/" + Guid.NewGuid().ToString("N"));
             if (type == typeof(object))
                 return new object();
             if (type == typeof(HierarchyBase))

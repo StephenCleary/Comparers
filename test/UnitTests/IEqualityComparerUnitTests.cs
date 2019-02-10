@@ -12,6 +12,9 @@ using static UnitTests.Util.DataUtility;
 
 namespace UnitTests
 {
+    /// <summary>
+    /// Unit tests for (nongeneric) <see cref="IEqualityComparer.Equals(object,object)"/> and <see cref="IEqualityComparer.GetHashCode(object)"/>.
+    /// </summary>
     public class IEqualityComparerUnitTests
     {
         // For each general class of comparers, include tests for:
