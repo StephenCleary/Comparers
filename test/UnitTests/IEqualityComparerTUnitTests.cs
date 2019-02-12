@@ -100,8 +100,6 @@ namespace UnitTests
 
         public static readonly TheoryData<string> All = EqualityComparers.Keys.ToTheoryData();
 
-        public static readonly TheoryData<string> AllExceptObject = EqualityComparersExceptObject.Select(x => x.Key).ToTheoryData();
-
 
         [Theory]
         [MemberData(nameof(ReflexiveData))]

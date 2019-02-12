@@ -15,8 +15,6 @@ namespace UnitTests.Util
         // ReSharper disable once UseStringInterpolation
         public static string Duplicate(string data) => string.Format("{0}", data);
 
-        public static T Fake<T>() => (dynamic)Fake(typeof(T));
-
         public static object Fake(Type type)
         {
             if (type == typeof(int) || type == typeof(int?))
@@ -103,8 +101,6 @@ namespace UnitTests.Util
         }
 
         private static readonly Random Random = new Random();
-
-        public static object FakeNot<T>() => FakeNot(typeof(T));
 
         public static object FakeNot(Type type)
         {

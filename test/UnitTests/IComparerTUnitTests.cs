@@ -67,8 +67,6 @@ namespace UnitTests
 
         public static readonly TheoryData<string> All = Comparers.Keys.ToTheoryData();
 
-        public static readonly TheoryData<string> AllExceptObject = ComparersExceptObject.Select(x => x.Key).ToTheoryData();
-
 
         [Theory]
         [MemberData(nameof(ReflexiveData))]
