@@ -19,16 +19,12 @@ namespace UnitTests.Util
 
         public static object Fake(Type type)
         {
-            if (type == typeof(int))
-                return Random.Next();
-            if (type == typeof(int?))
+            if (type == typeof(int) || type == typeof(int?))
                 return Random.Next();
             if (type == typeof(int[]))
                 return new[] { Random.Next() };
-            if (type == typeof(string))
+            if (type == typeof(string) || type == typeof(object))
                 return Guid.NewGuid().ToString("N");
-            if (type == typeof(object))
-                return new object();
             if (type == typeof(HierarchyBase))
                 return new HierarchyBase { Id = Random.Next() };
             if (type == typeof(HierarchyDerived1))
@@ -41,6 +37,66 @@ namespace UnitTests.Util
                 var result = Array.CreateInstance(innerType, 1);
                 result.SetValue(Fake(innerType), 0);
                 return result;
+            }
+
+            throw new InvalidOperationException($"Cannot fake; unknown type {type.Name}");
+        }
+
+        /// <summary>
+        /// Returns different instances with the same values.
+        /// </summary>
+        public static (object, object) FakeEquivalent(Type type)
+        {
+            if (type == typeof(int) || type == typeof(int?))
+                return (13, 13);
+            if (type == typeof(int[]))
+                return (new[] { 13 }, new[] { 13 });
+            if (type == typeof(string) || type == typeof(object))
+                return ("test", Duplicate("test"));
+            if (type == typeof(HierarchyBase))
+                return (new HierarchyBase { Id = 13 }, new HierarchyBase { Id = 13 });
+            if (type == typeof(HierarchyDerived1))
+                return (new HierarchyDerived1 { Id = 13 }, new HierarchyDerived1 { Id = 13 });
+            if (type == typeof(HierarchyDerived2))
+                return (new HierarchyDerived2 { Id = 13 }, new HierarchyDerived2 { Id = 13 });
+            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+            {
+                var innerType = type.GetGenericArguments()[0];
+                var value = Fake(innerType);
+                var result1 = Array.CreateInstance(innerType, 1);
+                result1.SetValue(value, 0);
+                var result2 = Array.CreateInstance(innerType, 1);
+                result2.SetValue(value, 0);
+                return (result1, result2);
+            }
+
+            throw new InvalidOperationException($"Cannot fake; unknown type {type.Name}");
+        }
+
+        public static (object Smaller, object Larger) FakeDifferent(Type type)
+        {
+            if (type == typeof(int) || type == typeof(int?))
+                return (7, 13);
+            if (type == typeof(int[]))
+                return (new[] { 7 }, new[] { 13 });
+            if (type == typeof(string) || type == typeof(object))
+                return ("1test", "2test");
+            if (type == typeof(HierarchyBase))
+                return (new HierarchyBase { Id = 7 }, new HierarchyBase { Id = 13 });
+            if (type == typeof(HierarchyDerived1))
+                return (new HierarchyDerived1 { Id = 7 }, new HierarchyDerived1 { Id = 13 });
+            if (type == typeof(HierarchyDerived2))
+                return (new HierarchyDerived2 { Id = 7 }, new HierarchyDerived2 { Id = 13 });
+            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+            {
+                var innerType = type.GetGenericArguments()[0];
+                var (smaller, larger) = FakeDifferent(innerType);
+                var result1 = Array.CreateInstance(innerType, 1);
+                result1.SetValue(smaller, 0);
+                var result2 = Array.CreateInstance(innerType, 2);
+                result2.SetValue(smaller, 0);
+                result2.SetValue(larger, 0);
+                return (result1, result2);
             }
 
             throw new InvalidOperationException($"Cannot fake; unknown type {type.Name}");
@@ -108,7 +164,7 @@ namespace UnitTests.Util
         public static string Key<T>(Expression<Func<T>> expression)
         {
             var propertyInfo = FindDebugView(expression.GetType());
-            return expression.Compile()().GetType().Name + " " + propertyInfo.GetValue(expression) as string;
+            return $"{expression.Compile()()} {propertyInfo.GetValue(expression)}";
         }
 
         private static PropertyInfo FindDebugView(Type type)
@@ -121,5 +177,7 @@ namespace UnitTests.Util
                 type = type.BaseType;
             }
         }
+
+        public static bool IsNullValid(Type type) => !type.IsValueType || Nullable.GetUnderlyingType(type) != null;
     }
 }
