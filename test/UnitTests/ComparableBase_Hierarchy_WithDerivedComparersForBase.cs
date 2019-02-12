@@ -54,8 +54,6 @@ namespace UnitTests
         {
             AssertIComparableTCompareTo<Base>(Smallest, Middle, Largest);
             AssertIComparableCompareTo<Base>(Smallest, Middle, Largest);
-            AssertIFullComparerT(Derived1.BaseComparer, Smallest, Middle, Largest, Largest2);
-            AssertIFullComparerT(Derived2.BaseComparer, Smallest, Middle, Largest, Largest2);
         }
     }
 }

@@ -28,33 +28,6 @@ namespace UnitTests.Util
             AssertCompare(smallest, middle, largest, (a, b) => a.CompareTo(b), allowNullAsFirstArgument: false);
 
         /// <summary>
-        /// Assertions for all compare and equality comparisons.
-        /// </summary>
-        public static void AssertIFullComparerT<T>(IFullComparer<T> comparer, T smallest, T middle, T largest, T largest2)
-            where T : class
-        {
-            AssertIComparerT(comparer, smallest, middle, largest);
-            AssertIComparer(comparer, smallest, middle, largest);
-        }
-
-        /// <summary>
-        /// Assertions for <see cref="IComparer.Compare(object,object)"/>.
-        /// </summary>
-        public static void AssertIComparer(IComparer comparer, object smallest, object middle, object largest)
-        {
-            AssertCompare(smallest, middle, largest, comparer.Compare, allowNullAsFirstArgument: true);
-            Assert.Throws<ArgumentException>(() => comparer.Compare(smallest, new object()));
-            Assert.Throws<ArgumentException>(() => comparer.Compare(smallest, "test"));
-        }
-
-        /// <summary>
-        /// Assertions for <see cref="IComparer{T}.Compare(T,T)"/>.
-        /// </summary>
-        public static void AssertIComparerT<T>(IComparer<T> comparer, T smallest, T middle, T largest)
-            where T : class =>
-            AssertCompare(smallest, middle, largest, comparer.Compare, allowNullAsFirstArgument: true);
-
-        /// <summary>
         /// Given three non-null, totally ordered instances, verifies the comparer implementation.
         /// </summary>
         /// <param name="a">An instance less than <paramref name="b"/>. May not be <c>null</c>.</param>

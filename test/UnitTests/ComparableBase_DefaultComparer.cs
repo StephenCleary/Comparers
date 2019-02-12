@@ -55,7 +55,6 @@ namespace UnitTests
         {
             AssertIComparableTCompareTo(AbeAbrams, JackAbrams, CaseyJohnson);
             AssertIComparableCompareTo(AbeAbrams, JackAbrams, CaseyJohnson);
-            AssertIFullComparerT(Person.DefaultComparer, AbeAbrams, JackAbrams, CaseyJohnson, CaseyJohnson2);
         }
     }
 }
