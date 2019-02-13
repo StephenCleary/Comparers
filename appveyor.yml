@@ -20,6 +20,8 @@ test_script:
 artifacts:
   - path: '**\*.nupkg'
     name: NuGet Packages
+  - path: '**\*.snupkg'
+    name: NuGet Symbol Packages
 deploy:
   provider: NuGet
   api_key:
