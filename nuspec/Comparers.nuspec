@@ -5,7 +5,7 @@
     <version>5.0.6</version>
     <authors>Stephen Cleary</authors>
     <owners>Stephen Cleary</owners>
-    <licenseUrl>https://raw.githubusercontent.com/StephenCleary/Comparers/master/LICENSE</licenseUrl>
+    <license type="expression">MIT</license>
     <projectUrl>https://github.com/StephenCleary/Comparers</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>This old package just forwards to Nito.Comparers</description>
