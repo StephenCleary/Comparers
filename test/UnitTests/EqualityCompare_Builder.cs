@@ -13,7 +13,7 @@ namespace UnitTests
         public void ForT_ReturnsBuilderForT()
         {
             var result = EqualityComparerBuilder.For<int>();
-            Assert.IsType<EqualityComparerBuilder<int>>(result);
+            Assert.IsType<EqualityComparerBuilderFor<int>>(result);
         }
 
         [Fact]
@@ -24,14 +24,14 @@ namespace UnitTests
                 throw new Exception();
                 return 3;
             });
-            Assert.IsType<EqualityComparerBuilder<int>>(result);
+            Assert.IsType<EqualityComparerBuilderFor<int>>(result);
         }
 
         [Fact]
         public void ForElementsOfT_ReturnsBuilderForT_WithoutEnumeratingSequence()
         {
             var result = EqualityComparerBuilder.ForElementsOf(ThrowEnumerable());
-            Assert.IsType<EqualityComparerBuilder<int>>(result);
+            Assert.IsType<EqualityComparerBuilderFor<int>>(result);
         }
 
         [Fact]
@@ -42,7 +42,7 @@ namespace UnitTests
                 throw new Exception();
                 return ThrowEnumerable();
             });
-            Assert.IsType<EqualityComparerBuilder<int>>(result);
+            Assert.IsType<EqualityComparerBuilderFor<int>>(result);
         }
 
         private static IEnumerable<int> ThrowEnumerable()

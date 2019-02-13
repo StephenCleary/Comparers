@@ -181,7 +181,9 @@ namespace UnitTests
 
         [Theory]
         [MemberData(nameof(NotEqualData))]
+#pragma warning disable xUnit1026 // Theory methods should use all of their parameters
         public void Equals_OneInstanceNull_ReturnsFalse(string comparerKey, object a, object _)
+#pragma warning restore xUnit1026 // Theory methods should use all of their parameters
         {
             var comparer = EqualityComparers[comparerKey];
             var equals = FindIComparerTEquals(comparer);

@@ -174,7 +174,9 @@ namespace UnitTests
 
         [Theory]
         [MemberData(nameof(NotEqualData))]
+#pragma warning disable xUnit1026 // Theory methods should use all of their parameters
         public void OneInstanceNull_IsOrdered(string comparerKey, object smaller, object _)
+#pragma warning restore xUnit1026 // Theory methods should use all of their parameters
         {
             var comparer = Comparers[comparerKey];
             if (comparerKey.StartsWith("Reverse") && IsNullValid(ComparedType(comparer)))

@@ -16,7 +16,7 @@ namespace Nito.Comparers.Linq
         /// <typeparam name="TSource">The type of the elements in the source sequence.</typeparam>
         /// <param name="source">An observable sequence to determine the maximum element of.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
-        public static IObservable<TSource> Max<TSource>(this IObservable<TSource> source, Func<ComparerBuilder<TSource>, IFullComparer<TSource>> comparerFactory)
+        public static IObservable<TSource> Max<TSource>(this IObservable<TSource> source, Func<ComparerBuilderFor<TSource>, IFullComparer<TSource>> comparerFactory)
         {
             var comparer = comparerFactory(ComparerBuilder.For<TSource>());
             return source.Max(comparer);
@@ -30,7 +30,7 @@ namespace Nito.Comparers.Linq
         /// <param name="source">An observable sequence to determine the mimimum element of.</param>
         /// <param name="selector">A transform function to apply to each element.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
-        public static IObservable<TResult> Max<TSource, TResult>(this IObservable<TSource> source, Func<TSource, TResult> selector, Func<ComparerBuilder<TResult>, IFullComparer<TResult>> comparerFactory)
+        public static IObservable<TResult> Max<TSource, TResult>(this IObservable<TSource> source, Func<TSource, TResult> selector, Func<ComparerBuilderFor<TResult>, IFullComparer<TResult>> comparerFactory)
         {
             var comparer = comparerFactory(ComparerBuilder.For<TResult>());
             return source.Max(selector, comparer);
@@ -44,7 +44,7 @@ namespace Nito.Comparers.Linq
         /// <param name="source">An observable sequence to get the maximum elements for.</param>
         /// <param name="keySelector">Key selector function.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
-        public static IObservable<IList<TSource>> MaxBy<TSource, TKey>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<ComparerBuilder<TKey>, IFullComparer<TKey>> comparerFactory)
+        public static IObservable<IList<TSource>> MaxBy<TSource, TKey>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<ComparerBuilderFor<TKey>, IFullComparer<TKey>> comparerFactory)
         {
             var comparer = comparerFactory(ComparerBuilder.For<TKey>());
             return source.MaxBy(keySelector, comparer);
@@ -56,7 +56,7 @@ namespace Nito.Comparers.Linq
         /// <typeparam name="TSource">The type of the elements in the source sequence.</typeparam>
         /// <param name="source">An observable sequence to determine the mimimum element of.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
-        public static IObservable<TSource> Min<TSource>(this IObservable<TSource> source, Func<ComparerBuilder<TSource>, IFullComparer<TSource>> comparerFactory)
+        public static IObservable<TSource> Min<TSource>(this IObservable<TSource> source, Func<ComparerBuilderFor<TSource>, IFullComparer<TSource>> comparerFactory)
         {
             var comparer = comparerFactory(ComparerBuilder.For<TSource>());
             return source.Min(comparer);
@@ -70,7 +70,7 @@ namespace Nito.Comparers.Linq
         /// <param name="source">An observable sequence to determine the mimimum element of.</param>
         /// <param name="selector">A transform function to apply to each element.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
-        public static IObservable<TResult> Min<TSource, TResult>(this IObservable<TSource> source, Func<TSource, TResult> selector, Func<ComparerBuilder<TResult>, IFullComparer<TResult>> comparerFactory)
+        public static IObservable<TResult> Min<TSource, TResult>(this IObservable<TSource> source, Func<TSource, TResult> selector, Func<ComparerBuilderFor<TResult>, IFullComparer<TResult>> comparerFactory)
         {
             var comparer = comparerFactory(ComparerBuilder.For<TResult>());
             return source.Min(selector, comparer);
@@ -84,7 +84,7 @@ namespace Nito.Comparers.Linq
         /// <param name="source">An observable sequence to get the minimum elements for.</param>
         /// <param name="keySelector">Key selector function.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
-        public static IObservable<IList<TSource>> MinBy<TSource, TKey>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<ComparerBuilder<TKey>, IFullComparer<TKey>> comparerFactory)
+        public static IObservable<IList<TSource>> MinBy<TSource, TKey>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<ComparerBuilderFor<TKey>, IFullComparer<TKey>> comparerFactory)
         {
             var comparer = comparerFactory(ComparerBuilder.For<TKey>());
             return source.MinBy(keySelector, comparer);
@@ -97,7 +97,7 @@ namespace Nito.Comparers.Linq
         /// <param name="source">An observable sequence in which to locate a value.</param>
         /// <param name="value">The value to locate in the source sequence.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
-        public static IObservable<bool> Contains<TSource>(this IObservable<TSource> source, TSource value, Func<EqualityComparerBuilder<TSource>, IEqualityComparer<TSource>> comparerFactory)
+        public static IObservable<bool> Contains<TSource>(this IObservable<TSource> source, TSource value, Func<EqualityComparerBuilderFor<TSource>, IEqualityComparer<TSource>> comparerFactory)
         {
             var comparer = comparerFactory(EqualityComparerBuilder.For<TSource>());
             return source.Contains(value, comparer);
@@ -109,7 +109,7 @@ namespace Nito.Comparers.Linq
         /// <typeparam name="TSource">The type of the elements in the source sequence.</typeparam>
         /// <param name="source">An observable sequence to retain distinct elements for.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
-        public static IObservable<TSource> Distinct<TSource>(this IObservable<TSource> source, Func<EqualityComparerBuilder<TSource>, IEqualityComparer<TSource>> comparerFactory)
+        public static IObservable<TSource> Distinct<TSource>(this IObservable<TSource> source, Func<EqualityComparerBuilderFor<TSource>, IEqualityComparer<TSource>> comparerFactory)
         {
             var comparer = comparerFactory(EqualityComparerBuilder.For<TSource>());
             return source.Distinct(comparer);
@@ -123,7 +123,7 @@ namespace Nito.Comparers.Linq
         /// <param name="source">An observable sequence to retain distinct elements for.</param>
         /// <param name="keySelector">A function to compute the comparison key for each element.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
-        public static IObservable<TSource> Distinct<TSource, TKey>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<EqualityComparerBuilder<TKey>, IEqualityComparer<TKey>> comparerFactory)
+        public static IObservable<TSource> Distinct<TSource, TKey>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.Distinct(keySelector, comparer);
@@ -135,7 +135,7 @@ namespace Nito.Comparers.Linq
         /// <typeparam name="TSource">The type of the elements in the source sequence.</typeparam>
         /// <param name="source">An observable sequence to retain distinct contiguous elements for.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
-        public static IObservable<TSource> DistinctUntilChanged<TSource>(this IObservable<TSource> source, Func<EqualityComparerBuilder<TSource>, IEqualityComparer<TSource>> comparerFactory)
+        public static IObservable<TSource> DistinctUntilChanged<TSource>(this IObservable<TSource> source, Func<EqualityComparerBuilderFor<TSource>, IEqualityComparer<TSource>> comparerFactory)
         {
             var comparer = comparerFactory(EqualityComparerBuilder.For<TSource>());
             return source.DistinctUntilChanged(comparer);
@@ -149,7 +149,7 @@ namespace Nito.Comparers.Linq
         /// <param name="source">An observable sequence to retain distinct contiguous elements for, based on a computed key value.</param>
         /// <param name="keySelector">A function to compute the comparison key for each element.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
-        public static IObservable<TSource> DistinctUntilChanged<TSource, TKey>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<EqualityComparerBuilder<TKey>, IEqualityComparer<TKey>> comparerFactory)
+        public static IObservable<TSource> DistinctUntilChanged<TSource, TKey>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.DistinctUntilChanged(keySelector, comparer);
@@ -163,7 +163,7 @@ namespace Nito.Comparers.Linq
         /// <param name="source">An observable sequence whose elements to group.</param>
         /// <param name="keySelector">A function to extract the key for each element.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
-        public static IObservable<IGroupedObservable<TKey, TSource>> GroupBy<TSource, TKey>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<EqualityComparerBuilder<TKey>, IEqualityComparer<TKey>> comparerFactory)
+        public static IObservable<IGroupedObservable<TKey, TSource>> GroupBy<TSource, TKey>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.GroupBy(keySelector, comparer);
@@ -179,7 +179,7 @@ namespace Nito.Comparers.Linq
         /// <param name="keySelector">A function to extract the key for each element.</param>
         /// <param name="elementSelector">A function to map each source element to an element in an observable group.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
-        public static IObservable<IGroupedObservable<TKey, TElement>> GroupBy<TSource, TKey, TElement>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<EqualityComparerBuilder<TKey>, IEqualityComparer<TKey>> comparerFactory)
+        public static IObservable<IGroupedObservable<TKey, TElement>> GroupBy<TSource, TKey, TElement>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.GroupBy(keySelector, elementSelector, comparer);
@@ -194,7 +194,7 @@ namespace Nito.Comparers.Linq
         /// <param name="keySelector">A function to extract the key for each element.</param>
         /// <param name="capacity">The initial number of elements that the underlying dictionary can contain.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
-        public static IObservable<IGroupedObservable<TKey, TSource>> GroupBy<TSource, TKey>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, int capacity, Func<EqualityComparerBuilder<TKey>, IEqualityComparer<TKey>> comparerFactory)
+        public static IObservable<IGroupedObservable<TKey, TSource>> GroupBy<TSource, TKey>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, int capacity, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.GroupBy(keySelector, capacity, comparer);
@@ -211,7 +211,7 @@ namespace Nito.Comparers.Linq
         /// <param name="elementSelector">A function to map each source element to an element in an observable group.</param>
         /// <param name="capacity">The initial number of elements that the underlying dictionary can contain.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
-        public static IObservable<IGroupedObservable<TKey, TElement>> GroupBy<TSource, TKey, TElement>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, int capacity, Func<EqualityComparerBuilder<TKey>, IEqualityComparer<TKey>> comparerFactory)
+        public static IObservable<IGroupedObservable<TKey, TElement>> GroupBy<TSource, TKey, TElement>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, int capacity, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.GroupBy(keySelector, elementSelector, capacity, comparer);
@@ -231,7 +231,7 @@ namespace Nito.Comparers.Linq
         /// <param name="elementSelector">A function to map each source element to an element in an observable group.</param>
         /// <param name="durationSelector">A function to signal the expiration of a group.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
-        public static IObservable<IGroupedObservable<TKey, TElement>> GroupByUntil<TSource, TKey, TElement, TDuration>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<IGroupedObservable<TKey, TElement>, IObservable<TDuration>> durationSelector, Func<EqualityComparerBuilder<TKey>, IEqualityComparer<TKey>> comparerFactory)
+        public static IObservable<IGroupedObservable<TKey, TElement>> GroupByUntil<TSource, TKey, TElement, TDuration>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<IGroupedObservable<TKey, TElement>, IObservable<TDuration>> durationSelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.GroupByUntil(keySelector, elementSelector, durationSelector, comparer);
@@ -249,7 +249,7 @@ namespace Nito.Comparers.Linq
         /// <param name="keySelector">A function to extract the key for each element.</param>
         /// <param name="durationSelector">A function to signal the expiration of a group.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
-        public static IObservable<IGroupedObservable<TKey, TSource>> GroupByUntil<TSource, TKey, TDuration>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<IGroupedObservable<TKey, TSource>, IObservable<TDuration>> durationSelector, Func<EqualityComparerBuilder<TKey>, IEqualityComparer<TKey>> comparerFactory)
+        public static IObservable<IGroupedObservable<TKey, TSource>> GroupByUntil<TSource, TKey, TDuration>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<IGroupedObservable<TKey, TSource>, IObservable<TDuration>> durationSelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.GroupByUntil(keySelector, durationSelector, comparer);
@@ -270,7 +270,7 @@ namespace Nito.Comparers.Linq
         /// <param name="durationSelector">A function to signal the expiration of a group.</param>
         /// <param name="capacity">The initial number of elements that the underlying dictionary can contain.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
-        public static IObservable<IGroupedObservable<TKey, TElement>> GroupByUntil<TSource, TKey, TElement, TDuration>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<IGroupedObservable<TKey, TElement>, IObservable<TDuration>> durationSelector, int capacity, Func<EqualityComparerBuilder<TKey>, IEqualityComparer<TKey>> comparerFactory)
+        public static IObservable<IGroupedObservable<TKey, TElement>> GroupByUntil<TSource, TKey, TElement, TDuration>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<IGroupedObservable<TKey, TElement>, IObservable<TDuration>> durationSelector, int capacity, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.GroupByUntil(keySelector, elementSelector, durationSelector, capacity, comparer);
@@ -289,7 +289,7 @@ namespace Nito.Comparers.Linq
         /// <param name="durationSelector">A function to signal the expiration of a group.</param>
         /// <param name="capacity">The initial number of elements that the underlying dictionary can contain.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
-        public static IObservable<IGroupedObservable<TKey, TSource>> GroupByUntil<TSource, TKey, TDuration>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<IGroupedObservable<TKey, TSource>, IObservable<TDuration>> durationSelector, int capacity, Func<EqualityComparerBuilder<TKey>, IEqualityComparer<TKey>> comparerFactory)
+        public static IObservable<IGroupedObservable<TKey, TSource>> GroupByUntil<TSource, TKey, TDuration>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<IGroupedObservable<TKey, TSource>, IObservable<TDuration>> durationSelector, int capacity, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.GroupByUntil(keySelector, durationSelector, capacity, comparer);
@@ -302,7 +302,7 @@ namespace Nito.Comparers.Linq
         /// <param name="first">First observable sequence to compare.</param>
         /// <param name="second">Second observable sequence to compare.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
-        public static IObservable<bool> SequenceEqual<TSource>(this IObservable<TSource> first, IObservable<TSource> second, Func<EqualityComparerBuilder<TSource>, IEqualityComparer<TSource>> comparerFactory)
+        public static IObservable<bool> SequenceEqual<TSource>(this IObservable<TSource> first, IObservable<TSource> second, Func<EqualityComparerBuilderFor<TSource>, IEqualityComparer<TSource>> comparerFactory)
         {
             var comparer = comparerFactory(EqualityComparerBuilder.For<TSource>());
             return first.SequenceEqual(second, comparer);
@@ -315,7 +315,7 @@ namespace Nito.Comparers.Linq
         /// <param name="first">First observable sequence to compare.</param>
         /// <param name="second">Second observable sequence to compare.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
-        public static IObservable<bool> SequenceEqual<TSource>(this IObservable<TSource> first, IEnumerable<TSource> second, Func<EqualityComparerBuilder<TSource>, IEqualityComparer<TSource>> comparerFactory)
+        public static IObservable<bool> SequenceEqual<TSource>(this IObservable<TSource> first, IEnumerable<TSource> second, Func<EqualityComparerBuilderFor<TSource>, IEqualityComparer<TSource>> comparerFactory)
         {
             var comparer = comparerFactory(EqualityComparerBuilder.For<TSource>());
             return first.SequenceEqual(second, comparer);
@@ -329,7 +329,7 @@ namespace Nito.Comparers.Linq
         /// <param name="source">An observable sequence to create a dictionary for.</param>
         /// <param name="keySelector">A function to extract a key from each element.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
-        public static IObservable<IDictionary<TKey, TSource>> ToDictionary<TSource, TKey>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<EqualityComparerBuilder<TKey>, IEqualityComparer<TKey>> comparerFactory)
+        public static IObservable<IDictionary<TKey, TSource>> ToDictionary<TSource, TKey>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.ToDictionary(keySelector, comparer);
@@ -345,7 +345,7 @@ namespace Nito.Comparers.Linq
         /// <param name="keySelector">A function to extract a key from each element.</param>
         /// <param name="elementSelector">A transform function to produce a result element value from each element.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
-        public static IObservable<IDictionary<TKey, TElement>> ToDictionary<TSource, TKey, TElement>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<EqualityComparerBuilder<TKey>, IEqualityComparer<TKey>> comparerFactory)
+        public static IObservable<IDictionary<TKey, TElement>> ToDictionary<TSource, TKey, TElement>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.ToDictionary(keySelector, elementSelector, comparer);
@@ -359,7 +359,7 @@ namespace Nito.Comparers.Linq
         /// <param name="source">An observable sequence to create a lookup for.</param>
         /// <param name="keySelector">A function to extract a key from each element.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
-        public static IObservable<ILookup<TKey, TSource>> ToLookup<TSource, TKey>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<EqualityComparerBuilder<TKey>, IEqualityComparer<TKey>> comparerFactory)
+        public static IObservable<ILookup<TKey, TSource>> ToLookup<TSource, TKey>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.ToLookup(keySelector, comparer);
@@ -375,7 +375,7 @@ namespace Nito.Comparers.Linq
         /// <param name="keySelector">A function to extract a key from each element.</param>
         /// <param name="elementSelector">A transform function to produce a result element value from each element.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
-        public static IObservable<ILookup<TKey, TElement>> ToLookup<TSource, TKey, TElement>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<EqualityComparerBuilder<TKey>, IEqualityComparer<TKey>> comparerFactory)
+        public static IObservable<ILookup<TKey, TElement>> ToLookup<TSource, TKey, TElement>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.ToLookup(keySelector, elementSelector, comparer);

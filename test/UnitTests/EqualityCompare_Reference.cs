@@ -17,16 +17,6 @@ namespace UnitTests
         }
 
         [Fact]
-        public void EqualValueTypesAreNotEqual()
-        {
-            var comparer = EqualityComparerBuilder.For<int>().Reference();
-            var objectComparer = comparer as System.Collections.IEqualityComparer;
-            var value = 13;
-            Assert.False(comparer.Equals(value, value));
-            Assert.False(objectComparer.Equals(value, value));
-        }
-
-        [Fact]
         public void UsesReferenceEqualityComparerForSequences()
         {
             var threeA = new[] { 3 };
@@ -57,17 +47,6 @@ namespace UnitTests
         }
 
         [Fact]
-        public void NullIsEqualToNull()
-        {
-            var comparer = EqualityComparerBuilder.For<int?>().Reference();
-            var objectComparer = comparer as System.Collections.IEqualityComparer;
-            Assert.Equal(comparer.GetHashCode(null), comparer.GetHashCode(null));
-            Assert.Equal(objectComparer.GetHashCode(null), objectComparer.GetHashCode(null));
-            Assert.True(comparer.Equals(null, null));
-            Assert.True(objectComparer.Equals(null, null));
-        }
-
-        [Fact]
         public void NullSequenceIsEqualToNullSequence()
         {
             var comparer = EqualityComparerBuilder.For<int[]>().Reference();
@@ -81,7 +60,7 @@ namespace UnitTests
         [Fact]
         public void ToString_DumpsComparer()
         {
-            Assert.Equal("Reference", EqualityComparerBuilder.For<int>().Reference().ToString());
+            Assert.Equal("Reference", EqualityComparerBuilder.For<int[]>().Reference().ToString());
         }
     }
 }

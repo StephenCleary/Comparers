@@ -7,6 +7,7 @@ namespace Nito.Comparers.Util
     /// </summary>
     /// <typeparam name="T">The type of objects being compared.</typeparam>
     internal sealed class ReferenceEqualityComparer<T> : EqualityComparerBase<T>
+        where T : class
     {
         private ReferenceEqualityComparer()
             : base(false)
