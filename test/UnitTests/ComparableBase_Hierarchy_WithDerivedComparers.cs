@@ -4,8 +4,6 @@ using System.Text;
 using Nito.Comparers;
 using Nito.Comparers.Util;
 using Xunit;
-using static UnitTests.Util.ComparisonInvariantTests;
-using static UnitTests.Util.EqualityInvariantTests;
 
 namespace UnitTests
 {
@@ -91,12 +89,6 @@ namespace UnitTests
             Assert.Throws<ArgumentException>(() => compare(null, Smallest));
             Assert.True(compare(null, Middle) < 0);
             Assert.Throws<ArgumentException>(() => compare(null, Largest));
-        }
-
-        [Fact]
-        public void ObjectEquality()
-        {
-            AssertObjectEquals(Largest, Middle, Largest2);
         }
     }
 }

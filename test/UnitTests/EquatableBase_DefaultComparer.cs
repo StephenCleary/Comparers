@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Nito.Comparers;
 using Xunit;
-using static UnitTests.Util.EqualityInvariantTests;
 
 namespace UnitTests
 {
@@ -36,13 +35,6 @@ namespace UnitTests
         {
             object abe = AbeAbrams;
             Assert.True(abe.Equals(AbeAbrams2));
-        }
-
-        [Fact]
-        public void Invariants()
-        {
-            AssertObjectEquals(AbeAbrams, JackAbrams, AbeAbrams2);
-            AssertIEquatableTEquals(AbeAbrams, JackAbrams, AbeAbrams2);
         }
     }
 }

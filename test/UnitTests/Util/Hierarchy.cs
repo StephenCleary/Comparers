@@ -37,11 +37,5 @@ namespace UnitTests.Util
 
         public static IFullComparer<HierarchyDerived1> Derived1Comparer =>
             ComparerBuilder.For<HierarchyDerived1>().OrderBy(x => x.Id);
-
-        public static IFullEqualityComparer<HierarchyDerived1> Derived1EqualityComparerDefinedForBase =>
-            EqualityComparerBuilder.For<HierarchyBase>().EquateBy(x => x.Id);
-
-        public static IFullComparer<HierarchyDerived1> Derived1ComparerDefinedForBase =>
-            ComparerBuilder.For<HierarchyBase>().OrderBy(x => x.Id);
     }
 }
