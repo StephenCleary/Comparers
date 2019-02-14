@@ -8,8 +8,6 @@
     <TargetFrameworks>netstandard1.0;netstandard2.0</TargetFrameworks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <AssemblyName>Nito.Comparers.Linq</AssemblyName>
-    <PackageId>Nito.Comparers.Linq</PackageId>
     <PackageTags>comparer;equalitycomparer;icomparable;iequatable</PackageTags>
     <PackageIconUrl>https://raw.githubusercontent.com/StephenCleary/Comparers/master/Comparers.128.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/StephenCleary/Comparers</PackageProjectUrl>
@@ -17,7 +15,6 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
