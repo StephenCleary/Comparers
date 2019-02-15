@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Nito.Comparers.Util
 {
@@ -14,6 +15,11 @@ namespace Nito.Comparers.Util
         private readonly IComparer<T> _secondSource;
 
         /// <summary>
+        /// The <c>GetHashCode</c> implementation for the second comparer.
+        /// </summary>
+        private readonly Func<T, int> _secondSourceGetHashCode;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CompoundComparer&lt;T&gt;"/> class.
         /// </summary>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
@@ -22,6 +28,7 @@ namespace Nito.Comparers.Util
             : base(source, true)
         {
             _secondSource = ComparerHelpers.NormalizeDefault(secondSource);
+            _secondSourceGetHashCode = ComparerHelpers.ComparerGetHashCode(_secondSource);
         }
 
         /// <inheritdoc />
@@ -30,9 +37,9 @@ namespace Nito.Comparers.Util
             unchecked
             {
                 var ret = (int)2166136261;
-                ret += ComparerHelpers.GetHashCodeFromComparer(Source, obj);
+                ret += SourceGetHashCode(obj);
                 ret *= 16777619;
-                ret += ComparerHelpers.GetHashCodeFromComparer(_secondSource, obj);
+                ret += _secondSourceGetHashCode(obj);
                 ret *= 16777619;
                 return ret;
             }

@@ -81,10 +81,9 @@ namespace UnitTests
         }
 
         [Fact]
-        public void NoGetHashCodeImplementation_ThrowsNotImplementedException()
+        public void NoGetHashCodeImplementation_ThrowsInvalidOperationException()
         {
-            var comparer = new PlainComparer().Reverse();
-            Assert.Throws<NotImplementedException>(() => comparer.GetHashCode(0));
+            Assert.Throws<InvalidOperationException>(() => new PlainComparer().Reverse());
         }
 
         private sealed class PlainComparer : IComparer<int>

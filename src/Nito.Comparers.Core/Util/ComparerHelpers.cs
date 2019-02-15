@@ -12,20 +12,18 @@ namespace Nito.Comparers.Util
     internal static class ComparerHelpers
     {
         /// <summary>
-        /// Attempts to return a hash code for the specified object, using the specified comparer. If the comparer does not support hash codes, this method will throw an exception.
+        /// Determines how to compute hash codes using the specified comparer. If the comparer does not support hash codes, this method will throw an exception.
         /// </summary>
         /// <typeparam name="T">The type of objects being compared.</typeparam>
         /// <param name="comparer">The comparer to use to calculate a hash code. May not be <c>null</c>.</param>
-        /// <param name="obj">The object for which to return a hash code. May be <c>null</c>.</param>
-        /// <returns>A hash code for the specified object.</returns>
-        public static int GetHashCodeFromComparer<T>(IComparer<T> comparer, T obj)
+        public static Func<T, int> ComparerGetHashCode<T>(IComparer<T> comparer)
         {
             if (comparer is IEqualityComparer<T> equalityComparer)
-                return equalityComparer.GetHashCode(obj);
+                return equalityComparer.GetHashCode;
             if (comparer is IEqualityComparer objectEqualityComparer)
-                return objectEqualityComparer.GetHashCode(obj);
+                return obj => objectEqualityComparer.GetHashCode(obj);
 
-            throw new NotImplementedException();
+            throw new InvalidOperationException("Comparer does not implement IEqualityComparer or IEqualityComparer<T>.");
         }
 
         /// <summary>

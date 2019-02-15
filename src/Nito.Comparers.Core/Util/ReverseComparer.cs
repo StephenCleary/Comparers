@@ -18,7 +18,7 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        protected override int DoGetHashCode(T obj) => ComparerHelpers.GetHashCodeFromComparer(Source, obj);
+        protected override int DoGetHashCode(T obj) => SourceGetHashCode(obj);
 
         /// <inheritdoc />
         protected override int DoCompare(T x, T y) => Source.Compare(y, x);

@@ -25,7 +25,7 @@ namespace Nito.Comparers.Util
                 var ret = (int)2166136261;
                 foreach (var item in obj)
                 {
-                    ret += ComparerHelpers.GetHashCodeFromComparer(Source, item);
+                    ret += SourceGetHashCode(item);
                     ret *= 16777619;
                 }
                 return ret;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Nito.Comparers.Util
 {
@@ -15,6 +16,11 @@ namespace Nito.Comparers.Util
         protected readonly IComparer<TSource> Source;
 
         /// <summary>
+        /// The <c>GetHashCode</c> implementation for the source comparer.
+        /// </summary>
+        protected readonly Func<TSource, int> SourceGetHashCode;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SourceComparerBase&lt;T, TSource&gt;"/> class.
         /// </summary>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
@@ -23,6 +29,7 @@ namespace Nito.Comparers.Util
             : base(specialNullHandling)
         {
             Source = ComparerHelpers.NormalizeDefault(source);
+            SourceGetHashCode = ComparerHelpers.ComparerGetHashCode(Source);
         }
     }
 }
