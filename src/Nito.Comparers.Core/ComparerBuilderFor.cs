@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Nito.Comparers.Util;
 
 namespace Nito.Comparers
@@ -8,6 +9,7 @@ namespace Nito.Comparers
     /// Provides sources for comparers.
     /// </summary>
     /// <typeparam name="T">The type of objects being compared.</typeparam>
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public sealed class ComparerBuilderFor<T>
     {
         /// <summary>
