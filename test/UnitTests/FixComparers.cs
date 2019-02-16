@@ -15,7 +15,11 @@ namespace UnitTests
             Assert.ThrowsAny<Exception>(() => StringComparer.Ordinal.GetHashCode(null));
 
             // StandardizeNull protects it from null values.
-            StringComparer.Ordinal.WithStandardNullHandling().GetHashCode(null);
+            var comparer = StringComparer.Ordinal.WithStandardNullHandling();
+            comparer.GetHashCode(null);
+
+            // While passing through non-null values.
+            Assert.Equal(StringComparer.Ordinal.GetHashCode("test"), comparer.GetHashCode("test"));
         }
 
         [Fact]
@@ -26,7 +30,11 @@ namespace UnitTests
             Assert.ThrowsAny<NullReferenceException>(() => dangerousComparer.Equals(null, null));
 
             // StandardizeNull protects it from null values.
-            Assert.True(dangerousComparer.WithStandardNullHandlingForEquality().Equals(null, null));
+            var comparer = dangerousComparer.WithStandardNullHandling();
+            Assert.True(comparer.Equals(null, null));
+
+            // While passing through non-null values.
+            Assert.Equal(dangerousComparer.Equals("test", "test"), comparer.Equals("test", "test"));
         }
 
         [Fact]
@@ -37,7 +45,11 @@ namespace UnitTests
             Assert.ThrowsAny<NullReferenceException>(() => dangerousComparer.Compare(null, null));
 
             // StandardizeNull protects it from null values.
-            Assert.Equal(0, dangerousComparer.WithStandardNullHandling().Compare(null, null));
+            var comparer = dangerousComparer.WithStandardNullHandling();
+            Assert.Equal(0, comparer.Compare(null, null));
+
+            // While passing through non-null values.
+            Assert.Equal(dangerousComparer.Compare("test1", "test2"), comparer.Compare("test1", "test2"));
         }
 
         [Fact]
@@ -50,6 +62,9 @@ namespace UnitTests
             // WithGetHashCode* adds a GetHashCode implementation.
             var comparer = dangerousComparer.WithGetHashCode(_ => 7).Reverse();
             Assert.Equal(7, comparer.GetHashCode(13));
+
+            // While passing through Compare calls.
+            Assert.Equal(dangerousComparer.Compare(7, 13), comparer.Compare(13, 7));
         }
 
         [Fact]
@@ -62,6 +77,9 @@ namespace UnitTests
             // WithGetHashCode* adds a GetHashCode implementation.
             var comparer = dangerousComparer.WithGetHashCodeThrow().Reverse();
             Assert.ThrowsAny<NotImplementedException>(() => comparer.GetHashCode(13));
+
+            // While passing through Compare calls.
+            Assert.Equal(dangerousComparer.Compare(7, 13), comparer.Compare(13, 7));
         }
 
         [Fact]
@@ -74,12 +92,21 @@ namespace UnitTests
             // WithGetHashCode* adds a GetHashCode implementation.
             var comparer = dangerousComparer.WithGetHashCodeConstant().Reverse();
             Assert.Equal(0, comparer.GetHashCode(13));
+
+            // While passing through Compare calls.
+            Assert.Equal(dangerousComparer.Compare(7, 13), comparer.Compare(13, 7));
         }
 
         [Fact]
-        public void ToString_DumpsComparer()
+        public void ToString_StandardNullHandling_DumpsComparer()
         {
             Assert.StartsWith("StandardNullHandling", ComparerBuilder.For<int?>().Null().WithStandardNullHandling().ToString());
+        }
+
+        [Fact]
+        public void ToString_WithGetHashCode_DumpsComparer()
+        {
+            Assert.StartsWith("ExplicitGetHashCode", ComparerBuilder.For<int?>().Null().WithGetHashCodeConstant().ToString());
         }
     }
 }

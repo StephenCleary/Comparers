@@ -14,7 +14,11 @@ namespace UnitTests
             Assert.ThrowsAny<Exception>(() => StringComparer.Ordinal.GetHashCode(null));
 
             // StandardizeNull protects it from null values.
-            StringComparer.Ordinal.WithStandardNullHandlingForEquality().GetHashCode(null);
+            var comparer = StringComparer.Ordinal.WithStandardNullHandlingForEquality();
+            comparer.GetHashCode(null);
+
+            // While passing through non-null values.
+            Assert.Equal(StringComparer.Ordinal.GetHashCode("test"), comparer.GetHashCode("test"));
         }
 
         [Fact]
@@ -25,7 +29,11 @@ namespace UnitTests
             Assert.ThrowsAny<NullReferenceException>(() => dangerousComparer.Equals(null, null));
 
             // StandardizeNull protects it from null values.
-            Assert.True(dangerousComparer.WithStandardNullHandlingForEquality().Equals(null, null));
+            var comparer = dangerousComparer.WithStandardNullHandlingForEquality();
+            Assert.True(comparer.Equals(null, null));
+
+            // While passing through non-null values.
+            Assert.Equal(dangerousComparer.Equals("test", "test"), comparer.Equals("test", "test"));
         }
 
         [Fact]
