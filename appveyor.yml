@@ -1,6 +1,9 @@
 version: '{build}'
 os: Visual Studio 2017
 configuration: Debug
+environment:	
+  COVERALLS_REPO_TOKEN:	
+    secure: ObMCktoYTWmEAsA8Khx4nllZEQxs/RqVS/9AkVxBXyml5zJXByQ/odckmKWblpYe
 branches:
   only:
     - master
