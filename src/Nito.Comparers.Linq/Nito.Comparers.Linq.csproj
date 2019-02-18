@@ -5,7 +5,7 @@
     <VersionPrefix>5.0.7</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <Authors>Stephen Cleary</Authors>
-    <TargetFrameworks>netstandard1.0;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard1.0;netstandard2.0;net472;netcoreapp2.0</TargetFrameworks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageTags>comparer;equalitycomparer;icomparable;iequatable</PackageTags>

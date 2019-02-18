@@ -162,6 +162,14 @@ namespace Linq.UnitTests
         }
 
         [Fact]
+        public void ToHashSet_UsesComparer()
+        {
+            IEnumerable<int> values = new int[] { 1, 2, 3, 4 };
+            var result = values.ToHashSet(c => c.EquateBy(x => x % 3));
+            Assert.Equal(new[] { 1, 2, 3 }, result.OrderBy(x => x));
+        }
+
+        [Fact]
         public void ToLookup_UsesComparer()
         {
             IEnumerable<int> values = new int[] { 1, 2, 3, 4 };

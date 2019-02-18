@@ -261,6 +261,20 @@ namespace Nito.Comparers.Linq
             return source.ToDictionary(keySelector, elementSelector, comparer);
         }
 
+#if NET472 || NETCOREAPP2_0
+        /// <summary>
+        /// Creates a hash set from a sequence.
+        /// </summary>
+        /// <typeparam name="TSource">The type of the elements of the input sequence.</typeparam>
+        /// <param name="source">A sequence to create a hash set from.</param>
+        /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
+        public static HashSet<TSource> ToHashSet<TSource>(this IEnumerable<TSource> source, Func<EqualityComparerBuilderFor<TSource>, IEqualityComparer<TSource>> comparerFactory)
+        {
+            var comparer = comparerFactory(EqualityComparerBuilder.For<TSource>());
+            return source.ToHashSet(comparer);
+        }
+#endif
+
         /// <summary>
         /// Creates a lookup from a sequence according to a specified key selector function and key comparer.
         /// </summary>
