@@ -146,5 +146,48 @@ namespace Linq.UnitTests
             var result = first.SequenceEqual(second, c => c.EquateBy(x => x % 3));
             Assert.True(result);
         }
+
+        [Fact]
+        public void ToDictionary_UsesComparer()
+        {
+            IEnumerable<int> values = new int[] { 1, 2, 3, 4 };
+            Assert.ThrowsAny<ArgumentException>(() => values.ToDictionary(x => x, c => c.EquateBy(x => x % 3)));
+        }
+
+        [Fact]
+        public void ToDictionary_ElementSelector_UsesComparer()
+        {
+            IEnumerable<int> values = new int[] { 1, 2, 3, 4 };
+            Assert.ThrowsAny<ArgumentException>(() => values.ToDictionary(x => x, x => x, c => c.EquateBy(x => x % 3)));
+        }
+
+        [Fact]
+        public void ToLookup_UsesComparer()
+        {
+            IEnumerable<int> values = new int[] { 1, 2, 3, 4 };
+            var result = values.ToLookup(x => x, c => c.EquateBy(x => x % 3));
+            Assert.Equal(new[] { 3 }, result[0]);
+            Assert.Equal(new[] { 1, 4 }, result[1]);
+            Assert.Equal(new[] { 2 }, result[2]);
+        }
+
+        [Fact]
+        public void ToLookup_ElementSelector_UsesComparer()
+        {
+            IEnumerable<int> values = new int[] { 1, 2, 3, 4 };
+            var result = values.ToLookup(x => x, x => x, c => c.EquateBy(x => x % 3));
+            Assert.Equal(new[] { 3 }, result[0]);
+            Assert.Equal(new[] { 1, 4 }, result[1]);
+            Assert.Equal(new[] { 2 }, result[2]);
+        }
+
+        [Fact]
+        public void Union_UsesComparer()
+        {
+            IEnumerable<int> first = new int[] { 0, 1 };
+            IEnumerable<int> second = new int[] { 1, 2, 3, 4, 5 };
+            var result = first.Union(second, c => c.EquateBy(x => x % 3));
+            Assert.Equal(new[] { 0, 1, 2 }, result);
+        }
     }
 }
