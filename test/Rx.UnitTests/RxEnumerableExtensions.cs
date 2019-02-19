@@ -82,5 +82,65 @@ namespace Rx.UnitTests
             var result = await input.Distinct(x => x, c => c.EquateBy(x => x % 3)).ToList().LastAsync();
             Assert.Equal(new[] { 0, 1, 2 }, result);
         }
+
+        [Fact]
+        public async Task DistinctUntilChanged_UsesComparer()
+        {
+            var input = new int[] { 0, 1, 4, 2, 3, 4, 5 }.ToObservable();
+            var result = await input.DistinctUntilChanged(c => c.EquateBy(x => x % 3)).ToList().LastAsync();
+            Assert.Equal(new[] { 0, 1, 2, 3, 4, 5 }, result);
+        }
+
+        [Fact]
+        public async Task DistinctUntilChanged_KeySelector_UsesComparer()
+        {
+            var input = new int[] { 0, 1, 4, 2, 3, 4, 5 }.ToObservable();
+            var result = await input.DistinctUntilChanged(x => x, c => c.EquateBy(x => x % 3)).ToList().LastAsync();
+            Assert.Equal(new[] { 0, 1, 2, 3, 4, 5 }, result);
+        }
+
+        [Fact]
+        public async Task GroupBy_UsesComparer()
+        {
+            var values = new int[] { 1, 2, 3, 4, 5 }.ToObservable();
+            var result = await values.GroupBy(x => x, c => c.EquateBy(x => x % 3)).SelectMany(async x => await x.ToList().LastAsync()).ToList().LastAsync();
+            Assert.Equal(3, result.Count);
+            Assert.Equal(new[] { 1, 4 }, result[0]);
+            Assert.Equal(new[] { 2, 5 }, result[1]);
+            Assert.Equal(new[] { 3 }, result[2]);
+        }
+
+        [Fact]
+        public async Task GroupBy_ElementSelector_UsesComparer()
+        {
+            var values = new int[] { 1, 2, 3, 4, 5 }.ToObservable();
+            var result = await values.GroupBy(x => x, x => x, c => c.EquateBy(x => x % 3)).SelectMany(async x => await x.ToList().LastAsync()).ToList().LastAsync();
+            Assert.Equal(3, result.Count);
+            Assert.Equal(new[] { 1, 4 }, result[0]);
+            Assert.Equal(new[] { 2, 5 }, result[1]);
+            Assert.Equal(new[] { 3 }, result[2]);
+        }
+
+        [Fact]
+        public async Task GroupBy_Capacity_UsesComparer()
+        {
+            var values = new int[] { 1, 2, 3, 4, 5 }.ToObservable();
+            var result = await values.GroupBy(x => x, 10, c => c.EquateBy(x => x % 3)).SelectMany(async x => await x.ToList().LastAsync()).ToList().LastAsync();
+            Assert.Equal(3, result.Count);
+            Assert.Equal(new[] { 1, 4 }, result[0]);
+            Assert.Equal(new[] { 2, 5 }, result[1]);
+            Assert.Equal(new[] { 3 }, result[2]);
+        }
+
+        [Fact]
+        public async Task GroupBy_ElementSelectorAndCapacity_UsesComparer()
+        {
+            var values = new int[] { 1, 2, 3, 4, 5 }.ToObservable();
+            var result = await values.GroupBy(x => x, x => x, 10, c => c.EquateBy(x => x % 3)).SelectMany(async x => await x.ToList().LastAsync()).ToList().LastAsync();
+            Assert.Equal(3, result.Count);
+            Assert.Equal(new[] { 1, 4 }, result[0]);
+            Assert.Equal(new[] { 2, 5 }, result[1]);
+            Assert.Equal(new[] { 3 }, result[2]);
+        }
     }
 }
