@@ -5,7 +5,7 @@
     <VersionPrefix>6.0.0</VersionPrefix>
     <VersionSuffix>pre-01</VersionSuffix>
     <Authors>Stephen Cleary</Authors>
-    <TargetFrameworks>netstandard1.0;netstandard2.0;net472;netcoreapp2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard1.0;netstandard1.3;netstandard2.0;net472;netcoreapp2.0</TargetFrameworks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageTags>comparer;equalitycomparer;icomparable;iequatable</PackageTags>
@@ -15,6 +15,7 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <RootNamespace>Nito.Comparers</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
