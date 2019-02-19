@@ -41,7 +41,7 @@ namespace Rx.UnitTests
         {
             var input = new int?[] { int.MaxValue, int.MinValue, null, 0, 1, 2, 3 }.ToObservable();
             var result = await input.Min(c => c.OrderBy(x => x % 2 == 0).ThenBy(x => x)).LastAsync();
-            Assert.Equal(1, result);
+            Assert.Equal(1, result); // Observable.Min does not process `null` as a value
         }
 
         [Fact]
@@ -49,7 +49,7 @@ namespace Rx.UnitTests
         {
             var input = new int?[] { int.MaxValue, int.MinValue, null, 0, 1, 2, 3 }.ToObservable();
             var result = await input.Min(x => x, c => c.OrderBy(x => x % 2 == 0).ThenBy(x => x)).LastAsync();
-            Assert.Equal(1, result);
+            Assert.Equal(1, result); // Observable.Min does not process `null` as a value
         }
 
         [Fact]
