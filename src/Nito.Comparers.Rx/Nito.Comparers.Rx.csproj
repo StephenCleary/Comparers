@@ -26,8 +26,12 @@
     <ProjectReference Include="..\Nito.Comparers.Linq\Nito.Comparers.Linq.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='netstandard1.0'">
     <PackageReference Include="System.Reactive" Version="3.1.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+    <PackageReference Include="System.Reactive" Version="4.1.3" />
   </ItemGroup>
 
 </Project>
