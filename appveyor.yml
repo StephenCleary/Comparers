@@ -21,9 +21,10 @@ build_script:
 test_script:
 - ps: ./Coverage.ps1
 artifacts:
-  - path: '**\*.nupkg'
+  - path: '*.nupkg'
+  - path: 'src\**\*.nupkg'
     name: NuGet Packages
-  - path: '**\*.snupkg'
+  - path: 'src\**\*.snupkg'
     name: NuGet Symbol Packages
 deploy:
   provider: NuGet
