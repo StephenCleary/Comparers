@@ -56,7 +56,7 @@ namespace Nito.Comparers
         /// <returns>A key comparer.</returns>
         public static IFullEqualityComparer<T> EquateBy<T, TKey>(this EqualityComparerBuilderFor<T> @this, Func<T, TKey> selector, IEqualityComparer<TKey> keyComparer = null, bool specialNullHandling = false)
         {
-            return @this.Null().ThenEquateBy(selector, keyComparer, specialNullHandling);
+            return new SelectEqualityComparer<T, TKey>(selector, keyComparer, specialNullHandling);
         }
     }
 }

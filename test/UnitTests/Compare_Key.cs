@@ -141,7 +141,7 @@ namespace UnitTests
         [Fact]
         public void ToString_DumpsComparer()
         {
-            Assert.Equal("Compound(Null, Select<String>(Default(String: IComparable<T>)))", ComparerBuilder.For<Person>().OrderBy(p => p.LastName).ToString());
+            Assert.Equal("Select<String>(Default(String: IComparable<T>))", ComparerBuilder.For<Person>().OrderBy(p => p.LastName).ToString());
         }
     }
 }

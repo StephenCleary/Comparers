@@ -81,7 +81,7 @@ namespace UnitTests
         [Fact]
         public void ToString_DumpsComparer()
         {
-            Assert.Equal("Compound(Default(Compound(Null, Select<String>(Default(String: IComparable<T>)))), Select<String>(Default(String: IComparable<T>)))", ComparerBuilder.For<Person>().Default().ThenBy(p => p.LastName).ToString());
+            Assert.Equal("Compound(Default(Select<String>(Default(String: IComparable<T>))), Select<String>(Default(String: IComparable<T>)))", ComparerBuilder.For<Person>().Default().ThenBy(p => p.LastName).ToString());
         }
 
         // The delegate overloads are tested by Compare_._Key.

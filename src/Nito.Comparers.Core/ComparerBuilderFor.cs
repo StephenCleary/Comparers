@@ -48,7 +48,8 @@ namespace Nito.Comparers
         /// <returns>A key comparer.</returns>
         public static IFullComparer<T> OrderBy<T, TKey>(this ComparerBuilderFor<T> @this, Func<T, TKey> selector, IComparer<TKey> keyComparer = null, bool specialNullHandling = false, bool descending = false)
         {
-            return @this.Null().ThenBy(selector, keyComparer, specialNullHandling, descending);
+            var selectComparer = new SelectComparer<T, TKey>(selector, keyComparer, specialNullHandling);
+            return descending ? selectComparer.Reverse() : selectComparer;
         }
     }
 }

@@ -31,6 +31,16 @@ namespace Nito.Comparers.Util
         /// <inheritdoc />
         int System.Collections.IComparer.Compare(object x, object y)
         {
+            var xValid = x is T || x == null;
+            var yValid = y is T || y == null;
+            if (!xValid || !yValid)
+            {
+                // System.Collections.Comparer.Compare forwards to the IComparable implementation of either argument, throwing if neither of them implement IComparable.
+                // However, System.Collections.Generic.Comparer<T>.IComparer.Compare throws if either argument is not T.
+                // To avoid the possibility of infinite recursion, we take the latter approach.
+                throw new ArgumentException("Objects cannot be compared.");
+            }
+
             if (!SpecialNullHandling)
             {
                 if (x == null)
@@ -43,16 +53,6 @@ namespace Nito.Comparers.Util
                 {
                     return 1;
                 }
-            }
-
-            var xValid = x is T || x == null;
-            var yValid = y is T || y == null;
-            if (!xValid || !yValid)
-            {
-                // System.Collections.Comparer.Compare forwards to the IComparable implementation of either argument, throwing if neither of them implement IComparable.
-                // However, System.Collections.Generic.Comparer<T>.IComparer.Compare throws if either argument is not T.
-                // To avoid the possibility of infinite recursion, we take the latter approach.
-                throw new ArgumentException("Objects cannot be compared.");
             }
 
             return DoCompare((T)x, (T)y);

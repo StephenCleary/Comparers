@@ -42,12 +42,6 @@ namespace Nito.Comparers.Util
         /// <inheritdoc />
         bool System.Collections.IEqualityComparer.Equals(object x, object y)
         {
-            if (!SpecialNullHandling)
-            {
-                if (x == null || y == null)
-                    return (x == null && y == null);
-            }
-
             // EqualityComparer<T>.IEqualityComparer.Equals will throw in this situation, but int.Equals returns false.
             var xValid = x is T || x == null;
             var yValid = y is T || y == null;
@@ -56,6 +50,12 @@ namespace Nito.Comparers.Util
                 if (!xValid && !yValid)
                     throw new ArgumentException("Invalid types for equality comparison.");
                 return false;
+            }
+
+            if (!SpecialNullHandling)
+            {
+                if (x == null || y == null)
+                    return (x == null && y == null);
             }
 
             return DoEquals((T)x, (T)y);
