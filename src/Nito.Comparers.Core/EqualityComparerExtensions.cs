@@ -31,7 +31,8 @@ namespace Nito.Comparers
         /// <returns>A comparer that uses a key comparer if the source comparer determines the objects are equal.</returns>
         public static IFullEqualityComparer<T> ThenEquateBy<T, TKey>(this IEqualityComparer<T> source, Func<T, TKey> selector, IEqualityComparer<TKey> keyComparer = null, bool specialNullHandling = false)
         {
-            return source.ThenEquateBy(keyComparer.SelectEquateFrom(selector, specialNullHandling));
+            var selectComparer = new SelectEqualityComparer<T, TKey>(selector, keyComparer, specialNullHandling);
+            return source.ThenEquateBy(selectComparer);
         }
 
         /// <summary>
