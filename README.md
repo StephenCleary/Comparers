@@ -44,7 +44,7 @@ But it's easy with a base type:
 ```c#
 class Person : ComparableBase<Person>
 {
-    static Person
+    static Person()
     {
         DefaultComparer =
             ComparerBuilder.For<Person>()
