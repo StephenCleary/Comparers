@@ -10,36 +10,6 @@ namespace Nito.Comparers.Linq
     public static class ArrayExtensions
     {
         /// <summary>
-        /// Searches the sorted array for an element and returns the index of that element.
-        /// </summary>
-        /// <typeparam name="T">The type of the elements.</typeparam>
-        /// <param name="this">The array to search.</param>
-        /// <param name="item">The item to locate.</param>
-        /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
-        /// <returns>The index of the item if it is found; otherwise, the bitwise complement of the index of (where the element would be, plus one).</returns>
-        public static int BinarySearch<T>(this T[] @this, T item, Func<ComparerBuilderFor<T>, IFullComparer<T>> comparerFactory)
-        {
-            var comparer = comparerFactory(ComparerBuilder.For<T>());
-            return Array.BinarySearch(@this, item, comparer);
-        }
-
-        /// <summary>
-        /// Searches part of a sorted array for an element and returns the index of that element.
-        /// </summary>
-        /// <typeparam name="T">The type of the elements.</typeparam>
-        /// <param name="this">The array to search.</param>
-        /// <param name="index">The offset at which to start searching.</param>
-        /// <param name="count">The number of elements to search.</param>
-        /// <param name="item">The item to locate.</param>
-        /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
-        /// <returns>The index of the item if it is found; otherwise, the bitwise complement of the index of (where the element would be, plus one).</returns>
-        public static int BinarySearch<T>(this T[] @this, int index, int count, T item, Func<ComparerBuilderFor<T>, IFullComparer<T>> comparerFactory)
-        {
-            var comparer = comparerFactory(ComparerBuilder.For<T>());
-            return Array.BinarySearch(@this, index, count, item, comparer);
-        }
-
-        /// <summary>
         /// Sorts the array.
         /// </summary>
         /// <typeparam name="T">The type of the elements.</typeparam>
