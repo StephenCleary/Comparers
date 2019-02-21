@@ -6,8 +6,10 @@ Comparer extensions take a "source" comparer and apply some additional logic, re
 
 `Reverse` reverses the comparison used by the source comparer.
 
-    var ints = Enumerable.Range(0, 5).ToList(); // [0, 1, 2, 3, 4]
-    ints.Sort(ComparerBuilder.For<int>().Default().Reverse()); // [4, 3, 2, 1, 0]
+```C#
+var ints = Enumerable.Range(0, 5).ToList(); // [0, 1, 2, 3, 4]
+ints.Sort(ComparerBuilder.For<int>().Default().Reverse()); // [4, 3, 2, 1, 0]
+```
 
 There is no notion of "reverse" for equality comparers.
 
