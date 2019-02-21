@@ -7,7 +7,7 @@ The term "default comparer" can refer to several different things:
 * The Comparers library also provides a "default comparer" `ComparerBuilder.For<T>().Default()` and a "default equality comparer" `EqualityComparerBuilder.For<T>().Default()`.
 * Several methods in the Comparers library take an `IComparer<T>` (or `IEqualityComparer<T>`) argument, which may be `null`. When it is `null`, the method uses the default comparer (or equality comparer) provided by the Comparers library.
 
-## Comparer<T>.Default and ComparerBuilder.For<T>().Default()
+## `Comparer<T>.Default` and `ComparerBuilder.For<T>().Default()`
 
 The built-in .NET `Comparer<T>.Default` does not implement `IEqualityComparable<T>` (or `IEqualityComparable`). For this reason, the Comparers library provides `ComparerBuilder.For<T>().Default()`, which does implement all relevant interfaces. `ComparerBuilder.For<T>().Default()` is just a combination of `Comparer<T>.Default` and `EqualityComparer<T>.Default`, unless `T` is a sequence type without a default comparer (see below).
 

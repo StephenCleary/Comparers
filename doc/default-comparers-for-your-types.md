@@ -1,6 +1,6 @@
 # Default Comparers for Your Types
 
-## Implementing IComparable<T>, IEquatable<T>, and IComparable
+## Implementing `IComparable<T>`, `IEquatable<T>`, and `IComparable`
 
 A type may easily define its default comparer by deriving from `ComparableBase`:
 
