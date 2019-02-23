@@ -4,6 +4,7 @@ configuration: Debug
 environment:	
   COVERALLS_REPO_TOKEN:	
     secure: ObMCktoYTWmEAsA8Khx4nllZEQxs/RqVS/9AkVxBXyml5zJXByQ/odckmKWblpYe
+skip_branch_with_pr: true
 build_script:
 - ps: >-
     ./Build.ps1
