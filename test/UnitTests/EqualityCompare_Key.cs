@@ -73,6 +73,20 @@ namespace UnitTests
         }
 
         [Fact]
+        public void ThenByUsesNestedKeyComparer()
+        {
+            var comparer = EqualityComparerBuilder.For<Person>().EquateBy(p => p.LastName).ThenEquateBy(p => p.FirstName,
+                c => c.EquateBy(x => x, StringComparer.InvariantCultureIgnoreCase));
+            var objectComparer = comparer as System.Collections.IEqualityComparer;
+            Assert.True(comparer.Equals(JackAbrams, jackAbrams));
+            Assert.True(objectComparer.Equals(JackAbrams, jackAbrams));
+            Assert.Equal(comparer.GetHashCode(JackAbrams), comparer.GetHashCode(jackAbrams));
+            Assert.Equal(objectComparer.GetHashCode(JackAbrams), objectComparer.GetHashCode(jackAbrams));
+            Assert.False(comparer.Equals(AbeAbrams, JackAbrams));
+            Assert.False(objectComparer.Equals(AbeAbrams, JackAbrams));
+        }
+
+        [Fact]
         public void OrderBySortsNullsAsNotEqualToValues()
         {
             var comparer = EqualityComparerBuilder.For<Person>().EquateBy(p => p.LastName);
