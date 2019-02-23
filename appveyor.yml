@@ -2,8 +2,7 @@ version: '{build}'
 os: Visual Studio 2017
 configuration: Debug
 environment:	
-  COVERALLS_REPO_TOKEN:	
-    secure: ObMCktoYTWmEAsA8Khx4nllZEQxs/RqVS/9AkVxBXyml5zJXByQ/odckmKWblpYe
+  COVERALLS_REPO_TOKEN:	Zj48R8Ur58rHyL9qmvTLgnN71iwWcWBZ4
 skip_branch_with_pr: true
 build_script:
 - ps: >-
