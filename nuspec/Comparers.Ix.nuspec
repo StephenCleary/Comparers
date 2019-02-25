@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Comparers.Ix</id> <!-- Legacy package -->
-    <version>6.0.0-pre-01</version>
+    <version>6.0.0-pre-02</version>
     <authors>Stephen Cleary</authors>
     <owners>Stephen Cleary</owners>
     <license type="expression">MIT</license>
@@ -10,7 +10,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>This old package just forwards to Nito.Comparers.Ix</description>
     <dependencies>
-      <dependency id="Nito.Comparers.Ix" version="6.0.0-pre-01" />
+      <dependency id="Nito.Comparers.Ix" version="6.0.0-pre-02" />
     </dependencies>
   </metadata>
 </package>
