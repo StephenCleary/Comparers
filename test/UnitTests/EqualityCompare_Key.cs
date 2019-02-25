@@ -47,6 +47,19 @@ namespace UnitTests
         }
 
         [Fact]
+        public void OrderByUsesInlineKeyComparer()
+        {
+            var comparer = EqualityComparerBuilder.For<Person>().EquateBy(p => p.LastName, c => c.EquateBy(x => x, StringComparer.InvariantCultureIgnoreCase));
+            var objectComparer = comparer as System.Collections.IEqualityComparer;
+            Assert.True(comparer.Equals(AbeAbrams, Williamabrams));
+            Assert.True(objectComparer.Equals(AbeAbrams, Williamabrams));
+            Assert.Equal(comparer.GetHashCode(AbeAbrams), comparer.GetHashCode(Williamabrams));
+            Assert.Equal(objectComparer.GetHashCode(AbeAbrams), objectComparer.GetHashCode(Williamabrams));
+            Assert.False(comparer.Equals(Williamabrams, CaseyJohnson));
+            Assert.False(objectComparer.Equals(Williamabrams, CaseyJohnson));
+        }
+
+        [Fact]
         public void ThenBySortsByKey()
         {
             var comparer = EqualityComparerBuilder.For<Person>().EquateBy(p => p.LastName).ThenEquateBy(p => p.FirstName);
@@ -63,6 +76,20 @@ namespace UnitTests
         public void ThenByUsesKeyComparer()
         {
             var comparer = EqualityComparerBuilder.For<Person>().EquateBy(p => p.LastName).ThenEquateBy(p => p.FirstName, StringComparer.InvariantCultureIgnoreCase);
+            var objectComparer = comparer as System.Collections.IEqualityComparer;
+            Assert.True(comparer.Equals(JackAbrams, jackAbrams));
+            Assert.True(objectComparer.Equals(JackAbrams, jackAbrams));
+            Assert.Equal(comparer.GetHashCode(JackAbrams), comparer.GetHashCode(jackAbrams));
+            Assert.Equal(objectComparer.GetHashCode(JackAbrams), objectComparer.GetHashCode(jackAbrams));
+            Assert.False(comparer.Equals(AbeAbrams, JackAbrams));
+            Assert.False(objectComparer.Equals(AbeAbrams, JackAbrams));
+        }
+
+        [Fact]
+        public void ThenByUsesNestedKeyComparer()
+        {
+            var comparer = EqualityComparerBuilder.For<Person>().EquateBy(p => p.LastName).ThenEquateBy(p => p.FirstName,
+                c => c.EquateBy(x => x, StringComparer.InvariantCultureIgnoreCase));
             var objectComparer = comparer as System.Collections.IEqualityComparer;
             Assert.True(comparer.Equals(JackAbrams, jackAbrams));
             Assert.True(objectComparer.Equals(JackAbrams, jackAbrams));

@@ -61,10 +61,15 @@ namespace UnitTests.Examples
             {
                 var expression = Expression.Property(parameter, prop.Name);
                 dynamic selector = Expression.Lambda(expression, parameter).Compile();
-                dynamic childComparer = null;
                 if (prop.PropertyType.IsClass)
-                    childComparer = ((MethodInfo)MethodBase.GetCurrentMethod()).MakeGenericMethod(prop.PropertyType).Invoke(null, null);
-                result = EqualityComparerExtensions.ThenEquateBy(result, selector, childComparer);
+                {
+                    dynamic childComparer = ((MethodInfo)MethodBase.GetCurrentMethod()).MakeGenericMethod(prop.PropertyType).Invoke(null, null);
+                    result = EqualityComparerExtensions.ThenEquateBy(result, selector, childComparer);
+                }
+                else
+                {
+                    result = EqualityComparerExtensions.ThenEquateBy(result, selector);
+                }
             }
             return result;
         }

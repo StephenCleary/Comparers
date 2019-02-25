@@ -34,6 +34,14 @@ namespace UnitTests
         }
 
         [Fact]
+        public void OrderByUsesNestedKeyComparer()
+        {
+            var list = new List<Person> { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson };
+            list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.FirstName, c => c.OrderBy(x => x, StringComparer.InvariantCulture.Reverse())));
+            Assert.Equal(new[] { WilliamAbrams, JackAbrams, CaseyJohnson, AbeAbrams }, list);
+        }
+
+        [Fact]
         public void OrderByDescendingSortsByKey()
         {
             var list = new List<Person> { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson };
@@ -46,6 +54,14 @@ namespace UnitTests
         {
             var list = new List<Person> { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson };
             list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.FirstName, StringComparer.InvariantCulture.Reverse(), descending: true));
+            Assert.Equal(new[] { AbeAbrams, CaseyJohnson, JackAbrams, WilliamAbrams }, list);
+        }
+
+        [Fact]
+        public void OrderByDescendingUsesNestedKeyComparer()
+        {
+            var list = new List<Person> { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson };
+            list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.FirstName, c => c.OrderBy(x => x, StringComparer.InvariantCulture.Reverse()), descending: true));
             Assert.Equal(new[] { AbeAbrams, CaseyJohnson, JackAbrams, WilliamAbrams }, list);
         }
 
@@ -66,6 +82,14 @@ namespace UnitTests
         }
 
         [Fact]
+        public void ThenByUsesNestedKeyComparer()
+        {
+            var list = new List<Person> { AbeAbrams, WilliamAbrams, CaseyJohnson, JackAbrams };
+            list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.LastName).ThenBy(p => p.FirstName, c => c.OrderBy(x => x, StringComparer.InvariantCulture.Reverse())));
+            Assert.Equal(new[] { WilliamAbrams, JackAbrams, AbeAbrams, CaseyJohnson }, list);
+        }
+
+        [Fact]
         public void ThenByDescendingSortsByKey()
         {
             var list = new List<Person> { AbeAbrams, WilliamAbrams, CaseyJohnson, JackAbrams };
@@ -78,6 +102,14 @@ namespace UnitTests
         {
             var list = new List<Person> { AbeAbrams, WilliamAbrams, CaseyJohnson, JackAbrams };
             list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.LastName).ThenBy(p => p.FirstName, StringComparer.InvariantCulture.Reverse(), descending: true));
+            Assert.Equal(new[] { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson }, list);
+        }
+
+        [Fact]
+        public void ThenByDescendingUsesNestedKeyComparer()
+        {
+            var list = new List<Person> { AbeAbrams, WilliamAbrams, CaseyJohnson, JackAbrams };
+            list.Sort(ComparerBuilder.For<Person>().OrderBy(p => p.LastName).ThenBy(p => p.FirstName, c => c.OrderBy(x => x, StringComparer.InvariantCulture.Reverse()), descending: true));
             Assert.Equal(new[] { AbeAbrams, JackAbrams, WilliamAbrams, CaseyJohnson }, list);
         }
 

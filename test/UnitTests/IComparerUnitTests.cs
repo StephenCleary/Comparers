@@ -34,18 +34,18 @@ namespace UnitTests
             () => ComparerBuilder.For<object>().Null(),
 
             // Key
-            () => ComparerBuilder.For<int>().OrderBy(x => x % 17, null, false, false),
-            () => ComparerBuilder.For<int?>().OrderBy(x => x % 17, null, false, false),
-            () => ComparerBuilder.For<int[]>().OrderBy(x => x[0], null, false, false),
-            () => ComparerBuilder.For<HierarchyBase>().OrderBy(x => x.Id % 17, null, false, false),
-            () => ComparerBuilder.For<string>().OrderBy(x => x.ToLowerInvariant(), null, false, false),
-            () => ComparerBuilder.For<object>().OrderBy(x => (string)x, null, false, false),
+            () => ComparerBuilder.For<int>().OrderBy(x => x % 17, (IComparer<int>)null, false, false),
+            () => ComparerBuilder.For<int?>().OrderBy(x => x % 17, (IComparer<int?>)null, false, false),
+            () => ComparerBuilder.For<int[]>().OrderBy(x => x[0], (IComparer<int>)null, false, false),
+            () => ComparerBuilder.For<HierarchyBase>().OrderBy(x => x.Id % 17, (IComparer<int>)null, false, false),
+            () => ComparerBuilder.For<string>().OrderBy(x => x.ToLowerInvariant(), (IComparer<string>)null, false, false),
+            () => ComparerBuilder.For<object>().OrderBy(x => (string)x, (IComparer<object>)null, false, false),
 
             // Sequence
             () => ComparerBuilder.For<int>().Default().Sequence(),
             () => ComparerBuilder.For<int?>().Default().Sequence(),
             () => ComparerBuilder.For<int[]>().Default().Sequence(),
-            () => ComparerBuilder.For<HierarchyBase>().OrderBy(x => x.Id, null, false, false).Sequence(),
+            () => ComparerBuilder.For<HierarchyBase>().OrderBy(x => x.Id, (IComparer<int>)null, false, false).Sequence(),
             () => ComparerBuilder.For<string>().Default().Sequence(),
             () => ComparerBuilder.For<object>().Default().Sequence(),
 
@@ -57,10 +57,10 @@ namespace UnitTests
             () => ComparerBuilder.For<int>().Default().Reverse(),
             () => ComparerBuilder.For<int?>().Default().Reverse(),
             () => ComparerBuilder.For<int[]>().Default().Reverse(),
-            () => ComparerBuilder.For<HierarchyBase>().OrderBy(x => x.Id, null, false, false).Reverse(),
+            () => ComparerBuilder.For<HierarchyBase>().OrderBy(x => x.Id, (IComparer<int>)null, false, false).Reverse(),
             () => ComparerBuilder.For<string>().Default().Reverse(),
             () => ComparerBuilder.For<object>().Default().Reverse(),
-            () => ComparerBuilder.For<object>().OrderBy(x => (string)x, null, false, false).Reverse(),
+            () => ComparerBuilder.For<object>().OrderBy(x => (string)x, (IComparer<string>)null, false, false).Reverse(),
         };
 
         public static readonly List<KeyValuePair<string, IComparer>> ComparersExceptObject =
