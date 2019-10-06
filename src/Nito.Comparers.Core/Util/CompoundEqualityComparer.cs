@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Nito.Comparers.Internals;
+using System.Collections.Generic;
 
 namespace Nito.Comparers.Util
 {
@@ -29,12 +30,9 @@ namespace Nito.Comparers.Util
         {
             unchecked
             {
-                var ret = (int)2166136261;
-                ret += Source.GetHashCode(obj);
-                ret *= 16777619;
-                ret += _secondSource.GetHashCode(obj);
-                ret *= 16777619;
-                return ret;
+                var ret = Murmur3Hash.Create(Source.GetHashCode(obj));
+                ret.Combine(_secondSource.GetHashCode(obj));
+                return ret.HashCode;
             }
         }
 
