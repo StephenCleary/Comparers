@@ -105,6 +105,7 @@ namespace Rx.UnitTests
         {
             var values = new int[] { 1, 2, 3, 4, 5 }.ToObservable();
             var result = await values.GroupBy(x => x, c => c.EquateBy(x => x % 3)).SelectMany(async x => await x.ToList().LastAsync()).ToList().LastAsync();
+            result = result.OrderBy(x => x[0]).ToList();
             Assert.Equal(3, result.Count);
             Assert.Equal(new[] { 1, 4 }, result[0]);
             Assert.Equal(new[] { 2, 5 }, result[1]);
@@ -116,6 +117,7 @@ namespace Rx.UnitTests
         {
             var values = new int[] { 1, 2, 3, 4, 5 }.ToObservable();
             var result = await values.GroupBy(x => x, x => x, c => c.EquateBy(x => x % 3)).SelectMany(async x => await x.ToList().LastAsync()).ToList().LastAsync();
+            result = result.OrderBy(x => x[0]).ToList();
             Assert.Equal(3, result.Count);
             Assert.Equal(new[] { 1, 4 }, result[0]);
             Assert.Equal(new[] { 2, 5 }, result[1]);
@@ -127,6 +129,7 @@ namespace Rx.UnitTests
         {
             var values = new int[] { 1, 2, 3, 4, 5 }.ToObservable();
             var result = await values.GroupBy(x => x, 10, c => c.EquateBy(x => x % 3)).SelectMany(async x => await x.ToList().LastAsync()).ToList().LastAsync();
+            result = result.OrderBy(x => x[0]).ToList();
             Assert.Equal(3, result.Count);
             Assert.Equal(new[] { 1, 4 }, result[0]);
             Assert.Equal(new[] { 2, 5 }, result[1]);
@@ -138,6 +141,7 @@ namespace Rx.UnitTests
         {
             var values = new int[] { 1, 2, 3, 4, 5 }.ToObservable();
             var result = await values.GroupBy(x => x, x => x, 10, c => c.EquateBy(x => x % 3)).SelectMany(async x => await x.ToList().LastAsync()).ToList().LastAsync();
+            result = result.OrderBy(x => x[0]).ToList();
             Assert.Equal(3, result.Count);
             Assert.Equal(new[] { 1, 4 }, result[0]);
             Assert.Equal(new[] { 2, 5 }, result[1]);
@@ -149,6 +153,7 @@ namespace Rx.UnitTests
         {
             var values = new int[] { 1, 2, 3, 4, 5 }.ToObservable();
             var result = await values.GroupByUntil(x => x, x => Observable.Never<Unit>(), c => c.EquateBy(x => x % 3)).SelectMany(async x => await x.ToList().LastAsync()).ToList().LastAsync();
+            result = result.OrderBy(x => x[0]).ToList();
             Assert.Equal(3, result.Count);
             Assert.Contains(new[] { 1, 4 }, result);
             Assert.Contains(new[] { 2, 5 }, result);
@@ -160,6 +165,7 @@ namespace Rx.UnitTests
         {
             var values = new int[] { 1, 2, 3, 4, 5 }.ToObservable();
             var result = await values.GroupByUntil(x => x, x => x, x => Observable.Never<Unit>(), c => c.EquateBy(x => x % 3)).SelectMany(async x => await x.ToList().LastAsync()).ToList().LastAsync();
+            result = result.OrderBy(x => x[0]).ToList();
             Assert.Equal(3, result.Count);
             Assert.Contains(new[] { 1, 4 }, result);
             Assert.Contains(new[] { 2, 5 }, result);
@@ -171,6 +177,7 @@ namespace Rx.UnitTests
         {
             var values = new int[] { 1, 2, 3, 4, 5 }.ToObservable();
             var result = await values.GroupByUntil(x => x, x => Observable.Never<Unit>(), 10, c => c.EquateBy(x => x % 3)).SelectMany(async x => await x.ToList().LastAsync()).ToList().LastAsync();
+            result = result.OrderBy(x => x[0]).ToList();
             Assert.Equal(3, result.Count);
             Assert.Contains(new[] { 1, 4 }, result);
             Assert.Contains(new[] { 2, 5 }, result);
@@ -182,6 +189,7 @@ namespace Rx.UnitTests
         {
             var values = new int[] { 1, 2, 3, 4, 5 }.ToObservable();
             var result = await values.GroupByUntil(x => x, x => x, x => Observable.Never<Unit>(), 10, c => c.EquateBy(x => x % 3)).SelectMany(async x => await x.ToList().LastAsync()).ToList().LastAsync();
+            result = result.OrderBy(x => x[0]).ToList();
             Assert.Equal(3, result.Count);
             Assert.Contains(new[] { 1, 4 }, result);
             Assert.Contains(new[] { 2, 5 }, result);
