@@ -1,0 +1,8 @@
+<Project>
+  <!-- Metapackage settings -->
+  <PropertyGroup Condition="'$(IsMetapackage)'=='true'">
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <IncludeSymbols>false</IncludeSymbols>
+    <NoWarn>NU5128</NoWarn>
+  </PropertyGroup>
+</Project>
