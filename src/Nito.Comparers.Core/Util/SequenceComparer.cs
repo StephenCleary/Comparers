@@ -13,7 +13,7 @@ namespace Nito.Comparers.Util
         /// Initializes a new instance of the <see cref="SequenceComparer&lt;T&gt;"/> class.
         /// </summary>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
-        public SequenceComparer(IComparer<T> source)
+        public SequenceComparer(IComparer<T>? source)
             : base(source, null, false)
         {
         }

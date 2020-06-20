@@ -19,7 +19,7 @@ namespace Nito.Comparers.Util
         /// </summary>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
         /// <param name="secondSource">The second comparer. If this is <c>null</c>, the default comparer is used.</param>
-        public CompoundEqualityComparer(IEqualityComparer<T> source, IEqualityComparer<T> secondSource)
+        public CompoundEqualityComparer(IEqualityComparer<T>? source, IEqualityComparer<T>? secondSource)
             : base(source, true)
         {
             _secondSource = EqualityComparerHelpers.NormalizeDefault(secondSource);

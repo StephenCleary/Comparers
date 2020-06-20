@@ -15,7 +15,7 @@ namespace Nito.Comparers.Fixes
         /// </summary>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
         /// <param name="getHashCode">The <c>GetHashCode</c> implementation to use. If this is <c>null</c>, this type will attempt to find <c>GetHashCode</c> on <paramref name="source"/>; if none is found, throws an exception.</param>
-        public ExplicitGetHashCodeComparer(IComparer<T> source, Func<T, int> getHashCode)
+        public ExplicitGetHashCodeComparer(IComparer<T>? source, Func<T, int>? getHashCode)
             : base(source, getHashCode, false)
         {
         }

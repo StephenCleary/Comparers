@@ -3,9 +3,9 @@ using System.Reflection;
 
 internal static class ReflectionHelpers
 {
-    public static Type TryGetEnumeratorType(Type source) => TryFindInterfaceType(source, "IEnumerable`1");
+    public static Type? TryGetEnumeratorType(Type source) => TryFindInterfaceType(source, "IEnumerable`1");
 
-    public static Type TryFindInterfaceType(Type type, string name)
+    public static Type? TryFindInterfaceType(Type type, string name)
     {
         if (type.Name == name)
             return type;
@@ -18,7 +18,7 @@ internal static class ReflectionHelpers
         return null;
     }
 
-    public static PropertyInfo TryFindDeclaredProperty(Type type, string name)
+    public static PropertyInfo? TryFindDeclaredProperty(Type type, string name)
     {
         foreach (var property in type.GetTypeInfo().DeclaredProperties)
         {

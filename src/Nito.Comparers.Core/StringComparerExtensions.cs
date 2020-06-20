@@ -14,7 +14,7 @@ namespace Nito.Comparers
         /// </summary>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
         /// <returns>A <see cref="StringComparer"/> instance.</returns>
-        public static StringComparer ToStringComparer(this IFullComparer<string> source) => new FullStringComparer(source);
+        public static StringComparer ToStringComparer(this IFullComparer<string>? source) => new FullStringComparer(source);
 
         /// <summary>
         /// Creates a <see cref="IFullComparer{T}"/> that wraps the provided <see cref="StringComparer"/>.
@@ -22,6 +22,6 @@ namespace Nito.Comparers
         /// </summary>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default string comparer is used.</param>
         /// <returns>An <see cref="IFullComparer{T}"/> instance.</returns>
-        public static IFullComparer<string> ToFullComparer(this StringComparer source) => new SourceComparer<string>(source, null);
+        public static IFullComparer<string> ToFullComparer(this StringComparer? source) => new SourceComparer<string>(source, null);
     }
 }

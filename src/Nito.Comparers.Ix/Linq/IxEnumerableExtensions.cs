@@ -17,6 +17,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
         public static TSource Max<TSource>(this IEnumerable<TSource> source, Func<ComparerBuilderFor<TSource>, IFullComparer<TSource>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(ComparerBuilder.For<TSource>());
             return source.Max(comparer);
         }
@@ -31,6 +32,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
         public static IList<TSource> MaxBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<ComparerBuilderFor<TKey>, IFullComparer<TKey>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(ComparerBuilder.For<TKey>());
             return source.MaxBy(keySelector, comparer);
         }
@@ -43,6 +45,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
         public static TSource Min<TSource>(this IEnumerable<TSource> source, Func<ComparerBuilderFor<TSource>, IFullComparer<TSource>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(ComparerBuilder.For<TSource>());
             return source.Min(comparer);
         }
@@ -57,6 +60,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
         public static IList<TSource> MinBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<ComparerBuilderFor<TKey>, IFullComparer<TKey>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(ComparerBuilder.For<TKey>());
             return source.MinBy(keySelector, comparer);
         }
@@ -71,6 +75,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
         public static IEnumerable<TSource> Distinct<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.Distinct(keySelector, comparer);
         }
@@ -83,6 +88,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
         public static IEnumerable<TSource> DistinctUntilChanged<TSource>(this IEnumerable<TSource> source, Func<EqualityComparerBuilderFor<TSource>, IEqualityComparer<TSource>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(EqualityComparerBuilder.For<TSource>());
             return source.DistinctUntilChanged(comparer);
         }
@@ -97,6 +103,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
         public static IEnumerable<TSource> DistinctUntilChanged<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.DistinctUntilChanged(keySelector, comparer);
         }

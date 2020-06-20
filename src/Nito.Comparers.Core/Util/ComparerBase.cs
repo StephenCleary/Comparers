@@ -29,7 +29,7 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        int System.Collections.IComparer.Compare(object x, object y)
+        int System.Collections.IComparer.Compare(object? x, object? y)
         {
             var xValid = x is T || x == null;
             var yValid = y is T || y == null;
@@ -55,7 +55,7 @@ namespace Nito.Comparers.Util
                 }
             }
 
-            return DoCompare((T)x, (T)y);
+            return DoCompare((T)x!, (T)y!);
         }
 
         /// <inheritdoc />

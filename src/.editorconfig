@@ -1,0 +1,13 @@
+[*.cs]
+
+# CA1000: Do not declare static members on generic types
+dotnet_diagnostic.CA1000.severity = silent
+
+# CA1036: Override methods on comparable types
+dotnet_diagnostic.CA1036.severity = silent
+
+# CA1200: Avoid using cref tags with a prefix
+dotnet_diagnostic.CA1200.severity = silent
+
+# CA1303: Do not pass literals as localized parameters
+dotnet_diagnostic.CA1303.severity = silent

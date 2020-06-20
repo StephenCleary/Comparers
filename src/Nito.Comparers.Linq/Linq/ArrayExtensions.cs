@@ -17,6 +17,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
         public static void Sort<T>(this T[] @this, Func<ComparerBuilderFor<T>, IFullComparer<T>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(ComparerBuilder.For<T>());
             Array.Sort(@this, comparer);
         }
@@ -31,6 +32,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
         public static void Sort<T>(this T[] @this, int index, int count, Func<ComparerBuilderFor<T>, IFullComparer<T>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(ComparerBuilder.For<T>());
             Array.Sort(@this, index, count, comparer);
         }
@@ -46,6 +48,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
         public static void Sort<TKey, TValue>(this TKey[] @this, TValue[] items, Func<ComparerBuilderFor<TKey>, IFullComparer<TKey>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(ComparerBuilder.For<TKey>());
             Array.Sort(@this, items, comparer);
         }
@@ -62,6 +65,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
         public static void Sort<TKey, TValue>(this TKey[] @this, TValue[] items, int index, int length, Func<ComparerBuilderFor<TKey>, IFullComparer<TKey>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(ComparerBuilder.For<TKey>());
             Array.Sort(@this, items, index, length, comparer);
         }

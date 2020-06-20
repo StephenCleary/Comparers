@@ -6,6 +6,8 @@ using System.Text;
 using static System.Numerics.BitOperations;
 #endif
 
+#pragma warning disable CA1815, CA1721
+
 namespace Nito.Comparers.Internals
 {
     /// <summary>

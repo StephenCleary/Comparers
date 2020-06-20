@@ -15,7 +15,7 @@ namespace Nito.Comparers
         /// <typeparam name="T">The type of objects being compared.</typeparam>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
         /// <returns>A comparer that reverses the evaluation of the specified source comparer.</returns>
-        public static IFullComparer<T> Reverse<T>(this IComparer<T> source) => new ReverseComparer<T>(source);
+        public static IFullComparer<T> Reverse<T>(this IComparer<T>? source) => new ReverseComparer<T>(source);
 
         /// <summary>
         /// Returns a comparer that uses another comparer if the source comparer determines the objects are equal.
@@ -25,7 +25,7 @@ namespace Nito.Comparers
         /// <param name="thenBy">The comparer that is used if <paramref name="source"/> determines the objects are equal. If this is <c>null</c>, the default comparer is used.</param>
         /// <param name="descending">A value indicating whether the sorting is done in descending order. If <c>false</c> (the default), then the sort is in ascending order.</param>
         /// <returns>A comparer that uses another comparer if the source comparer determines the objects are equal.</returns>
-        public static IFullComparer<T> ThenBy<T>(this IComparer<T> source, IComparer<T> thenBy, bool descending = false) =>
+        public static IFullComparer<T> ThenBy<T>(this IComparer<T>? source, IComparer<T>? thenBy, bool descending = false) =>
             new CompoundComparer<T>(source, descending ? thenBy.Reverse() : thenBy);
 
         /// <summary>
@@ -39,8 +39,9 @@ namespace Nito.Comparers
         /// <param name="specialNullHandling">A value indicating whether <c>null</c> values are passed to <paramref name="selector"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <paramref name="selector"/>. This value is ignored if <typeparamref name="T"/> is a non-nullable type.</param>
         /// <param name="descending">A value indicating whether the sorting is done in descending order. If <c>false</c> (the default), then the sort is in ascending order.</param>
         /// <returns>A comparer that uses a key comparer if the source comparer determines the objects are equal.</returns>
-        public static IFullComparer<T> ThenBy<T, TKey>(this IComparer<T> source, Func<T, TKey> selector, Func<ComparerBuilderFor<TKey>, IComparer<TKey>> comparerFactory, bool specialNullHandling = false, bool descending = false)
+        public static IFullComparer<T> ThenBy<T, TKey>(this IComparer<T>? source, Func<T, TKey> selector, Func<ComparerBuilderFor<TKey>, IComparer<TKey>> comparerFactory, bool specialNullHandling = false, bool descending = false)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(ComparerBuilder.For<TKey>());
             return source.ThenBy(selector, comparer, specialNullHandling, descending);
         }
@@ -56,7 +57,7 @@ namespace Nito.Comparers
         /// <param name="specialNullHandling">A value indicating whether <c>null</c> values are passed to <paramref name="selector"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <paramref name="selector"/>. This value is ignored if <typeparamref name="T"/> is a non-nullable type.</param>
         /// <param name="descending">A value indicating whether the sorting is done in descending order. If <c>false</c> (the default), then the sort is in ascending order.</param>
         /// <returns>A comparer that uses a key comparer if the source comparer determines the objects are equal.</returns>
-        public static IFullComparer<T> ThenBy<T, TKey>(this IComparer<T> source, Func<T, TKey> selector, IComparer<TKey> keyComparer = null, bool specialNullHandling = false, bool descending = false)
+        public static IFullComparer<T> ThenBy<T, TKey>(this IComparer<T>? source, Func<T, TKey> selector, IComparer<TKey>? keyComparer = null, bool specialNullHandling = false, bool descending = false)
         {
             var selectComparer = new SelectComparer<T, TKey>(selector, keyComparer, specialNullHandling);
             return source.ThenBy(selectComparer, descending);
@@ -68,6 +69,6 @@ namespace Nito.Comparers
         /// <typeparam name="T">The type of sequence elements being compared.</typeparam>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
         /// <returns>A comparer that will perform a lexicographical ordering on a sequence of items.</returns>
-        public static IFullComparer<IEnumerable<T>> Sequence<T>(this IComparer<T> source) => new SequenceComparer<T>(source);
+        public static IFullComparer<IEnumerable<T>> Sequence<T>(this IComparer<T>? source) => new SequenceComparer<T>(source);
     }
 }
