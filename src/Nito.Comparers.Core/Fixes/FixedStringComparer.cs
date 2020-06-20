@@ -34,11 +34,11 @@ namespace Nito.Comparers.Fixes
         /// <summary>
         /// Gets a <see cref="StringComparer"/> object that performs a case-sensitive string comparison using the word comparison rules of the current culture.
         /// </summary>
-        public static StringComparer CurrentCulture { get; } = StringComparer.CurrentCulture.WithStandardNullHandling().ToStringComparer();
+        public static StringComparer CurrentCulture => StringComparer.CurrentCulture.WithStandardNullHandling().ToStringComparer();
 
         /// <summary>
         /// Gets a <see cref="StringComparer"/> object that performs a case-insensitive string comparison using the word comparison rules of the current culture.
         /// </summary>
-        public static StringComparer CurrentCultureIgnoreCase { get; } = StringComparer.CurrentCultureIgnoreCase.WithStandardNullHandling().ToStringComparer();
+        public static StringComparer CurrentCultureIgnoreCase => StringComparer.CurrentCultureIgnoreCase.WithStandardNullHandling().ToStringComparer();
     }
 }
