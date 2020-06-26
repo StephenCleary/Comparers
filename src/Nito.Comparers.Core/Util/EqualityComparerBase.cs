@@ -41,65 +41,15 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        bool System.Collections.IEqualityComparer.Equals(object? x, object? y)
-        {
-            // EqualityComparer<T>.IEqualityComparer.Equals will throw in this situation, but int.Equals returns false.
-            var xValid = x is T || x == null;
-            var yValid = y is T || y == null;
-            if (!xValid || !yValid)
-            {
-                if (!xValid && !yValid)
-                    throw new ArgumentException("Invalid types for equality comparison.");
-                return false;
-            }
-
-            if (!SpecialNullHandling)
-            {
-                if (x == null || y == null)
-                    return (x == null && y == null);
-            }
-
-            return DoEquals((T?)x, (T?)y);
-        }
+        bool System.Collections.IEqualityComparer.Equals(object? x, object? y) => EqualityComparerHelpers.ImplementEquals<T>(x, y, SpecialNullHandling, DoEquals);
 
         /// <inheritdoc />
-        int System.Collections.IEqualityComparer.GetHashCode(object? obj)
-        {
-            if (!SpecialNullHandling)
-            {
-                if (obj == null)
-                    return 0;
-            }
-
-            var objValid = obj is T || obj == null;
-            if (!objValid)
-                throw new ArgumentException("Invalid type for comparison.");
-
-            return DoGetHashCode((T?)obj);
-        }
+        int System.Collections.IEqualityComparer.GetHashCode(object? obj) => EqualityComparerHelpers.ImplementGetHashCode<T>(obj, SpecialNullHandling, DoGetHashCode);
 
         /// <inheritdoc />
-        public bool Equals(T? x, T? y)
-        {
-            if (!SpecialNullHandling)
-            {
-                if (x == null || y == null)
-                    return (x == null && y == null);
-            }
-
-            return DoEquals(x, y);
-        }
+        public bool Equals(T? x, T? y) => EqualityComparerHelpers.ImplementEquals(x, y, SpecialNullHandling, DoEquals);
 
         /// <inheritdoc />
-        public int GetHashCode(T? obj)
-        {
-            if (!SpecialNullHandling)
-            {
-                if (obj == null)
-                    return 0;
-            }
-
-            return DoGetHashCode(obj);
-        }
+        public int GetHashCode(T? obj) => EqualityComparerHelpers.ImplementGetHashCode(obj, SpecialNullHandling, DoGetHashCode);
     }
 }
