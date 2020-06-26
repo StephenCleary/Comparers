@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Nito.Comparers.Util;
 
 namespace Nito.Comparers
@@ -32,6 +33,6 @@ namespace Nito.Comparers
         /// </summary>
         /// <param name="other">The object to compare with this instance.</param>
         /// <returns>A value indicating whether this instance is equal to the specified object.</returns>
-        public bool Equals(T other) => ComparableImplementations.ImplementEquals(DefaultComparer, (T)this, other);
+        public bool Equals([AllowNull] T other) => ComparableImplementations.ImplementEquals(DefaultComparer, (T)this, other!);
     }
 }

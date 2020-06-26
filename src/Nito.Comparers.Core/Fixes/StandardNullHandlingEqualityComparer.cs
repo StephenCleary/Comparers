@@ -21,7 +21,7 @@ namespace Nito.Comparers.Fixes
         }
 
         /// <inheritdoc />
-        protected override int DoGetHashCode(T obj) => Source.GetHashCode(obj);
+        protected override int DoGetHashCode(T obj) => Source.GetHashCode(obj!);
 
         /// <inheritdoc />
         protected override bool DoEquals(T x, T y) => Source.Equals(x, y);

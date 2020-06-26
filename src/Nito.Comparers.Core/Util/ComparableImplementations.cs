@@ -42,7 +42,7 @@ namespace Nito.Comparers.Util
         public static int ImplementGetHashCode<T>(IEqualityComparer<T> equalityComparer, T @this)
         {
             _ = equalityComparer ?? throw new ArgumentNullException(nameof(equalityComparer));
-            return equalityComparer.GetHashCode(@this);
+            return equalityComparer.GetHashCode(@this!);
         }
 
         /// <summary>

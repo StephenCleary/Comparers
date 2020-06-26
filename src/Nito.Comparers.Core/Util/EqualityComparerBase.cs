@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Nito.Comparers.Util
 {
@@ -78,7 +79,7 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        public bool Equals(T x, T y)
+        public bool Equals([AllowNull] T x, [AllowNull] T y)
         {
             if (!SpecialNullHandling)
             {
@@ -86,11 +87,11 @@ namespace Nito.Comparers.Util
                     return (x == null && y == null);
             }
 
-            return DoEquals(x, y);
+            return DoEquals(x!, y!);
         }
 
         /// <inheritdoc />
-        public int GetHashCode(T obj)
+        public int GetHashCode([AllowNull] T obj)
         {
             if (!SpecialNullHandling)
             {
@@ -98,7 +99,7 @@ namespace Nito.Comparers.Util
                     return 0;
             }
 
-            return DoGetHashCode(obj);
+            return DoGetHashCode(obj!);
         }
     }
 }

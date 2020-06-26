@@ -19,7 +19,7 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        protected override int DoGetHashCode(T obj) => EqualityComparer<T>.Default.GetHashCode(obj);
+        protected override int DoGetHashCode(T obj) => EqualityComparer<T>.Default.GetHashCode(obj!);
 
         /// <inheritdoc />
         protected override bool DoEquals(T x, T y) => EqualityComparer<T>.Default.Equals(x, y);
@@ -44,7 +44,7 @@ namespace Nito.Comparers.Util
                 var comparableBaseGeneric = typeof(ComparableBase<>);
                 var comparableBase = comparableBaseGeneric.MakeGenericType(typeofT);
                 var property = ReflectionHelpers.TryFindDeclaredProperty(comparableBase, "DefaultComparer")!;
-                var value = property.GetValue(null, null);
+                var value = property.GetValue(null, null)!;
                 comparableBaseString = value.ToString();
             }
 #pragma warning disable CA1031 // Do not catch general exception types
@@ -108,7 +108,7 @@ namespace Nito.Comparers.Util
                 var defaultComparerGenericType = typeof(DefaultComparer<>);
                 var defaultComparerType = defaultComparerGenericType.MakeGenericType(enumerable.GenericTypeArguments);
                 var property = ReflectionHelpers.TryFindDeclaredProperty(defaultComparerType, "IsImplemented")!;
-                var value = property.GetValue(null, null);
+                var value = property.GetValue(null, null)!;
                 return (bool)value;
             }
         }

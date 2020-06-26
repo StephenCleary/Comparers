@@ -16,7 +16,7 @@ namespace Nito.Comparers.Util
             _source = source ?? ComparerBuilder.For<string>().Default();
         }
 
-        public override string ToString() => _source.ToString();
+        public override string ToString() => _source.ToString()!;
 
         public override int Compare(string? x, string? y) => _source.Compare(x!, y!);
 

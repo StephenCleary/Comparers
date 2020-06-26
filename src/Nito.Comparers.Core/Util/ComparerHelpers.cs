@@ -21,7 +21,7 @@ namespace Nito.Comparers.Util
             if (comparer is IEqualityComparer<T> equalityComparer)
                 return equalityComparer.GetHashCode;
             if (comparer is IEqualityComparer objectEqualityComparer)
-                return obj => objectEqualityComparer.GetHashCode(obj);
+                return obj => objectEqualityComparer.GetHashCode(obj!);
 
             throw new InvalidOperationException("Comparer does not implement IEqualityComparer or IEqualityComparer<T>.");
         }

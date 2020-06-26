@@ -30,8 +30,8 @@ namespace Nito.Comparers.Util
         {
             unchecked
             {
-                var ret = Murmur3Hash.Create(Source.GetHashCode(obj));
-                ret.Combine(_secondSource.GetHashCode(obj));
+                var ret = Murmur3Hash.Create(Source.GetHashCode(obj!));
+                ret.Combine(_secondSource.GetHashCode(obj!));
                 return ret.HashCode;
             }
         }

@@ -25,7 +25,7 @@ namespace Nito.Comparers.Util
             {
                 var ret = Murmur3Hash.Create();
                 foreach (var item in obj)
-                    ret.Combine(Source.GetHashCode(item));
+                    ret.Combine(Source.GetHashCode(item!));
                 return ret.HashCode;
             }
         }

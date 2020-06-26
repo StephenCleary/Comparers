@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Nito.Comparers.Util
 {
@@ -59,7 +60,7 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        public int Compare(T x, T y)
+        public int Compare([AllowNull] T x, [AllowNull] T y)
         {
             if (!SpecialNullHandling)
             {
@@ -75,7 +76,7 @@ namespace Nito.Comparers.Util
                 }
             }
 
-            return DoCompare(x, y);
+            return DoCompare(x!, y!);
         }
     }
 }
