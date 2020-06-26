@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
@@ -34,6 +36,64 @@ namespace Nito.Comparers.Util
             var constructor = sequenceComparerType.GetTypeInfo().DeclaredConstructors.First();
             var instance = constructor.Invoke(new object[] { null! });
             return (IEqualityComparer<T>)instance;
+        }
+
+        public static bool ImplementEquals<T>(object? x, object? y, bool specialNullHandling, Func<T, T, bool> doEquals)
+        {
+            // EqualityComparer<T>.IEqualityComparer.Equals will throw in this situation, but int.Equals returns false.
+            var xValid = x is T || x == null;
+            var yValid = y is T || y == null;
+            if (!xValid || !yValid)
+            {
+                if (!xValid && !yValid)
+                    throw new ArgumentException("Invalid types for equality comparison.");
+                return false;
+            }
+
+            if (!specialNullHandling)
+            {
+                if (x == null || y == null)
+                    return (x == null && y == null);
+            }
+
+            return doEquals((T) x!, (T) y!);
+        }
+
+        public static bool ImplementEquals<T>([AllowNull] T x, [AllowNull] T y, bool specialNullHandling, Func<T, T, bool> doEquals)
+        {
+            if (!specialNullHandling)
+            {
+                if (x == null || y == null)
+                    return (x == null && y == null);
+            }
+
+            return doEquals(x!, y!);
+        }
+
+        public static int ImplementGetHashCode<T>(object? obj, bool specialNullHandling, Func<T, int> doGetHashCode)
+        {
+            if (!specialNullHandling)
+            {
+                if (obj == null)
+                    return 0;
+            }
+
+            var objValid = obj is T || obj == null;
+            if (!objValid)
+                throw new ArgumentException("Invalid type for comparison.");
+
+            return doGetHashCode((T) obj!);
+        }
+
+        public static int ImplementGetHashCode<T>([AllowNull] T obj, bool specialNullHandling, Func<T, int> doGetHashCode)
+        {
+            if (!specialNullHandling)
+            {
+                if (obj == null)
+                    return 0;
+            }
+
+            return doGetHashCode(obj!);
         }
     }
 }
