@@ -80,10 +80,12 @@ class Entity : EquatableBase<Entity>
 {
     static Entity()
     {
-        DefaultComparer =
+        EquatableBase<Entity>.DefaultComparer =
             EqualityComparerBuilder.For<Entity>()
                                    .EquateBy(e => e.Id);
     }
+    
+    public static new IFullEqualityComparer<Entity> DefaultComparer => EquatableBase<Entity>.DefaultComparer;
 
     public int Id { get; }
 }
