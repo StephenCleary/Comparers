@@ -15,13 +15,13 @@ namespace Nito.Comparers.Util
         /// Determines how to compute hash codes using the specified comparer. If the comparer does not support hash codes, this method will throw an exception.
         /// </summary>
         /// <typeparam name="T">The type of objects being compared.</typeparam>
-        /// <param name="comparer">The comparer to use to calculate a hash code. May not be <c>null</c>.</param>
-        public static Func<T, int> ComparerGetHashCode<T>(IComparer<T> comparer)
+        /// <param name="comparer">The comparer to use to calculate a hash code. May be <c>null</c>, but this method will throw an exception since <c>null</c> does not support hash codes.</param>
+        public static Func<T, int> ComparerGetHashCode<T>(IComparer<T>? comparer)
         {
             if (comparer is IEqualityComparer<T> equalityComparer)
                 return equalityComparer.GetHashCode;
             if (comparer is IEqualityComparer objectEqualityComparer)
-                return obj => objectEqualityComparer.GetHashCode(obj);
+                return obj => objectEqualityComparer.GetHashCode(obj!);
 
             throw new InvalidOperationException("Comparer does not implement IEqualityComparer or IEqualityComparer<T>.");
         }
@@ -32,7 +32,7 @@ namespace Nito.Comparers.Util
         /// <typeparam name="T">The type of objects being compared.</typeparam>
         /// <param name="comparer">The comparer. May be <c>null</c>.</param>
         /// <returns>A default comparer or <paramref name="comparer"/>.</returns>
-        public static IComparer<T> NormalizeDefault<T>(IComparer<T> comparer)
+        public static IComparer<T> NormalizeDefault<T>(IComparer<T>? comparer)
         {
             if (comparer != null && comparer != Comparer<T>.Default)
                 return comparer;
@@ -42,12 +42,12 @@ namespace Nito.Comparers.Util
 
             // If T doesn't implement a default comparer but DefaultComparer does, then T must implement IEnumerable<U>.
             // Extract the U and create a SequenceComparer<U>.
-            var enumerable = ReflectionHelpers.TryGetEnumeratorType(typeof(T));
+            var enumerable = ReflectionHelpers.TryGetEnumeratorType(typeof(T))!;
             var elementTypes = enumerable.GenericTypeArguments;
             var genericSequenceComparerType = typeof(SequenceComparer<>);
             var sequenceComparerType = genericSequenceComparerType.MakeGenericType(elementTypes);
             var constructor = sequenceComparerType.GetTypeInfo().DeclaredConstructors.First();
-            var instance = constructor.Invoke(new object[] { null });
+            var instance = constructor.Invoke(new object[] { null! });
             return (IComparer<T>)instance;
         }
     }

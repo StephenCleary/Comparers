@@ -14,7 +14,7 @@ namespace Nito.Comparers.Fixes
         /// </summary>
         /// <typeparam name="T">The type of objects being compared.</typeparam>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
-        public static IFullEqualityComparer<T> WithStandardNullHandlingForEquality<T>(this IEqualityComparer<T> source) =>
+        public static IFullEqualityComparer<T> WithStandardNullHandlingForEquality<T>(this IEqualityComparer<T>? source) =>
             new StandardNullHandlingEqualityComparer<T>(source);
     }
 }

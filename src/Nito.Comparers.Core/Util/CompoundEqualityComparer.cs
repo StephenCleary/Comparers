@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Nito.Comparers.Internals;
+using System.Collections.Generic;
 
 namespace Nito.Comparers.Util
 {
@@ -18,7 +19,7 @@ namespace Nito.Comparers.Util
         /// </summary>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
         /// <param name="secondSource">The second comparer. If this is <c>null</c>, the default comparer is used.</param>
-        public CompoundEqualityComparer(IEqualityComparer<T> source, IEqualityComparer<T> secondSource)
+        public CompoundEqualityComparer(IEqualityComparer<T>? source, IEqualityComparer<T>? secondSource)
             : base(source, true)
         {
             _secondSource = EqualityComparerHelpers.NormalizeDefault(secondSource);
@@ -29,12 +30,9 @@ namespace Nito.Comparers.Util
         {
             unchecked
             {
-                var ret = (int)2166136261;
-                ret += Source.GetHashCode(obj);
-                ret *= 16777619;
-                ret += _secondSource.GetHashCode(obj);
-                ret *= 16777619;
-                return ret;
+                var ret = Murmur3Hash.Create(Source.GetHashCode(obj!));
+                ret.Combine(_secondSource.GetHashCode(obj!));
+                return ret.HashCode;
             }
         }
 

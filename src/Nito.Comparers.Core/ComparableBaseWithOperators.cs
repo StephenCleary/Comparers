@@ -1,6 +1,6 @@
 ﻿using Nito.Comparers.Util;
 
-#pragma warning disable CS0660, CS0661
+#pragma warning disable CS0660, CS0661, CA2225
 
 namespace Nito.Comparers
 {
@@ -16,8 +16,8 @@ namespace Nito.Comparers
         /// <param name="left">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <param name="right">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <returns><c>true</c> if two <typeparamref name="T"/> objects have the same value; otherwise, <c>false</c>.</returns>
-        public static bool operator ==(ComparableBaseWithOperators<T> left, ComparableBaseWithOperators<T> right) =>
-            ComparableImplementations.ImplementOpEquality(DefaultComparer, (T)left, (T)right);
+        public static bool operator ==(ComparableBaseWithOperators<T>? left, ComparableBaseWithOperators<T>? right) =>
+            ComparableImplementations.ImplementOpEquality(DefaultComparer, (T)left!, (T)right!);
 
         /// <summary>
         /// Returns <c>true</c> if two <typeparamref name="T"/> objects have different values.
@@ -25,8 +25,8 @@ namespace Nito.Comparers
         /// <param name="left">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <param name="right">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <returns><c>true</c> if two <typeparamref name="T"/> objects have different values; otherwise, <c>false</c>.</returns>
-        public static bool operator !=(ComparableBaseWithOperators<T> left, ComparableBaseWithOperators<T> right) =>
-            ComparableImplementations.ImplementOpInequality(DefaultComparer, (T)left, (T)right);
+        public static bool operator !=(ComparableBaseWithOperators<T>? left, ComparableBaseWithOperators<T>? right) =>
+            ComparableImplementations.ImplementOpInequality(DefaultComparer, (T)left!, (T)right!);
 
         /// <summary>
         /// Returns <c>true</c> if <paramref name="left"/> has a value that is less than the value of <paramref name="right"/>.
@@ -34,8 +34,8 @@ namespace Nito.Comparers
         /// <param name="left">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <param name="right">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <returns><c>true</c> if <paramref name="left"/> has a value that is less than the value of <paramref name="right"/>; otherwise, <c>false</c>.</returns>
-        public static bool operator <(ComparableBaseWithOperators<T> left, ComparableBaseWithOperators<T> right) =>
-            ComparableImplementations.ImplementOpLessThan(DefaultComparer, (T)left, (T)right);
+        public static bool operator <(ComparableBaseWithOperators<T>? left, ComparableBaseWithOperators<T>? right) =>
+            ComparableImplementations.ImplementOpLessThan(DefaultComparer, (T)left!, (T)right!);
 
         /// <summary>
         /// Returns <c>true</c> if <paramref name="left"/> has a value that is greater than the value of <paramref name="right"/>.
@@ -43,8 +43,8 @@ namespace Nito.Comparers
         /// <param name="left">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <param name="right">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <returns><c>true</c> if <paramref name="left"/> has a value that is greater than the value of <paramref name="right"/>; otherwise, <c>false</c>.</returns>
-        public static bool operator >(ComparableBaseWithOperators<T> left, ComparableBaseWithOperators<T> right) =>
-            ComparableImplementations.ImplementOpGreaterThan(DefaultComparer, (T)left, (T)right);
+        public static bool operator >(ComparableBaseWithOperators<T>? left, ComparableBaseWithOperators<T>? right) =>
+            ComparableImplementations.ImplementOpGreaterThan(DefaultComparer, (T)left!, (T)right!);
 
         /// <summary>
         /// Returns <c>true</c> if <paramref name="left"/> has a value that is less than or equal to the value of <paramref name="right"/>.
@@ -52,8 +52,8 @@ namespace Nito.Comparers
         /// <param name="left">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <param name="right">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <returns><c>true</c> if <paramref name="left"/> has a value that is less than or equal to the value of <paramref name="right"/>; otherwise, <c>false</c>.</returns>
-        public static bool operator <=(ComparableBaseWithOperators<T> left, ComparableBaseWithOperators<T> right) =>
-            ComparableImplementations.ImplementOpLessThanOrEqual(DefaultComparer, (T)left, (T)right);
+        public static bool operator <=(ComparableBaseWithOperators<T>? left, ComparableBaseWithOperators<T>? right) =>
+            ComparableImplementations.ImplementOpLessThanOrEqual(DefaultComparer, (T)left!, (T)right!);
 
         /// <summary>
         /// Returns <c>true</c> if <paramref name="left"/> has a value that is greater than or equal to the value of <paramref name="right"/>.
@@ -61,7 +61,7 @@ namespace Nito.Comparers
         /// <param name="left">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <param name="right">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <returns><c>true</c> if <paramref name="left"/> has a value that is greater than or equal to the value of <paramref name="right"/>; otherwise, <c>false</c>.</returns>
-        public static bool operator >=(ComparableBaseWithOperators<T> left, ComparableBaseWithOperators<T> right) =>
-            ComparableImplementations.ImplementOpGreaterThanOrEqual(DefaultComparer, (T)left, (T)right);
+        public static bool operator >=(ComparableBaseWithOperators<T>? left, ComparableBaseWithOperators<T>? right) =>
+            ComparableImplementations.ImplementOpGreaterThanOrEqual(DefaultComparer, (T)left!, (T)right!);
     }
 }

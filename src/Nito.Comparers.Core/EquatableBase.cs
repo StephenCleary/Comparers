@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Nito.Comparers.Util;
 
 namespace Nito.Comparers
@@ -12,7 +13,7 @@ namespace Nito.Comparers
         /// <summary>
         /// Gets the default comparer for this type.
         /// </summary>
-        public static IFullEqualityComparer<T> DefaultComparer { get; protected set; }
+        public static IFullEqualityComparer<T> DefaultComparer { get; protected set; } = null!;
 
         /// <summary>
         /// Gets the hash code for this instance.
@@ -25,13 +26,13 @@ namespace Nito.Comparers
         /// </summary>
         /// <param name="obj">The object to compare with this instance.</param>
         /// <returns>A value indicating whether this instance is equal to the specified object.</returns>
-        public override bool Equals(object obj) => ComparableImplementations.ImplementEquals(DefaultComparer, (T)this, obj);
+        public override bool Equals(object? obj) => ComparableImplementations.ImplementEquals(DefaultComparer, (T)this, obj);
 
         /// <summary>
         /// Returns a value indicating whether this instance is equal to the specified object.
         /// </summary>
         /// <param name="other">The object to compare with this instance.</param>
         /// <returns>A value indicating whether this instance is equal to the specified object.</returns>
-        public bool Equals(T other) => ComparableImplementations.ImplementEquals(DefaultComparer, (T)this, other);
+        public bool Equals([AllowNull] T other) => ComparableImplementations.ImplementEquals(DefaultComparer, (T)this, other!);
     }
 }

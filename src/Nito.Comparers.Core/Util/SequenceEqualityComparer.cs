@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Nito.Comparers.Internals;
+using System.Collections.Generic;
 
 namespace Nito.Comparers.Util
 {
@@ -12,7 +13,7 @@ namespace Nito.Comparers.Util
         /// Initializes a new instance of the <see cref="SequenceEqualityComparer&lt;T&gt;"/> class.
         /// </summary>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
-        public SequenceEqualityComparer(IEqualityComparer<T> source)
+        public SequenceEqualityComparer(IEqualityComparer<T>? source)
             : base(source, false)
         {
         }
@@ -22,13 +23,10 @@ namespace Nito.Comparers.Util
         {
             unchecked
             {
-                var ret = (int)2166136261;
+                var ret = Murmur3Hash.Create();
                 foreach (var item in obj)
-                {
-                    ret += Source.GetHashCode(item);
-                    ret *= 16777619;
-                }
-                return ret;
+                    ret.Combine(Source.GetHashCode(item!));
+                return ret.HashCode;
             }
         }
 

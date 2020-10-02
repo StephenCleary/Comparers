@@ -15,13 +15,13 @@ namespace Nito.Comparers.Fixes
         /// Initializes a new instance of the <see cref="StandardNullHandlingEqualityComparer{T}"/> class.
         /// </summary>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
-        public StandardNullHandlingEqualityComparer(IEqualityComparer<T> source)
+        public StandardNullHandlingEqualityComparer(IEqualityComparer<T>? source)
             : base(source, false)
         {
         }
 
         /// <inheritdoc />
-        protected override int DoGetHashCode(T obj) => Source.GetHashCode(obj);
+        protected override int DoGetHashCode(T obj) => Source.GetHashCode(obj!);
 
         /// <inheritdoc />
         protected override bool DoEquals(T x, T y) => Source.Equals(x, y);

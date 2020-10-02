@@ -178,3 +178,4 @@ FakesAssemblies/
 *.lock.json
 /.vs
 /tools
+.AssemblyAttributes

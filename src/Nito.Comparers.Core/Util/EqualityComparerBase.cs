@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Nito.Comparers.Util
 {
@@ -40,7 +41,7 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        bool System.Collections.IEqualityComparer.Equals(object x, object y)
+        bool System.Collections.IEqualityComparer.Equals(object? x, object? y)
         {
             // EqualityComparer<T>.IEqualityComparer.Equals will throw in this situation, but int.Equals returns false.
             var xValid = x is T || x == null;
@@ -58,11 +59,11 @@ namespace Nito.Comparers.Util
                     return (x == null && y == null);
             }
 
-            return DoEquals((T)x, (T)y);
+            return DoEquals((T)x!, (T)y!);
         }
 
         /// <inheritdoc />
-        int System.Collections.IEqualityComparer.GetHashCode(object obj)
+        int System.Collections.IEqualityComparer.GetHashCode(object? obj)
         {
             if (!SpecialNullHandling)
             {
@@ -74,11 +75,11 @@ namespace Nito.Comparers.Util
             if (!objValid)
                 throw new ArgumentException("Invalid type for comparison.");
 
-            return DoGetHashCode((T)obj);
+            return DoGetHashCode((T)obj!);
         }
 
         /// <inheritdoc />
-        public bool Equals(T x, T y)
+        public bool Equals([AllowNull] T x, [AllowNull] T y)
         {
             if (!SpecialNullHandling)
             {
@@ -86,11 +87,11 @@ namespace Nito.Comparers.Util
                     return (x == null && y == null);
             }
 
-            return DoEquals(x, y);
+            return DoEquals(x!, y!);
         }
 
         /// <inheritdoc />
-        public int GetHashCode(T obj)
+        public int GetHashCode([AllowNull] T obj)
         {
             if (!SpecialNullHandling)
             {
@@ -98,7 +99,7 @@ namespace Nito.Comparers.Util
                     return 0;
             }
 
-            return DoGetHashCode(obj);
+            return DoGetHashCode(obj!);
         }
     }
 }

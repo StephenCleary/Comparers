@@ -19,6 +19,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
         public static IOrderedEnumerable<T> OrderBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> keySelector, Func<ComparerBuilderFor<TKey>, IFullComparer<TKey>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(ComparerBuilder.For<TKey>());
             return source.OrderBy(keySelector, comparer);
         }
@@ -33,6 +34,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
         public static IOrderedEnumerable<T> OrderByDescending<T, TKey>(this IEnumerable<T> source, Func<T, TKey> keySelector, Func<ComparerBuilderFor<TKey>, IFullComparer<TKey>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(ComparerBuilder.For<TKey>());
             return source.OrderByDescending(keySelector, comparer);
         }
@@ -47,6 +49,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
         public static IOrderedEnumerable<T> ThenBy<T, TKey>(this IOrderedEnumerable<T> source, Func<T, TKey> keySelector, Func<ComparerBuilderFor<TKey>, IFullComparer<TKey>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(ComparerBuilder.For<TKey>());
             return source.ThenBy(keySelector, comparer);
         }
@@ -61,6 +64,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
         public static IOrderedEnumerable<T> ThenByDescending<T, TKey>(this IOrderedEnumerable<T> source, Func<T, TKey> keySelector, Func<ComparerBuilderFor<TKey>, IFullComparer<TKey>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(ComparerBuilder.For<TKey>());
             return source.ThenByDescending(keySelector, comparer);
         }
@@ -74,6 +78,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare values.</param>
         public static bool Contains<TSource>(this IEnumerable<TSource> source, TSource value, Func<EqualityComparerBuilderFor<TSource>, IEqualityComparer<TSource>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(EqualityComparerBuilder.For<TSource>());
             return source.Contains(value, comparer);
         }
@@ -86,6 +91,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare values.</param>
         public static IEnumerable<TSource> Distinct<TSource>(this IEnumerable<TSource> source, Func<EqualityComparerBuilderFor<TSource>, IEqualityComparer<TSource>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(EqualityComparerBuilder.For<TSource>());
             return source.Distinct(comparer);
         }
@@ -99,6 +105,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare values.</param>
         public static IEnumerable<TSource> Except<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second, Func<EqualityComparerBuilderFor<TSource>, IEqualityComparer<TSource>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(EqualityComparerBuilder.For<TSource>());
             return first.Except(second, comparer);
         }
@@ -113,6 +120,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
         public static IEnumerable<IGrouping<TKey, TSource>> GroupBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.GroupBy(keySelector, comparer);
         }
@@ -129,6 +137,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
         public static IEnumerable<IGrouping<TKey, TElement>> GroupBy<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.GroupBy(keySelector, elementSelector, comparer);
         }
@@ -145,6 +154,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
         public static IEnumerable<TResult> GroupBy<TSource, TKey, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TKey, IEnumerable<TSource>, TResult> resultSelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.GroupBy(keySelector, resultSelector, comparer);
         }
@@ -163,6 +173,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
         public static IEnumerable<TResult> GroupBy<TSource, TKey, TElement, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.GroupBy(keySelector, elementSelector, resultSelector, comparer);
         }
@@ -182,6 +193,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
         public static IEnumerable<TResult> GroupJoin<TOuter, TInner, TKey, TResult>(this IEnumerable<TOuter> outer, IEnumerable<TInner> inner, Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TOuter, IEnumerable<TInner>, TResult> resultSelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return outer.GroupJoin(inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
         }
@@ -195,6 +207,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
         public static IEnumerable<TSource> Intersect<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second, Func<EqualityComparerBuilderFor<TSource>, IEqualityComparer<TSource>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(EqualityComparerBuilder.For<TSource>());
             return first.Intersect(second, comparer);
         }
@@ -214,6 +227,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
         public static IEnumerable<TResult> Join<TOuter, TInner, TKey, TResult>(this IEnumerable<TOuter> outer, IEnumerable<TInner> inner, Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TOuter, TInner, TResult> resultSelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return outer.Join(inner, outerKeySelector, innerKeySelector, resultSelector, comparer);
         }
@@ -227,6 +241,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
         public static bool SequenceEqual<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second, Func<EqualityComparerBuilderFor<TSource>, IEqualityComparer<TSource>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(EqualityComparerBuilder.For<TSource>());
             return first.SequenceEqual(second, comparer);
         }
@@ -241,6 +256,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
         public static Dictionary<TKey, TSource> ToDictionary<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.ToDictionary(keySelector, comparer);
         }
@@ -257,6 +273,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
         public static Dictionary<TKey, TElement> ToDictionary<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.ToDictionary(keySelector, elementSelector, comparer);
         }
@@ -270,6 +287,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
         public static HashSet<TSource> ToHashSet<TSource>(this IEnumerable<TSource> source, Func<EqualityComparerBuilderFor<TSource>, IEqualityComparer<TSource>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(EqualityComparerBuilder.For<TSource>());
             return source.ToHashSet(comparer);
         }
@@ -285,6 +303,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
         public static ILookup<TKey, TSource> ToLookup<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.ToLookup(keySelector, comparer);
         }
@@ -301,6 +320,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
         public static ILookup<TKey, TElement> ToLookup<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.ToLookup(keySelector, elementSelector, comparer);
         }
@@ -314,6 +334,7 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
         public static IEnumerable<TSource> Union<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second, Func<EqualityComparerBuilderFor<TSource>, IEqualityComparer<TSource>> comparerFactory)
         {
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(EqualityComparerBuilder.For<TSource>());
             return first.Union(second, comparer);
         }

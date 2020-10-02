@@ -6,7 +6,7 @@ namespace Nito.Comparers.Util
     /// The default comparer.
     /// </summary>
     /// <typeparam name="T">The type of objects being compared.</typeparam>
-    internal sealed class DefaultComparer<T> : ComparerBase<T>, IEqualityComparer<T>, System.Collections.IEqualityComparer
+    internal sealed class DefaultComparer<T> : ComparerBase<T>
     {
         private DefaultComparer()
             : base(true)
@@ -19,7 +19,7 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        protected override int DoGetHashCode(T obj) => EqualityComparer<T>.Default.GetHashCode(obj);
+        protected override int DoGetHashCode(T obj) => EqualityComparer<T>.Default.GetHashCode(obj!);
 
         /// <inheritdoc />
         protected override bool DoEquals(T x, T y) => EqualityComparer<T>.Default.Equals(x, y);
@@ -38,17 +38,20 @@ namespace Nito.Comparers.Util
         public override string ToString()
         {
             var typeofT = typeof(T);
-            string comparableBaseString = null;
+            string? comparableBaseString = null;
             try
             {
                 var comparableBaseGeneric = typeof(ComparableBase<>);
                 var comparableBase = comparableBaseGeneric.MakeGenericType(typeofT);
-                var property = ReflectionHelpers.TryFindDeclaredProperty(comparableBase, "DefaultComparer");
-                var value = property.GetValue(null, null);
+                var property = ReflectionHelpers.TryFindDeclaredProperty(comparableBase, "DefaultComparer")!;
+                var value = property.GetValue(null, null)!;
                 comparableBaseString = value.ToString();
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch
+#pragma warning restore CA1031 // Do not catch general exception types
             {
+                // ignored
             }
 
             if (comparableBaseString != null)
@@ -104,8 +107,8 @@ namespace Nito.Comparers.Util
                     return false;
                 var defaultComparerGenericType = typeof(DefaultComparer<>);
                 var defaultComparerType = defaultComparerGenericType.MakeGenericType(enumerable.GenericTypeArguments);
-                var property = ReflectionHelpers.TryFindDeclaredProperty(defaultComparerType, "IsImplemented");
-                var value = property.GetValue(null, null);
+                var property = ReflectionHelpers.TryFindDeclaredProperty(defaultComparerType, "IsImplemented")!;
+                var value = property.GetValue(null, null)!;
                 return (bool)value;
             }
         }

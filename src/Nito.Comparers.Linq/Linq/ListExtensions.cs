@@ -17,6 +17,8 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
         public static void Sort<T>(this List<T> @this, Func<ComparerBuilderFor<T>, IFullComparer<T>> comparerFactory)
         {
+            _ = @this ?? throw new ArgumentNullException(nameof(@this));
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(ComparerBuilder.For<T>());
             @this.Sort(comparer);
         }
@@ -31,6 +33,8 @@ namespace Nito.Comparers.Linq
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
         public static void Sort<T>(this List<T> @this, int index, int count, Func<ComparerBuilderFor<T>, IFullComparer<T>> comparerFactory)
         {
+            _ = @this ?? throw new ArgumentNullException(nameof(@this));
+            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(ComparerBuilder.For<T>());
             @this.Sort(index, count, comparer);
         }

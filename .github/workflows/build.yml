@@ -1,0 +1,60 @@
+# build.yml v1.1
+# 1.1 - Use actions/cache@v2
+# 1.0 - Initial release.
+
+name: Build
+
+on:
+  - push
+
+env:
+  CI: 'true'
+  DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Dump context
+      env:
+        CONTEXT: ${{ toJson(github) }}
+      run: |
+        echo "Context: $Env:CONTEXT"
+
+    - name: Determine cache fallbacks
+      if: github.event_name != 'push'
+      id: cache_fallbacks
+      run: |
+        echo "::set-output name=nuget::nuget-"
+
+    - name: Checkout
+      uses: actions/checkout@v2
+      
+    - name: Cache nuget
+      uses: actions/cache@v2
+      with:
+        path: ~/.nuget/packages
+        key: nuget-${{ hashFiles('**/*.csproj') }}-${{ hashFiles('**/*.props') }}
+        restore-keys: ${{ steps.cache_fallbacks.outputs.nuget }}
+
+    - name: Build
+      run: |
+        dotnet build --configuration Release
+        dotnet test --configuration Release --no-build --collect:"XPlat Code Coverage"
+        dotnet pack --configuration Release --no-build
+
+    - name: Upload package artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: nuget-packages
+        path: |
+          **/*.nupkg
+          **/*.snupkg
+
+    - name: Publish code coverage
+      uses: codecov/codecov-action@v1
+
+    - name: Publish packages
+      run: |
+        dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }}

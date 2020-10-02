@@ -14,7 +14,7 @@ namespace Nito.Comparers.Fixes
         /// Initializes a new instance of the <see cref="StandardNullHandlingComparer{T}"/> class.
         /// </summary>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
-        public StandardNullHandlingComparer(IComparer<T> source)
+        public StandardNullHandlingComparer(IComparer<T>? source)
             : base(source, null, false)
         {
         }

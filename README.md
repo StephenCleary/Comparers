@@ -1,4 +1,4 @@
-![Logo](Comparers.128.png)
+![Logo](src/icon.png)
 
 # Comparers
 
