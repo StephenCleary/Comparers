@@ -1,5 +1,6 @@
-# build.yml v1.1
-# 1.1 - Use actions/cache@v2
+# build.yml v1.2
+# 1.2 - Define DOTNET_SKIP_FIRST_TIME_EXPERIENCE/NUGET_XMLDOC_MODE.
+# 1.1 - Use actions/cache@v2.
 # 1.0 - Initial release.
 
 name: Build
@@ -10,6 +11,8 @@ on:
 env:
   CI: 'true'
   DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 'true'
+  NUGET_XMLDOC_MODE: 'skip'
 
 jobs:
   build:
