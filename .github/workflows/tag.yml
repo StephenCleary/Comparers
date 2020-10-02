@@ -1,4 +1,5 @@
-# tag.yml v1.1
+# tag.yml v1.2
+# 1.2 - Fix tag search.
 # 1.1 - Define DOTNET_SKIP_FIRST_TIME_EXPERIENCE/NUGET_XMLDOC_MODE.
 # 1.0 - Initial release.
 
@@ -37,7 +38,7 @@ jobs:
     - name: Get current version
       run: |
         dotnet tool install --global Nito.ProjProps
-        echo ::set-env name=NEWTAG::v$(projprops --name version --output-format SingleValueOnly --project-search)
+        echo ::set-env name=NEWTAG::v$(projprops --name version --output-format SingleValueOnly --project src --project-search)
 
     - name: Create tag
       if: env.NEWTAG != steps.existingtag.outputs.tag
