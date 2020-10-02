@@ -1,3 +1,7 @@
+# build.yml v1.1
+# 1.1 - Use actions/cache@v2
+# 1.0 - Initial release.
+
 name: Build
 
 on:
@@ -26,9 +30,9 @@ jobs:
 
     - name: Checkout
       uses: actions/checkout@v2
-
+      
     - name: Cache nuget
-      uses: actions/cache@v1
+      uses: actions/cache@v2
       with:
         path: ~/.nuget/packages
         key: nuget-${{ hashFiles('**/*.csproj') }}-${{ hashFiles('**/*.props') }}

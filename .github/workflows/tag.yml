@@ -1,0 +1,43 @@
+# tag.yml v1.0
+# 1.0 - Initial release.
+
+name: Tag
+
+on:
+  - push
+
+env:
+  CI: 'true'
+  DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Dump context
+      env:
+        CONTEXT: ${{ toJson(github) }}
+      run: |
+        echo "Context: $Env:CONTEXT"
+
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Get existing tag
+      id: existingtag
+      uses: WyriHaximus/github-action-get-previous-tag@0.2.0
+      continue-on-error: true
+
+    - name: Get current version
+      run: |
+        dotnet tool install --global Nito.ProjProps
+        echo ::set-env name=NEWTAG::v$(projprops --name version --output-format SingleValueOnly --project-search)
+
+    - name: Create tag
+      if: env.NEWTAG != steps.existingtag.outputs.tag
+      run: |
+        git tag ${{ env.NEWTAG }}
+        git push --tags

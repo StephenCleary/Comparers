@@ -1,10 +1,12 @@
 <Project>
-  <!-- Project-specific settings -->
-  <PropertyGroup>
-    <VersionPrefix>6.1.0-pre02</VersionPrefix>
-    <Authors>Stephen Cleary</Authors>
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
+  <!--
+      Directory.Build.props v2.0
+      - 2.0 Move project-specific properties to `project.props`.
+      - 1.1 Remove workaround for .NET SDK bug that was necesary for coverlet to work.
+      - 1.0 Initial release.
+  -->
+
+  <Import Project="$(MSBuildThisFileDirectory)project.props" />
 
   <!-- Project quality settings -->
   <PropertyGroup>
@@ -16,7 +18,7 @@
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -56,19 +58,8 @@
   <PropertyGroup Condition="'$(CI)'!='true'">
     <VersionSuffix>dev</VersionSuffix>
   </PropertyGroup>
-  
-  <!-- Fix coverlet on deterministic builds -->
-  <!--
-    Workaround. Remove once we're on 3.1.(vNext-after-300)
-    https://github.com/coverlet-coverage/coverlet/blob/e848786b0d1363ccfbfd348d645662a538c2a4c8/Documentation/DeterministicBuild.md
-    https://github.com/dotnet/sourcelink/issues/572
-  -->
-  <PropertyGroup>
-    <TargetFrameworkMonikerAssemblyAttributesPath>$([System.IO.Path]::Combine('$(IntermediateOutputPath)','$(TargetFrameworkMoniker).AssemblyAttributes$(DefaultLanguageSourceExtension)'))</TargetFrameworkMonikerAssemblyAttributesPath>
-  </PropertyGroup>
-  <ItemGroup>
-    <EmbeddedFiles Include="$(GeneratedAssemblyInfoFile)"/>
-  </ItemGroup>
+
+  <!-- Enable coverlet analysis on deterministic builds: https://github.com/coverlet-coverage/coverlet/blob/master/Documentation/DeterministicBuild.md -->
   <ItemGroup>
     <SourceRoot Include="$(NuGetPackageRoot)" />
   </ItemGroup>
