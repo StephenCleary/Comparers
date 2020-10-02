@@ -1,6 +1,6 @@
 ![Logo](src/icon.png)
 
-# Comparers [![Build status](https://github.com/StephenCleary/Comparers/workflows/Build/badge.svg)](https://github.com/StephenCleary/Comparers/actions?query=workflow%3ABuild) [![codecov](https://codecov.io/gh/StephenCleary/Comparers/branch/master/graph/badge.svg)](https://codecov.io/gh/StephenCleary/Comparers) [![NuGet version](https://badge.fury.io/nu/Nito.Comparers.svg)](https://www.nuget.org/packages/Nito.Comparers) [![API docs](https://img.shields.io/badge/API-dotnetapis-blue.svg)](http://dotnetapis.com/pkg/Nito.Comparers)
+# Comparers [![Build status](https://github.com/StephenCleary/Comparers/workflows/Build/badge.svg)](https://github.com/StephenCleary/Comparers/actions?query=workflow%3ABuild) [![codecov](https://codecov.io/gh/StephenCleary/Comparers/branch/master/graph/badge.svg?token=udYUKiShLy)](https://codecov.io/gh/StephenCleary/Comparers) [![NuGet version](https://badge.fury.io/nu/Nito.Comparers.svg)](https://www.nuget.org/packages/Nito.Comparers) [![API docs](https://img.shields.io/badge/API-dotnetapis-blue.svg)](http://dotnetapis.com/pkg/Nito.Comparers)
 
 The last comparison library you'll ever need! Wide platform support; fluent syntax.
 
