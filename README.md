@@ -1,12 +1,8 @@
 ![Logo](src/icon.png)
 
-# Comparers
+# Comparers [![Build status](https://github.com/StephenCleary/Comparers/workflows/Build/badge.svg)](https://github.com/StephenCleary/Comparers/actions?query=workflow%3ABuild) [![codecov](https://codecov.io/gh/StephenCleary/Comparers/branch/master/graph/badge.svg)](https://codecov.io/gh/StephenCleary/Comparers) [![NuGet version](https://badge.fury.io/nu/Nito.Comparers.svg)](https://www.nuget.org/packages/Nito.Comparers) [![API docs](https://img.shields.io/badge/API-dotnetapis-blue.svg)](http://dotnetapis.com/pkg/Nito.Comparers)
 
 The last comparison library you'll ever need! Wide platform support; fluent syntax.
-
-[![NuGet](https://img.shields.io/nuget/v/Nito.Comparers.svg)](https://www.nuget.org/packages/Nito.Comparers/) [![netstandard 1.0](https://img.shields.io/badge/netstandard-1.0-brightgreen.svg)](https://docs.microsoft.com/en-us/dotnet/standard/net-standard) [![netstandard 2.0](https://img.shields.io/badge/netstandard-2.0-brightgreen.svg)](https://docs.microsoft.com/en-us/dotnet/standard/net-standard) [![Code Coverage](https://coveralls.io/repos/github/StephenCleary/Comparers/badge.svg?branch=master)](https://coveralls.io/github/StephenCleary/Comparers?branch=master) [![Build status](https://ci.appveyor.com/api/projects/status/58i9oeyduahs1p8h/branch/master?svg=true)](https://ci.appveyor.com/project/StephenCleary/comparers/branch/master)
-
-[![API docs](https://img.shields.io/badge/reference%20docs-api-blue.svg)](http://dotnetapis.com/pkg/Nito.Comparers)
 
 ## Creating Comparers
 
