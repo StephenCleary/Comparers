@@ -1,6 +1,7 @@
 <Project>
   <!--
-      Directory.Build.props v2.0
+      Directory.Build.props (src) v2.1
+      - 2.1 Specify LangVersion (required by Nullable for most libraries).
       - 2.0 Move project-specific properties to `project.props`.
       - 1.1 Remove workaround for .NET SDK bug that was necesary for coverlet to work.
       - 1.0 Initial release.
@@ -11,6 +12,7 @@
   <!-- Project quality settings -->
   <PropertyGroup>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
