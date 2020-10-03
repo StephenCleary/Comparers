@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using Nito.Comparers.Util;
 
 namespace Nito.Comparers
@@ -10,6 +11,8 @@ namespace Nito.Comparers
     /// <typeparam name="T">The type of objects being compared.</typeparam>
     public abstract class ComparableBase<T> : IEquatable<T>, IComparable, IComparable<T> where T : ComparableBase<T>
     {
+        static ComparableBase() => RuntimeHelpers.RunClassConstructor(typeof(T).TypeHandle);
+
         /// <summary>
         /// Gets the default comparer for this type.
         /// </summary>
