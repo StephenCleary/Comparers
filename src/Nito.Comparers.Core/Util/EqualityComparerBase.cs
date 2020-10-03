@@ -79,7 +79,7 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        public bool Equals([AllowNull] T x, [AllowNull] T y)
+        public bool Equals(T x, T y)
         {
             if (!SpecialNullHandling)
             {
@@ -91,7 +91,7 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        public int GetHashCode([AllowNull] T obj)
+        public int GetHashCode(T obj)
         {
             if (!SpecialNullHandling)
             {

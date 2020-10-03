@@ -60,7 +60,7 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        public int Compare([AllowNull] T x, [AllowNull] T y)
+        public int Compare(T x, T y)
         {
             if (!SpecialNullHandling)
             {
