@@ -8,7 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Nullable reference type support.
 
 ### Fixed
-- Static constructors for derived types are always invoked (so they set `DefaultComparer`), even if an instance is not ever created. #34
+- Static constructors for derived types are always invoked (so they set `DefaultComparer`), even if an instance is not ever created. [#34](https://github.com/StephenCleary/Comparers/issues/34)
 
 ### Changed
 - Hash algorithm is now Murmur3.
