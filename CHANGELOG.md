@@ -5,7 +5,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Added
 - `IFullComparer<string>.ToStringComparer` to easily create a `StringComparer` instance.
 - `FixedStringComparer` to provide `StringComparer` instances that do not throw on `null`.
-- Nullable reference type support.
+- Nullable reference type checking.
+- Added `AdvancedComparerBase<T>` and `AdvancedEqualityComparerBase<T>` for advanced scenarios.
 
 ### Fixed
 - Static constructors for derived types are always invoked (so they set `DefaultComparer`), even if an instance is not ever created. [#34](https://github.com/StephenCleary/Comparers/issues/34)
