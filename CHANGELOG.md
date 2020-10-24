@@ -1,7 +1,7 @@
 # Changelog
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [6.1.0] - 2020-10-24
 ### Added
 - `IFullComparer<string>.ToStringComparer` to easily create a `StringComparer` instance.
 - `FixedStringComparer` to provide `StringComparer` instances that do not throw on `null`.
