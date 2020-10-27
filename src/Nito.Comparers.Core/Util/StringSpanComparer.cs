@@ -7,24 +7,28 @@ using System.Text;
 
 namespace Nito.Comparers.Util
 {
+    /// <summary>
+    /// A type that can compare strings as well as read-only spans of characters.
+    /// </summary>
     public sealed class StringSpanComparer : IFullComparer<string>
     {
-        private readonly Func<CompareInfo> _getCompareInfo;
+        private readonly CompareInfo _compareInfo;
         private readonly CompareOptions _options;
 
-        public StringSpanComparer(Func<CompareInfo> getCompareInfo, CompareOptions options)
+        /// <summary>
+        /// Creates a new instance using the specified compare info and options.
+        /// </summary>
+        public StringSpanComparer(CompareInfo compareInfo, CompareOptions options)
         {
-            _getCompareInfo = getCompareInfo;
+            _compareInfo = compareInfo;
             _options = options;
         }
 
-        public StringSpanComparer(CompareInfo compareInfo, CompareOptions options)
-            : this(() => compareInfo, options)
-        {
-        }
-
+        /// <summary>
+        /// Creates a new instance using the specified string comparison.
+        /// </summary>
         public StringSpanComparer(StringComparison comparison)
-            : this(() => GetCompareInfo(comparison), GetCompareOptions(comparison))
+            : this(GetCompareInfo(comparison), GetCompareOptions(comparison))
         {
         }
 
@@ -56,30 +60,36 @@ namespace Nito.Comparers.Util
             };
         }
 
-        public int Compare(ReadOnlySpan<char> x, ReadOnlySpan<char> y) => _getCompareInfo().Compare(x, y, _options);
+        /// <summary>
+        /// Compares two read-only spans of characters as though they were strings.
+        /// </summary>
+        public int Compare(ReadOnlySpan<char> x, ReadOnlySpan<char> y) => _compareInfo.Compare(x, y, _options);
 
+        /// <summary>
+        /// Determines whether two read-only spans of characters are equal, as though they were strings.
+        /// </summary>
         public bool Equals(ReadOnlySpan<char> x, ReadOnlySpan<char> y) => Compare(x, y) == 0;
 
-        public int GetHashCode(ReadOnlySpan<char> obj) => _getCompareInfo().GetHashCode(obj, _options);
+        /// <summary>
+        /// Gets a hash code for a read-only span of characters, as though it were a string.
+        /// </summary>
+        public int GetHashCode(ReadOnlySpan<char> obj) => _compareInfo.GetHashCode(obj, _options);
 
+        /// <inheritdoc />
         public int Compare(string? x, string? y)
         {
             throw new NotImplementedException();
         }
 
-        public bool Equals(string? x, string? y)
-        {
-            throw new NotImplementedException();
-        }
+        /// <inheritdoc />
+        public bool Equals(string? x, string? y) => EqualityComparerHelpers.ImplementEquals(x, y, false, DoEquals!);
 
         private bool DoEquals(string x, string y) => Equals(x.AsSpan(), y.AsSpan());
 
-        public int GetHashCode(string? obj)
-        {
-            throw new NotImplementedException();
-        }
+        /// <inheritdoc />
+        public int GetHashCode(string? obj) => EqualityComparerHelpers.ImplementGetHashCode(obj, false, DoGetHashCode!);
 
-        private bool DoGetHashCode(string obj) => GetHashCode(obj.AsSpan());
+        private int DoGetHashCode(string obj) => GetHashCode(obj.AsSpan());
 
         int IComparer.Compare(object? x, object? y)
         {

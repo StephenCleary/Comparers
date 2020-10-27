@@ -20,6 +20,8 @@ namespace Nito.Comparers.Internals
         /// <param name="comparison">The string comparison to use for the text segments.</param>
         public static int GetHashCode(string obj, StringComparison comparison)
         {
+            _ = obj ?? throw new ArgumentNullException(nameof(obj));
+
             int index = 0;
             var result = Murmur3Hash.Create();
             while (index < obj.Length)
@@ -92,6 +94,9 @@ namespace Nito.Comparers.Internals
         /// <param name="comparison">The string comparison to use for the text segments.</param>
         public static int Compare(string x, string y, StringComparison comparison)
         {
+            _ = x ?? throw new ArgumentNullException(nameof(x));
+            _ = y ?? throw new ArgumentNullException(nameof(y));
+
             int xIndex = 0, yIndex = 0;
             while (xIndex < x.Length && yIndex < y.Length)
             {
