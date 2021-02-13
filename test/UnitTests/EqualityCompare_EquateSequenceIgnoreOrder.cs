@@ -220,6 +220,23 @@ namespace UnitTests
         }
 
         [Fact]
+        public void SequenceHandlesNull()
+        {
+            var comparer = EqualityComparerBuilder.For<int?>().Default().EquateSequence(ignoreOrder: true);
+            Assert.True(comparer.Equals(new int?[] { 3, null }, new int?[] { null, 3 }));
+            Assert.Equal(comparer.GetHashCode(new int?[] { 3, null }), comparer.GetHashCode(new int?[] { null, 3 }));
+        }
+
+        [Fact]
+        public void SequenceHandlesNullInEquivalenceClass()
+        {
+            var comparer = EqualityComparerBuilder.For<int?>().EquateBy(x => x ?? 0, specialNullHandling: true).EquateSequence(ignoreOrder: true);
+            Assert.True(comparer.Equals(new int?[] { 3, null }, new int?[] { 0, 3 }));
+            Assert.True(comparer.Equals(new int?[] { null, 3 }, new int?[] { 3, 0 }));
+            Assert.Equal(comparer.GetHashCode(new int?[] { 3, null }), comparer.GetHashCode(new int?[] { 0, 3 }));
+        }
+
+        [Fact]
         public void NullIsNotEqualToEmpty()
         {
             Assert.False(EqualityComparerBuilder.For<int>().Default().EquateSequence(ignoreOrder: true).Equals(null, Enumerable.Empty<int>()));
