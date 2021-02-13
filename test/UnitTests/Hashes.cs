@@ -25,5 +25,26 @@ namespace UnitTests
             var objectHash = comparer.GetHashCode(0);
             Assert.Equal(Murmur3Hash.Create().HashCode, objectHash);
         }
+
+        [Fact]
+        public void CommutativeHashCombiner_IsCommutative()
+        {
+            // This unit test assumes the GetHashCode of these two objects are different.
+            int value1 = 5;
+            int value2 = 7;
+            Assert.NotEqual(value1.GetHashCode(), value2.GetHashCode());
+
+            var hash1 = CommutativeHashCombiner.Create();
+            hash1.Combine(value1);
+            hash1.Combine(value2);
+            var result1 = hash1.HashCode;
+
+            var hash2 = CommutativeHashCombiner.Create();
+            hash2.Combine(value2);
+            hash2.Combine(value1);
+            var result2 = hash2.HashCode;
+
+            Assert.Equal(result1, result2);
+        }
     }
 }
