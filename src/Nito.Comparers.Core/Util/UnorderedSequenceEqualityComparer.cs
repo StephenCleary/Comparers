@@ -58,7 +58,7 @@ namespace Nito.Comparers.Util
                         {
                             // We have reached the end of both sequences simultaneously.
                             // They are equivalent if all equivalence class counts have canceled each other out.
-                            return equivalenceClassCounts.All(x => x.Value == 0);
+                            return equivalenceClassCounts.All(kvp => kvp.Value == 0);
                         }
 
                         return false;
@@ -68,22 +68,23 @@ namespace Nito.Comparers.Util
                         return false;
 
                     // If both items are equivalent, just skip the equivalence class counts.
-                    var ret = Source.Equals(xIter.Current, yIter.Current);
-                    if (ret)
+                    if (Source.Equals(xIter.Current, yIter.Current))
                         continue;
 
                     var xKey = new Wrapper { Value = xIter.Current };
                     var yKey = new Wrapper { Value = yIter.Current };
 
                     // Treat `x` as adding counts and `y` as subtracting counts; any counts not present are 0.
-                    if (equivalenceClassCounts.ContainsKey(xKey))
-                        ++equivalenceClassCounts[xKey];
+                    if (equivalenceClassCounts.TryGetValue(xKey, out var xValue))
+                        ++xValue;
                     else
-                        equivalenceClassCounts[xKey] = 1;
-                    if (equivalenceClassCounts.ContainsKey(yKey))
-                        --equivalenceClassCounts[yKey];
+                        xValue = 1;
+                    equivalenceClassCounts[xKey] = xValue;
+                    if (equivalenceClassCounts.TryGetValue(yKey, out var yValue))
+                        --yValue;
                     else
-                        equivalenceClassCounts[yKey] = -1;
+                        yValue = -1;
+                    equivalenceClassCounts[yKey] = yValue;
                 }
             }            
         }
