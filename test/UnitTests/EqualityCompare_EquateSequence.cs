@@ -174,6 +174,13 @@ namespace UnitTests
         }
 
         [Fact]
+        public void EnumerablesAreEqualIfEmpty()
+        {
+            Assert.True(EqualityComparerBuilder.For<int>().Default().EquateSequence(ignoreOrder: true).Equals(E_Empty(), E_Empty()));
+            Assert.Equal(EqualityComparerBuilder.For<int>().Default().EquateSequence(ignoreOrder: true).GetHashCode(E_Empty()), EqualityComparerBuilder.For<int>().Default().EquateSequence(ignoreOrder: true).GetHashCode(E_Empty()));
+        }
+
+        [Fact]
         public void EnumerablesAreEqualIfElementsAreEqual()
         {
             Assert.True(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(E_3_4(), E_3_4()));
@@ -208,6 +215,11 @@ namespace UnitTests
         {
             Assert.False(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(null, Enumerable.Empty<int>()));
             Assert.False(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(Enumerable.Empty<int>(), null));
+        }
+
+        private static IEnumerable<int> E_Empty()
+        {
+            yield break;
         }
 
         private static IEnumerable<int> E_3_4()
