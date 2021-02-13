@@ -180,6 +180,13 @@ namespace UnitTests
             Assert.True(EqualityComparerBuilder.For<int>().Default().EquateSequence(ignoreOrder: true).Equals(new[] { 3, 4, 5 }, new[] { 5, 4, 3 }));
             Assert.Equal(EqualityComparerBuilder.For<int>().Default().EquateSequence(ignoreOrder: true).GetHashCode(new[] { 3, 4 }), EqualityComparerBuilder.For<int>().Default().EquateSequence(ignoreOrder: true).GetHashCode(new[] { 4, 3 }));
         }
+        
+        [Fact]
+        public void SequencesAreEqualIfEmpty()
+        {
+            Assert.True(EqualityComparerBuilder.For<int>().Default().EquateSequence(ignoreOrder: true).Equals(Array.Empty<int>(), Array.Empty<int>()));
+            Assert.Equal(EqualityComparerBuilder.For<int>().Default().EquateSequence(ignoreOrder: true).GetHashCode(Array.Empty<int>()), EqualityComparerBuilder.For<int>().Default().EquateSequence(ignoreOrder: true).GetHashCode(Array.Empty<int>()));
+        }
 
         [Fact]
         public void EnumerablesAreEqualIfEmpty()

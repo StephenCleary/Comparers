@@ -174,10 +174,17 @@ namespace UnitTests
         }
 
         [Fact]
+        public void SequencesAreEqualIfEmpty()
+        {
+            Assert.True(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(Array.Empty<int>(), Array.Empty<int>()));
+            Assert.Equal(EqualityComparerBuilder.For<int>().Default().EquateSequence().GetHashCode(Array.Empty<int>()), EqualityComparerBuilder.For<int>().Default().EquateSequence().GetHashCode(Array.Empty<int>()));
+        }
+
+        [Fact]
         public void EnumerablesAreEqualIfEmpty()
         {
-            Assert.True(EqualityComparerBuilder.For<int>().Default().EquateSequence(ignoreOrder: true).Equals(E_Empty(), E_Empty()));
-            Assert.Equal(EqualityComparerBuilder.For<int>().Default().EquateSequence(ignoreOrder: true).GetHashCode(E_Empty()), EqualityComparerBuilder.For<int>().Default().EquateSequence(ignoreOrder: true).GetHashCode(E_Empty()));
+            Assert.True(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(E_Empty(), E_Empty()));
+            Assert.Equal(EqualityComparerBuilder.For<int>().Default().EquateSequence().GetHashCode(E_Empty()), EqualityComparerBuilder.For<int>().Default().EquateSequence().GetHashCode(E_Empty()));
         }
 
         [Fact]
