@@ -21,13 +21,10 @@ namespace Nito.Comparers.Util
         /// <inheritdoc />
         protected override int DoGetHashCode(IEnumerable<T> obj)
         {
-            unchecked
-            {
-                var ret = Murmur3Hash.Create();
-                foreach (var item in obj)
-                    ret.Combine(Source.GetHashCode(item!));
-                return ret.HashCode;
-            }
+            var ret = Murmur3Hash.Create();
+            foreach (var item in obj)
+                ret.Combine(Source.GetHashCode(item!));
+            return ret.HashCode;
         }
 
         /// <inheritdoc />
@@ -41,6 +38,8 @@ namespace Nito.Comparers.Util
                 {
                     if (xCount.Value != yCount.Value)
                         return false;
+                    if (xCount.Value == 0)
+                        return true;
                 }
             }
 

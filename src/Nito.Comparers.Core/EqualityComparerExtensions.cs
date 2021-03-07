@@ -53,12 +53,22 @@ namespace Nito.Comparers
         }
 
         /// <summary>
-        /// Returns an equality comparer that will perform a lexicographical ordering on a sequence of items.
+        /// Returns an equality comparer that will perform a lexicographical equality on a sequence of items.
+        /// This is the same as calling <see cref="EquateSequence{T}(System.Collections.Generic.IEqualityComparer{T}?,bool)"/> with <c>ignoreOrder</c> set to <c>false</c>.
         /// </summary>
         /// <typeparam name="T">The type of sequence elements being compared.</typeparam>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
-        /// <returns>A comparer that will perform a lexicographical ordering on a sequence of items.</returns>
-        public static IFullEqualityComparer<IEnumerable<T>> EquateSequence<T>(this IEqualityComparer<T>? source) =>
-            new SequenceEqualityComparer<T>(source);
+        /// <returns>A comparer that will perform a lexicographical equality on a sequence of items.</returns>
+        public static IFullEqualityComparer<IEnumerable<T>> EquateSequence<T>(this IEqualityComparer<T>? source) => source.EquateSequence(ignoreOrder: false);
+
+        /// <summary>
+        /// Returns an equality comparer that will perform a lexicographical or unordered equality on a sequence of items.
+        /// </summary>
+        /// <typeparam name="T">The type of sequence elements being compared.</typeparam>
+        /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
+        /// <param name="ignoreOrder">Whether the sequences will be equated ignoring order.</param>
+        /// <returns>A comparer that will perform an equality on a sequence of items.</returns>
+        public static IFullEqualityComparer<IEnumerable<T>> EquateSequence<T>(this IEqualityComparer<T>? source, bool ignoreOrder) =>
+            ignoreOrder ? new UnorderedSequenceEqualityComparer<T>(source) : new SequenceEqualityComparer<T>(source);
     }
 }

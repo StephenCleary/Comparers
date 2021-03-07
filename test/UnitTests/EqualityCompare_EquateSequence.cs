@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Nito.Comparers;
 using Xunit;
-using System.Globalization;
 
 namespace UnitTests
 {
@@ -175,6 +174,20 @@ namespace UnitTests
         }
 
         [Fact]
+        public void SequencesAreEqualIfEmpty()
+        {
+            Assert.True(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(Array.Empty<int>(), Array.Empty<int>()));
+            Assert.Equal(EqualityComparerBuilder.For<int>().Default().EquateSequence().GetHashCode(Array.Empty<int>()), EqualityComparerBuilder.For<int>().Default().EquateSequence().GetHashCode(Array.Empty<int>()));
+        }
+
+        [Fact]
+        public void EnumerablesAreEqualIfEmpty()
+        {
+            Assert.True(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(E_Empty(), E_Empty()));
+            Assert.Equal(EqualityComparerBuilder.For<int>().Default().EquateSequence().GetHashCode(E_Empty()), EqualityComparerBuilder.For<int>().Default().EquateSequence().GetHashCode(E_Empty()));
+        }
+
+        [Fact]
         public void EnumerablesAreEqualIfElementsAreEqual()
         {
             Assert.True(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(E_3_4(), E_3_4()));
@@ -209,6 +222,11 @@ namespace UnitTests
         {
             Assert.False(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(null, Enumerable.Empty<int>()));
             Assert.False(EqualityComparerBuilder.For<int>().Default().EquateSequence().Equals(Enumerable.Empty<int>(), null));
+        }
+
+        private static IEnumerable<int> E_Empty()
+        {
+            yield break;
         }
 
         private static IEnumerable<int> E_3_4()

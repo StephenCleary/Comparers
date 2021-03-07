@@ -23,7 +23,7 @@ For equality comparers, use `ThenEquateBy`. There is no notion of "descending" f
 
 `Sequence` converts an `IComparer<T>` into an `IComparer<IEnumerable<T>>` by using lexicographical sorting.
 
-For equality comparers, use `EquateSequence`.
+For equality comparers, use `EquateSequence`. `EquateSequence` by default uses lexicographical equality, but it also takes an optional argument to ignore the order of elements when equating the sequence. Ignoring element order does introduce overhead.
 
 # Fixing Incomplete Comparers
 
