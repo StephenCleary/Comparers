@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Nito.Comparers.Util
 {
@@ -77,7 +78,7 @@ namespace Nito.Comparers.Util
         /// <param name="equalityComparer">The comparer. May not be <c>null</c>.</param>
         /// <param name="left">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <param name="right">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
-        public static bool ImplementOpEquality<T>(IEqualityComparer<T> equalityComparer, T left, T right)
+        public static bool ImplementOpEquality<T>(IEqualityComparer<T> equalityComparer, [MaybeNull] T left, [MaybeNull] T right)
         {
             _ = equalityComparer ?? throw new ArgumentNullException(nameof(equalityComparer));
             return equalityComparer.Equals(left, right);
@@ -90,7 +91,7 @@ namespace Nito.Comparers.Util
         /// <param name="equalityComparer">The comparer. May not be <c>null</c>.</param>
         /// <param name="left">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <param name="right">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
-        public static bool ImplementOpInequality<T>(IEqualityComparer<T> equalityComparer, T left, T right)
+        public static bool ImplementOpInequality<T>(IEqualityComparer<T> equalityComparer, [MaybeNull] T left, [MaybeNull] T right)
         {
             _ = equalityComparer ?? throw new ArgumentNullException(nameof(equalityComparer));
             return !equalityComparer.Equals(left, right);
@@ -103,7 +104,7 @@ namespace Nito.Comparers.Util
         /// <param name="comparer">The comparer. May not be <c>null</c>.</param>
         /// <param name="left">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <param name="right">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
-        public static bool ImplementOpLessThan<T>(IComparer<T> comparer, T left, T right)
+        public static bool ImplementOpLessThan<T>(IComparer<T> comparer, [MaybeNull] T left, [MaybeNull] T right)
         {
             _ = comparer ?? throw new ArgumentNullException(nameof(comparer));
             return comparer.Compare(left, right) < 0;
@@ -116,7 +117,7 @@ namespace Nito.Comparers.Util
         /// <param name="comparer">The comparer. May not be <c>null</c>.</param>
         /// <param name="left">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <param name="right">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
-        public static bool ImplementOpGreaterThan<T>(IComparer<T> comparer, T left, T right)
+        public static bool ImplementOpGreaterThan<T>(IComparer<T> comparer, [MaybeNull] T left, [MaybeNull] T right)
         {
             _ = comparer ?? throw new ArgumentNullException(nameof(comparer));
             return comparer.Compare(left, right) > 0;
@@ -129,7 +130,7 @@ namespace Nito.Comparers.Util
         /// <param name="comparer">The comparer. May not be <c>null</c>.</param>
         /// <param name="left">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <param name="right">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
-        public static bool ImplementOpLessThanOrEqual<T>(IComparer<T> comparer, T left, T right)
+        public static bool ImplementOpLessThanOrEqual<T>(IComparer<T> comparer, [MaybeNull] T left, [MaybeNull] T right)
         {
             _ = comparer ?? throw new ArgumentNullException(nameof(comparer));
             return comparer.Compare(left, right) <= 0;
@@ -142,7 +143,7 @@ namespace Nito.Comparers.Util
         /// <param name="comparer">The comparer. May not be <c>null</c>.</param>
         /// <param name="left">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <param name="right">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
-        public static bool ImplementOpGreaterThanOrEqual<T>(IComparer<T> comparer, T left, T right)
+        public static bool ImplementOpGreaterThanOrEqual<T>(IComparer<T> comparer, [MaybeNull] T left, [MaybeNull] T right)
         {
             _ = comparer ?? throw new ArgumentNullException(nameof(comparer));
             return comparer.Compare(left, right) >= 0;
