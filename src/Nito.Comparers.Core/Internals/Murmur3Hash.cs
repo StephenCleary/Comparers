@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-#if !NET45 && !NETCOREAPP2_0 && !NETSTANDARD1_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1
+#if !NET461 && !NETCOREAPP2_0 && !NETSTANDARD1_0 && !NETSTANDARD2_0 && !NETSTANDARD2_1
 using static System.Numerics.BitOperations;
 #endif
 
@@ -69,7 +69,7 @@ namespace Nito.Comparers.Internals
             }
         }
 
-#if NET45 || NETCOREAPP2_0 || NETSTANDARD1_0 || NETSTANDARD2_0 || NETSTANDARD2_1
+#if NET461 || NETCOREAPP2_0 || NETSTANDARD1_0 || NETSTANDARD2_0 || NETSTANDARD2_1
         private static uint RotateLeft(uint value, int bits) => (value << bits) | (value >> (32 - bits));
 #endif
     }
