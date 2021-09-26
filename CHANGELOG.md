@@ -1,6 +1,14 @@
 # Changelog
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.2.2] - 2021-09-25
+### Changed
+- Bump Rx and Ix dependencies.
+
+## [6.2.1] - 2021-09-25
+### Fixed
+- Explicity support net461 so that shim dlls are not required on that platform.
+
 ## [6.1.0] - 2020-10-24
 ### Added
 - `IFullComparer<string>.ToStringComparer` to easily create a `StringComparer` instance.
