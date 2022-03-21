@@ -14,15 +14,17 @@ namespace Nito.Comparers.Internals
     public static class NaturalStringComparison
     {
         private static readonly char[] Digits = new[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+        private static Func<string, int, int, int> OrdinalStringGetHashCode = GetSubstringGetHashCode(StringComparison.Ordinal);
 
         /// <summary>
         /// Gets a hash code for the specified string, using the specified string comparison for the text segments.
         /// </summary>
         /// <param name="obj">The string to calculate the hash value of. May not be <c>null</c>.</param>
-        /// <param name="comparison">The string comparison to use for the text segments.</param>
-        public static int GetHashCode(string obj, StringComparison comparison)
+        /// <param name="substringGetHashCode">The string delegate used to get the hash code of the text segments (not used for numeric segments).</param>
+        public static int GetHashCode(string obj, Func<string, int, int, int> substringGetHashCode)
         {
             _ = obj ?? throw new ArgumentNullException(nameof(obj));
+            _ = substringGetHashCode ?? throw new ArgumentNullException(nameof(substringGetHashCode));
 
             int index = 0;
             var result = Murmur3Hash.Create();
@@ -32,13 +34,8 @@ namespace Nito.Comparers.Internals
                 NextSegment(obj, ref start, out var end, out var isNumeric);
                 
                 // Note that leading zeros have been stripped from the range [start, end), so an ordinal comparison is sufficient to detect numeric equality.
-                var segmentComparison = isNumeric ? StringComparison.Ordinal : comparison;
-
-#if NETSTANDARD1_0 || NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP2_0 || NET461
-                var segmentHashCode = TryGetComparer(segmentComparison)?.GetHashCode(obj.Substring(start, end - start)) ?? 0;
-#else
-                var segmentHashCode = string.GetHashCode(obj.AsSpan(start, end - start), segmentComparison);
-#endif
+                var segmentGetHashCode = isNumeric ? OrdinalStringGetHashCode : substringGetHashCode;
+                var segmentHashCode = segmentGetHashCode(obj, start, end - start);
 
                 result.Combine(segmentHashCode);
                 index = end;
@@ -47,57 +44,74 @@ namespace Nito.Comparers.Internals
             return result.HashCode;
         }
 
-        // Implementation map:
-        // .NET Core 3.0+ - This method is not defined. string.GetHashCode is used instead.
-        // .NET Standard 2.1+ - This method forwards to StringComparer.FromComparison.
-        // .NET Standard 2.0 - This method is a switch statement, supporting all StringComparison values.
-        // .NET Standard 1.0-1.6 - This method is a switch statement and does not support invariant cultures.
-        //   This can be a problem for Xamarin.Android 7.1, Xamarin.iOS 10.8, and Xamarin.Mac 3.0, all of which have invariant comparers but do not support .NET Standard 2.0.
-        //   The recommended solution on those platforms is "upgrade to a .NET Standard 2.0-compatible version".
-        // .NET Core 2.0-2.2 - This method forwards to StringComparer.FromComparison.
-        // .NET Framework 4.6.1+ - This method is a switch statement, supporting all StringComparison values.
+        /// <summary>
+        /// Returns a delegate that performs a substring hash code using the specified comparision type.
+        /// </summary>
+        /// <param name="stringComparison">The comparison type used by the returned delegate.</param>
+        public static Func<string, int, int, int> GetSubstringGetHashCode(StringComparison stringComparison)
+        {
+#if NETSTANDARD1_0 || NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP2_0 || NET461
+            var comparer = TryGetComparer(stringComparison);
+            if (comparer == null)
+                return (str, offset, length) => 0;
+            return (str, offset, length) => comparer.GetHashCode(str.Substring(offset, length));
+#else
+            return (str, offset, length) => string.GetHashCode(str.AsSpan(offset, length), stringComparison);
+#endif
+
+            // Implementation map:
+            // .NET Core 3.0+ - This method is not defined. string.GetHashCode is used instead.
+            // .NET Standard 2.1+ - This method forwards to StringComparer.FromComparison.
+            // .NET Standard 2.0 - This method is a switch statement, supporting all StringComparison values.
+            // .NET Standard 1.0-1.6 - This method is a switch statement and does not support invariant cultures.
+            //   This can be a problem for Xamarin.Android 7.1, Xamarin.iOS 10.8, and Xamarin.Mac 3.0, all of which have invariant comparers but do not support .NET Standard 2.0.
+            //   The recommended solution on those platforms is "upgrade to a .NET Standard 2.0-compatible version".
+            // .NET Core 2.0-2.2 - This method forwards to StringComparer.FromComparison.
+            // .NET Framework 4.6.1+ - This method is a switch statement, supporting all StringComparison values.
 #if NETSTANDARD1_0 || NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP2_0 || NET461
 #if !NETSTANDARD1_0 && !NETSTANDARD2_0 && !NET461
-        private static StringComparer? TryGetComparer(StringComparison comparison)
-        {
-            try
+            static StringComparer? TryGetComparer(StringComparison comparison)
             {
-                return StringComparer.FromComparison(comparison);
+                try
+                {
+                    return StringComparer.FromComparison(comparison);
+                }
+                catch (ArgumentException)
+                {
+                    return null;
+                }
             }
-            catch (ArgumentException)
-            {
-                return null;
-            }
-        }
 #else
-        private static StringComparer? TryGetComparer(StringComparison comparison)
-        {
-            return comparison switch
+            static StringComparer? TryGetComparer(StringComparison comparison)
             {
-                StringComparison.Ordinal => StringComparer.Ordinal,
-                StringComparison.OrdinalIgnoreCase => StringComparer.OrdinalIgnoreCase,
-                StringComparison.CurrentCulture => StringComparer.CurrentCulture,
-                StringComparison.CurrentCultureIgnoreCase => StringComparer.CurrentCultureIgnoreCase,
+                return comparison switch
+                {
+                    StringComparison.Ordinal => StringComparer.Ordinal,
+                    StringComparison.OrdinalIgnoreCase => StringComparer.OrdinalIgnoreCase,
+                    StringComparison.CurrentCulture => StringComparer.CurrentCulture,
+                    StringComparison.CurrentCultureIgnoreCase => StringComparer.CurrentCultureIgnoreCase,
 #if !NETSTANDARD1_0
-                StringComparison.InvariantCulture => StringComparer.InvariantCulture,
-                StringComparison.InvariantCultureIgnoreCase => StringComparer.InvariantCultureIgnoreCase,
+                    StringComparison.InvariantCulture => StringComparer.InvariantCulture,
+                    StringComparison.InvariantCultureIgnoreCase => StringComparer.InvariantCultureIgnoreCase,
 #endif
-                _ => null,
-            };
+                    _ => null,
+                };
+            }
+#endif
+#endif
         }
-#endif
-#endif
 
         /// <summary>
         /// Compares the specified strings, using the specified string comparison for the text segments.
         /// </summary>
         /// <param name="x">The first string to compare. May not be <c>null</c>.</param>
         /// <param name="y">The first string to compare. May not be <c>null</c>.</param>
-        /// <param name="comparison">The string comparison to use for the text segments.</param>
-        public static int Compare(string x, string y, StringComparison comparison)
+        /// <param name="substringCompare">The string delegate used to compare the text segments (not used for numeric segments).</param>
+        public static int Compare(string x, string y, Func<string, int, int, string, int, int, int> substringCompare)
         {
             _ = x ?? throw new ArgumentNullException(nameof(x));
             _ = y ?? throw new ArgumentNullException(nameof(y));
+            _ = substringCompare ?? throw new ArgumentNullException(nameof(substringCompare));
 
             int xIndex = 0, yIndex = 0;
             while (xIndex < x.Length && yIndex < y.Length)
@@ -122,7 +136,7 @@ namespace Nito.Comparers.Internals
                 {
                     var xLength = xEnd - xStart;
                     var yLength = yEnd - yStart;
-                    var compareResult = Compare(x, xStart, xLength, y, yStart, yLength, comparison);
+                    var compareResult = substringCompare(x, xStart, xLength, y, yStart, yLength);
                     if (compareResult != 0)
                         return compareResult;
                     var lengthCompare = xLength - yLength;
@@ -149,18 +163,22 @@ namespace Nito.Comparers.Internals
             return 0;
         }
 
-        private static int Compare(string strA, int indexA, int lengthA, string strB, int indexB, int lengthB, StringComparison comparisonType)
+        /// <summary>
+        /// Returns a delegate that performs a substring comparison using the specified comparision type.
+        /// </summary>
+        /// <param name="stringComparison">The comparison type used by the returned delegate.</param>
+        public static Func<string, int, int, string, int, int, int> GetSubstringCompare(StringComparison stringComparison)
         {
             // Blatantly stolen from https://dogmamix.com/cms/blog/Finding-substrings
-            return comparisonType switch
+            return stringComparison switch
             {
-                StringComparison.CurrentCulture => CultureInfo.CurrentCulture.CompareInfo.Compare(strA, indexA, lengthA, strB, indexB, lengthB, CompareOptions.None),
-                StringComparison.CurrentCultureIgnoreCase => CultureInfo.CurrentCulture.CompareInfo.Compare(strA, indexA, lengthA, strB, indexB, lengthB, CompareOptions.IgnoreCase),
-                (StringComparison)2 /* InvariantCulture */ => CultureInfo.InvariantCulture.CompareInfo.Compare(strA, indexA, lengthA, strB, indexB, lengthB, CompareOptions.None),
-                (StringComparison)3 /* InvariantCultureIgnoreCase */ => CultureInfo.InvariantCulture.CompareInfo.Compare(strA, indexA, lengthA, strB, indexB, lengthB, CompareOptions.IgnoreCase),
-                StringComparison.Ordinal => CultureInfo.InvariantCulture.CompareInfo.Compare(strA, indexA, lengthA, strB, indexB, lengthB, CompareOptions.Ordinal),
-                StringComparison.OrdinalIgnoreCase => CultureInfo.InvariantCulture.CompareInfo.Compare(strA, indexA, lengthA, strB, indexB, lengthB, CompareOptions.OrdinalIgnoreCase),
-                _ => throw new ArgumentException($"The string comparison type {comparisonType} is not supported.", nameof(comparisonType)),
+                StringComparison.CurrentCulture => (strA, indexA, lengthA, strB, indexB, lengthB) => CultureInfo.CurrentCulture.CompareInfo.Compare(strA, indexA, lengthA, strB, indexB, lengthB, CompareOptions.None),
+                StringComparison.CurrentCultureIgnoreCase => (strA, indexA, lengthA, strB, indexB, lengthB) => CultureInfo.CurrentCulture.CompareInfo.Compare(strA, indexA, lengthA, strB, indexB, lengthB, CompareOptions.IgnoreCase),
+                (StringComparison)2 /* InvariantCulture */ => (strA, indexA, lengthA, strB, indexB, lengthB) => CultureInfo.InvariantCulture.CompareInfo.Compare(strA, indexA, lengthA, strB, indexB, lengthB, CompareOptions.None),
+                (StringComparison)3 /* InvariantCultureIgnoreCase */ => (strA, indexA, lengthA, strB, indexB, lengthB) => CultureInfo.InvariantCulture.CompareInfo.Compare(strA, indexA, lengthA, strB, indexB, lengthB, CompareOptions.IgnoreCase),
+                StringComparison.Ordinal => (strA, indexA, lengthA, strB, indexB, lengthB) => CultureInfo.InvariantCulture.CompareInfo.Compare(strA, indexA, lengthA, strB, indexB, lengthB, CompareOptions.Ordinal),
+                StringComparison.OrdinalIgnoreCase => (strA, indexA, lengthA, strB, indexB, lengthB) => CultureInfo.InvariantCulture.CompareInfo.Compare(strA, indexA, lengthA, strB, indexB, lengthB, CompareOptions.OrdinalIgnoreCase),
+                _ => throw new ArgumentException($"The string comparison type {stringComparison} is not supported.", nameof(stringComparison)),
             };
         }
 
