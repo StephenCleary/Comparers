@@ -17,10 +17,10 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        protected override int DoGetHashCode(string obj) => NaturalStringComparison.GetHashCode(obj, _comparison);
+        protected override int DoGetHashCode(string? obj) => NaturalStringComparison.GetHashCode(obj!, _comparison);
 
         /// <inheritdoc />
-        protected override int DoCompare(string x, string y) => NaturalStringComparison.Compare(x, y, _comparison);
+        protected override int DoCompare(string? x, string? y) => NaturalStringComparison.Compare(x!, y!, _comparison);
 
         /// <summary>
         /// Returns a short, human-readable description of the comparer. This is intended for debugging and not for other purposes.
