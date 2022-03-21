@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Nito.Comparers.Util;
 
+#pragma warning disable IDE0079
+#pragma warning disable IDE0060
+
 namespace Nito.Comparers
 {
     /// <summary>

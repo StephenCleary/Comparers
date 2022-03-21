@@ -30,25 +30,23 @@ namespace Nito.Comparers.Util
         /// <inheritdoc />
         protected override int DoCompare(IEnumerable<T>? x, IEnumerable<T>? y)
         {
-            using (var xIter = x!.GetEnumerator())
-            using (var yIter = y!.GetEnumerator())
+            using var xIter = x!.GetEnumerator();
+            using var yIter = y!.GetEnumerator();
+            while (true)
             {
-                while (true)
+                if (!xIter.MoveNext())
                 {
-                    if (!xIter.MoveNext())
-                    {
-                        if (!yIter.MoveNext())
-                            return 0;
-                        return -1;
-                    }
-
                     if (!yIter.MoveNext())
-                        return 1;
-
-                    var ret = Source.Compare(xIter.Current, yIter.Current);
-                    if (ret != 0)
-                        return ret;
+                        return 0;
+                    return -1;
                 }
+
+                if (!yIter.MoveNext())
+                    return 1;
+
+                var ret = Source.Compare(xIter.Current, yIter.Current);
+                if (ret != 0)
+                    return ret;
             }
         }
 

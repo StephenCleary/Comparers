@@ -1,8 +1,10 @@
-﻿using Nito.Comparers.Internals;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+
+#pragma warning disable IDE0079
+#pragma warning disable IDE0057
 
 namespace Nito.Comparers.Internals
 {
@@ -70,18 +72,18 @@ namespace Nito.Comparers.Internals
 #else
         private static StringComparer? TryGetComparer(StringComparison comparison)
         {
-            switch (comparison)
+            return comparison switch
             {
-                case StringComparison.Ordinal: return StringComparer.Ordinal;
-                case StringComparison.OrdinalIgnoreCase: return StringComparer.OrdinalIgnoreCase;
-                case StringComparison.CurrentCulture: return StringComparer.CurrentCulture;
-                case StringComparison.CurrentCultureIgnoreCase: return StringComparer.CurrentCultureIgnoreCase;
+                StringComparison.Ordinal => StringComparer.Ordinal,
+                StringComparison.OrdinalIgnoreCase => StringComparer.OrdinalIgnoreCase,
+                StringComparison.CurrentCulture => StringComparer.CurrentCulture,
+                StringComparison.CurrentCultureIgnoreCase => StringComparer.CurrentCultureIgnoreCase,
 #if !NETSTANDARD1_0
-                case StringComparison.InvariantCulture: return StringComparer.InvariantCulture;
-                case StringComparison.InvariantCultureIgnoreCase: return StringComparer.InvariantCultureIgnoreCase;
+                StringComparison.InvariantCulture => StringComparer.InvariantCulture,
+                StringComparison.InvariantCultureIgnoreCase => StringComparer.InvariantCultureIgnoreCase,
 #endif
-                default: return null;
-            }
+                _ => null,
+            };
         }
 #endif
 #endif
@@ -193,7 +195,7 @@ namespace Nito.Comparers.Internals
                 end = index;
             }
 
-            bool IsDigit(char ch) => ch >= '0' && ch <= '9';
+            static bool IsDigit(char ch) => ch >= '0' && ch <= '9';
         }
     }
 }

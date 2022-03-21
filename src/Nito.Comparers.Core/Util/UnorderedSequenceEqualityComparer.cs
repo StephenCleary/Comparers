@@ -47,46 +47,44 @@ namespace Nito.Comparers.Util
 
             var equivalenceClassCounts = new Dictionary<Wrapper, int>(EqualityComparerBuilder.For<Wrapper>().EquateBy(w => w.Value, Source));
 
-            using (var xIter = x!.GetEnumerator())
-            using (var yIter = y!.GetEnumerator())
+            using var xIter = x!.GetEnumerator();
+            using var yIter = y!.GetEnumerator();
+            while (true)
             {
-                while (true)
+                if (!xIter.MoveNext())
                 {
-                    if (!xIter.MoveNext())
+                    if (!yIter.MoveNext())
                     {
-                        if (!yIter.MoveNext())
-                        {
-                            // We have reached the end of both sequences simultaneously.
-                            // They are equivalent if all equivalence class counts have canceled each other out.
-                            return equivalenceClassCounts.All(kvp => kvp.Value == 0);
-                        }
-
-                        return false;
+                        // We have reached the end of both sequences simultaneously.
+                        // They are equivalent if all equivalence class counts have canceled each other out.
+                        return equivalenceClassCounts.All(kvp => kvp.Value == 0);
                     }
 
-                    if (!yIter.MoveNext())
-                        return false;
-
-                    // If both items are equivalent, just skip the equivalence class counts.
-                    if (Source.Equals(xIter.Current, yIter.Current))
-                        continue;
-
-                    var xKey = new Wrapper { Value = xIter.Current };
-                    var yKey = new Wrapper { Value = yIter.Current };
-
-                    // Treat `x` as adding counts and `y` as subtracting counts; any counts not present are 0.
-                    if (equivalenceClassCounts.TryGetValue(xKey, out var xValue))
-                        ++xValue;
-                    else
-                        xValue = 1;
-                    equivalenceClassCounts[xKey] = xValue;
-                    if (equivalenceClassCounts.TryGetValue(yKey, out var yValue))
-                        --yValue;
-                    else
-                        yValue = -1;
-                    equivalenceClassCounts[yKey] = yValue;
+                    return false;
                 }
-            }            
+
+                if (!yIter.MoveNext())
+                    return false;
+
+                // If both items are equivalent, just skip the equivalence class counts.
+                if (Source.Equals(xIter.Current, yIter.Current))
+                    continue;
+
+                var xKey = new Wrapper { Value = xIter.Current };
+                var yKey = new Wrapper { Value = yIter.Current };
+
+                // Treat `x` as adding counts and `y` as subtracting counts; any counts not present are 0.
+                if (equivalenceClassCounts.TryGetValue(xKey, out var xValue))
+                    ++xValue;
+                else
+                    xValue = 1;
+                equivalenceClassCounts[xKey] = xValue;
+                if (equivalenceClassCounts.TryGetValue(yKey, out var yValue))
+                    --yValue;
+                else
+                    yValue = -1;
+                equivalenceClassCounts[yKey] = yValue;
+            }
         }
 
         /// <summary>

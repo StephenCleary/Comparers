@@ -43,26 +43,24 @@ namespace Nito.Comparers.Util
                 }
             }
 
-            using (var xIter = x!.GetEnumerator())
-            using (var yIter = y!.GetEnumerator())
+            using var xIter = x!.GetEnumerator();
+            using var yIter = y!.GetEnumerator();
+            while (true)
             {
-                while (true)
+                if (!xIter.MoveNext())
                 {
-                    if (!xIter.MoveNext())
-                    {
-                        if (!yIter.MoveNext())
-                            return true;
-                        return false;
-                    }
-
                     if (!yIter.MoveNext())
-                        return false;
-
-                    var ret = Source.Equals(xIter.Current, yIter.Current);
-                    if (!ret)
-                        return false;
+                        return true;
+                    return false;
                 }
-            }            
+
+                if (!yIter.MoveNext())
+                    return false;
+
+                var ret = Source.Equals(xIter.Current, yIter.Current);
+                if (!ret)
+                    return false;
+            }
         }
 
         /// <summary>
