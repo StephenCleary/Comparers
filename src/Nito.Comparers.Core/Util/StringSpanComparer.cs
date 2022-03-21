@@ -84,12 +84,12 @@ namespace Nito.Comparers.Util
         /// <inheritdoc />
         public bool Equals(string? x, string? y) => EqualityComparerHelpers.ImplementEquals(x, y, false, DoEquals!);
 
-        private bool DoEquals(string x, string y) => Equals(x.AsSpan(), y.AsSpan());
+        private bool DoEquals(string? x, string? y) => Equals(x == null ? default : x.AsSpan(), y == null ? default : y.AsSpan());
 
         /// <inheritdoc />
         public int GetHashCode(string? obj) => EqualityComparerHelpers.ImplementGetHashCode(obj, false, DoGetHashCode!);
 
-        private int DoGetHashCode(string obj) => GetHashCode(obj.AsSpan());
+        private int DoGetHashCode(string? obj) => GetHashCode(obj == null ? default : obj.AsSpan());
 
         int IComparer.Compare(object? x, object? y)
         {
