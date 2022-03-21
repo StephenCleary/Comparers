@@ -26,19 +26,17 @@ namespace Nito.Comparers.Internals
             _ = obj ?? throw new ArgumentNullException(nameof(obj));
             _ = substringGetHashCode ?? throw new ArgumentNullException(nameof(substringGetHashCode));
 
-            int index = 0;
+            var parser = new SegmentParser(obj);
             var result = Murmur3Hash.Create();
-            while (index < obj.Length)
+            while (!parser.IsDone)
             {
-                var start = index;
-                NextSegment(obj, ref start, out var end, out var isNumeric);
+                parser.ParseNext();
                 
                 // Note that leading zeros have been stripped from the range [start, end), so an ordinal comparison is sufficient to detect numeric equality.
-                var segmentGetHashCode = isNumeric ? OrdinalStringGetHashCode : substringGetHashCode;
-                var segmentHashCode = segmentGetHashCode(obj, start, end - start);
+                var segmentGetHashCode = parser.IsNumeric ? OrdinalStringGetHashCode : substringGetHashCode;
+                var segmentHashCode = segmentGetHashCode(parser.Source, parser.Start, parser.Length);
 
                 result.Combine(segmentHashCode);
-                index = end;
             }
 
             return result.HashCode;
@@ -119,37 +117,36 @@ namespace Nito.Comparers.Internals
             _ = y ?? throw new ArgumentNullException(nameof(y));
             _ = substringCompare ?? throw new ArgumentNullException(nameof(substringCompare));
 
-            int xIndex = 0, yIndex = 0;
-            while (xIndex < x.Length && yIndex < y.Length)
+            var xParser = new SegmentParser(x);
+            var yParser = new SegmentParser(y);
+            while (!xParser.IsDone && !yParser.IsDone)
             {
-                var xStart = xIndex;
-                var yStart = yIndex;
-                NextSegment(x, ref xStart, out var xEnd, out var xIsNumeric);
-                NextSegment(y, ref yStart, out var yEnd, out var yIsNumeric);
-                if (xIsNumeric && yIsNumeric)
+                xParser.ParseNext();
+                yParser.ParseNext();
+                if (xParser.IsNumeric && yParser.IsNumeric)
                 {
-                    var xLength = xEnd - xStart;
-                    var yLength = yEnd - yStart;
+                    var xLength = xParser.Length;
+                    var yLength = yParser.Length;
                     if (xLength < yLength)
                         return -1;
                     else if (xLength > yLength)
                         return 1;
-                    var compareResult = string.Compare(x, xStart, y, yStart, xLength, StringComparison.Ordinal);
+                    var compareResult = string.Compare(xParser.Source, xParser.Start, yParser.Source, yParser.Start, xLength, StringComparison.Ordinal);
                     if (compareResult != 0)
                         return compareResult;
                 }
-                else if (!xIsNumeric && !yIsNumeric)
+                else if (!xParser.IsNumeric && !yParser.IsNumeric)
                 {
-                    var xLength = xEnd - xStart;
-                    var yLength = yEnd - yStart;
-                    var compareResult = substringCompare(x, xStart, xLength, y, yStart, yLength);
+                    var xLength = xParser.Length;
+                    var yLength = yParser.Length;
+                    var compareResult = substringCompare(xParser.Source, xParser.Start, xLength, yParser.Source, yParser.Start, yLength);
                     if (compareResult != 0)
                         return compareResult;
                     var lengthCompare = xLength - yLength;
                     if (lengthCompare != 0)
                         return lengthCompare;
                 }
-                else if (xIsNumeric)
+                else if (xParser.IsNumeric)
                 {
                     return -1;
                 }
@@ -157,15 +154,12 @@ namespace Nito.Comparers.Internals
                 {
                     return 1;
                 }
-
-                xIndex = xEnd;
-                yIndex = yEnd;
             }
 
-            if (xIndex < x.Length)
-                return 1;
-            if (yIndex > y.Length)
+            if (xParser.IsDone)
                 return -1;
+            if (yParser.IsDone)
+                return 1;
             return 0;
         }
 
@@ -188,38 +182,58 @@ namespace Nito.Comparers.Internals
             };
         }
 
-        private static void NextSegment(string source, ref int start, out int end, out bool isNumeric)
+        private ref struct SegmentParser
         {
-            // Prerequisite: index < source.Length
-            var index = start;
-            isNumeric = IsDigit(source[index++]);
-            if (isNumeric)
+            public SegmentParser(string source)
             {
-                // Skip leading zeros, but keep one if that's the only digit.
-                if (source[start] == '0')
+                Source = source;
+                Start = 0;
+                End = 0;
+                IsNumeric = false;
+            }
+
+            public string Source { get; }
+            public int Start { get; private set; }
+            public int End { get; private set; }
+            public int Length => End - Start;
+            public bool IsDone => End == Source.Length;
+            public bool IsNumeric { get; private set; }
+
+            public void ParseNext()
+            {
+                // Prerequisite: index < source.Length
+
+                Start = End;
+                var index = Start;
+                IsNumeric = IsDigit(Source[index++]);
+                if (IsNumeric)
                 {
-                    do
+                    // Skip leading zeros, but keep one if that's the only digit.
+                    if (Source[Start] == '0')
                     {
-                        ++start;
-                    } while (start < source.Length && source[start] == '0');
-                    if (start == source.Length || !IsDigit(source[start]))
-                        --start;
-                    index = start + 1;
+                        do
+                        {
+                            ++Start;
+                        } while (Start < Source.Length && Source[Start] == '0');
+                        if (Start == Source.Length || !IsDigit(Source[Start]))
+                            --Start;
+                        index = Start + 1;
+                    }
+
+                    while (index < Source.Length && IsDigit(Source[index]))
+                        ++index;
+                    End = index;
+                }
+                else
+                {
+                    index = Source.IndexOfAny(Digits, index);
+                    if (index == -1)
+                        index = Source.Length;
+                    End = index;
                 }
 
-                while (index < source.Length && IsDigit(source[index]))
-                    ++index;
-                end = index;
+                static bool IsDigit(char ch) => ch >= '0' && ch <= '9';
             }
-            else
-            {
-                index = source.IndexOfAny(Digits, index);
-                if (index == -1)
-                    index = source.Length;
-                end = index;
-            }
-
-            static bool IsDigit(char ch) => ch >= '0' && ch <= '9';
         }
     }
 }
