@@ -72,6 +72,7 @@ namespace Nito.Comparers.Internals
             //  .NET Standard 2.0 - This method is a switch statement, supporting all StringComparison values.
             //  .NET Standard 1.0-1.6 - This method is a switch statement and does not support invariant cultures.
             //    This can be a problem for Xamarin.Android 7.1, Xamarin.iOS 10.8, and Xamarin.Mac 3.0, all of which have invariant comparers but do not support .NET Standard 2.0.
+            //    This will cause tons of hash code collisions.
             //    The recommended solution on those platforms is "upgrade to a .NET Standard 2.0-compatible version".
 #if NETSTANDARD1_0 || NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP2_0 || NET45 || NET461
 #if !NETSTANDARD1_0 && !NETSTANDARD2_0 && !NET45 && !NET461

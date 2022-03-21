@@ -1,8 +1,6 @@
 ﻿using Nito.Comparers.Internals;
 using System;
 
-#pragma warning disable CA1812
-
 namespace Nito.Comparers.Util
 {
     /// <summary>

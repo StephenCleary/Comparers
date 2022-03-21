@@ -38,6 +38,13 @@ namespace Nito.Comparers
         public static IFullComparer<T> Default<T>(this ComparerBuilderFor<T> @this) => (IFullComparer<T>)ComparerHelpers.NormalizeDefault<T>(null);
 
         /// <summary>
+        /// Gets a natural string comparer, which treats numeric sequences (0-9) as numeric.
+        /// </summary>
+        /// <param name="this">The comparer builder.</param>
+        /// <param name="comparison">The comparison type used to compare the text segments of the string (not used for numeric segments).</param>
+        public static IFullComparer<string> Natural(this ComparerBuilderFor<string> @this, StringComparison comparison) => new NaturalStringComparer(comparison);
+
+        /// <summary>
         /// Creates a key comparer.
         /// </summary>
         /// <typeparam name="T">The type of object being compared.</typeparam>
