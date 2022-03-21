@@ -61,13 +61,13 @@ namespace Nito.Comparers.Internals
 
             // Implementation map:
             // .NET Core 3.0+ - This method is not defined. string.GetHashCode is used instead.
+            // .NET Core 2.0-2.2 - This method forwards to StringComparer.FromComparison.
+            // .NET Framework 4.6.1+ - This method is a switch statement, supporting all StringComparison values.
             // .NET Standard 2.1+ - This method forwards to StringComparer.FromComparison.
             // .NET Standard 2.0 - This method is a switch statement, supporting all StringComparison values.
             // .NET Standard 1.0-1.6 - This method is a switch statement and does not support invariant cultures.
             //   This can be a problem for Xamarin.Android 7.1, Xamarin.iOS 10.8, and Xamarin.Mac 3.0, all of which have invariant comparers but do not support .NET Standard 2.0.
             //   The recommended solution on those platforms is "upgrade to a .NET Standard 2.0-compatible version".
-            // .NET Core 2.0-2.2 - This method forwards to StringComparer.FromComparison.
-            // .NET Framework 4.6.1+ - This method is a switch statement, supporting all StringComparison values.
 #if NETSTANDARD1_0 || NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP2_0 || NET461
 #if !NETSTANDARD1_0 && !NETSTANDARD2_0 && !NET461
             static StringComparer? TryGetComparer(StringComparison comparison)
