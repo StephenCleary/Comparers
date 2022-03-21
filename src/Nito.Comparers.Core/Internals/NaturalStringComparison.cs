@@ -50,7 +50,7 @@ namespace Nito.Comparers.Internals
         /// <param name="stringComparison">The comparison type used by the returned delegate.</param>
         public static Func<string, int, int, int> GetSubstringGetHashCode(StringComparison stringComparison)
         {
-#if NETSTANDARD1_0 || NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP2_0 || NET461
+#if NETSTANDARD1_0 || NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP2_0 || NET45 || NET461
             var comparer = TryGetComparer(stringComparison);
             if (comparer == null)
                 return (str, offset, length) => 0;
@@ -59,17 +59,22 @@ namespace Nito.Comparers.Internals
             return (str, offset, length) => string.GetHashCode(str.AsSpan(offset, length), stringComparison);
 #endif
 
-            // Implementation map:
-            // .NET Core 3.0+ - This method is not defined. string.GetHashCode is used instead.
-            // .NET Core 2.0-2.2 - This method forwards to StringComparer.FromComparison.
-            // .NET Framework 4.6.1+ - This method is a switch statement, supporting all StringComparison values.
-            // .NET Standard 2.1+ - This method forwards to StringComparer.FromComparison.
-            // .NET Standard 2.0 - This method is a switch statement, supporting all StringComparison values.
-            // .NET Standard 1.0-1.6 - This method is a switch statement and does not support invariant cultures.
-            //   This can be a problem for Xamarin.Android 7.1, Xamarin.iOS 10.8, and Xamarin.Mac 3.0, all of which have invariant comparers but do not support .NET Standard 2.0.
-            //   The recommended solution on those platforms is "upgrade to a .NET Standard 2.0-compatible version".
-#if NETSTANDARD1_0 || NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP2_0 || NET461
-#if !NETSTANDARD1_0 && !NETSTANDARD2_0 && !NET461
+            // Implementations, in order of preference:
+            //  1) Use string.GetHashCode (.NET Core 3.0+).
+            //  2) Forward to StringComparer.FromComparison (.NET Core 2.0-2.2, .NET Standard 2.1+).
+            //  3) Use a switch statement that supports all StringComparison values (.NET Framework 4.5+, .NET Standard 2.0).
+            //  4) Use a switch statement that doesn't support the invariant culture (.NET Standard 1.0-1.6).
+            // By platform:
+            //  .NET Core 3.0+ - This method is not defined. string.GetHashCode is used instead.
+            //  .NET Core 2.0-2.2 - This method forwards to StringComparer.FromComparison.
+            //  .NET Framework 4.5+ - This method is a switch statement, supporting all StringComparison values.
+            //  .NET Standard 2.1+ - This method forwards to StringComparer.FromComparison.
+            //  .NET Standard 2.0 - This method is a switch statement, supporting all StringComparison values.
+            //  .NET Standard 1.0-1.6 - This method is a switch statement and does not support invariant cultures.
+            //    This can be a problem for Xamarin.Android 7.1, Xamarin.iOS 10.8, and Xamarin.Mac 3.0, all of which have invariant comparers but do not support .NET Standard 2.0.
+            //    The recommended solution on those platforms is "upgrade to a .NET Standard 2.0-compatible version".
+#if NETSTANDARD1_0 || NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP2_0 || NET45 || NET461
+#if !NETSTANDARD1_0 && !NETSTANDARD2_0 && !NET45 && !NET461
             static StringComparer? TryGetComparer(StringComparison comparison)
             {
                 try
