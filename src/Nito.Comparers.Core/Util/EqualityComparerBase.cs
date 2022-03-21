@@ -19,7 +19,7 @@ namespace Nito.Comparers.Util
         /// </summary>
         /// <param name="obj">The object for which to return a hash code. May be <c>null</c> if <see cref="SpecialNullHandling"/> is <c>true</c>.</param>
         /// <returns>A hash code for the specified object.</returns>
-        protected abstract int DoGetHashCode(T obj);
+        protected abstract int DoGetHashCode(T? obj);
 
         /// <summary>
         /// Compares two objects and returns <c>true</c> if they are equal and <c>false</c> if they are not equal.
@@ -27,7 +27,7 @@ namespace Nito.Comparers.Util
         /// <param name="x">The first object to compare. May be <c>null</c> if <see cref="SpecialNullHandling"/> is <c>true</c>.</param>
         /// <param name="y">The second object to compare. May be <c>null</c> if <see cref="SpecialNullHandling"/> is <c>true</c>.</param>
         /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise, <c>false</c>.</returns>
-        protected abstract bool DoEquals(T x, T y);
+        protected abstract bool DoEquals(T? x, T? y);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EqualityComparerBase{T}"/> class.
@@ -59,7 +59,7 @@ namespace Nito.Comparers.Util
                     return (x == null && y == null);
             }
 
-            return DoEquals((T)x!, (T)y!);
+            return DoEquals((T?)x, (T?)y);
         }
 
         /// <inheritdoc />
@@ -75,11 +75,11 @@ namespace Nito.Comparers.Util
             if (!objValid)
                 throw new ArgumentException("Invalid type for comparison.");
 
-            return DoGetHashCode((T)obj!);
+            return DoGetHashCode((T?)obj);
         }
 
         /// <inheritdoc />
-        public bool Equals(T x, T y)
+        public bool Equals(T? x, T? y)
         {
             if (!SpecialNullHandling)
             {
@@ -87,11 +87,11 @@ namespace Nito.Comparers.Util
                     return (x == null && y == null);
             }
 
-            return DoEquals(x!, y!);
+            return DoEquals(x, y);
         }
 
         /// <inheritdoc />
-        public int GetHashCode(T obj)
+        public int GetHashCode(T? obj)
         {
             if (!SpecialNullHandling)
             {
@@ -99,7 +99,7 @@ namespace Nito.Comparers.Util
                     return 0;
             }
 
-            return DoGetHashCode(obj!);
+            return DoGetHashCode(obj);
         }
     }
 }

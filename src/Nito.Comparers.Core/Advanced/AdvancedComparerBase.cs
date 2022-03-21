@@ -42,7 +42,7 @@ namespace Nito.Comparers.Advanced
         /// </summary>
         /// <param name="obj">The object for which to return a hash code. May be <c>null</c> if <see cref="SpecialNullHandling"/> is <c>true</c>.</param>
         /// <returns>A hash code for the specified object.</returns>
-        protected abstract int DoGetHashCode(T obj);
+        protected abstract int DoGetHashCode(T? obj);
 
         /// <summary>
         /// Compares two objects and returns a value less than 0 if <paramref name="x"/> is less than <paramref name="y"/>, 0 if <paramref name="x"/> is equal to <paramref name="y"/>, or greater than 0 if <paramref name="x"/> is greater than <paramref name="y"/>.
@@ -50,22 +50,22 @@ namespace Nito.Comparers.Advanced
         /// <param name="x">The first object to compare. May be <c>null</c> if <see cref="SpecialNullHandling"/> is <c>true</c>.</param>
         /// <param name="y">The second object to compare. May be <c>null</c> if <see cref="SpecialNullHandling"/> is <c>true</c>.</param>
         /// <returns>A value less than 0 if <paramref name="x"/> is less than <paramref name="y"/>, 0 if <paramref name="x"/> is equal to <paramref name="y"/>, or greater than 0 if <paramref name="x"/> is greater than <paramref name="y"/>.</returns>
-        protected abstract int DoCompare(T x, T y);
+        protected abstract int DoCompare(T? x, T? y);
 
         /// <inheritdoc />
-        public int Compare(T x, T y) => ((IComparer<T>)_implementation).Compare(x, y);
+        public int Compare(T? x, T? y) => ((IComparer<T>)_implementation).Compare(x!, y!);
 
         /// <inheritdoc />
-        public bool Equals(T x, T y) => ((IEqualityComparer<T>)_implementation).Equals(x, y);
+        public bool Equals(T? x, T? y) => ((IEqualityComparer<T>)_implementation).Equals(x!, y!);
 
         /// <inheritdoc />
-        public int GetHashCode(T obj) => ((IEqualityComparer<T>)_implementation).GetHashCode(obj);
+        public int GetHashCode(T? obj) => ((IEqualityComparer<T>)_implementation).GetHashCode(obj!);
 
-        int IComparer.Compare(object x, object y) => ((IComparer)_implementation).Compare(x, y);
+        int IComparer.Compare(object? x, object? y) => ((IComparer)_implementation).Compare(x, y);
 
-        bool IEqualityComparer.Equals(object x, object y) => ((IEqualityComparer)_implementation).Equals(x, y);
+        bool IEqualityComparer.Equals(object? x, object? y) => ((IEqualityComparer)_implementation).Equals(x, y);
 
-        int IEqualityComparer.GetHashCode(object obj) => ((IEqualityComparer)_implementation).GetHashCode(obj);
+        int IEqualityComparer.GetHashCode(object? obj) => ((IEqualityComparer)_implementation).GetHashCode(obj!);
 
         private sealed class Implementation : ComparerBase<T>
         {
@@ -79,9 +79,9 @@ namespace Nito.Comparers.Advanced
 
             public bool SpecialNullHandlingValue => SpecialNullHandling;
 
-            protected override int DoGetHashCode(T obj) => _parent.DoGetHashCode(obj);
+            protected override int DoGetHashCode(T? obj) => _parent.DoGetHashCode(obj);
 
-            protected override int DoCompare(T x, T y) => _parent.DoCompare(x, y);
+            protected override int DoCompare(T? x, T? y) => _parent.DoCompare(x, y);
         }
     }
 }

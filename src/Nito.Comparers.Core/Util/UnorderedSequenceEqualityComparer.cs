@@ -21,21 +21,21 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        protected override int DoGetHashCode(IEnumerable<T> obj)
+        protected override int DoGetHashCode(IEnumerable<T>? obj)
         {
             var ret = CommutativeHashCombiner.Create();
-            foreach (var item in obj)
+            foreach (var item in obj!)
                 ret.Combine(Source.GetHashCode(item!));
             return ret.HashCode;
         }
 
         /// <inheritdoc />
-        protected override bool DoEquals(IEnumerable<T> x, IEnumerable<T> y)
+        protected override bool DoEquals(IEnumerable<T>? x, IEnumerable<T>? y)
         {
-            var xCount = x.TryGetCount();
+            var xCount = x!.TryGetCount();
             if (xCount != null)
             {
-                var yCount = y.TryGetCount();
+                var yCount = y!.TryGetCount();
                 if (yCount != null)
                 {
                     if (xCount.Value != yCount.Value)
@@ -47,8 +47,8 @@ namespace Nito.Comparers.Util
 
             var equivalenceClassCounts = new Dictionary<Wrapper, int>(EqualityComparerBuilder.For<Wrapper>().EquateBy(w => w.Value, Source));
 
-            using (var xIter = x.GetEnumerator())
-            using (var yIter = y.GetEnumerator())
+            using (var xIter = x!.GetEnumerator())
+            using (var yIter = y!.GetEnumerator())
             {
                 while (true)
                 {

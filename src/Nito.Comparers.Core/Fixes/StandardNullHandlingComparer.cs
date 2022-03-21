@@ -20,10 +20,10 @@ namespace Nito.Comparers.Fixes
         }
 
         /// <inheritdoc />
-        protected override int DoCompare(T x, T y) => Source.Compare(x, y);
+        protected override int DoCompare(T? x, T? y) => Source.Compare(x!, y!);
 
         /// <inheritdoc />
-        protected override int DoGetHashCode(T obj) => SourceGetHashCode(obj);
+        protected override int DoGetHashCode(T? obj) => SourceGetHashCode(obj);
 
         /// <summary>
         /// Returns a short, human-readable description of the comparer. This is intended for debugging and not for other purposes.

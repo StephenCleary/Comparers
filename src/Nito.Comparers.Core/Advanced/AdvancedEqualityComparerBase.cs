@@ -42,7 +42,7 @@ namespace Nito.Comparers.Advanced
         /// </summary>
         /// <param name="obj">The object for which to return a hash code. May be <c>null</c> if <see cref="SpecialNullHandling"/> is <c>true</c>.</param>
         /// <returns>A hash code for the specified object.</returns>
-        protected abstract int DoGetHashCode(T obj);
+        protected abstract int DoGetHashCode(T? obj);
 
         /// <summary>
         /// Compares two objects and returns <c>true</c> if they are equal and <c>false</c> if they are not equal.
@@ -50,17 +50,17 @@ namespace Nito.Comparers.Advanced
         /// <param name="x">The first object to compare. May be <c>null</c> if <see cref="SpecialNullHandling"/> is <c>true</c>.</param>
         /// <param name="y">The second object to compare. May be <c>null</c> if <see cref="SpecialNullHandling"/> is <c>true</c>.</param>
         /// <returns><c>true</c> if <paramref name="x"/> is equal to <paramref name="y"/>; otherwise, <c>false</c>.</returns>
-        protected abstract bool DoEquals(T x, T y);
+        protected abstract bool DoEquals(T? x, T? y);
 
         /// <inheritdoc />
-        public bool Equals(T x, T y) => ((IEqualityComparer<T>)_implementation).Equals(x, y);
+        public bool Equals(T? x, T? y) => ((IEqualityComparer<T>)_implementation).Equals(x!, y!);
 
         /// <inheritdoc />
-        public int GetHashCode(T obj) => ((IEqualityComparer<T>)_implementation).GetHashCode(obj);
+        public int GetHashCode(T? obj) => ((IEqualityComparer<T>)_implementation).GetHashCode(obj!);
 
-        bool IEqualityComparer.Equals(object x, object y) => ((IEqualityComparer)_implementation).Equals(x, y);
+        bool IEqualityComparer.Equals(object? x, object? y) => ((IEqualityComparer)_implementation).Equals(x, y);
 
-        int IEqualityComparer.GetHashCode(object obj) => ((IEqualityComparer)_implementation).GetHashCode(obj);
+        int IEqualityComparer.GetHashCode(object? obj) => ((IEqualityComparer)_implementation).GetHashCode(obj!);
 
         private sealed class Implementation : EqualityComparerBase<T>
         {
@@ -74,9 +74,9 @@ namespace Nito.Comparers.Advanced
 
             public bool SpecialNullHandlingValue => SpecialNullHandling;
 
-            protected override int DoGetHashCode(T obj) => _parent.DoGetHashCode(obj);
+            protected override int DoGetHashCode(T? obj) => _parent.DoGetHashCode(obj);
 
-            protected override bool DoEquals(T x, T y) => _parent.DoEquals(x, y);
+            protected override bool DoEquals(T? x, T? y) => _parent.DoEquals(x, y);
         }
     }
 }

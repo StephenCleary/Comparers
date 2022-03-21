@@ -26,7 +26,7 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        protected override int DoGetHashCode(T obj)
+        protected override int DoGetHashCode(T? obj)
         {
             unchecked
             {
@@ -37,12 +37,12 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        protected override bool DoEquals(T x, T y)
+        protected override bool DoEquals(T? x, T? y)
         {
-            var ret = Source.Equals(x, y);
+            var ret = Source.Equals(x!, y!);
             if (!ret)
                 return false;
-            return _secondSource.Equals(x, y);
+            return _secondSource.Equals(x!, y!);
         }
 
         /// <summary>

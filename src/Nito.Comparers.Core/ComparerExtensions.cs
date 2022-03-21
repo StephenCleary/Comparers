@@ -39,7 +39,7 @@ namespace Nito.Comparers
         /// <param name="specialNullHandling">A value indicating whether <c>null</c> values are passed to <paramref name="selector"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <paramref name="selector"/>. This value is ignored if <typeparamref name="T"/> is a non-nullable type.</param>
         /// <param name="descending">A value indicating whether the sorting is done in descending order. If <c>false</c> (the default), then the sort is in ascending order.</param>
         /// <returns>A comparer that uses a key comparer if the source comparer determines the objects are equal.</returns>
-        public static IFullComparer<T> ThenBy<T, TKey>(this IComparer<T>? source, Func<T, TKey> selector, Func<ComparerBuilderFor<TKey>, IComparer<TKey>> comparerFactory, bool specialNullHandling = false, bool descending = false)
+        public static IFullComparer<T> ThenBy<T, TKey>(this IComparer<T>? source, Func<T?, TKey?> selector, Func<ComparerBuilderFor<TKey>, IComparer<TKey>> comparerFactory, bool specialNullHandling = false, bool descending = false)
         {
             _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(ComparerBuilder.For<TKey>());
@@ -57,7 +57,7 @@ namespace Nito.Comparers
         /// <param name="specialNullHandling">A value indicating whether <c>null</c> values are passed to <paramref name="selector"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <paramref name="selector"/>. This value is ignored if <typeparamref name="T"/> is a non-nullable type.</param>
         /// <param name="descending">A value indicating whether the sorting is done in descending order. If <c>false</c> (the default), then the sort is in ascending order.</param>
         /// <returns>A comparer that uses a key comparer if the source comparer determines the objects are equal.</returns>
-        public static IFullComparer<T> ThenBy<T, TKey>(this IComparer<T>? source, Func<T, TKey> selector, IComparer<TKey>? keyComparer = null, bool specialNullHandling = false, bool descending = false)
+        public static IFullComparer<T> ThenBy<T, TKey>(this IComparer<T>? source, Func<T?, TKey?> selector, IComparer<TKey>? keyComparer = null, bool specialNullHandling = false, bool descending = false)
         {
             var selectComparer = new SelectComparer<T, TKey>(selector, keyComparer, specialNullHandling);
             return source.ThenBy(selectComparer, descending);

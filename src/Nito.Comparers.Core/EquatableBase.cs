@@ -36,6 +36,6 @@ namespace Nito.Comparers
         /// </summary>
         /// <param name="other">The object to compare with this instance. May be <c>null</c>.</param>
         /// <returns>A value indicating whether this instance is equal to the specified object.</returns>
-        public bool Equals(T other) => ComparableImplementations.ImplementEquals(DefaultComparer, (T)this, other!);
+        public bool Equals(T? other) => ComparableImplementations.ImplementEquals(DefaultComparer, (T)this, other);
     }
 }
