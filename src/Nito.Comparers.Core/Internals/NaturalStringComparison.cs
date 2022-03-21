@@ -32,7 +32,7 @@ namespace Nito.Comparers.Internals
                 // Note that leading zeros have been stripped from the range [start, end), so an ordinal comparison is sufficient to detect numeric equality.
                 var segmentComparison = isNumeric ? StringComparison.Ordinal : comparison;
 
-#if NETSTANDARD1_0 || NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP2_0 || NET45
+#if NETSTANDARD1_0 || NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP2_0 || NET461
                 var segmentHashCode = TryGetComparer(segmentComparison)?.GetHashCode(obj.Substring(start, end - start)) ?? 0;
 #else
                 var segmentHashCode = string.GetHashCode(obj.AsSpan(start, end - start), segmentComparison);
@@ -53,9 +53,9 @@ namespace Nito.Comparers.Internals
         //   This can be a problem for Xamarin.Android 7.1, Xamarin.iOS 10.8, and Xamarin.Mac 3.0, all of which have invariant comparers but do not support .NET Standard 2.0.
         //   The recommended solution on those platforms is "upgrade to a .NET Standard 2.0-compatible version".
         // .NET Core 2.0-2.2 - This method forwards to StringComparer.FromComparison.
-        // .NET Framework 4.5+ - This method is a switch statement, supporting all StringComparison values.
-#if NETSTANDARD1_0 || NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP2_0 || NET45
-#if !NETSTANDARD1_0 && !NETSTANDARD2_0 && !NET45
+        // .NET Framework 4.6.1+ - This method is a switch statement, supporting all StringComparison values.
+#if NETSTANDARD1_0 || NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP2_0 || NET461
+#if !NETSTANDARD1_0 && !NETSTANDARD2_0 && !NET461
         private static StringComparer? TryGetComparer(StringComparison comparison)
         {
             try
