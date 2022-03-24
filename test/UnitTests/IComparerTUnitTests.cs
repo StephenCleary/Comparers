@@ -59,7 +59,15 @@ namespace UnitTests
             () => ComparerBuilder.For<HierarchyBase>().OrderBy(x => x.Id, (IComparer<int>)null, false, false).Reverse(),
             () => ComparerBuilder.For<string>().Default().Reverse(),
             () => ComparerBuilder.For<object>().Default().Reverse(),
-            () => ComparerBuilder.For<object>().OrderBy(x => (string)x, (IComparer<string>)null, false, false).Reverse()
+            () => ComparerBuilder.For<object>().OrderBy(x => (string)x, (IComparer<string>)null, false, false).Reverse(),
+
+            // Natural String Comparers
+            () => ComparerBuilder.For<string>().Natural(StringComparison.Ordinal),
+            () => ComparerBuilder.For<string>().Natural(StringComparison.OrdinalIgnoreCase),
+            () => ComparerBuilder.For<string>().Natural(StringComparison.InvariantCulture),
+            () => ComparerBuilder.For<string>().Natural(StringComparison.InvariantCultureIgnoreCase),
+            () => ComparerBuilder.For<string>().Natural(StringComparison.CurrentCulture),
+            () => ComparerBuilder.For<string>().Natural(StringComparison.CurrentCultureIgnoreCase),
         };
 
         public static readonly List<KeyValuePair<string, object>> ComparersExceptObject =

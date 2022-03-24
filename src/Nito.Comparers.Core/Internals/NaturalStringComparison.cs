@@ -142,9 +142,6 @@ namespace Nito.Comparers.Internals
                     var compareResult = substringCompare(xParser.Source, xParser.Start, xLength, yParser.Source, yParser.Start, yLength);
                     if (compareResult != 0)
                         return compareResult;
-                    var lengthCompare = xLength - yLength;
-                    if (lengthCompare != 0)
-                        return lengthCompare;
                 }
                 else if (xParser.IsNumeric)
                 {
@@ -156,11 +153,12 @@ namespace Nito.Comparers.Internals
                 }
             }
 
+            if (xParser.IsDone && yParser.IsDone)
+                return 0;
+
             if (xParser.IsDone)
                 return -1;
-            if (yParser.IsDone)
-                return 1;
-            return 0;
+            return 1;
         }
 
         /// <summary>
