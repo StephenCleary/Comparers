@@ -15,10 +15,10 @@ namespace Nito.Comparers.Util
         /// <param name="comparer">The comparer. May not be <c>null</c>.</param>
         /// <param name="this">The object doing the implementing.</param>
         /// <param name="other">The other object.</param>
-        public static int ImplementCompareTo<T>(IComparer<T> comparer, T @this, T other) where T : IComparable<T>
+        public static int ImplementCompareTo<T>(IComparer<T> comparer, T? @this, T? other) where T : IComparable<T>
         {
             _ = comparer ?? throw new ArgumentNullException(nameof(comparer));
-            return comparer.Compare(@this, other);
+            return comparer.Compare(@this!, other!);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Nito.Comparers.Util
         /// <param name="comparer">The comparer. May not be <c>null</c>.</param>
         /// <param name="this">The object doing the implementing.</param>
         /// <param name="obj">The other object.</param>
-        public static int ImplementCompareTo(System.Collections.IComparer comparer, IComparable @this, object? obj)
+        public static int ImplementCompareTo(System.Collections.IComparer comparer, IComparable? @this, object? obj)
         {
             _ = comparer ?? throw new ArgumentNullException(nameof(comparer));
             return comparer.Compare(@this, obj);
@@ -39,7 +39,7 @@ namespace Nito.Comparers.Util
         /// <typeparam name="T">The type of objects being compared.</typeparam>
         /// <param name="equalityComparer">The comparer. May not be <c>null</c>.</param>
         /// <param name="this">The object doing the implementing.</param>
-        public static int ImplementGetHashCode<T>(IEqualityComparer<T> equalityComparer, T @this)
+        public static int ImplementGetHashCode<T>(IEqualityComparer<T> equalityComparer, T? @this)
         {
             _ = equalityComparer ?? throw new ArgumentNullException(nameof(equalityComparer));
             return equalityComparer.GetHashCode(@this!);
@@ -52,10 +52,10 @@ namespace Nito.Comparers.Util
         /// <param name="equalityComparer">The comparer. May not be <c>null</c>.</param>
         /// <param name="this">The object doing the implementing.</param>
         /// <param name="other">The other object.</param>
-        public static bool ImplementEquals<T>(IEqualityComparer<T> equalityComparer, T @this, T other) where T : IEquatable<T>
+        public static bool ImplementEquals<T>(IEqualityComparer<T> equalityComparer, T? @this, T? other) where T : IEquatable<T>
         {
             _ = equalityComparer ?? throw new ArgumentNullException(nameof(equalityComparer));
-            return equalityComparer.Equals(@this, other);
+            return equalityComparer.Equals(@this!, other!);
         }
 
         /// <summary>
@@ -77,10 +77,10 @@ namespace Nito.Comparers.Util
         /// <param name="equalityComparer">The comparer. May not be <c>null</c>.</param>
         /// <param name="left">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <param name="right">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
-        public static bool ImplementOpEquality<T>(IEqualityComparer<T> equalityComparer, T left, T right)
+        public static bool ImplementOpEquality<T>(IEqualityComparer<T> equalityComparer, T? left, T? right)
         {
             _ = equalityComparer ?? throw new ArgumentNullException(nameof(equalityComparer));
-            return equalityComparer.Equals(left, right);
+            return equalityComparer.Equals(left!, right!);
         }
 
         /// <summary>
@@ -90,10 +90,10 @@ namespace Nito.Comparers.Util
         /// <param name="equalityComparer">The comparer. May not be <c>null</c>.</param>
         /// <param name="left">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <param name="right">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
-        public static bool ImplementOpInequality<T>(IEqualityComparer<T> equalityComparer, T left, T right)
+        public static bool ImplementOpInequality<T>(IEqualityComparer<T> equalityComparer, T? left, T? right)
         {
             _ = equalityComparer ?? throw new ArgumentNullException(nameof(equalityComparer));
-            return !equalityComparer.Equals(left, right);
+            return !equalityComparer.Equals(left!, right!);
         }
 
         /// <summary>
@@ -103,10 +103,10 @@ namespace Nito.Comparers.Util
         /// <param name="comparer">The comparer. May not be <c>null</c>.</param>
         /// <param name="left">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <param name="right">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
-        public static bool ImplementOpLessThan<T>(IComparer<T> comparer, T left, T right)
+        public static bool ImplementOpLessThan<T>(IComparer<T> comparer, T? left, T? right)
         {
             _ = comparer ?? throw new ArgumentNullException(nameof(comparer));
-            return comparer.Compare(left, right) < 0;
+            return comparer.Compare(left!, right!) < 0;
         }
 
         /// <summary>
@@ -116,10 +116,10 @@ namespace Nito.Comparers.Util
         /// <param name="comparer">The comparer. May not be <c>null</c>.</param>
         /// <param name="left">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <param name="right">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
-        public static bool ImplementOpGreaterThan<T>(IComparer<T> comparer, T left, T right)
+        public static bool ImplementOpGreaterThan<T>(IComparer<T> comparer, T? left, T? right)
         {
             _ = comparer ?? throw new ArgumentNullException(nameof(comparer));
-            return comparer.Compare(left, right) > 0;
+            return comparer.Compare(left!, right!) > 0;
         }
 
         /// <summary>
@@ -129,10 +129,10 @@ namespace Nito.Comparers.Util
         /// <param name="comparer">The comparer. May not be <c>null</c>.</param>
         /// <param name="left">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <param name="right">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
-        public static bool ImplementOpLessThanOrEqual<T>(IComparer<T> comparer, T left, T right)
+        public static bool ImplementOpLessThanOrEqual<T>(IComparer<T> comparer, T? left, T? right)
         {
             _ = comparer ?? throw new ArgumentNullException(nameof(comparer));
-            return comparer.Compare(left, right) <= 0;
+            return comparer.Compare(left!, right!) <= 0;
         }
 
         /// <summary>
@@ -142,10 +142,10 @@ namespace Nito.Comparers.Util
         /// <param name="comparer">The comparer. May not be <c>null</c>.</param>
         /// <param name="left">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
         /// <param name="right">A value of type <typeparamref name="T"/> or <c>null</c>.</param>
-        public static bool ImplementOpGreaterThanOrEqual<T>(IComparer<T> comparer, T left, T right)
+        public static bool ImplementOpGreaterThanOrEqual<T>(IComparer<T> comparer, T? left, T? right)
         {
             _ = comparer ?? throw new ArgumentNullException(nameof(comparer));
-            return comparer.Compare(left, right) >= 0;
+            return comparer.Compare(left!, right!) >= 0;
         }
     }
 }

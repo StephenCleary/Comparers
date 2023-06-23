@@ -23,7 +23,7 @@ namespace Nito.Comparers.Fixes
         /// <typeparam name="T">The type of objects being compared.</typeparam>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
         /// <param name="getHashCode">The <c>GetHashCode</c> implementation.</param>
-        public static IFullComparer<T> WithGetHashCode<T>(this IComparer<T>? source, Func<T, int> getHashCode) =>
+        public static IFullComparer<T> WithGetHashCode<T>(this IComparer<T>? source, Func<T?, int> getHashCode) =>
             new ExplicitGetHashCodeComparer<T>(source, getHashCode);
 
         /// <summary>

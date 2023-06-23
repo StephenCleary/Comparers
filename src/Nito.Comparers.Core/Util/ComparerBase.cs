@@ -15,10 +15,10 @@ namespace Nito.Comparers.Util
         /// <param name="x">The first object to compare. May be <c>null</c> if <see cref="EqualityComparerBase{T}.SpecialNullHandling"/> is <c>true</c>.</param>
         /// <param name="y">The second object to compare. May be <c>null</c> if <see cref="EqualityComparerBase{T}.SpecialNullHandling"/> is <c>true</c>.</param>
         /// <returns>A value less than 0 if <paramref name="x"/> is less than <paramref name="y"/>, 0 if <paramref name="x"/> is equal to <paramref name="y"/>, or greater than 0 if <paramref name="x"/> is greater than <paramref name="y"/>.</returns>
-        protected abstract int DoCompare(T x, T y);
+        protected abstract int DoCompare(T? x, T? y);
 
         /// <inheritdoc />
-        protected override bool DoEquals(T x, T y) => Compare(x, y) == 0;
+        protected override bool DoEquals(T? x, T? y) => Compare(x, y) == 0;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ComparerBase{T}"/> class.
@@ -56,11 +56,11 @@ namespace Nito.Comparers.Util
                 }
             }
 
-            return DoCompare((T)x!, (T)y!);
+            return DoCompare((T?)x, (T?)y);
         }
 
         /// <inheritdoc />
-        public int Compare(T x, T y)
+        public int Compare(T? x, T? y)
         {
             if (!SpecialNullHandling)
             {
@@ -76,7 +76,7 @@ namespace Nito.Comparers.Util
                 }
             }
 
-            return DoCompare(x!, y!);
+            return DoCompare(x, y);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Nito.Comparers.Util
         /// <summary>
         /// The <c>GetHashCode</c> implementation for the second comparer.
         /// </summary>
-        private readonly Func<T, int> _secondSourceGetHashCode;
+        private readonly Func<T?, int> _secondSourceGetHashCode;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CompoundComparer&lt;T&gt;"/> class.
@@ -33,7 +33,7 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        protected override int DoGetHashCode(T obj)
+        protected override int DoGetHashCode(T? obj)
         {
             unchecked
             {
@@ -44,12 +44,12 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        protected override int DoCompare(T x, T y)
+        protected override int DoCompare(T? x, T? y)
         {
-            var ret = Source.Compare(x, y);
+            var ret = Source.Compare(x!, y!);
             if (ret != 0)
                 return ret;
-            return _secondSource.Compare(x, y);
+            return _secondSource.Compare(x!, y!);
         }
 
         /// <summary>

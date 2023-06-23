@@ -22,10 +22,10 @@
         public static NullComparer<T> Instance { get; } = new NullComparer<T>();
 
         /// <inheritdoc />
-        protected override int DoGetHashCode(T obj) => -1421968373;
+        protected override int DoGetHashCode(T? obj) => -1421968373;
 
         /// <inheritdoc />
-        protected override int DoCompare(T x, T y) => 0;
+        protected override int DoCompare(T? x, T? y) => 0;
 
         /// <summary>
         /// Returns a short, human-readable description of the comparer. This is intended for debugging and not for other purposes.

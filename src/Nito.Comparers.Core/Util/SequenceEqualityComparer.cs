@@ -19,21 +19,21 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        protected override int DoGetHashCode(IEnumerable<T> obj)
+        protected override int DoGetHashCode(IEnumerable<T>? obj)
         {
             var ret = Murmur3Hash.Create();
-            foreach (var item in obj)
+            foreach (var item in obj!)
                 ret.Combine(Source.GetHashCode(item!));
             return ret.HashCode;
         }
 
         /// <inheritdoc />
-        protected override bool DoEquals(IEnumerable<T> x, IEnumerable<T> y)
+        protected override bool DoEquals(IEnumerable<T>? x, IEnumerable<T>? y)
         {
-            var xCount = x.TryGetCount();
+            var xCount = x!.TryGetCount();
             if (xCount != null)
             {
-                var yCount = y.TryGetCount();
+                var yCount = y!.TryGetCount();
                 if (yCount != null)
                 {
                     if (xCount.Value != yCount.Value)
@@ -43,26 +43,24 @@ namespace Nito.Comparers.Util
                 }
             }
 
-            using (var xIter = x.GetEnumerator())
-            using (var yIter = y.GetEnumerator())
+            using var xIter = x!.GetEnumerator();
+            using var yIter = y!.GetEnumerator();
+            while (true)
             {
-                while (true)
+                if (!xIter.MoveNext())
                 {
-                    if (!xIter.MoveNext())
-                    {
-                        if (!yIter.MoveNext())
-                            return true;
-                        return false;
-                    }
-
                     if (!yIter.MoveNext())
-                        return false;
-
-                    var ret = Source.Equals(xIter.Current, yIter.Current);
-                    if (!ret)
-                        return false;
+                        return true;
+                    return false;
                 }
-            }            
+
+                if (!yIter.MoveNext())
+                    return false;
+
+                var ret = Source.Equals(xIter.Current, yIter.Current);
+                if (!ret)
+                    return false;
+            }
         }
 
         /// <summary>

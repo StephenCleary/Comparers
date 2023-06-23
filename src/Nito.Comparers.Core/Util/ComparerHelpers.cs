@@ -16,10 +16,10 @@ namespace Nito.Comparers.Util
         /// </summary>
         /// <typeparam name="T">The type of objects being compared.</typeparam>
         /// <param name="comparer">The comparer to use to calculate a hash code. May be <c>null</c>, but this method will throw an exception since <c>null</c> does not support hash codes.</param>
-        public static Func<T, int> ComparerGetHashCode<T>(IComparer<T>? comparer)
+        public static Func<T?, int> ComparerGetHashCode<T>(IComparer<T>? comparer)
         {
             if (comparer is IEqualityComparer<T> equalityComparer)
-                return equalityComparer.GetHashCode;
+                return equalityComparer.GetHashCode!;
             if (comparer is IEqualityComparer objectEqualityComparer)
                 return obj => objectEqualityComparer.GetHashCode(obj!);
 

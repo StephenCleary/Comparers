@@ -1,6 +1,13 @@
 # Changelog
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.3.0] - 
+### Added
+- More nullable reference type support.
+- Natural string comparers that compare numeric substrings as numeric values.
+  - Note: `GetHashCode` for natural string comparers will allocate memory on all platforms older than .NET Core 3.0, including all versions of .NET Framework.
+  - Note: `GetHashCode` will cause extra collisions when used with invariant cultures on platforms that only support .NET Standard 1.x (except .NET Framework). This means Xamarin.Android 7.1, Xamarin.iOS 10.8, and Xamarin.Mac 3.0 will have pathologically inefficient `GetHashCode` implementations for natural string comparers using an invariant culture. Xamarin.Android 8.0+, Xamarin.iOS 10.14+, and Xamarin.Mac 3.8+ will work properly.
+
 ## [6.2.2] - 2021-09-25
 ### Changed
 - Bump Rx and Ix dependencies.
