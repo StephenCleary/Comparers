@@ -180,6 +180,32 @@ namespace Nito.Comparers.Internals
             };
         }
 
+        private sealed class DefaultSubstringComparer : ISubstringComparer
+        {
+            private readonly Func<CultureInfo> _getCultureInfo;
+            private readonly CompareOptions _compareOptions;
+
+            public DefaultSubstringComparer(StringComparison comparison)
+            {
+                _getCultureInfo = comparison switch
+                {
+                    StringComparison.CurrentCulture => () => CultureInfo.CurrentCulture,
+                    StringComparison.CurrentCultureIgnoreCase => () => CultureInfo.CurrentCulture,
+                    _ => () => CultureInfo.InvariantCulture,
+                };
+            }
+
+            public int Compare(string stringA, int inclusiveStartA, int exclusiveEndA, string stringB, int inclusiveStartB, int exclusiveEndB)
+            {
+                throw new NotImplementedException();
+            }
+
+            public int GetHashCode(string source, int inclusiveStart, int exclusiveEnd)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         private ref struct SegmentParser
         {
             public SegmentParser(string source)
@@ -228,6 +254,44 @@ namespace Nito.Comparers.Internals
                     if (index == -1)
                         index = Source.Length;
                     End = index;
+                }
+
+                static bool IsDigit(char ch) => ch >= '0' && ch <= '9';
+            }
+        }
+
+        private sealed class DefaultSplitter : IStringSplitter
+        {
+            public void MoveNext(string source, ref int offset, out int length, out bool isNumeric)
+            {
+                // Prerequisite: start < source.Length
+
+                var index = offset;
+                isNumeric = IsDigit(source[index++]);
+                if (isNumeric)
+                {
+                    // Skip leading zeros, but keep one if that's the only digit.
+                    if (source[offset] == '0')
+                    {
+                        do
+                        {
+                            ++offset;
+                        } while (offset < source.Length && source[offset] == '0');
+                        if (offset == source.Length || !IsDigit(source[offset]))
+                            --offset;
+                        index = offset + 1;
+                    }
+
+                    while (index < source.Length && IsDigit(source[index]))
+                        ++index;
+                    length = index - offset;
+                }
+                else
+                {
+                    index = source.IndexOfAny(Digits, index);
+                    if (index == -1)
+                        index = source.Length;
+                    length = index - offset;
                 }
 
                 static bool IsDigit(char ch) => ch >= '0' && ch <= '9';
