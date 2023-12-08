@@ -1,4 +1,13 @@
-# build.yml v1.4
+# build.yml v1.6
+# 1.6:
+#     - Use --getProperty:Version instead of Nito.ProjProps.
+#     - Updates: acitons/checkout@v4
+# 1.5:
+#     - Use bash syntax
+#     - Avoid set-output
+#     - Updates: actions/cache@v3, actions/checkout@v3, actions/upload-artifact@v3, codecov/codecov-action@v3, WyriHaximus/github-action-get-previous-tag@v1
+#     - Work around SDK bug (https://github.com/dotnet/sdk/issues/17461)
+#     - Use pre-release ProjProps.
 # 1.4 - Avoid set-env.
 # 1.3 - Include tag workflow in this file.
 # 1.2 - Define DOTNET_SKIP_FIRST_TIME_EXPERIENCE/NUGET_XMLDOC_MODE.
@@ -25,21 +34,21 @@ jobs:
       env:
         CONTEXT: ${{ toJson(github) }}
       run: |
-        echo "Context: $Env:CONTEXT"
+        echo "Context is available above"
 
     - name: Determine cache fallbacks
       if: github.event_name != 'push'
       id: cache_fallbacks
       run: |
-        echo "::set-output name=nuget::nuget-"
+        echo "name=nuget::nuget-" >> $GITHUB_OUTPUT
 
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
-        fetch-depth: 0
+        fetch-depth: 0 # Required by WyriHaximus/github-action-get-previous-tag@v1
 
     - name: Cache nuget
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ~/.nuget/packages
         key: nuget-${{ hashFiles('**/*.csproj') }}-${{ hashFiles('**/*.props') }}
@@ -47,13 +56,13 @@ jobs:
       
     - name: Get existing tag
       id: existingtag
-      uses: WyriHaximus/github-action-get-previous-tag@0.2.0
+      uses: WyriHaximus/github-action-get-previous-tag@v1
       continue-on-error: true
 
     - name: Get current version
       run: |
-        dotnet tool install --global Nito.ProjProps
-        echo "NEWTAG=v$(projprops --name version --output-format SingleValueOnly --project src --project-search)" >> $GITHUB_ENV
+        echo "NEWTAG=v$(dotnet build $(find src -name *.csproj | head --lines=1) --getProperty:Version)"
+        echo "NEWTAG=v$(dotnet build $(find src -name *.csproj | head --lines=1) --getProperty:Version)" >> $GITHUB_ENV
 
     - name: Build
       run: |
@@ -62,7 +71,7 @@ jobs:
         dotnet pack --configuration Release --no-build
 
     - name: Upload package artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: nuget-packages
         path: |
@@ -70,7 +79,7 @@ jobs:
           **/*.snupkg
 
     - name: Publish code coverage
-      uses: codecov/codecov-action@v1
+      uses: codecov/codecov-action@v3
 
     - name: Publish packages
       if: env.NEWTAG != steps.existingtag.outputs.tag

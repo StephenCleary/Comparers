@@ -1,6 +1,12 @@
 <Project>
   <!--
-      Directory.Build.props (src) v2.1
+      Directory.Build.props (src) v2.3
+      - 2.3:
+        - Remove old Coverlet workaround for .NET SDKs < 3.1.300
+        - Remove source link settings for .NET SDKs < 8
+        - Add trim/single-file/AOT checks.
+        - Add repo-scope README.md to package.
+      - 2.2 Migrate from FxCopAnalyzers to NetAnalyzers.
       - 2.1 Specify LangVersion (required by Nullable for most libraries).
       - 2.0 Move project-specific properties to `project.props`.
       - 1.1 Remove workaround for .NET SDK bug that was necesary for coverlet to work.
@@ -15,22 +21,20 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <ContinuousIntegrationBuild Condition="'$(CI)'=='true'">true</ContinuousIntegrationBuild>
+    <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">true</IsAotCompatible>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(CI)'=='true'">
-    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
 
   <!-- Package settings -->
   <PropertyGroup>
     <PackageProjectUrl>https://github.com/$(GITHUB_REPOSITORY)</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
 
   <!-- Icon file -->
   <PropertyGroup>
@@ -38,17 +42,6 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\icon.png" Pack="true" PackagePath="\"/>
-  </ItemGroup>
-
-  <!-- Source debugging -->
-  <PropertyGroup>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
   </ItemGroup>
 
   <!-- Include reference assemblies -->
@@ -60,17 +53,4 @@
   <PropertyGroup Condition="'$(CI)'!='true'">
     <VersionSuffix>dev</VersionSuffix>
   </PropertyGroup>
-
-  <!-- Enable coverlet analysis on deterministic builds: https://github.com/coverlet-coverage/coverlet/blob/master/Documentation/DeterministicBuild.md -->
-  <ItemGroup>
-    <SourceRoot Include="$(NuGetPackageRoot)" />
-  </ItemGroup>
-  <Target Name="CoverletGetPathMap"
-          DependsOnTargets="InitializeSourceRootMappedPaths"
-          Returns="@(_LocalTopLevelSourceRoot)"
-          Condition="'$(DeterministicSourcePaths)' == 'true'">
-    <ItemGroup>
-      <_LocalTopLevelSourceRoot Include="@(SourceRoot)" Condition="'%(SourceRoot.NestedRoot)' == ''"/>
-    </ItemGroup>
-  </Target>
 </Project>
