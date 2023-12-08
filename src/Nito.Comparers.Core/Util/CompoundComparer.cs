@@ -33,23 +33,23 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        protected override int DoGetHashCode(T obj)
+        protected override int DoGetHashCode(T? obj)
         {
             unchecked
             {
                 var ret = Murmur3Hash.Create(SourceGetHashCode(obj));
-                ret.Combine(_secondSourceGetHashCode(obj));
+                ret.Combine(_secondSourceGetHashCode(obj!));
                 return ret.HashCode;
             }
         }
 
         /// <inheritdoc />
-        protected override int DoCompare(T x, T y)
+        protected override int DoCompare(T? x, T? y)
         {
-            var ret = Source.Compare(x, y);
+            var ret = Source.Compare(x!, y!);
             if (ret != 0)
                 return ret;
-            return _secondSource.Compare(x, y);
+            return _secondSource.Compare(x!, y!);
         }
 
         /// <summary>

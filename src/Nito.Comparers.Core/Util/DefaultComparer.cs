@@ -19,18 +19,18 @@ namespace Nito.Comparers.Util
         }
 
         /// <inheritdoc />
-        protected override int DoGetHashCode(T obj) => EqualityComparer<T>.Default.GetHashCode(obj!);
+        protected override int DoGetHashCode(T? obj) => EqualityComparer<T>.Default.GetHashCode(obj!);
 
-        /// <inheritdoc />
-        protected override bool DoEquals(T x, T y) => EqualityComparer<T>.Default.Equals(x, y);
+		/// <inheritdoc />
+		protected override bool DoEquals(T? x, T? y) => EqualityComparer<T>.Default.Equals(x!, y!);
 
-        /// <inheritdoc />
-        protected override int DoCompare(T x, T y) => Comparer<T>.Default.Compare(x, y);
+		/// <inheritdoc />
+		protected override int DoCompare(T? x, T? y) => Comparer<T>.Default.Compare(x!, y!);
 
-        /// <summary>
-        /// Gets the default comparer for this type.
-        /// </summary>
-        public static DefaultComparer<T> Instance { get; } = new DefaultComparer<T>();
+		/// <summary>
+		/// Gets the default comparer for this type.
+		/// </summary>
+		public static DefaultComparer<T> Instance { get; } = new DefaultComparer<T>();
 
         /// <summary>
         /// Returns a short, human-readable description of the comparer. This is intended for debugging and not for other purposes.

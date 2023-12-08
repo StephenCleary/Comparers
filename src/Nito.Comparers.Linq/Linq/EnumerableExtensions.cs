@@ -255,6 +255,7 @@ namespace Nito.Comparers.Linq
         /// <param name="keySelector">A function to extract the key for each element.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
         public static Dictionary<TKey, TSource> ToDictionary<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
+            where TKey: notnull
         {
             _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
@@ -272,13 +273,14 @@ namespace Nito.Comparers.Linq
         /// <param name="elementSelector">A transform function to produce a result element value from each element.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
         public static Dictionary<TKey, TElement> ToDictionary<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<EqualityComparerBuilderFor<TKey>, IEqualityComparer<TKey>> comparerFactory)
+	        where TKey : notnull
         {
-            _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
+			_ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(EqualityComparerBuilder.For<TKey>());
             return source.ToDictionary(keySelector, elementSelector, comparer);
         }
 
-#if NET472 || NETCOREAPP3_0
+#if !NETSTANDARD1_0 && !NETSTANDARD1_3 && !NETSTANDARD2_0 && !NET461
         /// <summary>
         /// Creates a hash set from a sequence.
         /// </summary>

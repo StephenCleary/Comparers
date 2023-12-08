@@ -18,7 +18,7 @@ namespace Nito.Comparers.Util
         /// <summary>
         /// The <c>GetHashCode</c> implementation for the source comparer.
         /// </summary>
-        protected readonly Func<TSource, int> SourceGetHashCode;
+        protected readonly Func<TSource?, int> SourceGetHashCode;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SourceComparerBase&lt;T, TSource&gt;"/> class.
@@ -30,7 +30,9 @@ namespace Nito.Comparers.Util
             : base(specialNullHandling)
         {
             Source = ComparerHelpers.NormalizeDefault(source);
-            SourceGetHashCode = getHashCode ?? ComparerHelpers.ComparerGetHashCode(Source);
-        }
+#pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
+			SourceGetHashCode = getHashCode ?? ComparerHelpers.ComparerGetHashCode(Source);
+#pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
+		}
     }
 }
