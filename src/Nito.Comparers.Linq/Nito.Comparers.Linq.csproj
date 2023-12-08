@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Description>Comparer extension methods for System.Linq.</Description>
-    <TargetFrameworks>netstandard1.0;netstandard1.3;netstandard2.0;net461;net472;netcoreapp2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard1.0;netstandard1.3;netstandard2.0;net461;net472;netcoreapp3.0;net8.0</TargetFrameworks>
     <RootNamespace>Nito.Comparers</RootNamespace>
   </PropertyGroup>
 

@@ -278,7 +278,7 @@ namespace Nito.Comparers.Linq
             return source.ToDictionary(keySelector, elementSelector, comparer);
         }
 
-#if NET472 || NETCOREAPP2_0
+#if NET472 || NETCOREAPP3_0
         /// <summary>
         /// Creates a hash set from a sequence.
         /// </summary>
