@@ -1,9 +1,12 @@
 # Changelog
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [6.3.0] - TBD
+## [7.0.0] - TBD
+### Changed
+- The Rx and Ix extension methods have been removed.
+
 ### Fixed
-- Changed `netcoreapp2.0` support to `netcoreapp3.0` to avoid high-security vulnerabilities. Technically, this is a breaking change, but I'm treating it as a fix since the vulnerabilities will never be patched.
+- Changed `netcoreapp2.0` support to `netcoreapp3.0` to avoid high-security vulnerabilities.
 
 ## [6.2.2] - 2021-09-25
 ### Changed

@@ -1,6 +1,7 @@
 <Project>
   <PropertyGroup>
-    <VersionPrefix>6.2.2</VersionPrefix>
+    <VersionPrefix>7.0.0</VersionPrefix>
+    <VersionSuffix>alpha.1</VersionSuffix>
     <Authors>Stephen Cleary</Authors>
   </PropertyGroup>
 </Project>

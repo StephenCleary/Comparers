@@ -16,11 +16,11 @@ var sample = people.Select(x => new { GivenName = x.FirstName, Surname = x.LastN
 var comparer = ComparerBuilder.For(() => sample).OrderBy(x => x.Surname);
 ```
 
-All LINQ-to-Objects, System.Reactive, and System.Interactive methods that take comparers (or equality comparers) have overloads that permit the fluent comparer API right within the LINQ expression:
+All LINQ-to-Objects methods that take comparers (or equality comparers) have overloads that permit the fluent comparer API right within the LINQ expression:
 
 ```C#
 var trimmed = people.Select(x => new { GivenName = x.FirstName, Surname = x.LastName })
     .Distinct(c => c.EquateBy(x => x.Surname));
 ```
 
-Note that these overloads are in the `Nito.Comparers.Linq` namespace, and there are different NuGet packages for the [System.Reactive](https://www.nuget.org/packages/Nito.Comparers.Rx/) and [System.Interactive](https://www.nuget.org/packages/Nito.Comparers.Ix/) overloads.
+Note that these overloads are in the `Nito.Comparers.Linq` namespace.

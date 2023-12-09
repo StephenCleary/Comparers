@@ -6,7 +6,7 @@ The last comparison library you'll ever need! Wide platform support; fluent synt
 
 ## Creating Comparers
 
-Install the [`Nito.Comparers` NuGet package](https://www.nuget.org/packages/Nito.Comparers). By default, this includes the [extension package for LINQ](https://www.nuget.org/packages/Nito.Comparers.Linq) support. There are also extension packages available for [System.Reactive (Rx)](https://www.nuget.org/packages/Nito.Comparers.Rx) and [System.Interactive (Ix)](https://www.nuget.org/packages/Nito.Comparers.Ix) support.
+Install the [`Nito.Comparers` NuGet package](https://www.nuget.org/packages/Nito.Comparers). By default, this includes the [extension package for LINQ](https://www.nuget.org/packages/Nito.Comparers.Linq) support.
 
 The comparer types are in the namespace `Nito.Comparers`.
 
@@ -98,7 +98,7 @@ List<IEnumerable<Person>> groups = ...;
 groups.Sort(nameComparer.Sequence());
 ```
 
-There's also natural extensions for LINQ, Rx, and Ix that allow you to define comparers on-the-fly (particularly useful for anonymous types):
+There's also natural extensions for LINQ that allow you to define comparers on-the-fly (particularly useful for anonymous types):
 
 ```c#
 IEnumerable<Person> people = ...;
