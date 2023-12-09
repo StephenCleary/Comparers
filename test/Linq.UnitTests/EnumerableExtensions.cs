@@ -5,6 +5,8 @@ using Xunit;
 using System;
 using Nito.Comparers;
 
+#pragma warning disable CA1861 // Avoid constant arrays as arguments
+
 namespace Linq.UnitTests
 {
     public class EnumerableExtensionsUnitTests
