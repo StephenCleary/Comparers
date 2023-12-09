@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Description>Comparer extension methods for System.Reactive.</Description>
-    <TargetFrameworks>netstandard1.0;netstandard2.0;net461;net8.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net472;net8.0</TargetFrameworks>
     <PackageTags>comparer;equalitycomparer;icomparable;iequatable</PackageTags>
     <RootNamespace>Nito.Comparers</RootNamespace>
   </PropertyGroup>
@@ -11,12 +11,8 @@
     <ProjectReference Include="..\Nito.Comparers.Linq\Nito.Comparers.Linq.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='netstandard1.0'">
-    <PackageReference Include="System.Reactive" Version="3.1.1" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0' or '$(TargetFramework)'=='net461'">
-    <PackageReference Include="System.Reactive" Version="4.4.1" />
+  <ItemGroup>
+    <PackageReference Include="System.Reactive" Version="6.0.0" />
   </ItemGroup>
 
 </Project>

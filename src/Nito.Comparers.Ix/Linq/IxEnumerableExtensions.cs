@@ -15,35 +15,35 @@ namespace Nito.Comparers.Linq
         /// <typeparam name="TSource">Source sequence element type.</typeparam>
         /// <param name="source">Source sequence.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
-        public static TSource Max<TSource>(this IEnumerable<TSource> source, Func<ComparerBuilderFor<TSource>, IFullComparer<TSource>> comparerFactory)
+        public static TSource? Max<TSource>(this IEnumerable<TSource> source, Func<ComparerBuilderFor<TSource>, IFullComparer<TSource>> comparerFactory)
         {
             _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(ComparerBuilder.For<TSource>());
             return source.Max(comparer);
-        }
+		}
 
-        /// <summary>
-        /// Returns the elements with the minimum key value by using the specified comparer to compare key values.
-        /// </summary>
-        /// <typeparam name="TSource">Source sequence element type.</typeparam>
-        /// <typeparam name="TKey">Key type.</typeparam>
-        /// <param name="source">Source sequence.</param>
-        /// <param name="keySelector">Key selector used to extract the key for each element in the sequence.</param>
-        /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
-        public static IList<TSource> MaxBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<ComparerBuilderFor<TKey>, IFullComparer<TKey>> comparerFactory)
+		/// <summary>
+		/// Returns the elements with the maximum key value by using the specified comparer to compare key values.
+		/// </summary>
+		/// <typeparam name="TSource">Source sequence element type.</typeparam>
+		/// <typeparam name="TKey">Key type.</typeparam>
+		/// <param name="source">Source sequence.</param>
+		/// <param name="keySelector">Key selector used to extract the key for each element in the sequence.</param>
+		/// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
+		public static IList<TSource> MaxByWithTies<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<ComparerBuilderFor<TKey>, IFullComparer<TKey>> comparerFactory)
         {
             _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(ComparerBuilder.For<TKey>());
-            return source.MaxBy(keySelector, comparer);
-        }
+			return source.MaxByWithTies(keySelector, comparer);
+		}
 
-        /// <summary>
-        /// Returns the minimum value in the enumerable sequence by using the specified comparer to compare values.
-        /// </summary>
-        /// <typeparam name="TSource">Source sequence element type.</typeparam>
-        /// <param name="source">Source sequence.</param>
-        /// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
-        public static TSource Min<TSource>(this IEnumerable<TSource> source, Func<ComparerBuilderFor<TSource>, IFullComparer<TSource>> comparerFactory)
+		/// <summary>
+		/// Returns the minimum value in the enumerable sequence by using the specified comparer to compare values.
+		/// </summary>
+		/// <typeparam name="TSource">Source sequence element type.</typeparam>
+		/// <param name="source">Source sequence.</param>
+		/// <param name="comparerFactory">The definition of a comparer to compare elements.</param>
+		public static TSource? Min<TSource>(this IEnumerable<TSource> source, Func<ComparerBuilderFor<TSource>, IFullComparer<TSource>> comparerFactory)
         {
             _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(ComparerBuilder.For<TSource>());
@@ -58,11 +58,11 @@ namespace Nito.Comparers.Linq
         /// <param name="source">Source sequence.</param>
         /// <param name="keySelector">Key selector used to extract the key for each element in the sequence.</param>
         /// <param name="comparerFactory">The definition of a comparer to compare keys.</param>
-        public static IList<TSource> MinBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<ComparerBuilderFor<TKey>, IFullComparer<TKey>> comparerFactory)
+        public static IList<TSource> MinByWithTies<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<ComparerBuilderFor<TKey>, IFullComparer<TKey>> comparerFactory)
         {
             _ = comparerFactory ?? throw new ArgumentNullException(nameof(comparerFactory));
             var comparer = comparerFactory(ComparerBuilder.For<TKey>());
-            return source.MinBy(keySelector, comparer);
+            return source.MinByWithTies(keySelector, comparer);
         }
 
         /// <summary>

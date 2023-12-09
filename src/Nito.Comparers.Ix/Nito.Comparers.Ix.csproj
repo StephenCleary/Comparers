@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Description>Comparer extensions for System Interactive (Ix).</Description>
-    <TargetFrameworks>netstandard1.0;netstandard2.0;net461;net8.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net48;net8.0</TargetFrameworks>
     <PackageTags>comparer;equalitycomparer;icomparable;iequatable</PackageTags>
     <RootNamespace>Nito.Comparers</RootNamespace>
   </PropertyGroup>
@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Interactive" Version="4.1.1" />
+    <PackageReference Include="System.Interactive" Version="6.0.1" />
   </ItemGroup>
 
 </Project>
